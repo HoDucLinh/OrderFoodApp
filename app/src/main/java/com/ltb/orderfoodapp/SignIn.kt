@@ -26,6 +26,7 @@ class SignIn : Activity() {
         // Initialize Firebase Auth
         auth = Firebase.auth
         val loginBtn = findViewById<Button>(R.id.loginBtn)
+        //Get user name ,password to Login
         loginBtn.setOnClickListener{
             val userNameLogin = findViewById<EditText>(R.id.userNameLogin)
             val passwordLogin = findViewById<EditText>(R.id.passwordLogin)
@@ -58,11 +59,9 @@ class SignIn : Activity() {
                     val user = auth.currentUser
                     updateUI(user)
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(
                         baseContext,
-                        "Authentication failed.",
+                        "Login Error.",
                         Toast.LENGTH_SHORT,
                     ).show()
                     updateUI(null)
