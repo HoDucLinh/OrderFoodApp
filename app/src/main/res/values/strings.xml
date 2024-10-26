@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">OrderFoodApp</string>
     <string name="already_have_an_account">Don’t have an account? <font color='#FF7622'>Sign Up</font></string>
+    <string name="number">1234567890</string>
 </resources>

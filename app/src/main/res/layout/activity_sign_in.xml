@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sen"
-            android:text="Email/Phone" />
+            android:text="Email" />
 
         <EditText
             android:id="@+id/userNameLogin"
@@ -54,7 +54,7 @@
             android:layout_marginTop="@dimen/margin_input_login"
             android:layout_marginBottom="@dimen/margin_input_login"
             android:padding="@dimen/padding_input_login"
-            android:inputType="text" />
+            android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/textView4"

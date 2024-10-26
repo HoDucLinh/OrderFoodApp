@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -26,11 +27,26 @@ class SignIn : Activity() {
         // Initialize Firebase Auth
         auth = Firebase.auth
         val loginBtn = findViewById<Button>(R.id.loginBtn)
-        //Get user name ,password to Login
+        val forgotPassword = findViewById<TextView>(R.id.forgotPass)
+        val signUpBtn = findViewById<TextView>(R.id.signUp)
+        //Lay userName, password de login
         loginBtn.setOnClickListener{
-            val userNameLogin = findViewById<EditText>(R.id.userNameLogin)
-            val passwordLogin = findViewById<EditText>(R.id.passwordLogin)
-            signIn(userNameLogin.getText().toString(),passwordLogin.getText().toString())
+            val userNameLogin = findViewById<EditText>(R.id.userNameLogin).getText().toString()
+            val passwordLogin = findViewById<EditText>(R.id.passwordLogin).getText().toString()
+            if(userNameLogin!=""&&passwordLogin!=""){
+                signIn(userNameLogin,passwordLogin)
+            }else Toast.makeText(this, "Please enter email, password", Toast.LENGTH_SHORT).show()
+
+        }
+        // Chuyen sang trang quen mat khau
+        forgotPassword.setOnClickListener{
+           val forgot = Intent(this, FortgotPassword::class.java)
+            startActivity(forgot)
+        }
+        // Chuyen sang signUp
+        signUpBtn.setOnClickListener{
+            val signUp = Intent(this, SignUp::class.java)
+            startActivity(signUp)
         }
 
 
@@ -54,8 +70,8 @@ class SignIn : Activity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    val intent = Intent(this, HomePage::class.java)
-                    startActivity(intent)
+                    val homePage = Intent(this, HomePage::class.java)
+                    startActivity(homePage)
                     val user = auth.currentUser
                     updateUI(user)
                 } else {

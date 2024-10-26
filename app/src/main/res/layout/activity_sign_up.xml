@@ -1,10 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style=""
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUp">
+    android:orientation="vertical"
+    android:background="@color/whiteBG"
+    tools:context=".SignIn">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:paddingTop="100dp"
+        android:paddingBottom="40dp"
+        android:textSize="@dimen/textLogin"
+        android:textFontWeight="800"
+        android:fontFamily="@font/sen"
+        android:text="Sign Up" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:fontFamily="@font/sen"
+        android:paddingBottom="@dimen/textLogin"
+        android:textFontWeight="600"
+        android:text="Please sign up to get started" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="777dp"
+        android:background="@drawable/border_login"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_login">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:text="Name" />
+
+        <EditText
+            android:id="@+id/userNameLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="@dimen/margin_input_login"
+            android:layout_marginBottom="@dimen/margin_input_login"
+            android:padding="@dimen/padding_input_login"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/textUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:text="Email/Phone" />
+
+        <EditText
+            android:id="@+id/userNameSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="@dimen/margin_input_login"
+            android:layout_marginBottom="@dimen/margin_input_login"
+            android:drawableRight="@drawable/eye"
+            android:padding="@dimen/padding_input_login"
+            android:inputType="text" />
+        <TextView
+            android:id="@+id/textpasswordSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:text="Password" />
+
+        <EditText
+            android:id="@+id/passwordSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="@dimen/margin_input_login"
+            android:layout_marginBottom="@dimen/margin_input_login"
+            android:drawableRight="@drawable/eye"
+            android:padding="@dimen/padding_input_login"
+            android:inputType="textPassword" />
+        <TextView
+            android:id="@+id/textRePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:text="Re-Type Password" />
+
+        <EditText
+            android:id="@+id/rePasswordSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="@dimen/margin_input_login"
+            android:layout_marginBottom="@dimen/margin_input_login"
+            android:drawableRight="@drawable/eye"
+            android:padding="@dimen/padding_input_login"
+            android:inputType="textPassword" />
+
+
+        <Button
+            android:id="@+id/signUpBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:background="@color/orange"
+            android:text="Login" />
+
+
+    </LinearLayout>
+</LinearLayout>
