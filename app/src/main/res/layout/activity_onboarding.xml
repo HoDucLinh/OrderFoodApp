@@ -8,13 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Onboarding">
-
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:src="@tools:sample/avatars" />
+    
 
     <ImageView
         android:id="@+id/imageView3"
@@ -22,22 +16,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTop_welcome"
         android:layout_marginBottom="@dimen/marginBottom_welcome"
-        app:srcCompat="@drawable/onboard" />
+        android:src="@drawable/onboard"/>
 
-    <EditText
+    <TextView
         android:id="@+id/editTextText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
+        android:textSize="@dimen/fontSize"
         android:textAlignment="center"
         android:text="All your favorites" />
 
-    <EditText
+    <TextView
         android:id="@+id/editTextText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
         android:textAlignment="center"
         android:text="Get all your loved foods in one once place,
 you just place the orer we do the rest" />

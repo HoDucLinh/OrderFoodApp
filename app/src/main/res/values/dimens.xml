@@ -3,5 +3,6 @@
     <dimen name="marginTop_welcome">150dp</dimen>
     <dimen name="marginBottom_welcome">50dp</dimen>
     <dimen name="margin_radio_welcome">5dp</dimen>
+    <dimen name="fontSize">20dp</dimen>
 
 </resources>
