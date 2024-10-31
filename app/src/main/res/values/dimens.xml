@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="marginTop_welcome">150dp</dimen>
+    <dimen name="marginBottom_welcome">50dp</dimen>
+    <dimen name="margin_radio_welcome">5dp</dimen>
+    <dimen name="fontSize">20dp</dimen>
     <dimen name="textLogin">35dp</dimen>
     <dimen name="border_with_login">40dp</dimen>
     <dimen name="border_radius_login">40dp</dimen>
