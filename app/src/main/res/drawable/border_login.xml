@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/white"></solid>
+    <stroke android:width="@dimen/border_with_login" android:color="@color/white"/>
+    <corners android:topLeftRadius="@dimen/border_radius_login"
+        android:topRightRadius="@dimen/border_radius_login"/>
+</shape>
