@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textLogin">35dp</dimen>
+    <dimen name="border_with_login">40dp</dimen>
+    <dimen name="border_radius_login">40dp</dimen>
+    <dimen name="border_radius_verification">15dp</dimen>
+    <dimen name="border_with_verification">15dp</dimen>
+    <dimen name="font_size">25dp</dimen>
+    <dimen name="padding_login">35dp</dimen>
+    <dimen name="margin_input_login">25dp</dimen>
+    <dimen name="padding_input_login">15dp</dimen>
+    <dimen name="margin_navigate">40dp</dimen>
+    <dimen name="margin_verification">10dp</dimen>
+</resources>
