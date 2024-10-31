@@ -24,6 +24,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:textSize="@dimen/fontSize"
+        android:layout_margin="@dimen/margin_Text"
+        android:fontFamily="@font/sen"
         android:textAlignment="center"
         android:text="All your favorites" />
 
@@ -32,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:fontFamily="@font/sen"
         android:text="Get all your loved foods in one once place,
 you just place the orer we do the rest" />
     <RadioGroup
@@ -45,6 +48,7 @@ you just place the orer we do the rest" />
             android:id="@+id/radioButton"
             android:layout_width="wrap_content"
             android:layout_margin="@dimen/margin_radio_welcome"
+            android:checked="true"
             android:layout_height="wrap_content" />
 
         <RadioButton
@@ -58,11 +62,13 @@ you just place the orer we do the rest" />
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/sen"
         android:text="Next" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/sen"
         android:text="Skip" />
 </LinearLayout>
