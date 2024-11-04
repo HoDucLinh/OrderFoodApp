@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/payment_method_background.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Trạng thái khi được chọn -->
+    <item android:drawable="@color/white" android:state_selected="true"/>
+    <!-- Trạng thái khi không được chọn -->
+    <item android:drawable="@color/bluewhite"/>
+</selector>
