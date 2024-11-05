@@ -1,10 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyCart">
+    tools:context=".MyCart"
+    android:orientation="vertical"
+    android:background="#181C2E"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <Button android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/arrow_back_ios_new_24px"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cart"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/sen"
+            />
+
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#181C2E"
+            android:fontFamily="@font/sen"
+            android:text="DONE"
+            android:textSize="16dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginLeft="150dp"
+            android:textColor="#07c700"
+            android:textStyle="bold"
+            />
+
+
+    </LinearLayout>
+
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+        <LinearLayout
+            android:id="@+id/productsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:background="@drawable/rounded_top_corners"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="DELIVERY ADDRESS"
+                android:padding="10dp"
+                android:fontFamily="@font/sen"
+                android:textColor="@color/textDark"
+                android:layout_marginLeft="30dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/sen_regular"
+                android:text="EDIT"
+                android:textColor="@color/orange"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="2118 Thornridge Cir. Syracuse"
+            android:gravity="left"
+            android:padding="16dp"
+            android:paddingLeft="10dp"
+            android:fontFamily="@font/sen"
+            android:textColor="@color/textDark"
+            android:background="@color/aliceblue"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="TOTAL:"
+                android:padding="10dp"
+                android:fontFamily="@font/sen"
+                android:textColor="@color/textDark"
+                android:layout_marginLeft="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textSize="30dp"
+                android:text="$96"
+                android:padding="10dp"
+                android:fontFamily="@font/sen"
+                android:textColor="@color/textDark" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Breakdown > "
+                android:layout_marginLeft="115dp"
+                android:textSize="13dp"
+                android:textColor="@color/orange"
+                android:backgroundTint="@color/white"
+                android:layout_marginTop="30dp"
+                android:paddingRight="1dp"
+                android:fontFamily="@font/sen_regular" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="10dp"
+            android:paddingRight="120dp"
+            android:paddingLeft="120dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:textSize="15dp"
+            android:text="PLACE ORDER"
+            android:fontFamily="@font/sen_bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/orange"
+            app:cornerRadius="16dp">
+
+
+        </Button>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

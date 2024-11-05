@@ -11,4 +11,5 @@
     <dimen name="padding_input_login">15dp</dimen>
     <dimen name="margin_navigate">40dp</dimen>
     <dimen name="margin_verification">10dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
