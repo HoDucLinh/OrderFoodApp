@@ -26,6 +26,7 @@
     <dimen name="padding_login">35dp</dimen>
     <dimen name="margin_navigate">40dp</dimen>
     <dimen name="margin_verification">10dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
     <dimen name="padding_text_location">40dp</dimen>
 <!--    location-->
     <dimen name="location_margin">75dp</dimen>

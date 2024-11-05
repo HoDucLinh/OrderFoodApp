@@ -13,6 +13,57 @@
         android:theme="@style/Theme.OrderFoodApp"
         tools:targetApi="31">
         <activity
+            android:name=".MyAddress"
+            android:exported="false" />
+        <activity
+            android:name=".EditProfile"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalInformation"
+            android:exported="false" />
+        <activity
+            android:name=".MyMainMenu"
+            android:exported="false" />
+        <activity
+            android:name=".MyOrder"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".PaymentSuccess"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".AddCard"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".PaymentMethodNoMC"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".PaymentMethod"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".MyCart"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".EditCart"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".MyCartRecycleView"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".SignIn"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".LocationAccess"
+            android:exported="false" />
+        <activity
             android:name=".AddNewCategory"
             android:exported="false" />
         <activity
@@ -85,9 +136,12 @@
             android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
+            android:name=".AddNewAddress"
+               android:exported="false"/>
+        <activity
             android:name=".view.SignIn"
             android:exported="true"
-            android:theme="@style/Theme.OrderFoodApp">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
