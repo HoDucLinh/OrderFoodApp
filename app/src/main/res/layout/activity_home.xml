@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.Home">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_layout">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:src="@drawable/menu_home" />
+
+        <LinearLayout
+            android:layout_width="299dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/padding_text">
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sen"
+                android:text="Deliver to"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/fontSize" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/down"
+                android:fontFamily="@font/sen"
+                android:text="Halal Lab office"
+                android:textSize="@dimen/fontSize" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="44dp"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:src="@drawable/cart" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/border_cart"
+                android:fontFamily="@font/sen"
+                android:textAlignment="center"
+                android:text="5"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sen"
+        android:paddingHorizontal="@dimen/margin_input_login"
+        android:textSize="@dimen/font_size_small"
+        android:text="Hey Halal, Good Afternoon!" />
+
+    <EditText
+        android:id="@+id/editTextText5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_margin="@dimen/margin_input_login"
+        android:drawableLeft="@drawable/search"
+        android:drawableRight="@drawable/close"
+        android:padding="@dimen/margin_input_login"
+        android:background="@drawable/search_bg"
+        android:inputType="text"
+        android:drawablePadding="@dimen/margin_input_login"
+        android:hint="Search dishes, restaurants"/>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sen"
+        android:textSize="@dimen/font_size_medium"
+        android:paddingHorizontal="@dimen/margin_input_login"
+        android:textFontWeight="800"
+        android:text="All Categories" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/layout_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sen"
+        android:textSize="@dimen/font_size_medium"
+        android:paddingHorizontal="@dimen/margin_input_login"
+        android:textFontWeight="800"
+        android:text="Open Restaurants" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="679dp">
+
+        <LinearLayout
+            android:id="@+id/layout_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+
+</LinearLayout>

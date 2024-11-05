@@ -44,8 +44,49 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+         <activity
+            android:name=".view.Filter"
+            android:exported="false" />
+        <activity
+            android:name=".view.RestaurantView"
+            android:exported="false" />
+        <activity
+            android:name=".view.FoodDetail"
+            android:exported="false" />
+        <activity
+            android:name=".view.Search"
+            android:exported="false" />
+        <activity
+            android:name=".view.Home"
+            android:exported="false" />
+        <activity
+            android:name=".view.Welcome"
+            android:exported="false" />
+        <activity
+            android:name=".view.Onboarding"
             android:exported="true"
             android:label="@string/app_name"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.LocationAccess"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.FortgotPassword"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.Verification"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.SignUp"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.SignIn"
+            android:exported="true"
             android:theme="@style/Theme.OrderFoodApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

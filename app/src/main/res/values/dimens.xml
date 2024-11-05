@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    general-->
+    <dimen name="button_width">250dp</dimen>
+    <dimen name="font_size_large">25dp</dimen>
+    <dimen name="font_size_medium">20dp</dimen>
+    <dimen name="font_size_small">15dp</dimen>
+    <dimen name="font_weight_light">400</dimen>
+    <dimen name="font_weight_medium">600</dimen>
+    <dimen name="font_weight_bold">800</dimen>
+<!--    welcome-->
+    <dimen name="marginTop_welcome">150dp</dimen>
+    <dimen name="marginBottom_welcome">50dp</dimen>
+    <dimen name="margin_radio_welcome">5dp</dimen>
+<!--    login-->
+    <dimen name="fontSize">20dp</dimen>
+    <dimen name="margin_Text">15dp</dimen>
+    <dimen name="textLogin">35dp</dimen>
+    <dimen name="border_with_login">40dp</dimen>
+    <dimen name="border_radius_login">40dp</dimen>
+    <dimen name="margin_input_login">25dp</dimen>
+    <dimen name="padding_input_login">15dp</dimen>
+<!--    verification-->
+    <dimen name="border_radius_verification">15dp</dimen>
+    <dimen name="border_with_verification">15dp</dimen>
+    <dimen name="padding_login">35dp</dimen>
+    <dimen name="margin_navigate">40dp</dimen>
+    <dimen name="margin_verification">10dp</dimen>
+    <dimen name="padding_text_location">40dp</dimen>
+<!--    location-->
+    <dimen name="location_margin">75dp</dimen>
+<!--    home-->
+    <dimen name="padding_layout">30dp</dimen>
+    <dimen name="padding_text">10dp</dimen>
+    <dimen name="border_notification">10dp</dimen>
+    <dimen name="border_with_notification">10dp</dimen>
+    <dimen name="notification_cart_width_height">15dp</dimen>
+</resources>
