@@ -154,7 +154,7 @@
             android:layout_height="61dp"
             android:text="SAVE CHANGES"
             android:textColor="@color/white"
-            android:background="@color/orange"
+            android:background="@color/orange"/>
 
 
     </LinearLayout>
