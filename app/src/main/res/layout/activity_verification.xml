@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/whiteBG"
-    tools:context=".Verification">
+    tools:context=".view.Verification">
 
     <Button
         android:id="@+id/navigator_SignIn"
