@@ -20,4 +20,8 @@
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
+
+<!--    theme light-->
+    <color name="Light">#FFFFFF</color>
+    <color name="Dark">#222831</color>
 </resources>

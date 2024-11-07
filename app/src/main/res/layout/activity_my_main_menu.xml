@@ -7,19 +7,20 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     android:orientation="vertical"
-    tools:context=".MyMainMenu">
+    android:backgroundTint="@color/white"
+    tools:context=".view.MyMainMenu">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal">
-
-        <Button
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/arrow_back_ios_new_24px" />
-
+        <ImageButton
+            android:id="@+id/nextMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:src="@drawable/back" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,44 +95,20 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp">
 
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/person_24px"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"/>
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/map_24px" />
-
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <Button
+                <TextView
+                    android:id="@+id/personalInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/WhisperWhite"
+                    android:drawableLeft="@drawable/icon_user"
                     android:gravity="start|center"
                     android:text="Personal Info"
+                    android:drawableRight="@drawable/ic_navigate_next_24"
                     android:textAllCaps="false"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/sen_bold"
@@ -139,16 +116,18 @@
                     android:textColor="@color/textDark"
                     />
 
-                <Button
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/WhisperWhite"
                     android:gravity="start|center"
+                    android:drawableLeft="@drawable/icon_address"
                     android:text="Address"
                     android:textAllCaps="false"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/sen_bold"
                     android:textSize="16dp"
+                    android:drawableRight="@drawable/ic_navigate_next_24"
                     android:textColor="@color/textDark" />
 
             </LinearLayout>
@@ -165,100 +144,64 @@
             android:paddingBottom="15dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/local_mall_24px"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"/>
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="7dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/favorite_24px" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/notifications_24px" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/credit_card_24px" />
-
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <Button
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/WhisperWhite"
                     android:gravity="start|center"
                     android:text="Cart"
+                    android:drawableLeft="@drawable/icon_cart"
                     android:textAllCaps="false"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/sen_bold"
+                    android:drawableRight="@drawable/ic_navigate_next_24"
                     android:textSize="16dp"
                     android:textColor="@color/textDark" />
 
-                <Button
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/WhisperWhite"
                     android:gravity="start|center"
+                    android:drawableLeft="@drawable/icon_heart"
                     android:text="Favorite"
                     android:textAllCaps="false"
                     android:layout_marginLeft="10dp"
+                    android:drawableRight="@drawable/ic_navigate_next_24"
                     android:fontFamily="@font/sen_bold"
                     android:textSize="16dp"
                     android:textColor="@color/textDark" />
 
-                <Button
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/WhisperWhite"
                     android:gravity="start|center"
                     android:text="Notification"
+                    android:drawableLeft="@drawable/icon_notification"
                     android:textAllCaps="false"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/sen_bold"
+                    android:drawableRight="@drawable/ic_navigate_next_24"
                     android:textSize="16dp"
                     android:textColor="@color/textDark" />
 
-                <Button
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/WhisperWhite"
                     android:gravity="start|center"
                     android:text="Payment Method"
+                    android:drawableLeft="@drawable/icon_payment"
                     android:textAllCaps="false"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/sen_bold"
+                    android:drawableRight="@drawable/ic_navigate_next_24"
                     android:textSize="16dp"
                     android:textColor="@color/textDark" />
 
@@ -273,89 +216,67 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@drawable/rounded_linear_layout"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:paddingTop="10dp"
             android:paddingBottom="15dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/help_24px" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="7dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/reviews_24px" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/settings_24px" />
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <Button
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/WhisperWhite"
-                    android:text="FAQs"
-                    android:textAllCaps="false"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/sen_bold"
-                    android:textSize="16dp"
-                    android:textColor="@color/textDark" />
+                    android:orientation="vertical">
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/WhisperWhite"
-                    android:gravity="start|center"
-                    android:text="User Reviews"
-                    android:textAllCaps="false"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/sen_bold"
-                    android:textSize="16dp"
-                    android:textColor="@color/textDark" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:backgroundTint="@color/WhisperWhite"
+                        android:fontFamily="@font/sen_bold"
+                        android:text="FAQs"
+                        android:gravity="start|center"
+                        android:drawableLeft="@drawable/icon_help"
+                        android:textAllCaps="false"
+                        android:drawableRight="@drawable/ic_navigate_next_24"
+                        android:textColor="@color/textDark"
+                        android:textSize="16dp" />
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/WhisperWhite"
-                    android:gravity="start|center"
-                    android:text="Settings"
-                    android:textAllCaps="false"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/sen_bold"
-                    android:textSize="16dp"
-                    android:textColor="@color/textDark" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:backgroundTint="@color/WhisperWhite"
+                        android:drawableLeft="@drawable/icon_review"
+                        android:fontFamily="@font/sen_bold"
+                        android:gravity="start|center"
+                        android:text="User Reviews"
+                        android:textAllCaps="false"
+                        android:drawableRight="@drawable/ic_navigate_next_24"
+                        android:textColor="@color/textDark"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:backgroundTint="@color/WhisperWhite"
+                        android:fontFamily="@font/sen_bold"
+                        android:gravity="start|center"
+                        android:drawableLeft="@drawable/icon_setting"
+                        android:text="Settings"
+                        android:textAllCaps="false"
+                        android:drawableRight="@drawable/ic_navigate_next_24"
+                        android:textColor="@color/textDark"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -368,29 +289,13 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/logout_24px" />
-
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <Button
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/WhisperWhite"
@@ -398,7 +303,9 @@
                     android:text="Log Out"
                     android:textAllCaps="false"
                     android:layout_marginLeft="10dp"
+                    android:drawableLeft="@drawable/icon_logout"
                     android:fontFamily="@font/sen_bold"
+                    android:drawableRight="@drawable/ic_navigate_next_24"
                     android:textSize="16dp"
                     android:textColor="@color/textDark" />
 
@@ -410,4 +317,5 @@
     </LinearLayout>
 
 
+</LinearLayout>
 </LinearLayout>

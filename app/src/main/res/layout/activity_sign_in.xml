@@ -18,6 +18,7 @@
         android:paddingTop="150dp"
         android:paddingBottom="40dp"
         android:textSize="@dimen/textLogin"
+
         android:textFontWeight="800"
         android:fontFamily="@font/sen"
         android:text="Log In" />

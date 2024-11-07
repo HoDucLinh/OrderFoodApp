@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddCard"
+    tools:context=".view.AddCard"
     android:orientation="vertical"
 
     android:background="@color/white">
@@ -13,13 +13,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/padding_layout"
         android:orientation="horizontal">
 
-        <Button
-            android:layout_width="35dp"
-            android:layout_height="30dp"
+        <ImageButton
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/close_24px" />
+            android:background="@drawable/close" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,6 +30,7 @@
             android:fontFamily="@font/sen"
             android:text="Profile"
             android:textSize="20dp"
+            android:layout_gravity="center"
             android:textColor="@color/darkBG"/>
 
     </LinearLayout>
@@ -147,15 +150,14 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/addMakePayment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Add &amp; Make Payment"
         android:backgroundTint="@color/orange"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="200dp"
-        android:textSize="20dp"
-        android:text="ADD AND MAKE PAYMENT"
-        android:background="@drawable/rounded_button"
-        />
+        android:textColor="@color/white"
+        android:fontFamily="@font/sen_bold"
+        android:layout_marginTop="20dp"
+        android:textSize="16dp"/>
 
 </LinearLayout>

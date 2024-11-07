@@ -13,114 +13,113 @@
         android:theme="@style/Theme.OrderFoodApp"
         tools:targetApi="31">
         <activity
-            android:name=".MyAddress"
+            android:name=".TrackingOrder"
             android:exported="false" />
         <activity
-            android:name=".EditProfile"
-            android:exported="false" />
-        <activity
-            android:name=".PersonalInformation"
-            android:exported="false" />
-        <activity
-            android:name=".MyMainMenu"
-            android:exported="false" />
-        <activity
-            android:name=".MyOrder"
+            android:name=".view.MyAddress"
             android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
-            android:name=".PaymentSuccess"
+            android:name=".view.EditProfile"
             android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
-            android:name=".AddCard"
+            android:name=".view.PersonalInformation"
             android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
-            android:name=".PaymentMethodNoMC"
+            android:name=".view.MyMainMenu"
             android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
-            android:name=".PaymentMethod"
+            android:name=".view.MyOrder"
             android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
-            android:name=".MyCart"
+            android:name=".view.PaymentSuccess"
             android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
-            android:name=".EditCart"
+            android:name=".view.AddCard"
             android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
-            android:name=".MyCartRecycleView"
+            android:name=".view.PaymentMethodNoMC"
             android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
-            android:name=".SignIn"
+            android:name=".view.PaymentMethod"
             android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
-            android:name=".LocationAccess"
-            android:exported="false" />
+            android:name=".view.MyCart"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
         <activity
-            android:name=".AddNewCategory"
-            android:exported="false" />
-        <activity
-            android:name=".ReviewScreen"
-            android:exported="false" />
-        <activity
-            android:name=".Messages"
-            android:exported="false" />
-        <activity
-            android:name=".Notification"
-            android:exported="false" />
-        <activity
-            android:name=".Menu"
-            android:exported="false" />
-        <activity
-            android:name=".ChefFoodDetail"
-            android:exported="false" />
-        <activity
-            android:name=".AddNewItems"
-            android:exported="false" />
-        <activity
-            android:name=".MyFood"
-            android:exported="false" />
-        <activity
-            android:name=".dropdown_resize"
-            android:exported="false" />
-        <activity
-            android:name=".SellerDashboardHome"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-         <activity
-            android:name=".view.Filter"
-            android:exported="false" />
-        <activity
-            android:name=".view.RestaurantView"
-            android:exported="false" />
-        <activity
-            android:name=".view.FoodDetail"
-            android:exported="false" />
-        <activity
-            android:name=".view.Search"
-            android:exported="false" />
-        <activity
-            android:name=".view.Home"
-            android:exported="false" />
-        <activity
-            android:name=".view.Welcome"
-            android:exported="false" />
-        <activity
-            android:name=".view.Onboarding"
-            android:exported="true"
-            android:label="@string/app_name"
+            android:name=".view.MyCartRecycleView"
+            android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
             android:name=".view.LocationAccess"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.AddNewCategory"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.ReviewScreen"
+            android:exported="false" />
+        <activity
+            android:name=".view.Messages"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.Notification"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.Menu"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.ChefFoodDetail"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.AddNewItems"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.MyFood"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.SellerDashboardHome"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.Filter"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.RestaurantView"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.FoodDetail"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.Search"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.Home"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.Onboarding"
             android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
@@ -136,10 +135,15 @@
             android:exported="false"
             android:theme="@style/Theme.OrderFoodApp" />
         <activity
-            android:name=".AddNewAddress"
-               android:exported="false"/>
-        <activity
             android:name=".view.SignIn"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" />
+        <activity
+            android:name=".view.AddNewAddress"
+            android:exported="false"
+            android:theme="@style/Theme.OrderFoodApp" /> <!-- android:theme="@style/AppTheme"   Theme light -->
+        <activity
+            android:name=".view.Welcome"
             android:exported="true"
             android:theme="@style/AppTheme">
             <intent-filter>

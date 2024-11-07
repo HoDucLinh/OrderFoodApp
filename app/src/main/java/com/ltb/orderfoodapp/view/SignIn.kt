@@ -8,13 +8,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import com.google.firebase.Firebase
 import com.ltb.orderfoodapp.R
 
-class SignIn : Activity() {
+class SignIn : AppCompatActivity() {
 
     // [START declare_auth]
     private lateinit var auth: FirebaseAuth

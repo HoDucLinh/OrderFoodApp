@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PersonalInformation"
+    tools:context=".view.PersonalInformation"
     android:orientation="vertical"
     android:layout_margin="20dp">
 
@@ -103,7 +103,7 @@
                 android:layout_height="40dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/person_24px"
+                android:src="@drawable/icon_user"
                 android:layout_gravity="right"/>
 
             <ImageView
@@ -113,7 +113,7 @@
                 android:layout_marginTop="13dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/mail_24px" />
+                android:src="@drawable/icon_email" />
 
             <ImageView
                 android:layout_width="40dp"
@@ -122,7 +122,7 @@
                 android:layout_marginTop="13dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/phone_in_talk_24px" />
+                android:src="@drawable/icon_phone" />
 
         </LinearLayout>
 

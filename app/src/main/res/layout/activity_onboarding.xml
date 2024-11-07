@@ -5,13 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:orientation="vertical"
+    android:background="@color/Light"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.Onboarding">
     
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageOnboarding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTop_welcome"
@@ -45,30 +46,37 @@ you just place the orer we do the rest" />
         android:gravity="center" >
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/radioButtonBefore"
             android:layout_width="wrap_content"
             android:layout_margin="@dimen/margin_radio_welcome"
             android:checked="true"
+            android:enabled="false"
             android:layout_height="wrap_content" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/radioButtonAfter"
             android:layout_width="wrap_content"
             android:layout_margin="@dimen/margin_radio_welcome"
+            android:enabled="false"
             android:layout_height="wrap_content" />
     </RadioGroup>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/next_onboarding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_input_login"
         android:fontFamily="@font/sen"
+        android:backgroundTint="@color/orange"
         android:text="Next" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/skip_onboarding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_input_login"
         android:fontFamily="@font/sen"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/textDark"
         android:text="Skip" />
 </LinearLayout>

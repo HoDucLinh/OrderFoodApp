@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyAddress"
+    tools:context=".view.MyAddress"
     android:orientation="vertical"
     android:layout_margin="20dp">
 
@@ -41,7 +41,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/home_24px"
+            android:background="@drawable/icon_home"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"/>
 
@@ -99,7 +99,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/work_24px"
+            android:background="@drawable/icon_work"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"/>
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".PaymentSuccess"
+    tools:context=".view.PaymentSuccess"
     android:background="@color/white">
 
 
@@ -50,9 +50,11 @@
         android:textColor="@color/darkBG"/>
 
     <Button
+        android:id="@+id/trackOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/orange"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="100dp"

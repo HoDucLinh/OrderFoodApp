@@ -5,27 +5,29 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaymentMethodNoMC"
+    tools:context=".view.PaymentMethod"
     android:orientation="vertical"
-    android:layout_margin="10dp"
     android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/padding_layout"
         android:orientation="horizontal">
 
-        <Button
-            android:layout_width="35dp"
-            android:layout_height="30dp"
+        <ImageButton
+            android:id="@+id/backCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/arrow_back_ios_new_24px" />
+            android:background="@drawable/back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/sen"
+            android:layout_gravity="center"
             android:text="Profile"
             android:textSize="20dp" />
 
@@ -224,6 +226,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/addNewCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="ADD NEW"
@@ -259,6 +262,7 @@
             />
     </LinearLayout>
     <Button
+        android:id="@+id/paymentConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="PAY AND COMFIRM"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!--    general-->
+    <dimen name="paddingVertical">20dp</dimen>
     <dimen name="button_width">250dp</dimen>
     <dimen name="font_size_large">25dp</dimen>
     <dimen name="font_size_medium">20dp</dimen>
@@ -36,4 +37,6 @@
     <dimen name="border_notification">10dp</dimen>
     <dimen name="border_with_notification">10dp</dimen>
     <dimen name="notification_cart_width_height">15dp</dimen>
+<!--    detail-->
+    <dimen name="margin_count">50dp</dimen>
 </resources>

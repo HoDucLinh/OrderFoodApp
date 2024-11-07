@@ -16,7 +16,7 @@
             android:layout_width="46dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/menu"
+            android:background="@drawable/menu_home"
             android:text="" />
 
         <LinearLayout
@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:drawableRight="@drawable/dropdown"
+                android:drawableRight="@drawable/down"
                 android:text="Viet Nam"
                 android:textColor="@color/black"
                 android:textFontWeight="800" />
@@ -57,7 +57,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textView1"
                 android:layout_width="138dp"
                 android:layout_height="109dp"
                 android:layout_margin="20dp"
@@ -66,7 +66,7 @@
                 android:textSize="100dp" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView8"
                 android:layout_width="136dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"

@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Light"
     tools:context=".view.Home">
 
     <LinearLayout
@@ -15,7 +16,7 @@
         android:padding="@dimen/padding_layout">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/nextMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -51,14 +52,14 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/nextCart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:src="@drawable/cart" />
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/cartCount"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
@@ -79,8 +80,8 @@
         android:textSize="@dimen/font_size_small"
         android:text="Hey Halal, Good Afternoon!" />
 
-    <EditText
-        android:id="@+id/editTextText5"
+    <TextView
+        android:id="@+id/txtSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -92,16 +93,6 @@
         android:inputType="text"
         android:drawablePadding="@dimen/margin_input_login"
         android:hint="Search dishes, restaurants"/>
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sen"
-        android:textSize="@dimen/font_size_medium"
-        android:paddingHorizontal="@dimen/margin_input_login"
-        android:textFontWeight="800"
-        android:text="All Categories" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
@@ -123,18 +114,12 @@
         android:textSize="@dimen/font_size_medium"
         android:paddingHorizontal="@dimen/margin_input_login"
         android:textFontWeight="800"
-        android:text="Open Restaurants" />
+        android:text="Suggested Food" />
 
-    <ScrollView
+    <GridView
+        android:id="@+id/gridviewProduct"
         android:layout_width="match_parent"
-        android:layout_height="679dp">
-
-        <LinearLayout
-            android:id="@+id/layout_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>
