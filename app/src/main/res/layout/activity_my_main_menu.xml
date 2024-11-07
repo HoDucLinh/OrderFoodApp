@@ -5,15 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     android:orientation="vertical"
-    android:backgroundTint="@color/white"
+    android:background="@color/Light"
     tools:context=".view.MyMainMenu">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="@dimen/padding_layout"
         android:orientation="horizontal">
         <ImageButton
             android:id="@+id/nextMenu"

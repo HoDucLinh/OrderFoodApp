@@ -7,6 +7,7 @@ import android.provider.Telephony.Mms.Intents
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RadioButton
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.ltb.orderfoodapp.R
 
@@ -15,6 +16,7 @@ class Onboarding : AppCompatActivity() {
      var count = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_onboarding)
         val next_onboarding = findViewById<Button>(R.id.next_onboarding)
         val skip_onboarding = findViewById<Button>(R.id.skip_onboarding)

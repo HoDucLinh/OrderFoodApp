@@ -11,6 +11,7 @@ import com.ltb.orderfoodapp.R
 
 class MyMainMenu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_main_menu)
         val btnPersonalInfor = findViewById<TextView>(R.id.personalInfo)

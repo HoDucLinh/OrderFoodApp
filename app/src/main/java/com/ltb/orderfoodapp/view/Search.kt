@@ -23,6 +23,7 @@ class Search : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_search)
         productViewModel = ProductViewModel()
         setupGridView()

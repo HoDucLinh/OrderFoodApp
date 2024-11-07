@@ -19,6 +19,7 @@ class PaymentMethodNoMC : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_payment_method_no_mc)
 
         // Khởi tạo các ImageButton
