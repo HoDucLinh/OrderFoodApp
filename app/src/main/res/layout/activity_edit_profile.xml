@@ -5,52 +5,56 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
     android:orientation="vertical"
+    android:background="@color/Light"
     tools:context=".view.EditProfile">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:padding="@dimen/padding_layout"
+        android:gravity="center"
         android:orientation="horizontal">
-
-        <Button
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/arrow_back_ios_new_24px" />
+        <ImageButton
+            android:id="@+id/backMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:src="@drawable/back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/sen"
-            android:text="Edit Profile"
-            android:textSize="20dp" />
+            android:paddingLeft="@dimen/padding_text"
+            android:text="Profile"
+            android:layout_weight="1"
+            android:textSize="@dimen/fontSize" />
 
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/editAvatar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center">
 
         <ImageView
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginLeft="120dp"
             android:background="@drawable/round_background"
             android:clipToOutline="true" />
 
-        <Button
+        <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="200dp"
-            android:layout_marginTop="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:background="@drawable/rounded_button" />
 
 
-    </FrameLayout>
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -137,14 +141,13 @@
         android:text="I love fast food" />
 
     <Button
+        android:id="@+id/saveInfor"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="18dp"
-        android:background="@drawable/rounded_button"
-        android:text="SAVE"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:backgroundTint="@color/orange"
+        android:textColor="@color/white"
         android:fontFamily="@font/sen_bold"
-        android:textSize="25dp" />
+        android:textSize="16dp"/>
 
 </LinearLayout>

@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
     android:orientation="vertical"
+    android:background="@color/Light"
     tools:context=".view.AddNewAddress">
 
     <FrameLayout
@@ -18,14 +18,19 @@
             android:layout_height="match_parent"
             android:background="#D0D9E1" />
 
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/arrow_back_ios_new_24px" />
+            android:background="@drawable/back" />
     </FrameLayout>
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_weight="1">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -156,7 +161,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_corners"
+            android:backgroundTint="@color/orange"
             android:text="Home"
             android:textSize="16dp"
             android:layout_margin="16dp"
@@ -166,7 +171,6 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#D0D9E1"
             android:textColor="@color/textDark"
-            android:background="@drawable/rounded_corners"
             android:text="Work"
             android:textSize="16dp"
             android:layout_margin="16dp"
@@ -176,21 +180,24 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#D0D9E1"
             android:text="Other"
-            android:background="@drawable/rounded_corners"
             android:textColor="@color/textDark"
             android:textSize="16dp"
             android:layout_margin="16dp"
             />
 
     </LinearLayout>
+</LinearLayout>
 
     <Button
+        android:id="@+id/saveInfor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/orange"
         android:layout_margin="25dp"
+        android:padding="@dimen/padding_button"
         android:text="SAVE"
-        android:textSize="20dp"
+        android:textSize="@dimen/font_size_medium"
+        android:textAlignment="center"
         android:fontFamily="@font/sen_bold"/>
 
 

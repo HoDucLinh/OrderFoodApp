@@ -10,15 +10,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="@dimen/padding_layout"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/backHome"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/back"
             android:textColor="@android:color/white" />
 
@@ -30,6 +30,7 @@
             android:fontFamily="@font/sen"
             android:layout_gravity="center"
             android:text="Cart"
+            android:layout_weight="1"
             android:textColor="@color/white"
             android:textSize="20dp" />
 
@@ -37,7 +38,6 @@
             android:id="@+id/editItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="150dp"
             android:backgroundTint="#181C2E"
             android:fontFamily="@font/sen"
             android:text="EDIT ITEMS"
@@ -216,7 +216,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="290dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/rounded_top_corners"
         android:orientation="vertical"
         android:scaleType="centerCrop">
@@ -308,19 +308,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_margin="@dimen/margin_button"
             android:backgroundTint="@color/orange"
             android:fontFamily="@font/sen_bold"
-            android:paddingLeft="120dp"
-            android:paddingTop="20dp"
-            android:paddingRight="120dp"
-            android:paddingBottom="20dp"
+            android:padding="@dimen/padding_button"
             android:text="PLACE ORDER"
-            android:textSize="15dp"
-            app:cornerRadius="16dp" />
+            android:textSize="@dimen/font_size_medium"
+            />
 
     </LinearLayout>
 

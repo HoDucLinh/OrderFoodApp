@@ -110,6 +110,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/WhisperWhite"
@@ -143,11 +144,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/myOrders"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/WhisperWhite"
                     android:gravity="start|center"
-                    android:text="Cart"
+                    android:text="My Orders"
                     android:drawableLeft="@drawable/icon_cart"
                     android:textAllCaps="false"
                     android:layout_marginLeft="10dp"

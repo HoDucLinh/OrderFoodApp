@@ -25,5 +25,17 @@ class MyMainMenu : AppCompatActivity() {
             val home = Intent(this, Home::class.java)
             startActivity(home)
         }
+        // Chuyen sang my orders
+        val myOrders = findViewById<TextView>(R.id.myOrders)
+        myOrders.setOnClickListener{
+            val myOrders = Intent(this, MyOrder::class.java)
+            startActivity(myOrders)
+        }
+        // Chuyen sang my orders
+        val address = findViewById<TextView>(R.id.address)
+        address.setOnClickListener{
+            val editAddress = Intent(this, MyAddress::class.java)
+            startActivity(editAddress)
+        }
     }
 }

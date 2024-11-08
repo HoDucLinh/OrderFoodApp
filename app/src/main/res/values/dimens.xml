@@ -9,6 +9,9 @@
     <dimen name="font_weight_light">400</dimen>
     <dimen name="font_weight_medium">600</dimen>
     <dimen name="font_weight_bold">800</dimen>
+    <dimen name="padding_button">20dp</dimen>
+    <dimen name="margin_button">25dp</dimen>
+    <dimen name="margin_layoutTop">30dp</dimen>
 <!--    welcome-->
     <dimen name="marginTop_welcome">150dp</dimen>
     <dimen name="marginBottom_welcome">50dp</dimen>

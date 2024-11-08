@@ -17,138 +17,105 @@
             android:exported="false" />
         <activity
             android:name=".view.MyAddress"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.EditProfile"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.PersonalInformation"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.MyMainMenu"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.MyOrder"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.PaymentSuccess"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.AddCard"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.PaymentMethodNoMC"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.PaymentMethod"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.MyCart"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.MyCartRecycleView"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.LocationAccess"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.AddNewCategory"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.ReviewScreen"
             android:exported="false" />
         <activity
             android:name=".view.Messages"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.Notification"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.Menu"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.ChefFoodDetail"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.AddNewItems"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.MyFood"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.SellerDashboardHome"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.Filter"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.RestaurantView"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.FoodDetail"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.Search"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.Home"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.Onboarding"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.FortgotPassword"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.Verification"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.SignUp"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.SignIn"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" />
+            android:exported="false" />
         <activity
             android:name=".view.AddNewAddress"
-            android:exported="false"
-            android:theme="@style/Theme.OrderFoodApp" /> <!-- android:theme="@style/AppTheme"   Theme light -->
+            android:exported="false" /> <!-- android:theme="@style/AppTheme"   Theme light -->
         <activity
             android:name=".view.Welcome"
-            android:exported="true"
-            android:theme="@style/AppTheme">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -1,10 +1,10 @@
 package com.ltb.orderfoodapp.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.ltb.orderfoodapp.R
 
 class MyAddress : AppCompatActivity() {
@@ -12,10 +12,10 @@ class MyAddress : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_my_address)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        val addAddress = findViewById<Button>(R.id.addAddress)
+        addAddress.setOnClickListener{
+            val address  = Intent(this, AddNewAddress::class.java)
+            startActivity(address)
         }
     }
 }
