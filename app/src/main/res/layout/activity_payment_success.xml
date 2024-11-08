@@ -6,10 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.PaymentSuccess"
-    android:background="@color/white">
-
-
+    tools:context=".view.PaymentSuccess">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"

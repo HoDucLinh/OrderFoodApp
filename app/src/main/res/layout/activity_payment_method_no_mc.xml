@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.PaymentMethod"
-    android:orientation="vertical"
-    android:background="@color/Light">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -230,7 +229,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="ADD NEW"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/whiteBG"
         android:textColor="@color/orange"
         android:fontFamily="@font/sen_bold"
         android:layout_marginTop="20dp"

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Light"
+
     tools:context=".view.PersonalInformation">
 
     <LinearLayout
@@ -18,7 +18,7 @@
             android:id="@+id/backMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/whiteBG"
             android:src="@drawable/back" />
 
         <TextView
@@ -140,7 +140,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/WhisperWhite"
+
                     android:text="FULL NAME"
                     android:textSize="16dp"
                     android:fontFamily="@font/sen_bold"/>

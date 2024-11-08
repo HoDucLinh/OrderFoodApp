@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+   >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_layout"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageButton
@@ -25,16 +26,14 @@
             android:textSize="25dp"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:textColor="@color/darkBG"/>
+            />
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/CardView.Dark"
-            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:background="@drawable/icon_more"
-            />
+            android:background="@drawable/icon_more" />
+
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
