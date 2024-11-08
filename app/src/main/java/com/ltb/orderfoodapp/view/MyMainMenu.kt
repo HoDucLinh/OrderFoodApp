@@ -2,6 +2,7 @@ package com.ltb.orderfoodapp.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,11 @@ class MyMainMenu : AppCompatActivity() {
         btnPersonalInfor.setOnClickListener{
             val personalInfor = Intent(this, PersonalInformation::class.java)
             startActivity(personalInfor)
+        }
+        val backHome = findViewById<ImageButton>(R.id.backHome)
+        backHome.setOnClickListener{
+            val home = Intent(this, Home::class.java)
+            startActivity(home)
         }
     }
 }

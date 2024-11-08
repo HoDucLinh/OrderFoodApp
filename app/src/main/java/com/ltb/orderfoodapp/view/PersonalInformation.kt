@@ -1,6 +1,8 @@
 package com.ltb.orderfoodapp.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -12,6 +14,12 @@ class PersonalInformation : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_personal_information)
+        val backMenu = findViewById<ImageButton>(R.id.backMenu)
+        backMenu.setOnClickListener{
+            val mainMenu = Intent(this,MyMainMenu::class.java)
+            startActivity(mainMenu)
+
+        }
 
     }
 }

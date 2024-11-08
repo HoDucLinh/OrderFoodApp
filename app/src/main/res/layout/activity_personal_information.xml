@@ -15,7 +15,7 @@
         android:padding="@dimen/padding_layout"
         android:orientation="horizontal">
         <ImageButton
-            android:id="@+id/backMainMenu"
+            android:id="@+id/backMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -26,21 +26,20 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/sen"
+            android:paddingLeft="@dimen/padding_text"
             android:text="Profile"
-            android:textSize="20dp" />
+            android:layout_weight="1"
+            android:textSize="@dimen/fontSize" />
 
         <Button
-
+            android:id="@+id/editInfor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="EDIT"
-            android:textSize="20dp"
-            android:fontFamily="@font/sen_bold"
             android:backgroundTint="#FFFFFF"
+            android:fontFamily="@font/sen_bold"
+            android:text="EDIT"
             android:textColor="@color/orange"
-            android:gravity="end|right"
-            android:paddingRight="20dp"
-            android:layout_marginLeft="140dp" />
+            android:textSize="20dp" />
 
     </LinearLayout>
 
