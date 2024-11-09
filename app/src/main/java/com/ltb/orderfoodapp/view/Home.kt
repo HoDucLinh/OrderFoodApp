@@ -1,13 +1,16 @@
 package com.ltb.orderfoodapp.view
 
 import ProductViewModel
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.GridView
 import android.widget.ImageButton
+import android.widget.Switch
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductAdapter
 
@@ -22,7 +25,7 @@ class Home : AppCompatActivity() {
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
-        val
+
 //        render product
         setupGridView()
 //        chuyen sang trang tim kiem
@@ -40,9 +43,37 @@ class Home : AppCompatActivity() {
             val nextMenu = Intent(this, MyMainMenu::class.java)
             startActivity(nextMenu)
         }
-        // Bat darkMode
 
 
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val darkTheme = findViewById<Switch>(R.id.darkTheme)
+        val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val nightMode = sharedPreferences.getBoolean("night",false)
+
+        if (nightMode){
+            darkTheme.isChecked = true
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+
+
+        darkTheme.setOnCheckedChangeListener { _, isChecked ->
+
+            if (!isChecked){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                editor.putBoolean("night", false)
+                editor.apply()
+
+            }else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                editor.putBoolean("night",true)
+                editor.apply()
+            }
+        }
 
     }
 
