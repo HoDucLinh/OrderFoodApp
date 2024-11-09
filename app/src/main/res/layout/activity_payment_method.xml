@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.PaymentMethod"
+    android:layout_marginTop="@dimen/margin_layoutTop"
     android:orientation="vertical"
     >
 

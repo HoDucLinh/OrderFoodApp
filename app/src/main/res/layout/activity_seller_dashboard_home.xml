@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginTop="@dimen/margin_layoutTop"
     tools:context=".view.SellerDashboardHome">
 
     <LinearLayout
@@ -40,7 +41,6 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/down"
                 android:fontFamily="@font/sen"
                 android:text="Halal Lab office"
                 android:textSize="@dimen/fontSize" />
@@ -49,55 +49,66 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="174dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="233dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/rounded_corners"
+            android:padding="@dimen/padding_layout"
+            android:gravity="center"
+            android:layout_margin="@dimen/margin_layout"
+            android:background="@drawable/rounded_linear_layout"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView1"
-                android:layout_width="138dp"
-                android:layout_height="109dp"
-                android:layout_gravity="center"
-                android:layout_margin="20dp"
+                android:id="@+id/runningOrders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sen"
                 android:background="@color/white"
+                android:textColor="@color/darkBG"
                 android:text="20"
                 android:textSize="100dp" />
 
             <TextView
-                android:id="@+id/textView8"
-                android:layout_width="136dp"
+                android:id="@+id/txtrunningOrder"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/sen"
+                android:textColor="@color/darkBG"
                 android:background="@color/white"
                 android:text="Running Orders" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/rounded_corners"
+            android:padding="@dimen/padding_layout"
+            android:gravity="center"
+            android:layout_margin="@dimen/margin_layout"
+            android:background="@drawable/rounded_linear_layout"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView4"
-                android:layout_width="138dp"
-                android:layout_height="109dp"
-                android:layout_margin="20dp"
-                android:text="20"
-                android:layout_gravity="center"
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sen"
                 android:background="@color/white"
+                android:textColor="@color/darkBG"
+                android:text="05"
                 android:textSize="100dp" />
 
             <TextView
-                android:id="@+id/textView5"
-                android:layout_width="136dp"
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/sen"
+                android:textColor="@color/darkBG"
                 android:background="@color/white"
                 android:text="Order Request" />
         </LinearLayout>
@@ -114,8 +125,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corners"
+        android:background="@drawable/rounded_linear_layout"
         android:padding="@dimen/padding_input_login"
+        android:layout_margin="@dimen/margin_layout"
         android:orientation="horizontal">
 
         <TextView
@@ -123,15 +135,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@color/white"
-
+            android:fontFamily="@font/sen"
+            android:background="@android:color/transparent"
+            android:textColor="@color/darkBG"
             android:text="Total Revenue" />
 
         <TextView
             android:id="@+id/totalRevenue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:fontFamily="@font/sen"
+            android:background="@android:color/transparent"
+            android:textColor="@color/darkBG"
             android:layout_gravity="center"
             android:paddingHorizontal="@dimen/padding_text"
             android:text="400$"/>
@@ -141,34 +156,84 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="224dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_layout"
+        android:layout_margin="@dimen/margin_layout"
+        android:background="@drawable/rounded_linear_layout"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="94dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textColor="@color/darkBG"
+                android:fontFamily="@font/sen"
+                android:text="Reviews"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sen"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/transparent"
+                android:textColor="@color/darkBG"
+                android:text="See All Reviews"
+/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@android:color/transparent"
             android:orientation="horizontal">
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textColor="@color/darkBG"
+                android:drawableLeft="@drawable/star"
+                android:text="4.9"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textColor="@color/darkBG"
+                android:text="Total 20 Reviews"/>
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_layout"
+        android:padding="@dimen/margin_layout"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sen"
 
+                android:text="Popular Items This Weeks"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sen"
+                android:textAlignment="viewEnd"
+                android:text="See All"/>
+        </LinearLayout>
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -178,7 +243,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical" />
             </HorizontalScrollView>
-        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

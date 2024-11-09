@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.PaymentMethod"
+    android:layout_marginTop="@dimen/margin_layoutTop"
     android:orientation="vertical">
 
     <LinearLayout
@@ -32,16 +33,12 @@
 
     </LinearLayout>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:padding="8dp">
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:padding="8dp">
 
             <!-- Cash Button -->
             <LinearLayout
@@ -50,32 +47,20 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="8dp">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clipToOutline="true"
-                    app:cardBackgroundColor="@android:color/transparent"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
-                    app:cardPreventCornerOverlap="true">
-
-                    <ImageButton
-                        android:id="@+id/btn_cash"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/payment_method_background"
-                        android:contentDescription="Cash"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/cash" />
-                </androidx.cardview.widget.CardView>
+                <ImageButton
+                    android:id="@+id/btn_cash"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="Cash"
+                    android:scaleType="centerInside"
+                    android:background="@drawable/cash" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cash"
                     android:textSize="20dp"
-                    android:fontFamily="@font/sen_bold"/>
+                    android:fontFamily="@font/sen_bold" />
             </LinearLayout>
 
             <!-- Visa Button -->
@@ -86,33 +71,20 @@
                 android:orientation="vertical"
                 android:padding="8dp">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clipToOutline="true"
-                    app:cardBackgroundColor="@android:color/transparent"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
-                    app:cardPreventCornerOverlap="true">
-
-                    <ImageButton
-                        android:id="@+id/btn_visa"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/payment_method_background"
-                        android:contentDescription="Cash"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/visa"
-                        />
-
-                </androidx.cardview.widget.CardView>
+                <ImageButton
+                    android:id="@+id/btn_vnPay"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="Cash"
+                    android:scaleType="centerInside"
+                    android:background="@drawable/vnpay" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Visa"
+                    android:text="VN Pay"
                     android:textSize="20dp"
-                    android:fontFamily="@font/sen_bold"/>
+                    android:fontFamily="@font/sen_bold" />
             </LinearLayout>
 
             <!-- Mastercard Button -->
@@ -123,84 +95,41 @@
                 android:orientation="vertical"
                 android:padding="8dp">
 
-                <androidx.cardview.widget.CardView android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
-                    app:cardBackgroundColor="@android:color/transparent"
-                    android:clipToOutline="true" app:cardPreventCornerOverlap="true">
 
                     <ImageButton
-                        android:id="@+id/btn_mastercard"
-                        android:layout_width="150dp"
+                        android:id="@+id/btn_zaloPay"
+                        android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:background="@drawable/payment_method_background"
                         android:contentDescription="Cash"
                         android:scaleType="centerInside"
-                        android:src="@drawable/mastercard" />
-
-                </androidx.cardview.widget.CardView>
+                        android:background="@drawable/zalopay" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mastercard"
+                    android:text="Zalo Pay"
                     android:textSize="20dp"
-                    android:fontFamily="@font/sen_bold"/>
+                    android:fontFamily="@font/sen_bold" />
             </LinearLayout>
 
-            <!-- PayPal Button -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="8dp">
 
-                <androidx.cardview.widget.CardView android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
-                    app:cardBackgroundColor="@android:color/transparent"
-                    android:clipToOutline="true" app:cardPreventCornerOverlap="true">
-
-                    <ImageButton
-                        android:id="@+id/btn_paypal"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/payment_method_background"
-                        android:contentDescription="Cash"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/paypal" />
-
-                </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Paypal"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/sen_bold"/>
-            </LinearLayout>
-
-            <!-- Add more payment options as needed -->
 
         </LinearLayout>
-    </HorizontalScrollView>
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/rounded_corners"
-        >
+        android:background="@drawable/rounded_corners">
 
         <ImageView
             android:layout_width="300dp"
             android:layout_height="220dp"
             android:background="@drawable/card"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -208,7 +137,7 @@
             android:layout_gravity="center"
             android:text="No master card added"
             android:textSize="20dp"
-            android:fontFamily="@font/sen_bold"/>
+            android:fontFamily="@font/sen_bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -216,37 +145,23 @@
             android:layout_gravity="center"
             android:text="You can add a mastercard and save it for later"
             android:textSize="15dp"
-            android:fontFamily="@font/sen"
-            />
+            android:fontFamily="@font/sen" />
 
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/addNewCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ADD NEW"
-        android:backgroundTint="@color/whiteBG"
-        android:textColor="@color/orange"
-        android:fontFamily="@font/sen_bold"
-        android:layout_marginTop="20dp"
-        android:textSize="20dp"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_margin="@dimen/margin_layout"
         android:layout_marginTop="80dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TOTAL:"
-            android:textColor="@color/darkBG"
             android:fontFamily="@font/sen_regular"
-            android:textSize="15dp"
-            />
+            android:textSize="15dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -254,10 +169,9 @@
             android:text="$96"
             android:textSize="30dp"
             android:layout_marginLeft="20dp"
-            android:textColor="@color/darkBG"
-            android:fontFamily="@font/sen_bold"
-            />
+            android:fontFamily="@font/sen_bold" />
     </LinearLayout>
+
     <Button
         android:id="@+id/paymentConfirm"
         android:layout_width="match_parent"
@@ -265,9 +179,10 @@
         android:text="PAY AND COMFIRM"
         android:backgroundTint="@color/orange"
         android:padding="@dimen/padding_button"
+        android:layout_margin="@dimen/margin_layout"
         android:textColor="@color/white"
         android:fontFamily="@font/sen_bold"
         android:layout_marginTop="20dp"
-        android:textSize="16dp"/>
+        android:textSize="16dp" />
 
 </LinearLayout>

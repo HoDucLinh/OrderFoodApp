@@ -16,11 +16,12 @@ import com.ltb.orderfoodapp.adapter.ProductAdapter
 
 class Home : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
-
+    private lateinit var darkTheme : Switch
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
         productViewModel = ProductViewModel()
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
@@ -47,35 +48,33 @@ class Home : AppCompatActivity() {
 
 
     }
-
     override fun onStart() {
         super.onStart()
-        val darkTheme = findViewById<Switch>(R.id.darkTheme)
+        darkTheme = findViewById<Switch>(R.id.darkTheme)
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        val nightMode = sharedPreferences.getBoolean("night",false)
+        val nightMode = sharedPreferences.getBoolean("night", false)
 
-        if (nightMode){
-            darkTheme.isChecked = true
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        if (nightMode != darkTheme.isChecked) {
+            darkTheme.isChecked = nightMode
         }
 
+        AppCompatDelegate.setDefaultNightMode(
+            if (nightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        )
 
         darkTheme.setOnCheckedChangeListener { _, isChecked ->
+            val newMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
 
-            if (!isChecked){
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                editor.putBoolean("night", false)
-                editor.apply()
-
-            }else{
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                editor.putBoolean("night",true)
+            if (AppCompatDelegate.getDefaultNightMode() != newMode) {
+                AppCompatDelegate.setDefaultNightMode(newMode)
+                editor.putBoolean("night", isChecked)
                 editor.apply()
             }
         }
-
     }
+
+
 
     private fun setupGridView() {
         val products = productViewModel.getProducts()

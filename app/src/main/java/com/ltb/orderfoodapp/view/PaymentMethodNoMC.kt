@@ -11,10 +11,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.ltb.orderfoodapp.R
 
 class PaymentMethodNoMC : AppCompatActivity() {
-    private lateinit var btnCash: ImageButton
-    private lateinit var btnVisa: ImageButton
-    private lateinit var btnMasterCard: ImageButton
-    private lateinit var btnPaypal: ImageButton
+    private lateinit var btnCash : ImageButton
+    private lateinit var btnVNPay : ImageButton
+    private  lateinit var btnZaloPay : ImageButton
     // Thêm các nút thanh toán khác nếu cần
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,27 +23,27 @@ class PaymentMethodNoMC : AppCompatActivity() {
 
         // Khởi tạo các ImageButton
         btnCash = findViewById(R.id.btn_cash)
-        btnVisa = findViewById(R.id.btn_visa)
-        btnMasterCard = findViewById(R.id.btn_mastercard)
-        btnPaypal = findViewById(R.id.btn_paypal)
+        btnVNPay = findViewById(R.id.btn_vnPay)
+        btnZaloPay = findViewById(R.id.btn_zaloPay)
+
+
 
         // Thêm các nút thanh toán khác nếu cần
 
         // Thiết lập sự kiện nhấn cho từng nút
         btnCash.setOnClickListener { setSelectedPaymentMethod(btnCash) }
-        btnVisa.setOnClickListener { setSelectedPaymentMethod(btnVisa) }
-        btnMasterCard.setOnClickListener { setSelectedPaymentMethod(btnMasterCard) }
-        btnPaypal.setOnClickListener { setSelectedPaymentMethod(btnPaypal) }
+        btnVNPay.setOnClickListener { setSelectedPaymentMethod(btnVNPay) }
+        btnZaloPay.setOnClickListener { setSelectedPaymentMethod(btnZaloPay) }
 
         val backCart = findViewById<ImageButton>(R.id.backCart)
-        val addNew = findViewById<Button>(R.id.addNewCard)
+        val paymentConfirm = findViewById<Button>(R.id.paymentConfirm)
         // Lui ve Cart
         backCart.setOnClickListener{
             val Cart = Intent(this,MyCart::class.java)
             startActivity(Cart)
         }
         // Them card moi
-        addNew.setOnClickListener{
+        paymentConfirm.setOnClickListener{
             val addCard = Intent(this, AddCard::class.java)
             startActivity(addCard)
         }
@@ -54,9 +53,8 @@ class PaymentMethodNoMC : AppCompatActivity() {
     private fun setSelectedPaymentMethod(selectedButton: ImageButton) {
         // Đặt tất cả các nút về trạng thái không chọn
         btnCash.isSelected = false
-        btnVisa.isSelected = false
-        btnMasterCard.isSelected = false
-        btnPaypal.isSelected = false
+        btnVNPay.isSelected = false
+        btnZaloPay.isSelected = false
         // Đặt các nút khác về false nếu cần
 
         // Đặt nút được chọn
