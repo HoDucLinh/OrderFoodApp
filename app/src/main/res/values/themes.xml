@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Theme sáng -->
+<!--    LightTheme-->
     <style name="Theme.LightOrderFoodApp" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/orange</item>
         <item name="colorPrimaryVariant">@color/orange</item>
@@ -11,7 +11,7 @@
         <item name="colorOnSecondary">@color/white</item>
     </style>
 
-    <!-- Theme tối -->
+<!--    DarkTheme-->
     <style name="Theme.DarkOrderFoodApp" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/orange</item>
         <item name="colorPrimaryVariant">@color/orange</item>

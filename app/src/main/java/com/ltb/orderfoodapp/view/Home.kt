@@ -22,6 +22,7 @@ class Home : AppCompatActivity() {
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
+        val
 //        render product
         setupGridView()
 //        chuyen sang trang tim kiem
@@ -39,6 +40,8 @@ class Home : AppCompatActivity() {
             val nextMenu = Intent(this, MyMainMenu::class.java)
             startActivity(nextMenu)
         }
+        // Bat darkMode
+
 
 
     }

@@ -40,11 +40,18 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/down"
                 android:fontFamily="@font/sen"
                 android:text="Halal Lab office"
                 android:textSize="@dimen/fontSize" />
         </LinearLayout>
+
+        <Switch
+            android:id="@+id/darkTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/night"
+          />
 
         <RelativeLayout
             android:layout_width="44dp"
@@ -86,9 +93,10 @@
         android:layout_margin="@dimen/margin_input_login"
         android:drawableLeft="@drawable/search"
         android:drawableRight="@drawable/close"
-        android:padding="@dimen/margin_input_login"
+        android:padding="@dimen/padding_input_login"
         android:background="@drawable/search_bg"
         android:inputType="text"
+        android:gravity="center"
         android:drawablePadding="@dimen/margin_input_login"
         android:hint="Search dishes, restaurants"/>
 
@@ -110,7 +118,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/sen"
         android:textSize="@dimen/font_size_medium"
-        android:paddingHorizontal="@dimen/margin_input_login"
+        android:padding="@dimen/margin_input_login"
         android:textFontWeight="800"
         android:text="Suggested Food" />
 

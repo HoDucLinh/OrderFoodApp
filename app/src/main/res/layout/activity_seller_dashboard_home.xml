@@ -6,43 +6,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SellerDashboardHome">
+    tools:context=".view.SellerDashboardHome">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="116dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_layout">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="46dp"
+        <ImageButton
+            android:id="@+id/nextMenu"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/menu_home"
-            android:text="" />
+            android:background="@drawable/menu_home" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/padding_text">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-
-                android:text="Location"
-                android:textFontWeight="800"
-                android:textColor="@color/black"/>
+                android:fontFamily="@font/sen"
+                android:text="Deliver to"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/fontSize" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:drawableRight="@drawable/down"
-                android:text="Viet Nam"
-                android:textColor="@color/black"
-                android:textFontWeight="800" />
+                android:fontFamily="@font/sen"
+                android:text="Halal Lab office"
+                android:textSize="@dimen/fontSize" />
         </LinearLayout>
     </LinearLayout>
 
@@ -52,17 +53,19 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="194dp"
+            android:layout_width="233dp"
             android:layout_height="match_parent"
+            android:background="@drawable/rounded_corners"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="138dp"
                 android:layout_height="109dp"
-                android:layout_margin="20dp"
-                android:text="20"
                 android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:background="@color/white"
+                android:text="20"
                 android:textSize="100dp" />
 
             <TextView
@@ -70,12 +73,14 @@
                 android:layout_width="136dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:text="TextView" />
+                android:background="@color/white"
+                android:text="Running Orders" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/rounded_corners"
             android:orientation="vertical">
 
             <TextView
@@ -85,6 +90,7 @@
                 android:layout_margin="20dp"
                 android:text="20"
                 android:layout_gravity="center"
+                android:background="@color/white"
                 android:textSize="100dp" />
 
             <TextView
@@ -92,7 +98,87 @@
                 android:layout_width="136dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:text="TextView" />
+                android:background="@color/white"
+                android:text="Order Request" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners"
+        android:padding="@dimen/padding_input_login"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+
+            android:text="Total Revenue" />
+
+        <TextView
+            android:id="@+id/totalRevenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_gravity="center"
+            android:paddingHorizontal="@dimen/padding_text"
+            android:text="400$"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="224dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="94dp"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
+            </HorizontalScrollView>
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

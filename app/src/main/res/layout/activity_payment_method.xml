@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".view.PaymentMethod"
     android:orientation="vertical"
-    android:background="#FFFFFF">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +29,6 @@
             android:fontFamily="@font/sen"
             android:text="Profile"
             android:layout_gravity="center"
-            android:textColor="@color/darkBG"
             android:textSize="20dp" />
 
     </LinearLayout>
@@ -206,7 +205,7 @@
             android:layout_height="wrap_content"
             android:text="Master Card"
             android:fontFamily="@font/sen_bold"
-            android:textColor="@color/darkBG"
+
             android:textSize="20dp" />
 
         <LinearLayout
@@ -226,7 +225,7 @@
                 android:layout_height="wrap_content"
                 android:text="************* 436"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/darkBG"
+
                 android:layout_marginLeft="20dp"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -238,8 +237,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="ADD NEW"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/orange"
         android:fontFamily="@font/sen_bold"
         android:layout_marginTop="20dp"
         android:textSize="20dp" />
@@ -255,7 +252,6 @@
             android:layout_height="wrap_content"
             android:text="TOTAL:"
             android:fontFamily="@font/sen_regular"
-            android:textColor="@color/darkBG"
             android:textSize="15dp" />
 
         <TextView
@@ -264,8 +260,7 @@
             android:text="$96"
             android:textSize="30dp"
             android:layout_marginLeft="20dp"
-            android:fontFamily="@font/sen_bold"
-            android:textColor="@color/darkBG" />
+            android:fontFamily="@font/sen_bold" />
     </LinearLayout>
 
     <Button

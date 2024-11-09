@@ -47,8 +47,7 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/sen"
         android:text="CARD HOLDER NAME"
-        android:textSize="15dp"
-        android:textColor="@color/darkBG"/>
+        android:textSize="15dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -71,7 +70,7 @@
         android:fontFamily="@font/sen"
         android:text="CARD NUMBER"
         android:textSize="15dp"
-        android:textColor="@color/darkBG"/>
+     />
 
     <EditText
         android:layout_width="match_parent"
@@ -103,7 +102,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:textColor="@color/darkBG"
+
                 android:fontFamily="@font/sen"
                 android:text="EXPIRE DATE"
                 android:textSize="15dp"
@@ -135,7 +134,6 @@
                 android:fontFamily="@font/sen"
                 android:text="CVC"
                 android:textSize="15dp"
-                android:textColor="@color/darkBG"
                 android:gravity="bottom"/>
 
             <EditText

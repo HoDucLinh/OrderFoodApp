@@ -1,10 +1,12 @@
 package com.ltb.orderfoodapp.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +15,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ViewPagerAdapter
 
 class MyOrder : AppCompatActivity() {
@@ -24,10 +27,15 @@ class MyOrder : AppCompatActivity() {
 //        setContentView(R.layout.fragment_ongoing)
 
 //        ordersContainer = findViewById(R.id.ordersContainer)
-
+        val backMainMenu = findViewById<ImageButton>(R.id.backMainMenu)
         val tabLayout = findViewById<TabLayout>(com.ltb.orderfoodapp.R.id.tabLayout)
         val viewPager = findViewById<ViewPager2>(com.ltb.orderfoodapp.R.id.viewPager)
         val toolbar = findViewById<Toolbar>(com.ltb.orderfoodapp.R.id.toolbar)
+        // Back main menu
+        backMainMenu.setOnClickListener{
+            val mainMenu = Intent(this,MyMainMenu::class.java)
+            startActivity(mainMenu)
+        }
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
 
@@ -49,49 +57,4 @@ class MyOrder : AppCompatActivity() {
 //        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(com.ltb.orderfoodapp.R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == com.ltb.orderfoodapp.R.id.menu_more) {
-            // Khi nhấn vào nút ba chấm, hiển thị PopupMenu
-            val menuItemView = findViewById<View>(com.ltb.orderfoodapp.R.id.menu_more)
-            showPopupMenu(menuItemView)
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun showPopupMenu(anchor: View) {
-        // Tạo một PopupMenu
-        val popup = PopupMenu(this, anchor)
-
-        // Nạp menu từ file XML
-        popup.menuInflater.inflate(com.ltb.orderfoodapp.R.menu.popup_menu, popup.menu)
-
-        // Đặt sự kiện cho các item trong PopupMenu
-        popup.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                com.ltb.orderfoodapp.R.id.action_edit -> {
-                    Toast.makeText(this, "Edit selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                com.ltb.orderfoodapp.R.id.action_delete -> {
-                    Toast.makeText(this, "Delete selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                com.ltb.orderfoodapp.R.id.action_share -> {
-                    Toast.makeText(this, "Share selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                else -> false
-            }
-        }
-
-        // Hiển thị PopupMenu
-        popup.show()
-    }
 }

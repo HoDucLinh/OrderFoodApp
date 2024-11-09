@@ -33,8 +33,7 @@
         android:textSize="25dp"
         android:layout_gravity="center"
         android:fontFamily="@font/sen_bold"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/darkBG"/>
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,7 +43,7 @@
         android:layout_gravity="center"
         android:fontFamily="@font/sen"
         android:layout_marginTop="10dp"
-        android:textColor="@color/darkBG"/>
+       />
 
     <Button
         android:id="@+id/trackOrder"
