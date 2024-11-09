@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--    DarkTheme-->
-    <style name="Theme_DarkOrderFoodApp" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme_OrderFoodApp" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/orange</item>
         <item name="colorPrimaryVariant">@color/orange</item>
         <item name="colorSecondary">@color/orange</item>

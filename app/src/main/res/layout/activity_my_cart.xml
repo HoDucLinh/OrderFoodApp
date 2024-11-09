@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginTop="@dimen/margin_layoutTop"
     tools:context=".view.MyCart">
 
     <LinearLayout
@@ -19,8 +20,7 @@
             android:id="@+id/backHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/back"
-            android:textColor="@android:color/white" />
+            android:background="@drawable/back" />
 
 
         <TextView
@@ -31,7 +31,6 @@
             android:layout_gravity="center"
             android:text="Cart"
             android:layout_weight="1"
-            android:textColor="@color/white"
             android:textSize="20dp" />
 
         <Button
@@ -58,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
@@ -87,7 +87,6 @@
                     android:layout_margin="7dp"
                     android:fontFamily="@font/sen"
                     android:text="Pizza Calzone European"
-                    android:textColor="@color/white"
                     android:textSize="20dp" />
 
                 <TextView
@@ -95,47 +94,59 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="7dp"
                     android:text="$32"
-                    android:textColor="@color/white"
                     android:textSize="18dp" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <Button
-                    android:layout_width="20dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/remove_24px"
-
-                    />
-
-                <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageButton
+                    android:id="@+id/cancel1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="1"
-                    android:textColor="@color/white"
-                    android:textSize="25dp" />
-
-                <Button
-                    android:layout_width="20dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/add_24px" />
-
-
+                    android:layout_marginBottom="@dimen/margin_button"
+                    android:tag="cancelButton"
+                    android:visibility="visible"
+                    android:background="@drawable/cancel"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_number"
+                    android:paddingHorizontal="@dimen/padding_rounded_number"
+                    android:paddingVertical="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/icon_remove"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sen"
+                        android:layout_marginHorizontal="@dimen/margin_roundedNumber"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_medium"
+                        android:text="2"/>
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/icon_add"/>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
@@ -165,7 +176,6 @@
                     android:layout_margin="7dp"
                     android:fontFamily="@font/sen"
                     android:text="Pizza Calzone European"
-                    android:textColor="@color/white"
                     android:textSize="20dp" />
 
                 <TextView
@@ -173,39 +183,47 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="7dp"
                     android:text="$32"
-                    android:textColor="@color/white"
                     android:textSize="18dp" />
             </LinearLayout>
-
-
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <Button
-                    android:layout_width="20dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/remove_24px"
-
-                    />
-
-                <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageButton
+                    android:id="@+id/cancel2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="1"
-                    android:textColor="@color/white"
-                    android:textSize="25dp" />
-
-                <Button
-                    android:layout_width="20dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/add_24px" />
-
-
+                    android:visibility="visible"
+                    android:tag="cancelButton"
+                    android:layout_marginBottom="@dimen/margin_button"
+                    android:background="@drawable/cancel"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_number"
+                    android:paddingHorizontal="@dimen/padding_rounded_number"
+                    android:paddingVertical="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/icon_remove"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sen"
+                        android:layout_marginHorizontal="@dimen/margin_roundedNumber"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_medium"
+                        android:text="2"/>
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/icon_add"/>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

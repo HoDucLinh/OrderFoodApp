@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/whiteBG"
+    android:layout_marginTop="@dimen/margin_layoutTop"
     tools:context=".view.SignIn">
 
     <TextView
@@ -44,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sen"
+            android:background="@android:color/transparent"
             android:text="Name" />
 
         <EditText
@@ -60,6 +61,7 @@
             android:id="@+id/textUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/sen"
             android:text="Email/Phone" />
 
@@ -77,6 +79,7 @@
             android:id="@+id/textpasswordSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/sen"
             android:text="Password" />
 
@@ -94,6 +97,7 @@
             android:id="@+id/textRePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/sen"
             android:text="Re-Type Password" />
 

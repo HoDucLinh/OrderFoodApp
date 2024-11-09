@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_marginTop="@dimen/margin_layoutTop"
     android:layout_height="match_parent"
-
     tools:context=".view.PersonalInformation">
 
     <LinearLayout
