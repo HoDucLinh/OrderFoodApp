@@ -1,12 +1,18 @@
 package com.ltb.orderfoodapp.viewmodel
 
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.model.Category
+
 
 class CategoryViewModel {
 
     private val category: MutableList<Category> = mutableListOf()
-
+    private lateinit var cate : Category
+//    db.collection("category").add(category).addOnSuccessListener { documentReference ->
+//        Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}") }.addOnFailureListener { e ->
+//        Log.w(TAG, "Error adding document", e) }
     init {
         category.add(Category("Áo phông", 200000, R.drawable.burger))
         category.add(Category("Quần jeans" , 300000, R.drawable.burger))

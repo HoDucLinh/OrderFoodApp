@@ -9,11 +9,12 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.view.FoodDetail
 
-class ProductAdapter(private val context: Context, private val products: List<Product>) : BaseAdapter() {
+class ProductAdapter(private val context: Context, private val products: MutableList<Product>) : BaseAdapter() {
 
     // Trả về số lượng sản phẩm
     override fun getCount(): Int {
@@ -32,7 +33,6 @@ class ProductAdapter(private val context: Context, private val products: List<Pr
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = LayoutInflater.from(context).inflate(R.layout.product, parent, false)
-
         // Kiem cac thanh phan trong layout cua product
         val imgProduct = view.findViewById<ImageView>(R.id.img_product)
         val productName = view.findViewById<TextView>(R.id.product_name)
@@ -43,11 +43,14 @@ class ProductAdapter(private val context: Context, private val products: List<Pr
         // Lay vi tri hien tai
         val product = products[position]
         // Thiet lap giao dien
-        imgProduct.setImageResource(product.imageResource)
+
+        Glide.with(context)
+            .load(product.imageResource)
+            .into(imgProduct);
         productName.text = product.name
         storeName.text = product.storeName
         productPrice.text = product.price.toString()
-        productRating.rating = product.rating.toFloat()
+        productRating.rating = product.rating
 
         view.setOnClickListener {
             openFoodDetail(context, product)
@@ -55,7 +58,11 @@ class ProductAdapter(private val context: Context, private val products: List<Pr
 
         return view
     }
-
+    fun updateData(newProducts: List<Product>) {
+        products.clear()
+        products.addAll(newProducts)
+        notifyDataSetChanged()
+    }
     // Mo trang food detail
     private fun openFoodDetail(context: Context, product: Product) {
         val intent = Intent(context, FoodDetail::class.java)

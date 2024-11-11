@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.play.services.maps)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -78,7 +79,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(platform("com.google.firebase:firebase-bom:33.5.0"))
     implementation("com.google.firebase:firebase-analytics")
+    // Su dung cho welcome de chay coroutines trong vong doi Activity
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+    //
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+
 
 
 }

@@ -51,6 +51,8 @@ class Home : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         darkTheme = findViewById<Switch>(R.id.darkTheme)
+        // fetch data tu firebase
+        productViewModel.fetchData()
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val nightMode = sharedPreferences.getBoolean("night", false)
@@ -63,15 +65,19 @@ class Home : AppCompatActivity() {
             if (nightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         )
 
+        darkTheme.setOnCheckedChangeListener(null) // Loại bỏ listener tạm thời
+        darkTheme.isChecked = nightMode // Thiết lập lại trạng thái của Switch
         darkTheme.setOnCheckedChangeListener { _, isChecked ->
             val newMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
 
+            // Kiểm tra nếu chế độ hiện tại khác với chế độ mong muốn
             if (AppCompatDelegate.getDefaultNightMode() != newMode) {
                 AppCompatDelegate.setDefaultNightMode(newMode)
                 editor.putBoolean("night", isChecked)
                 editor.apply()
             }
         }
+
     }
 
 

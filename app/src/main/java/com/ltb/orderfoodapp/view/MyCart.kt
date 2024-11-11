@@ -1,9 +1,14 @@
 package com.ltb.orderfoodapp.view
 
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.ltb.orderfoodapp.R
@@ -27,10 +32,31 @@ class MyCart : AppCompatActivity() {
             startActivity(payment)
         }
         // Chinh sua item
-        editItems.setOnClickListener{
+
+                editItems.setOnClickListener {
+                    val parentLayout: ViewGroup = findViewById(R.id.parentLayout)
+                    val imageButtonsWithTag = mutableListOf<ImageButton>()
+
+                    // Duyệt qua tất cả các View con trong parentLayout
+                    for (i in 0 until parentLayout.childCount) {
+                        val child = parentLayout.getChildAt(i)
+                        if (child is ImageButton && child.tag == "cancelButton") {
+                            imageButtonsWithTag.add(child)
+                            Log.d("ImageButtonTag", "Found ImageButton with tag: cancelButton")
+                        }
+                    }
+
+                    // Kiểm tra nếu danh sách không rỗng, sau đó đặt visibility
+                    if (imageButtonsWithTag.isNotEmpty()) {
+                        for (imageButton in imageButtonsWithTag) {
+                            imageButton.visibility = View.VISIBLE
+                        }
+                    } else {
+                        Log.d("ImageButtonTag", "No ImageButton found with tag: cancelButton")
+                    }
+                }
 
 
-        }
 
 
     }
