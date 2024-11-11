@@ -20,7 +20,7 @@ class AddCard : AppCompatActivity() {
         val addMakePayment = findViewById<Button>(R.id.addMakePayment)
         // Close tab
         close.setOnClickListener{
-            val paymenMethodNoMC = Intent(this,PaymentMethodNoMC::class.java)
+            val paymenMethodNoMC = Intent(this,PaymentMethod::class.java)
             startActivity(paymenMethodNoMC)
         }
         // Add Card

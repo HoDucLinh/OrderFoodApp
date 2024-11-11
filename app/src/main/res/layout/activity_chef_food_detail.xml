@@ -27,37 +27,34 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_layout">
 
                 <ImageButton
-                    android:id="@+id/back"
+                    android:id="@+id/close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_back"
-                    android:background="@color/white"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginLeft="0dp"
+                    android:background="@drawable/close" />
 
                 <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Item Details"
-                    android:layout_marginLeft="20dp"
-                    android:textFontWeight="500"
-                    android:textSize="20dp"/>
-
-                <Button
-                    android:id="@+id/button4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="180dp"
-                    android:text="Edit"
-                    android:textColor="@color/orange"
-                    android:background="@color/white"/>
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/sen"
+                    android:text="Item Detail"
+                    android:textColor="@color/darkBG"
+                    android:textSize="18dp"
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -78,7 +75,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -146,7 +144,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="360dp"
+            android:layout_height="287dp"
             android:layout_marginTop="15dp"
             android:orientation="vertical">
 
@@ -157,13 +155,19 @@
                 android:text="Description"
                 android:textFontWeight="500"
                 android:textSize="18dp"
-                />
+                android:layout_marginLeft="10dp"/>
 
-            <TextView
-                android:id="@+id/textView27"
+            <EditText
+                android:id="@+id/TextText"
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
-                android:text="TextView" />
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_margin="10dp"
+                android:padding="20dp"
+                android:background="@drawable/rounded_linear_layout"
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                />
 
         </LinearLayout>
         <LinearLayout
@@ -193,7 +197,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 app:srcCompat="@drawable/ic_menu_24"
                 android:padding="8dp"
-                android:tint="@android:color/darker_gray" />
+                />
 
             <!-- Icon 3: Add (Center) -->
             <ImageButton
@@ -204,7 +208,6 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 app:srcCompat="@drawable/ic_add"
                 android:padding="8dp"
-                android:tint="@android:color/holo_orange_light"
                 android:backgroundTint="@android:color/white"
                 android:elevation="4dp"
                 android:layout_margin="4dp"
@@ -219,7 +222,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 app:srcCompat="@drawable/ic_notifications"
                 android:padding="8dp"
-                android:tint="@android:color/darker_gray" />
+                 />
 
             <!-- Icon 5: Profile -->
             <ImageButton
@@ -230,7 +233,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 app:srcCompat="@drawable/ic_person"
                 android:padding="8dp"
-                android:tint="@android:color/darker_gray" />
+                 />
 
         </LinearLayout>
 

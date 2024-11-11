@@ -172,6 +172,7 @@
                     android:textColor="@color/textDark" />
 
                 <TextView
+                    android:id="@+id/notification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/WhisperWhite"
@@ -186,6 +187,7 @@
                     android:textColor="@color/textDark" />
 
                 <TextView
+                    android:id="@+id/paymentmethod"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/WhisperWhite"

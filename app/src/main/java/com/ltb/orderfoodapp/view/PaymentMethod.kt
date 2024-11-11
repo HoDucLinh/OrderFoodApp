@@ -38,14 +38,20 @@ class PaymentMethod : AppCompatActivity() {
 
         val paymentConfirm = findViewById<Button>(R.id.paymentConfirm)
         val backCart = findViewById<ImageButton>(R.id.backCart)
+        val addnew = findViewById<Button>(R.id.addnew)
+
 
         paymentConfirm.setOnClickListener{
             val paymentSuccess = Intent(this,PaymentSuccess::class.java)
             startActivity(paymentSuccess)
         }
         backCart.setOnClickListener{
-            val backCart = Intent(this,MyCart::class.java)
+            val backCart = Intent(this,MyMainMenu::class.java)
             startActivity(backCart)
+        }
+        addnew.setOnClickListener{
+            val addNew = Intent(this,AddCard::class.java)
+            startActivity(addNew)
         }
 
     }

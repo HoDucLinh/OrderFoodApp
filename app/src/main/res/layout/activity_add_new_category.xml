@@ -19,37 +19,32 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_layout"
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/back"
+                android:id="@+id/close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                app:srcCompat="@drawable/ic_back"
-                android:background="@color/white"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="0dp"
+                android:background="@drawable/close" />
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/sen"
                 android:text="Add New Category"
-                android:textFontWeight="500"
-                android:layout_marginLeft="20dp"
-                android:textSize="20dp"/>
-
+                android:textSize="18dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:textColor="@color/darkBG"/>
             <Button
-                android:id="@+id/button9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Reset"
-                android:textColor="@color/orange"
-                android:layout_marginLeft="130dp"
-                android:background="@color/white"/>
+                />
 
         </LinearLayout>
 
@@ -65,13 +60,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="CATEGORY NAME"
-                android:textFontWeight="500" />
+                android:textFontWeight="500"
+                android:layout_marginLeft="10dp"
+                />
 
             <EditText
                 android:id="@+id/editTextText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:layout_margin="10dp"
+                android:padding="20dp"
+                android:background="@drawable/rounded_linear_layout"
                 android:hint="Please input name of category"
                 android:inputType="text" />
 
@@ -88,7 +88,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="UPLOAD PHOTO/VIDEO"
-                android:textFontWeight="500"/>
+                android:textFontWeight="500"
+                android:layout_marginLeft="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -129,7 +130,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="310dp"
+            android:layout_height="214dp"
             android:orientation="vertical">
 
             <TextView
@@ -137,15 +138,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="DESCRIPTION"
-                android:textFontWeight="500" />
+                android:textFontWeight="500"
+                android:layout_marginLeft="10dp"/>
 
             <EditText
-                android:id="@+id/editTextTextMultiLine"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine" />
+                android:layout_margin="10dp"
+                android:padding="20dp"
+                android:background="@drawable/rounded_linear_layout"
+                android:hint="Please input description of category"
+                android:inputType="textMultiLine"/>
 
         </LinearLayout>
 

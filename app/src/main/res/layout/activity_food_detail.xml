@@ -105,22 +105,34 @@
     </RelativeLayout>
 
     <TextView
+        android:layout_marginTop="10dp"
         android:id="@+id/storeName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Uttora Coffe House" />
+        android:text="Uttora Coffe House"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"
+        android:textSize="18dp"/>
 
     <TextView
         android:id="@+id/productName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="pizza calzone european" />
+        android:text="Pizza calzone european"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
 
     <TextView
         android:id="@+id/productDes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Prosciutto e funghi is a pizza variety that is topped with tomato sauce." />
+        android:text="Prosciutto e funghi is a pizza variety that is topped with tomato sauce."
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -212,10 +224,12 @@
                 android:gravity="center"
                 android:orientation="horizontal">
                 <ImageButton
+                    android:id="@+id/buttongiam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/icon_remove"/>
                 <TextView
+                    android:id="@+id/txtSoLuong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sen"
@@ -223,8 +237,9 @@
                     android:background="@android:color/transparent"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_medium"
-                    android:text="2"/>
+                    android:text="0"/>
                 <ImageButton
+                    android:id="@+id/buttontang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/icon_add"/>

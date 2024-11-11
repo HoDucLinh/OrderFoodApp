@@ -64,15 +64,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginRight="10dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="HOME"
                         android:fontFamily="@font/sen_bold"
-                        android:textSize="20dp"/>
+                        android:textSize="20dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="5dp"/>
 
                     <ImageButton
+                        android:id="@+id/edit1"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/edit_24px"
@@ -80,6 +84,7 @@
                         />
 
                     <ImageButton
+                        android:id="@+id/delete1"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/delete_24px"
@@ -93,6 +98,7 @@
                     android:text="2464 Royal Ln. Mesa, New Jersey 45463"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/sen"
+                    android:layout_marginLeft="5dp"
                     />
             </LinearLayout>
 
@@ -121,28 +127,32 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="WORK"
+                        android:layout_weight="1"
                         android:fontFamily="@font/sen_bold"
-                        android:textSize="20dp"/>
+                        android:text="WORK"
+                        android:textSize="20dp" />
 
                     <ImageButton
+                        android:id="@+id/edit2"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:background="@drawable/edit_24px"
                         android:layout_marginLeft="150dp"
-                        />
+                        android:background="@drawable/edit_24px" />
 
                     <ImageButton
+                        android:id="@+id/delete2"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:background="@drawable/delete_24px"
                         android:layout_marginLeft="8dp"
-                        />
+                        android:background="@drawable/delete_24px" />
                 </LinearLayout>
 
                 <TextView
@@ -151,6 +161,7 @@
                     android:text="3891 Ranchview Dr. Richardson, California 62639"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/sen"
+                    android:layout_marginLeft="5dp"
                     />
             </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.ltb.orderfoodapp.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
@@ -11,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.ltb.orderfoodapp.R
 
 class MyMainMenu : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -31,11 +33,23 @@ class MyMainMenu : AppCompatActivity() {
             val myOrders = Intent(this, MyOrder::class.java)
             startActivity(myOrders)
         }
-        // Chuyen sang my orders
+        // Chuyen sang my address
         val address = findViewById<TextView>(R.id.address)
         address.setOnClickListener{
             val editAddress = Intent(this, MyAddress::class.java)
             startActivity(editAddress)
         }
+        // Chuyen sang notification
+        val notification = findViewById<TextView>(R.id.notification)
+        notification.setOnClickListener{
+            val notification = Intent(this, Notification::class.java)
+            startActivity(notification)
+        }
+        val paymentmethod = findViewById<TextView>(R.id.paymentmethod)
+        paymentmethod.setOnClickListener{
+            val paymentmethod = Intent(this, PaymentMethod::class.java)
+            startActivity(paymentmethod)
+        }
+
     }
 }

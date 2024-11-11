@@ -19,6 +19,7 @@
             android:background="#D0D9E1" />
 
         <ImageButton
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -159,14 +160,17 @@
         android:gravity="center">
 
         <Button
+            android:id="@+id/btHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/orange"
             android:text="Home"
             android:textSize="16dp"
             android:layout_margin="16dp"
+            android:textColor="@color/textDark"
             />
         <Button
+            android:id="@+id/btWork"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#D0D9E1"
@@ -176,6 +180,7 @@
             android:layout_margin="16dp"
             />
         <Button
+            android:id="@+id/btOther"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#D0D9E1"
