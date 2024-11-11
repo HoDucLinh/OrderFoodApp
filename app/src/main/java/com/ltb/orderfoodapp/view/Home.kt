@@ -65,7 +65,6 @@ class Home : AppCompatActivity() {
             if (nightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         )
 
-        darkTheme.setOnCheckedChangeListener(null) // Loại bỏ listener tạm thời
         darkTheme.isChecked = nightMode // Thiết lập lại trạng thái của Switch
         darkTheme.setOnCheckedChangeListener { _, isChecked ->
             val newMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO

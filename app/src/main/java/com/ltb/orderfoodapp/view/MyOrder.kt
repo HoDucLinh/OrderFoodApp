@@ -30,15 +30,11 @@ class MyOrder : AppCompatActivity() {
         val backMainMenu = findViewById<ImageButton>(R.id.backMainMenu)
         val tabLayout = findViewById<TabLayout>(com.ltb.orderfoodapp.R.id.tabLayout)
         val viewPager = findViewById<ViewPager2>(com.ltb.orderfoodapp.R.id.viewPager)
-//        val toolbar = findViewById<Toolbar>(com.ltb.orderfoodapp.R.id.toolbar)
         // Back main menu
         backMainMenu.setOnClickListener{
             val mainMenu = Intent(this,MyMainMenu::class.java)
             startActivity(mainMenu)
         }
-//        setSupportActionBar(toolbar)
-//        supportActionBar?.title = ""
-
         // Thiết lập adapter cho ViewPager2
         val adapter = ViewPagerAdapter(this)
         viewPager.adapter = adapter

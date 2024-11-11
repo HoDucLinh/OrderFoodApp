@@ -69,7 +69,7 @@
         android:drawableLeft="@drawable/search"
         android:drawableRight="@drawable/close"
         android:padding="@dimen/padding_input_login"
-        android:background="@drawable/search_bg"
+        android:background="@drawable/border_search"
         android:inputType="text"
         android:drawablePadding="@dimen/margin_input_login"
         android:hint="Search dishes, restaurants"/>
