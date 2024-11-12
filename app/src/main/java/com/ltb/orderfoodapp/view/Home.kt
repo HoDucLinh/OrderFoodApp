@@ -19,10 +19,10 @@ class Home : AppCompatActivity() {
     private lateinit var darkTheme : Switch
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
         productViewModel = ProductViewModel()
         productViewModel.fetchData()
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_home)
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
@@ -51,32 +51,30 @@ class Home : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         darkTheme = findViewById<Switch>(R.id.darkTheme)
-        // fetch data tu firebase
-        productViewModel.fetchData()
         setupGridView()
-//        val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//        val nightMode = sharedPreferences.getBoolean("night", false)
-//
-//        if (nightMode != darkTheme.isChecked) {
-//            darkTheme.isChecked = nightMode
-//        }
-//
-//        AppCompatDelegate.setDefaultNightMode(
-//            if (nightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-//        )
-//
-//        darkTheme.isChecked = nightMode // Thiết lập lại trạng thái của Switch
-//        darkTheme.setOnCheckedChangeListener { _, isChecked ->
-//            val newMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-//
-//            // Kiểm tra nếu chế độ hiện tại khác với chế độ mong muốn
-//            if (AppCompatDelegate.getDefaultNightMode() != newMode) {
-//                AppCompatDelegate.setDefaultNightMode(newMode)
-//                editor.putBoolean("night", isChecked)
-//                editor.apply()
-//            }
-//        }
+        val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val nightMode = sharedPreferences.getBoolean("night", false)
+
+        if (nightMode != darkTheme.isChecked) {
+            darkTheme.isChecked = nightMode
+        }
+
+        AppCompatDelegate.setDefaultNightMode(
+            if (nightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        )
+
+        darkTheme.isChecked = nightMode // Thiết lập lại trạng thái của Switch
+        darkTheme.setOnCheckedChangeListener { _, isChecked ->
+            val newMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+
+            // Kiểm tra nếu chế độ hiện tại khác với chế độ mong muốn
+            if (AppCompatDelegate.getDefaultNightMode() != newMode) {
+                AppCompatDelegate.setDefaultNightMode(newMode)
+                editor.putBoolean("night", isChecked)
+                editor.apply()
+            }
+        }
 
     }
 
