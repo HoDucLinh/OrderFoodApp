@@ -77,8 +77,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation(platform("com.google.firebase:firebase-bom:33.5.0"))
-    implementation("com.google.firebase:firebase-analytics")
     // Su dung cho welcome de chay coroutines trong vong doi Activity
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
     //

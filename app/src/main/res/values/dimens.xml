@@ -47,4 +47,6 @@
     <dimen name="rounded_number">100dp</dimen>
     <dimen name="padding_rounded_number">10dp</dimen>
     <dimen name="margin_roundedNumber">5dp</dimen>
+<!--    search-->
+    <dimen name="margin_search">12dp</dimen>
 </resources>

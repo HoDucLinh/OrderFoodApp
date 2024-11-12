@@ -1,7 +1,5 @@
 package com.ltb.orderfoodapp.viewmodel
 
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.firestore
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.model.Category
 

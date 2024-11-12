@@ -58,11 +58,6 @@ class ProductAdapter(private val context: Context, private val products: Mutable
 
         return view
     }
-    fun updateData(newProducts: List<Product>) {
-        products.clear()
-        products.addAll(newProducts)
-        notifyDataSetChanged()
-    }
     // Mo trang food detail
     private fun openFoodDetail(context: Context, product: Product) {
         val intent = Intent(context, FoodDetail::class.java)
