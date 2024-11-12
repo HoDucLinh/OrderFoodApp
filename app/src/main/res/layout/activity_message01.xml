@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/cross"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cross"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Robert Fox"
+            android:textSize="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16sp"
+            android:background="@color/white"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/timestamp1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8:10 pm"
+            android:textSize="12sp"
+            android:textColor="#888"
+            android:layout_centerHorizontal="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right">
+            <TextView
+                android:id="@+id/message1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_message_background_orange"
+                android:padding="10dp"
+                android:text="Are you coming?"
+                android:textColor="@android:color/white"
+                android:layout_below="@id/timestamp1"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="4dp"
+                />
+
+            <ImageView
+                android:id="@+id/avatar1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/profile_2"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="10dp"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Tin nhắn thứ hai -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/timestamp2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8:11 pm"
+            android:textSize="12sp"
+            android:textColor="#888"
+            android:layout_centerHorizontal="true"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/avatar2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/courier_boy_profile"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/message2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_message_background_gray"
+                android:padding="10dp"
+                android:text="Hay, Congratulation for order"
+                android:textColor="@android:color/black"
+                android:layout_below="@id/timestamp2"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="4dp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/timestamp3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8:11 pm"
+            android:textSize="12sp"
+            android:textColor="#888"
+            android:layout_centerHorizontal="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right">
+            <TextView
+                android:id="@+id/message3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_message_background_orange"
+                android:padding="10dp"
+                android:text="Hey Where are you now?"
+                android:textColor="@android:color/white"
+                android:layout_below="@id/timestamp1"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="4dp"
+                />
+
+            <ImageView
+                android:id="@+id/avatar3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/profile_2"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="10dp"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Tin nhắn thứ hai -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/timestamp4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8:12 pm"
+            android:textSize="12sp"
+            android:textColor="#888"
+            android:layout_centerHorizontal="true"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/avatar4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/courier_boy_profile"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/message4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_message_background_gray"
+                android:padding="10dp"
+                android:text="I’m Coming , just wait ..."
+                android:textColor="@android:color/black"
+                android:layout_below="@id/timestamp2"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="4dp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/timestamp5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8:12 pm"
+            android:textSize="12sp"
+            android:textColor="#888"
+            android:layout_centerHorizontal="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right">
+            <TextView
+                android:id="@+id/message5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_message_background_orange"
+                android:padding="10dp"
+                android:text="Hurry Up, Man"
+                android:textColor="@android:color/white"
+                android:layout_below="@id/timestamp1"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="4dp"
+                />
+
+            <ImageView
+                android:id="@+id/avatar5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/profile_2"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="10dp"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="8dp"
+        android:layout_marginTop="200dp">
+
+        <!-- Button mặt cười -->
+        <ImageButton
+            android:id="@+id/btnEmoji"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/smile"
+            android:background="?attr/selectableItemBackground"
+            android:layout_alignParentStart="true"
+            android:contentDescription="Emoji button"/>
+
+        <!-- EditText -->
+        <EditText
+            android:id="@+id/editTextMessage"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_toEndOf="@id/btnEmoji"
+            android:layout_toStartOf="@id/btnSend"
+            android:hint="Write something"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:background="@drawable/rounded_edittext_background"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Button máy bay -->
+        <ImageButton
+            android:id="@+id/btnSend"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/send_icon"
+            android:background="?attr/selectableItemBackground"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="Send button"/>
+
+    </RelativeLayout>
+
+
+
+    <!-- Thêm các tin nhắn tiếp theo theo cùng cấu trúc -->
+
+</LinearLayout>
