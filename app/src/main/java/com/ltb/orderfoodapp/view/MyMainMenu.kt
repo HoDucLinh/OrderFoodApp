@@ -50,6 +50,12 @@ class MyMainMenu : AppCompatActivity() {
             val paymentmethod = Intent(this, PaymentMethod::class.java)
             startActivity(paymentmethod)
         }
+        // Chuyen sang sign in
+        val logout = findViewById<TextView>(R.id.logout)
+        logout.setOnClickListener{
+            val login = Intent(this, SignIn::class.java)
+            startActivity(login)
+        }
 
     }
 }

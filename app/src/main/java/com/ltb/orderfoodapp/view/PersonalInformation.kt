@@ -2,6 +2,7 @@ package com.ltb.orderfoodapp.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -22,7 +23,7 @@ class PersonalInformation : AppCompatActivity() {
 
         }
         // Chuyen sang tab edit
-        val editInfor = findViewById<TextView>(R.id.editInfor)
+        val editInfor = findViewById<Button>(R.id.editInfor)
         editInfor.setOnClickListener{
             val editInfor = Intent(this,EditProfile::class.java)
             startActivity(editInfor)

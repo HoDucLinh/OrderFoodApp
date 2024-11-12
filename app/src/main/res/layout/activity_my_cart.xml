@@ -121,10 +121,12 @@
                     android:gravity="center"
                     android:orientation="horizontal">
                     <ImageButton
+                        android:id="@+id/btgiam"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/icon_remove"/>
                     <TextView
+                        android:id="@+id/soluong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sen"
@@ -134,6 +136,7 @@
                         android:textSize="@dimen/font_size_medium"
                         android:text="2"/>
                     <ImageButton
+                        android:id="@+id/bttang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/icon_add"/>

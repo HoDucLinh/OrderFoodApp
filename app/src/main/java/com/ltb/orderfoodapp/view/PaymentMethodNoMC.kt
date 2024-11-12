@@ -47,6 +47,11 @@ class PaymentMethodNoMC : AppCompatActivity() {
             val addCard = Intent(this, AddCard::class.java)
             startActivity(addCard)
         }
+        val paymentconfirm = findViewById<Button>(R.id.paymentConfirm);
+        paymentconfirm.setOnClickListener{
+            val paymentsuccess = Intent (this,PaymentSuccess::class.java)
+            startActivity(paymentsuccess)
+        }
     }
 
     // Hàm thiết lập trạng thái chọn cho một nút
@@ -60,4 +65,7 @@ class PaymentMethodNoMC : AppCompatActivity() {
         // Đặt nút được chọn
         selectedButton.isSelected = true
     }
+
+
+
 }
