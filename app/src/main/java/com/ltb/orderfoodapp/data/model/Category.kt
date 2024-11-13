@@ -1,7 +1,9 @@
 package com.ltb.orderfoodapp.data.model
 
 data class Category (
+        var id_category : String,
         val name: String,
-        val minPrice: Int,
-        val imageResource: Int,
-)
+        var description : String
+){
+        constructor() : this("","","")
+}

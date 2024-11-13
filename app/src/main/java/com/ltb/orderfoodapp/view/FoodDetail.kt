@@ -20,7 +20,7 @@ class FoodDetail : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_food_detail)
-        getProductInfor()
+//        getProductInfor()
         setProductInfor()
         val addToCart = findViewById<Button>(R.id.addCart)
         val backMain = findViewById<ImageView>(R.id.backMain)
@@ -58,19 +58,19 @@ class FoodDetail : AppCompatActivity() {
 
     }
 
-    fun getProductInfor() {
-        // Lấy giá trị từ Intent và gán cho các thuộc tính
-        val name = intent.getStringExtra("name") ?: ""
-        val storeName = intent.getStringExtra("storeName") ?: ""
-        val price = intent.getIntExtra("price", 0)
-        val imageResource = intent.getStringExtra("imageResource") ?: ""  // Chú ý: imageResource giờ là String
-        val rating = intent.getFloatExtra("rating", 0f)  // Sử dụng getFloatExtra thay vì getIntExtra
-        val category = intent.getStringExtra("category") ?: ""  // Thuộc tính category
-        val description = intent.getStringExtra("description") ?: ""  // Thuộc tính description
-
-        // Tạo đối tượng Product với các giá trị đã lấy
-        val product = Product(name, storeName, price, imageResource, rating, category, description)
-    }
+//    fun getProductInfor() {
+//        // Lấy giá trị từ Intent và gán cho các thuộc tính
+//        val name = intent.getStringExtra("name") ?: ""
+//        val storeName = intent.getStringExtra("storeName") ?: ""
+//        val price = intent.getIntExtra("price", 0.0)
+//        val imageResource = intent.getStringExtra("imageResource") ?: ""  // Chú ý: imageResource giờ là String
+//        val rating = intent.getFloatExtra("rating", 0f)  // Sử dụng getFloatExtra thay vì getIntExtra
+//        val category = intent.getStringExtra("category") ?: ""  // Thuộc tính category
+//        val description = intent.getStringExtra("description") ?: ""  // Thuộc tính description
+//
+//        // Tạo đối tượng Product với các giá trị đã lấy
+//        val product = Product(name, storeName, price, imageResource, rating, category, description)
+//    }
 
 
     fun setProductInfor() {
