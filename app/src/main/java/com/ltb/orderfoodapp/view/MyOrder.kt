@@ -17,15 +17,16 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ViewPagerAdapter
+import com.ltb.orderfoodapp.data.model.DatabaseHelper
 
 class MyOrder : AppCompatActivity() {
-
+    private lateinit var dbHelper: DatabaseHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(com.ltb.orderfoodapp.R.layout.activity_my_order)
 //        setContentView(R.layout.fragment_ongoing)
-
+        dbHelper = DatabaseHelper(this)
 //        ordersContainer = findViewById(R.id.ordersContainer)
         val backMainMenu = findViewById<ImageButton>(R.id.backMainMenu)
         val tabLayout = findViewById<TabLayout>(com.ltb.orderfoodapp.R.id.tabLayout)

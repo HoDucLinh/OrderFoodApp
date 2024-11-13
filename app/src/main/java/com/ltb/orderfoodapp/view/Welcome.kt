@@ -11,13 +11,15 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.*
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.data.model.DatabaseHelper
 
 class Welcome : AppCompatActivity() {
+    private lateinit var dbHelper: DatabaseHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_welcome)
-
+        dbHelper = DatabaseHelper(this)
         lifecycleScope.launch {
             delay(3000)
             val intent = Intent(this@Welcome, Onboarding::class.java)
