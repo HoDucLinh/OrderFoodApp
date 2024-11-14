@@ -20,7 +20,7 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         productViewModel = ProductViewModel()
-        productViewModel.fetchData()
+//        productViewModel.fetchData()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         val nextSearch = findViewById<TextView>(R.id.txtSearch)

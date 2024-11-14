@@ -20,6 +20,9 @@ class Welcome : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_welcome)
         dbHelper = DatabaseHelper(this)
+        dbHelper.writableDatabase
+//        dbHelper.readableDatabase
+
         lifecycleScope.launch {
             delay(3000)
             val intent = Intent(this@Welcome, Onboarding::class.java)

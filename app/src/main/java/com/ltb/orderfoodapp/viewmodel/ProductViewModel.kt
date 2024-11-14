@@ -115,31 +115,31 @@ class ProductViewModel {
 //        products.addAll(listOf(product1, product2, product3, product4, product5, product6, product7, product8, product9, product10))
 //    }
 
-    fun fetchData() {
-        db.collection("products")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val product = document.toObject(Product::class.java)
-                    products.add(product)
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("ProductViewModel", "Error getting documents.", exception)
-            }
-    }
-    public fun addtoFirebase(){
-        for (product in products) {
-            db.collection("products")
-                .add(product)
-                .addOnSuccessListener { documentReference ->
-                    Log.d("TAG", "Product added with ID: ${documentReference.id}")
-                }
-                .addOnFailureListener { e ->
-                    Log.w("TAG", "Error adding product", e)
-                }
-        }
-    }
+//    fun fetchData() {
+//        db.collection("products")
+//            .get()
+//            .addOnSuccessListener { result ->
+//                for (document in result) {
+//                    val product = document.toObject(Product::class.java)
+//                    products.add(product)
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.w("ProductViewModel", "Error getting documents.", exception)
+//            }
+//    }
+//    public fun addtoFirebase(){
+//        for (product in products) {
+//            db.collection("products")
+//                .add(product)
+//                .addOnSuccessListener { documentReference ->
+//                    Log.d("TAG", "Product added with ID: ${documentReference.id}")
+//                }
+//                .addOnFailureListener { e ->
+//                    Log.w("TAG", "Error adding product", e)
+//                }
+//        }
+//    }
     fun getProducts(): MutableList<Product> {
         return products
     }
