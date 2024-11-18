@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.ltb.orderfoodapp.data.model.DatabaseHelper
+import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.model.Product
 
 class ProductDAO(context: Context) {
@@ -40,6 +40,7 @@ class ProductDAO(context: Context) {
         cursor.use {
             while (it.moveToNext()) {
                 val product = Product(
+                    it.getInt(it.getColumnIndexOrThrow("id")),
                     it.getString(it.getColumnIndexOrThrow("name")),
                     it.getString(it.getColumnIndexOrThrow("storeName")),
                     it.getInt(it.getColumnIndexOrThrow("price")),

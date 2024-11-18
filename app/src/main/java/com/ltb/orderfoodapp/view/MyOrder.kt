@@ -2,22 +2,15 @@ package com.ltb.orderfoodapp.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.PopupMenu
-import androidx.appcompat.widget.Toolbar
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ViewPagerAdapter
-import com.ltb.orderfoodapp.data.model.DatabaseHelper
+import com.ltb.orderfoodapp.data.DatabaseHelper
 
 class MyOrder : AppCompatActivity() {
     private lateinit var dbHelper: DatabaseHelper

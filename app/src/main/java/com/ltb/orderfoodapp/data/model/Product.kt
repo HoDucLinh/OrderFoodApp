@@ -1,6 +1,7 @@
 package com.ltb.orderfoodapp.data.model
 
 open class Product(
+    var id: Int,
     var name: String,
     var storeName: String,
     var price: Int,
@@ -9,5 +10,5 @@ open class Product(
     var category: String,
     var description: String
 ) {
-    constructor() : this("", "", 0, "", 0f, "", "")
+    constructor() : this(0, "", "", 0, "", 0f, "", "")
 }

@@ -1,17 +1,15 @@
 package com.ltb.orderfoodapp.view
 
-import ProductViewModel
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Switch
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.*
 import com.ltb.orderfoodapp.R
-import com.ltb.orderfoodapp.data.model.DatabaseHelper
+import com.ltb.orderfoodapp.data.DatabaseHelper
 
 class Welcome : AppCompatActivity() {
     private lateinit var dbHelper: DatabaseHelper

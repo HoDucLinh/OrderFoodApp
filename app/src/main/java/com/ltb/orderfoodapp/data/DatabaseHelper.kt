@@ -1,4 +1,4 @@
-package com.ltb.orderfoodapp.data.model
+package com.ltb.orderfoodapp.data
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
