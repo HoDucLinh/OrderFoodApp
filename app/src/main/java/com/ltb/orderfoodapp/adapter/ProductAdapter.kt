@@ -11,10 +11,15 @@ import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.data.dao.ImageDAO
+import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.view.FoodDetail
 
-class ProductAdapter(private val context: Context, private val products: MutableList<Product>) : BaseAdapter() {
+class ProductAdapter(
+    private val context: Context,
+    private val products: MutableList<Product>,
+) : BaseAdapter() {
 
     // Trả về số lượng sản phẩm
     override fun getCount(): Int {
@@ -32,6 +37,11 @@ class ProductAdapter(private val context: Context, private val products: Mutable
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        if (products.isEmpty() || position < 0 || position >= products.size) {
+            return TextView(parent?.context).apply {
+                text = "No product"
+            }
+        }
         val view = LayoutInflater.from(context).inflate(R.layout.product, parent, false)
         // Kiem cac thanh phan trong layout cua product
         val imgProduct = view.findViewById<ImageView>(R.id.img_product)
@@ -43,29 +53,28 @@ class ProductAdapter(private val context: Context, private val products: Mutable
         // Lay vi tri hien tai
         val product = products[position]
         // Thiet lap giao dien
-
         Glide.with(context)
-            .load(product.imageResource)
+            .load(product.images[0])
             .into(imgProduct);
         productName.text = product.name
-        storeName.text = product.storeName
+        storeName.text = product.restaurant
         productPrice.text = product.price.toString()
         productRating.rating = product.rating
 
-        view.setOnClickListener {
-            openFoodDetail(context, product)
-        }
+//        view.setOnClickListener {
+//            openFoodDetail(context, product)
+//        }
 
         return view
     }
     // Mo trang food detail
-    private fun openFoodDetail(context: Context, product: Product) {
-        val intent = Intent(context, FoodDetail::class.java)
-        intent.putExtra("imageResource", product.imageResource)
-        intent.putExtra("name", product.name)
-        intent.putExtra("storeName", product.storeName)
-        intent.putExtra("price", product.price)
-        intent.putExtra("rating", product.rating)
-        context.startActivity(intent)
-    }
+//    private fun openFoodDetail(context: Context, product: Product) {
+//        val intent = Intent(context, FoodDetail::class.java)
+//        intent.putExtra("imageResource", product.imageResource)
+//        intent.putExtra("name", product.name)
+//        intent.putExtra("storeName", product.storeName)
+//        intent.putExtra("price", product.price)
+//        intent.putExtra("rating", product.rating)
+//        context.startActivity(intent)
+//    }
 }

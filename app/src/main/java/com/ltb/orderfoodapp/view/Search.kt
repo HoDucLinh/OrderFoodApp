@@ -1,6 +1,5 @@
 package com.ltb.orderfoodapp.view
 
-import ProductViewModel
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -13,11 +12,10 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductAdapter
 import com.ltb.orderfoodapp.viewmodel.CategoryViewModel
+import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class Search : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
@@ -25,7 +23,7 @@ class Search : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_search)
-        productViewModel = ProductViewModel()
+        productViewModel = ProductViewModel(this)
         setupGridView()
         val backHome = findViewById<ImageButton>(R.id.backHome)
         backHome.setOnClickListener{

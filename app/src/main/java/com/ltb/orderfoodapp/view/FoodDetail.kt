@@ -69,7 +69,7 @@ class FoodDetail : AppCompatActivity() {
         val description = intent.getStringExtra("description") ?: ""  // Thuộc tính description
 
         // Tạo đối tượng Product với các giá trị đã lấy
-        val product = Product(name, storeName, price, imageResource, rating, category, description)
+//        val product = Product(name, storeName, price, imageResource, rating, category, description)
     }
 
 

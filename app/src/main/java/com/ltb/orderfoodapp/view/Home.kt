@@ -1,6 +1,5 @@
 package com.ltb.orderfoodapp.view
 
-import ProductViewModel
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -13,19 +12,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductAdapter
+import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class Home : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
     private lateinit var darkTheme : Switch
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        productViewModel = ProductViewModel()
-//        productViewModel.fetchData()
+        productViewModel = ProductViewModel(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
+        productViewModel.getProducts()
 
 //        render product
 

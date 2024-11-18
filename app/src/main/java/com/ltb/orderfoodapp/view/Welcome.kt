@@ -2,6 +2,7 @@ package com.ltb.orderfoodapp.view
 
 import android.content.Context
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,16 +11,21 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.*
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.DatabaseHelper
+import com.ltb.orderfoodapp.data.dao.ProductDAO
 
 class Welcome : AppCompatActivity() {
     private lateinit var dbHelper: DatabaseHelper
+    private lateinit var db: SQLiteDatabase
+    private lateinit var productDAO: ProductDAO
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_welcome)
         dbHelper = DatabaseHelper(this)
-        dbHelper.writableDatabase
-//        dbHelper.readableDatabase
+        db = dbHelper.writableDatabase
+        productDAO = ProductDAO(this)
+        productDAO.demo()
+        dbHelper.readableDatabase
 
         lifecycleScope.launch {
             delay(3000)

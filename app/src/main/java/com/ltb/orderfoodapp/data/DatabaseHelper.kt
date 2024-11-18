@@ -15,7 +15,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val TABLE_PRODUCT = "Product"
         private const val TABLE_IMAGE = "Image"
         private const val TABLE_ADDRESS_USER = "AddressOfUser"
-        private const val TABLE_ADDRESS_RESTAURANT = "AddressOfRestaurant"
         private const val TABLE_RESTAURANT = "Restaurant"
         private const val TABLE_USER = "User"
         private const val TABLE_ROLE = "Role"
@@ -36,7 +35,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(CREATE_PRODUCT_TABLE)
         db.execSQL(CREATE_IMAGE_TABLE)
         db.execSQL(CREATE_ADDRESS_USER_TABLE)
-        db.execSQL(CREATE_ADDRESS_RESTAURANT_TABLE)
         db.execSQL(CREATE_RESTAURANT_TABLE)
         db.execSQL(CREATE_USER_TABLE)
         db.execSQL(CREATE_ROLE_TABLE)
@@ -51,27 +49,30 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(CREATE_PRODUCT_CART_TABLE)
     }
 
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        // Xóa bảng nếu tồn tại và tạo lại bảng
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_CATEGORY")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCT")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_IMAGE")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_ADDRESS_USER")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_ADDRESS_RESTAURANT")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_RESTAURANT")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_USER")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_ROLE")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_ACCOUNT")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_STATUS")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_STATUS")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_DETAIL")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_REVIEW_ORDER")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_REVIEW_RESTAURANT")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_CART")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCT_CART")
-        onCreate(db)
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        TODO("Not yet implemented")
     }
+
+//    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+//        // Xóa bảng nếu tồn tại và tạo lại bảng
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_CATEGORY")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCT")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_IMAGE")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_ADDRESS_USER")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_RESTAURANT")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_USER")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_ROLE")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_ACCOUNT")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_STATUS")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_STATUS")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_DETAIL")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_REVIEW_ORDER")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_REVIEW_RESTAURANT")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_CART")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCT_CART")
+//        onCreate(db)
+//    }
 
     // Tạo các bảng
     private val CREATE_CATEGORY_TABLE = """
@@ -87,6 +88,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             Name TEXT NOT NULL,
             Price REAL NOT NULL,
+            Rating REAL NOT NULL,
             Description TEXT,
             Category_ID INTEGER,
             Restaurant_ID INTEGER,
@@ -98,7 +100,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     private val CREATE_IMAGE_TABLE = """
         CREATE TABLE $TABLE_IMAGE (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            Name TEXT NOT NULL,
+            Value TEXT NOT NULL,
             Product_ID INTEGER,
             FOREIGN KEY (Product_ID) REFERENCES $TABLE_PRODUCT(ID)
         )
@@ -113,20 +115,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             FOREIGN KEY (User_ID) REFERENCES $TABLE_USER(ID)
         )
     """.trimIndent()
-
-    private val CREATE_ADDRESS_RESTAURANT_TABLE = """
-        CREATE TABLE $TABLE_ADDRESS_RESTAURANT (
-            ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            AddressInfo TEXT NOT NULL,
-            Restaurant_ID INTEGER,
-            FOREIGN KEY (Restaurant_ID) REFERENCES $TABLE_RESTAURANT(ID)
-        )
-    """.trimIndent()
-
     private val CREATE_RESTAURANT_TABLE = """
         CREATE TABLE $TABLE_RESTAURANT (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            Name TEXT NOT NULL
+            Name TEXT NOT NULL,
+            Address TEXT NOT NULL
         )
     """.trimIndent()
 

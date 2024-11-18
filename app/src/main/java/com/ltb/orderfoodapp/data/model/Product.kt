@@ -1,14 +1,14 @@
 package com.ltb.orderfoodapp.data.model
 
 open class Product(
-    var id: Int,
-    var name: String,
-    var storeName: String,
-    var price: Int,
-    var imageResource: String,
-    var rating: Float,
-    var category: String,
-    var description: String
+    var idProduct: Int = 0,
+    var name: String = "",
+    var price: Int = 0,
+    var rating: Float = 0f,
+    var description: String = "",
+    var restaurant: String = "",
+    var category: String = "",
+    var images: MutableList<String> = mutableListOf()
 ) {
-    constructor() : this(0, "", "", 0, "", 0f, "", "")
+
 }
