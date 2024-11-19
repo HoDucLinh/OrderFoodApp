@@ -10,21 +10,20 @@ import com.ltb.orderfoodapp.data.model.Image
 import com.ltb.orderfoodapp.data.model.Product
 
 class ProductDAO(context: Context) {
-    private val dbHelper = DatabaseHelper(context)
-    private lateinit var db: SQLiteDatabase
+    private val db: SQLiteDatabase = DatabaseHelper.getInstance(context).writableDatabase
     private lateinit var categoryDAO: CategoryDAO
     private lateinit var imageDAO: ImageDAO
     private lateinit var restaurantDAO: RestaurantDAO
 
     init {
-        db = dbHelper.writableDatabase
         categoryDAO = CategoryDAO(context)
         restaurantDAO = RestaurantDAO()
 
     }
 
+
     fun close() {
-        dbHelper.close()
+        db.close()
 
     }
     fun demo(){
@@ -130,40 +129,49 @@ class ProductDAO(context: Context) {
 
     fun getAllProducts(): MutableList<Product> {
         val productList = mutableListOf<Product>()
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery(
+                """ 
+            SELECT 
+                p.ID, p.Name, p.Price, p.Rating, p.Description, 
+                c.Name AS CategoryName, r.Name AS RestaurantName, i.Value AS ImageSource 
+            FROM Product p
+            LEFT JOIN Category c ON p.Category_ID = c.ID
+            LEFT JOIN Image i ON p.ID = i.Product_ID
+            LEFT JOIN Restaurant r ON p.Restaurant_ID = r.ID
+            """, null
+            )
 
-        val cursor = db.rawQuery("""
-        SELECT 
-            p.ID, p.Name, p.Price, p.Rating, p.Description, 
-            c.Name AS CategoryName, r.Name AS RestaurantName, i.Value AS ImageSource 
-        FROM Product p
-        LEFT JOIN Category c ON p.Category_ID = c.ID
-        LEFT JOIN Image i ON p.ID = i.Product_ID
-        LEFT JOIN Restaurant r ON p.Restaurant_ID = r.ID
-    """, null)
-        cursor.use {
-            while (it.moveToNext()) {
-                val product = Product(
-                    idProduct = it.getInt(it.getColumnIndexOrThrow("ID")),
-                    name = it.getString(it.getColumnIndexOrThrow("Name")),
-                    price = it.getInt(it.getColumnIndexOrThrow("Price")),
-                    rating = it.getFloat(it.getColumnIndexOrThrow("Rating")),
-                    description = it.getString(it.getColumnIndexOrThrow("Description")),
-                )
-                val restaurant = it.getString(it.getColumnIndexOrThrow("RestaurantName"))
-                product.restaurant = restaurant
-                val categoryName = it.getString(it.getColumnIndexOrThrow("CategoryName"))
-                product.category = categoryName
-                val imageUrl = it.getString(it.getColumnIndexOrThrow("ImageSource"))
-                if (imageUrl != null) {
-                    product.images.add(imageUrl)
+            cursor?.use {
+                while (it.moveToNext()) {
+                    val product = Product(
+                        idProduct = it.getInt(it.getColumnIndexOrThrow("ID")),
+                        name = it.getString(it.getColumnIndexOrThrow("Name")),
+                        price = it.getInt(it.getColumnIndexOrThrow("Price")),
+                        rating = it.getFloat(it.getColumnIndexOrThrow("Rating")),
+                        description = it.getString(it.getColumnIndexOrThrow("Description")),
+                    )
+                    val restaurant = it.getString(it.getColumnIndexOrThrow("RestaurantName"))
+                    product.restaurant = restaurant
+                    val categoryName = it.getString(it.getColumnIndexOrThrow("CategoryName"))
+                    product.category = categoryName
+                    val imageUrl = it.getString(it.getColumnIndexOrThrow("ImageSource"))
+                    if (imageUrl != null) {
+                        product.images.add(imageUrl)
+                    }
+
+                    productList.add(product)
                 }
-
-                productList.add(product)
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            cursor?.close() // Đảm bảo đóng cursor khi không còn sử dụng
         }
-
         return productList
     }
+
 
 
 //

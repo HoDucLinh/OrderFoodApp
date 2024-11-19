@@ -3,9 +3,10 @@ package com.ltb.orderfoodapp.data
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
-
+    private var db: SQLiteDatabase? = null
     companion object {
         private const val DATABASE_NAME = "oderfoodapp.db"
         private const val DATABASE_VERSION = 1
@@ -27,6 +28,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val TABLE_REVIEW_RESTAURANT = "ReviewRestaurant"
         private const val TABLE_CART = "Cart"
         private const val TABLE_PRODUCT_CART = "Product_Cart"
+
+        private var instance: DatabaseHelper? = null
+        fun getInstance(context: Context): DatabaseHelper {
+            return instance ?: synchronized(this) {
+                instance ?: DatabaseHelper(context.applicationContext).also { instance = it }
+            }
+        }
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -241,4 +249,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             FOREIGN KEY (Cart_ID) REFERENCES $TABLE_CART(ID)
         )
     """.trimIndent()
+
+
+    override fun close() {
+        super.close()
+        db?.close()
+    }
 }

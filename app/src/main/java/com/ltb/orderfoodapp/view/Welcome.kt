@@ -24,15 +24,31 @@ class Welcome : AppCompatActivity() {
         dbHelper = DatabaseHelper(this)
         db = dbHelper.writableDatabase
         productDAO = ProductDAO(this)
-//        productDAO.demo()
-//        dbHelper.readableDatabase
+        checkLogin()
+    }
+    fun checkLogin(){
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
-        lifecycleScope.launch {
-            delay(3000)
-            val intent = Intent(this@Welcome, Onboarding::class.java)
-            startActivity(intent)
-            finish()
+        if (isLoggedIn) {
+            lifecycleScope.launch {
+                delay(3000)
+                val userId = sharedPreferences.getString("userId", null)
+                val home = Intent(this@Welcome, Home::class.java)
+                home.putExtra("userId",userId)
+                startActivity(home)
+                finish()
+            }
+
+        } else {
+            lifecycleScope.launch {
+                delay(3000)
+                val intent = Intent(this@Welcome, Onboarding::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
+
     }
     override fun onStart() {
         super.onStart()

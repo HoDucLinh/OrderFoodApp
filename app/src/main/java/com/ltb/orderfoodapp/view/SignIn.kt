@@ -2,6 +2,7 @@ package com.ltb.orderfoodapp.view
 
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -68,15 +69,13 @@ class SignIn : AppCompatActivity() {
     // [END on_start_check_user]
 
     private fun signIn(email: String, password: String) {
-        // [START sign_in_with_email]
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     val homePage = Intent(this, Home::class.java)
                     startActivity(homePage)
                     val user = auth.currentUser
-                    updateUI(user)
+                    saveLoginStatus(true, user.toString())
                 } else {
                     Toast.makeText(
                         baseContext,
@@ -86,7 +85,13 @@ class SignIn : AppCompatActivity() {
                     updateUI(null)
                 }
             }
-        // [END sign_in_with_email]
+    }
+    fun saveLoginStatus(isLoggedIn: Boolean, userId: String?) {
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", isLoggedIn)
+        editor.putString("userId", userId)
+        editor.apply()
     }
 
     private fun sendEmailVerification() {

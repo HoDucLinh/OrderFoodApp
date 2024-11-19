@@ -3,6 +3,7 @@ package com.ltb.orderfoodapp.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.Profile
 import android.widget.GridView
 import android.widget.ImageButton
 import android.widget.Switch
@@ -11,11 +12,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.ltb.orderfoodapp.R
-import com.ltb.orderfoodapp.adapter.CategoryAdapter
 import com.ltb.orderfoodapp.adapter.ProductAdapter
-import com.ltb.orderfoodapp.data.dao.CategoryDAO
-import com.ltb.orderfoodapp.viewmodel.CategoryViewModel
 import com.ltb.orderfoodapp.viewmodel.ProductViewModel
+import java.time.LocalTime
 
 class Home : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
@@ -28,6 +27,8 @@ class Home : AppCompatActivity() {
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
+        var user =  intent.getStringExtra("userId")
+
 
 //        chuyen sang trang tim kiem
         nextSearch.setOnClickListener {
@@ -39,12 +40,20 @@ class Home : AppCompatActivity() {
             val nextCart = Intent(this, MyCart::class.java)
             startActivity(nextCart)
         }
-        // Chuyen sang menu
         nextMenu.setOnClickListener {
-            val nextMenu = Intent(this, MyMainMenu::class.java)
-            startActivity(nextMenu)
+            val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+            val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+
+            if (isLoggedIn) {
+
+                val profileIntent = Intent(this, MyMainMenu::class.java)
+                startActivity(profileIntent)
+            } else {
+                // Nếu chưa đăng nhập, chuyển về Login
+                val loginIntent = Intent(this, SignIn::class.java)
+                startActivity(loginIntent)
+            }
         }
-        productViewModel.close()
 
 
 
@@ -79,6 +88,11 @@ class Home : AppCompatActivity() {
                 editor.apply()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        productViewModel.close()
     }
 
     private fun setupGridViewProduct() {

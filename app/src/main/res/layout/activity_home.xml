@@ -77,16 +77,6 @@
                 android:textColor="@color/white" />
         </RelativeLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sen"
-        android:paddingHorizontal="@dimen/margin_input_login"
-        android:textSize="@dimen/font_size_small"
-        android:text="Hey Halal, Good Afternoon!" />
-
     <TextView
         android:id="@+id/txtSearch"
         android:layout_width="match_parent"

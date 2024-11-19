@@ -9,7 +9,7 @@ import com.ltb.orderfoodapp.data.model.Product
 class CategoryDAO(context: Context) {
     private var db: SQLiteDatabase
     init {
-        val dbHelper = DatabaseHelper(context)
+        val dbHelper = DatabaseHelper.getInstance(context)
         db = dbHelper.writableDatabase
     }
     // Hàm lấy toàn bộ danh sách Category
