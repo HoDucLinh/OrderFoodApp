@@ -11,40 +11,39 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.model.Product
 
 class FoodDetail : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_food_detail)
         getProductInfor()
-        setProductInfor()
         val addToCart = findViewById<Button>(R.id.addCart)
         val backMain = findViewById<ImageView>(R.id.backMain)
-        // Khai báo các biến
         val bttang = findViewById<ImageView>(R.id.buttontang)
         val btgiam = findViewById<ImageView>(R.id.buttongiam)
         val txtresult = findViewById<TextView>(R.id.txtSoLuong)
-
-        // Khởi tạo giá trị ban đầu cho số lượng
-        var soLuong = 0
+        val priceTextView = findViewById<TextView>(R.id.priceTotal)
+        var soLuong = 1
+        var unitPrice = intent.getIntExtra("price", 0)
         txtresult.text = soLuong.toString()
+        priceTextView.text = "${unitPrice * soLuong} VND"
 
-        // Xử lý sự kiện khi nhấn nút tăng
         bttang.setOnClickListener {
             soLuong += 1
             txtresult.text = soLuong.toString()
+            priceTextView.text = "${unitPrice * soLuong} VND"
         }
 
-        // Xử lý sự kiện khi nhấn nút giảm
         btgiam.setOnClickListener {
-            if (soLuong > 0) {
+            if (soLuong > 1) {
                 soLuong -= 1
+                txtresult.text = soLuong.toString()
+                priceTextView.text = "${unitPrice * soLuong} VND"
             }
-            txtresult.text = soLuong.toString()
         }
 
         backMain.setOnClickListener {
@@ -63,18 +62,24 @@ class FoodDetail : AppCompatActivity() {
         val name = intent.getStringExtra("name") ?: ""
         val storeName = intent.getStringExtra("storeName") ?: ""
         val price = intent.getIntExtra("price", 0)
-        val imageResource = intent.getStringExtra("imageResource") ?: ""  // Chú ý: imageResource giờ là String
+        val imageResource = intent.getStringArrayListExtra("imageResource") ?: arrayListOf()  // Nhận mảng chuỗi
         val rating = intent.getFloatExtra("rating", 0f)  // Sử dụng getFloatExtra thay vì getIntExtra
         val category = intent.getStringExtra("category") ?: ""  // Thuộc tính category
         val description = intent.getStringExtra("description") ?: ""  // Thuộc tính description
+        // Lấy các phần tử trong giao diện
+        val productNameTextView = findViewById<TextView>(R.id.productName)
+        val storeNameTextView = findViewById<TextView>(R.id.restaurantName)
+        val priceTextView = findViewById<TextView>(R.id.priceTotal)
+        val ratingTextView = findViewById<TextView>(R.id.productRating)
+        val descriptionTextView = findViewById<TextView>(R.id.productDes)
+        val imageView = findViewById<ImageView>(R.id.imageProduct)
 
-        // Tạo đối tượng Product với các giá trị đã lấy
-//        val product = Product(name, storeName, price, imageResource, rating, category, description)
-    }
-
-
-    fun setProductInfor() {
-
-
+        // Gán các giá trị vào các phần tử
+        productNameTextView.text = name
+        storeNameTextView.text = storeName
+        priceTextView.text = "${price}"
+        ratingTextView.text = "$rating"
+        descriptionTextView.text = description
+        Glide.with(this).load(imageResource[0]).into(imageView)
     }
 }

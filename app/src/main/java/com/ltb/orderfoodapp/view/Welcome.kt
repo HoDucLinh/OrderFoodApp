@@ -24,8 +24,8 @@ class Welcome : AppCompatActivity() {
         dbHelper = DatabaseHelper(this)
         db = dbHelper.writableDatabase
         productDAO = ProductDAO(this)
-        productDAO.demo()
-        dbHelper.readableDatabase
+//        productDAO.demo()
+//        dbHelper.readableDatabase
 
         lifecycleScope.launch {
             delay(3000)

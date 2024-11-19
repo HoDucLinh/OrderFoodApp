@@ -1,15 +1,36 @@
 package com.ltb.orderfoodapp.viewmodel
 
+import android.content.Context
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.data.dao.CategoryDAO
+import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.model.Category
+import com.ltb.orderfoodapp.data.model.Product
 
 
-class CategoryViewModel {
+class CategoryViewModel(context: Context) {
 
-    private val category: MutableList<Category> = mutableListOf()
-    private lateinit var cate : Category
+    private val categoryDAO = CategoryDAO(context)
+    private var products: MutableList<Product> = mutableListOf()
+    private var categories : MutableList<Category> = mutableListOf()
 
-    fun getCategories(): List<Category> {
-        return category
+    init {
+    }
+
+    private fun getProducts(categoryName : String) {
+        products = categoryDAO.getProductByCategoryName(categoryName)
+    }
+     fun getCategoriesName() : MutableList<String> {
+        categories = categoryDAO.getAllCategories()
+        val categoryName : MutableList<String> = mutableListOf()
+            for (c in categories) {
+                categoryName.add(c.name)
+        }
+        return categoryName
+
+    }
+    // Trả về danh sách sản phẩm
+    fun getProducts(): MutableList<Product> {
+        return products
     }
 }

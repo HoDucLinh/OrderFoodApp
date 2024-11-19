@@ -17,13 +17,10 @@ class ProductDAO(context: Context) {
     private lateinit var restaurantDAO: RestaurantDAO
 
     init {
-        open()
-
-    }
-    fun open() {
         db = dbHelper.writableDatabase
-        categoryDAO = CategoryDAO(db)
-        restaurantDAO = RestaurantDAO(db)
+        categoryDAO = CategoryDAO(context)
+        restaurantDAO = RestaurantDAO()
+
     }
 
     fun close() {
@@ -45,63 +42,91 @@ class ProductDAO(context: Context) {
         )
         addProduct(product)
     }
-    // Them san phanm va them category , iamge, restaurantName
-    fun addProduct(product: Product): Long? {
+    fun addProduct(product: Product): Long {
+        // Kiểm tra tính hợp lệ của thông tin sản phẩm
         if (product.name.isEmpty() || product.price <= 0 || product.rating < 0 || product.description.isEmpty()) {
-            return null
+            throw IllegalArgumentException("Invalid product data")
         }
 
-        try {
-            val values = ContentValues().apply {
-                put("Name", product.name)
-                put("Price", product.price)
-                put("Rating", product.rating)
-                put("Description", product.description)
-            }
-            val productId = db.insert("Product", null, values)
+        return try {
+            val productId = insertProduct(product)
 
-            var categoryId = categoryDAO.getCategoryIdByName(product.category)
-            if (categoryId == -1) {
-                val categoryValues = ContentValues().apply {
-                    put("Name", product.category)
-                    put("Description", "dfasdf")
-                }
-                val newCategoryId = db.insert("Category", null, categoryValues)
-                categoryId = newCategoryId.toInt()
-            }
-            val updateCategoryValues = ContentValues().apply {
-                put("Category_ID", categoryId)
-            }
-            db.update("Product", updateCategoryValues, "ID = ?", arrayOf(productId.toString()))
+            val categoryId = getOrInsertCategory(product.category)
+            updateProductCategory(productId, categoryId)
 
-            var restaurantId = restaurantDAO.getRestaurantIdByName(product.restaurant)
-            if (restaurantId == -1) {
-                val restaurantValues = ContentValues().apply {
-                    put("Name", product.restaurant)
-                    put("Address", " ")
-                }
-                val newRestaurantId = db.insert("Restaurant", null, restaurantValues)
-                restaurantId = newRestaurantId.toInt()
-            }
-            val updateRestaurantValues = ContentValues().apply {
-                put("Restaurant_ID", restaurantId)
-            }
-            db.update("Product", updateRestaurantValues, "ID = ?", arrayOf(productId.toString()))
+            val restaurantId = getOrInsertRestaurant(product.restaurant)
+            updateProductRestaurant(productId, restaurantId)
 
-            val imageDAO = ImageDAO(db)
-            product.images.forEach { imageUrl ->
-                imageDAO.addImage(imageUrl, productId.toInt())
-            }
+            addImagesToProduct(productId, product.images)
 
-            return productId
+            productId
         } catch (e: Exception) {
-            // Handle database error
-            return null
+            throw RuntimeException("Failed to add product", e)
         }
     }
 
+    // Thêm sản phẩm vào cơ sở dữ liệu
+    private fun insertProduct(product: Product): Long {
+        val values = ContentValues().apply {
+            put("Name", product.name)
+            put("Price", product.price)
+            put("Rating", product.rating)
+            put("Description", product.description)
+        }
+        return db.insert("Product", null, values)
+    }
 
+    // Kiểm tra xem danh mục có tồn tại chưa, nếu chưa thì thêm mới
+    private fun getOrInsertCategory(categoryName: String): Int {
+        var categoryId = categoryDAO.getCategoryIdByName(categoryName)
+        if (categoryId == -1) {
+            val categoryValues = ContentValues().apply {
+                put("Name", categoryName)
+                put("Description", "dfasdf")
+            }
+            val newCategoryId = db.insert("Category", null, categoryValues)
+            categoryId = newCategoryId.toInt()
+        }
+        return categoryId
+    }
 
+    // Cập nhật sản phẩm với category_id
+    private fun updateProductCategory(productId: Long, categoryId: Int) {
+        val updateCategoryValues = ContentValues().apply {
+            put("Category_ID", categoryId)
+        }
+        db.update("Product", updateCategoryValues, "ID = ?", arrayOf(productId.toString()))
+    }
+
+    // Kiểm tra xem nhà hàng có tồn tại chưa, nếu chưa thì thêm mới
+    private fun getOrInsertRestaurant(restaurantName: String): Int {
+        var restaurantId = restaurantDAO.getRestaurantIdByName(restaurantName)
+        if (restaurantId == -1) {
+            val restaurantValues = ContentValues().apply {
+                put("Name", restaurantName)
+                put("Address", " ")
+            }
+            val newRestaurantId = db.insert("Restaurant", null, restaurantValues)
+            restaurantId = newRestaurantId.toInt()
+        }
+        return restaurantId
+    }
+
+    // Cập nhật sản phẩm với restaurant_id
+    private fun updateProductRestaurant(productId: Long, restaurantId: Int) {
+        val updateRestaurantValues = ContentValues().apply {
+            put("Restaurant_ID", restaurantId)
+        }
+        db.update("Product", updateRestaurantValues, "ID = ?", arrayOf(productId.toString()))
+    }
+
+    // Thêm hình ảnh cho sản phẩm
+    private fun addImagesToProduct(productId: Long, images: List<String>) {
+        val imageDAO = ImageDAO(db)
+        images.forEach { imageUrl ->
+            imageDAO.addImage(imageUrl, productId.toInt())
+        }
+    }
 
     fun getAllProducts(): MutableList<Product> {
         val productList = mutableListOf<Product>()

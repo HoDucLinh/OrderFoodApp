@@ -41,8 +41,9 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/previewImage"
         android:layout_width="match_parent"
-        android:layout_height="146dp">
+        android:layout_height="300dp">
 
         <ImageView
             android:id="@+id/imageProduct"
@@ -105,100 +106,110 @@
     </RelativeLayout>
 
     <TextView
-        android:layout_marginTop="10dp"
-        android:id="@+id/storeName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Uttora Coffe House"
-        android:layout_marginLeft="10dp"
-        android:textStyle="bold"
-        android:textSize="18dp"/>
-
-    <TextView
         android:id="@+id/productName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pizza calzone european"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="@dimen/font_size_large"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/sen"
         android:layout_marginLeft="10dp"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/restaurantName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Uttora Coffe House"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/sen"
+        android:textSize="@dimen/font_size_medium"/>
 
     <TextView
         android:id="@+id/productDes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Prosciutto e funghi is a pizza variety that is topped with tomato sauce."
-        android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="@dimen/font_size_small"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/sen"
         android:layout_marginLeft="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:gravity="center"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/productRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:gravity="center"
+            android:drawableLeft="@drawable/star"
+            android:drawablePadding="@dimen/padding_text"
+            android:textSize="@dimen/font_size_small"
             android:text="4.7" />
         <TextView
             android:id="@+id/delivery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:gravity="center"
+            android:drawableLeft="@drawable/delivery"
+            android:drawablePadding="@dimen/padding_text"
+            android:textSize="@dimen/font_size_small"
+            android:layout_marginHorizontal="@dimen/margin_layout"
             android:text="Free" />
         <TextView
             android:id="@+id/timeDelivery"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:drawablePadding="@dimen/padding_text"
+            android:drawableLeft="@drawable/timer"
+            android:textSize="@dimen/font_size_small"
             android:text="20" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="81dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/padding_layout"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_weight="1"
+            android:fontFamily="@font/sen"
+            android:textSize="@dimen/font_size_small"
+            android:text="Size" />
 
         <ImageButton
             android:id="@+id/imageButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             app:srcCompat="@drawable/github_light" />
 
         <ImageButton
             android:id="@+id/imageButton4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             app:srcCompat="@drawable/google_light" />
 
         <ImageButton
             android:id="@+id/imageButton5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             app:srcCompat="@drawable/facebook_light" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
 
-    <TextView
-        android:id="@+id/textView26"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -208,12 +219,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/padding_layout"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/priceTotal"
                 android:layout_width="212dp"
                 android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:fontFamily="@font/sen"
+                android:textSize="@dimen/font_size_large"
                 android:text="32$" />
             <LinearLayout
                 android:layout_width="wrap_content"

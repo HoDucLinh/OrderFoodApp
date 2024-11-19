@@ -82,16 +82,12 @@
         android:layout_margin="@dimen/margin_layout"
         android:textSize="@dimen/font_size_medium"
         android:text="Category" />
+      <GridView
+          android:id="@+id/gridViewCategoryName"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:numColumns="5"/>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="66dp">
-        <LinearLayout
-            android:id="@+id/layout_categories"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical" />
-    </HorizontalScrollView>
     <TextView
         android:id="@+id/textView20"
         android:layout_width="match_parent"
@@ -105,7 +101,7 @@
         android:id="@+id/gridviewProduct"
         android:layout_width="match_parent"
         android:layout_margin="@dimen/margin_layout"
-        android:numColumns="2"
+        android:numColumns="1"
         android:layout_height="match_parent" />
 
 

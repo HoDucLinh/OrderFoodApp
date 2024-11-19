@@ -58,23 +58,25 @@ class ProductAdapter(
             .into(imgProduct);
         productName.text = product.name
         storeName.text = product.restaurant
-        productPrice.text = product.price.toString()
+        productPrice.text = "${product.price}VND"
         productRating.rating = product.rating
 
-//        view.setOnClickListener {
-//            openFoodDetail(context, product)
-//        }
-
+        view.setOnClickListener {
+            openFoodDetail(context, product)
+        }
         return view
     }
-    // Mo trang food detail
-//    private fun openFoodDetail(context: Context, product: Product) {
-//        val intent = Intent(context, FoodDetail::class.java)
-//        intent.putExtra("imageResource", product.imageResource)
-//        intent.putExtra("name", product.name)
-//        intent.putExtra("storeName", product.storeName)
-//        intent.putExtra("price", product.price)
-//        intent.putExtra("rating", product.rating)
-//        context.startActivity(intent)
-//    }
+
+    //     Mo trang food detail
+    private fun openFoodDetail(context: Context, product: Product) {
+        val intent = Intent(context, FoodDetail::class.java)
+        val imageList: MutableList<String> = product.images
+        val imageListArrayList = ArrayList(imageList)
+        intent.putStringArrayListExtra("imageResource", imageListArrayList)
+        intent.putExtra("name", product.name)
+        intent.putExtra("storeName", product.restaurant)
+        intent.putExtra("price", product.price)
+        intent.putExtra("rating", product.rating)
+        context.startActivity(intent)
+    }
 }

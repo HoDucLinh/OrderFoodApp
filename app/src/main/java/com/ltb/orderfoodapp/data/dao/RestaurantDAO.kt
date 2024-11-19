@@ -4,8 +4,8 @@ import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import com.ltb.orderfoodapp.data.model.Restaurant
 
-class RestaurantDAO(private val db: SQLiteDatabase) {
-
+class RestaurantDAO() {
+    private lateinit var db: SQLiteDatabase
     fun addRestaurant(restaurantName: String): Int {
         val existingRestaurantId = getRestaurantIdByName(restaurantName)
         if (existingRestaurantId != -1) {

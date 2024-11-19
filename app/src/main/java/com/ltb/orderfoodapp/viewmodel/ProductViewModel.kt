@@ -10,7 +10,6 @@ class ProductViewModel(context: Context) {
     private var products: MutableList<Product> = mutableListOf()
 
     init {
-        productDAO.open()
         fetchProducts()
     }
 
@@ -24,7 +23,6 @@ class ProductViewModel(context: Context) {
         return products
     }
 
-    // Đảm bảo đóng kết nối khi ViewModel bị hủy
     fun close() {
         productDAO.close()
     }

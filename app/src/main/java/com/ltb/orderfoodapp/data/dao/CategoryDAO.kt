@@ -1,30 +1,79 @@
 package com.ltb.orderfoodapp.data.dao
 
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.model.Category
+import com.ltb.orderfoodapp.data.model.Product
 
-class CategoryDAO(private val db: SQLiteDatabase) {
+class CategoryDAO(context: Context) {
+    private var db: SQLiteDatabase
+    init {
+        val dbHelper = DatabaseHelper(context)
+        db = dbHelper.writableDatabase
+    }
+    // Hàm lấy toàn bộ danh sách Category
+    fun getAllCategories(): MutableList<Category> {
+        val categoryList = mutableListOf<Category>()
 
-    // Hàm này lấy Category dựa trên Category_ID
-    fun getCategoryById(categoryId: Int): Category? {
         val cursor = db.query(
-            "Category",  // Tên bảng Category
-            arrayOf("ID", "Value", "Description"),  // Các cột cần lấy
-            "ID = ?",  // Điều kiện lọc theo Category_ID
-            arrayOf(categoryId.toString()),  // Truyền Category_ID vào câu truy vấn
-            null, null, null
+            "Category",        // Tên bảng
+            arrayOf("ID", "Name", "Description"), // Các cột cần lấy
+            null, // Không có điều kiện
+            null, // Không có giá trị điều kiện
+            null, null, null  // Không group, không order
         )
 
-        var category: Category? = null
-        if (cursor != null && cursor.moveToFirst()) {
-            category = Category(
-                idCategory = cursor.getInt(cursor.getColumnIndexOrThrow("ID")),
-                name = cursor.getString(cursor.getColumnIndexOrThrow("Value")),
-                description = cursor.getString(cursor.getColumnIndexOrThrow("Description"))
-            )
+        cursor.use {
+            while (it.moveToNext()) {
+                val category = Category(
+                    idCategory = it.getInt(it.getColumnIndexOrThrow("ID")),
+                    name = it.getString(it.getColumnIndexOrThrow("Name")),
+                    description = it.getString(it.getColumnIndexOrThrow("Description"))
+                )
+                categoryList.add(category)
+            }
         }
-        cursor?.close()
-        return category
+
+        return categoryList
+    }
+
+    // Hàm lay Product dựa trên Category_ID
+    fun getProductByCategoryName(categoryName: String): MutableList<Product> {
+        val productList = mutableListOf<Product>()
+        val cursor = db.rawQuery("""
+        SELECT 
+            p.ID, p.Name, p.Price, p.Rating, p.Description, 
+            c.Name AS CategoryName, r.Name AS RestaurantName, i.Value AS ImageSource 
+        FROM Product p
+        LEFT JOIN Category c ON p.Category_ID = c.ID
+        LEFT JOIN Image i ON p.ID = i.Product_ID
+        LEFT JOIN Restaurant r ON p.Restaurant_ID = r.ID
+        WHERE c.Name = ?
+    """, arrayOf(categoryName))
+        cursor.use {
+            while (it.moveToNext()) {
+                val product = Product(
+                    idProduct = it.getInt(it.getColumnIndexOrThrow("ID")),
+                    name = it.getString(it.getColumnIndexOrThrow("Name")),
+                    price = it.getInt(it.getColumnIndexOrThrow("Price")),
+                    rating = it.getFloat(it.getColumnIndexOrThrow("Rating")),
+                    description = it.getString(it.getColumnIndexOrThrow("Description")),
+                )
+                val restaurant = it.getString(it.getColumnIndexOrThrow("RestaurantName"))
+                product.restaurant = restaurant
+                val categoryName = it.getString(it.getColumnIndexOrThrow("CategoryName"))
+                product.category = categoryName
+                val imageUrl = it.getString(it.getColumnIndexOrThrow("ImageSource"))
+                if (imageUrl != null) {
+                    product.images.add(imageUrl)
+                }
+
+                productList.add(product)
+            }
+        }
+
+        return productList
     }
     // Lấy ID của Category theo tên
     fun getCategoryIdByName(categoryName: String): Int {
