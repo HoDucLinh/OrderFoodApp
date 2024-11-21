@@ -31,23 +31,23 @@ class FoodDetail : AppCompatActivity() {
         val txtresult = findViewById<TextView>(R.id.txtSoLuong)
         val priceTextView = findViewById<TextView>(R.id.priceTotal)
         val previewImage = findViewById<RelativeLayout>(R.id.previewImage)
-        previewImage.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                // Lấy danh sách các hình ảnh từ Intent
-                val imageResource = intent.getStringArrayListExtra("imageResource")
-
-                // Kiểm tra xem danh sách có dữ liệu không
-                if (!imageResource.isNullOrEmpty()) {
-                    val imageView = findViewById<ImageView>(R.id.imageProduct)
-
-                    // Sử dụng Glide để tải ảnh từ URL vào ImageView
-                    Glide.with(this)
-                        .load(imageResource[0])  // Lấy ảnh đầu tiên từ danh sách
-                        .into(imageView)
-                }
-            }
-            true
-        }
+//        previewImage.setOnTouchListener { _, event ->
+//            if (event.action == MotionEvent.ACTION_UP) {
+//                // Lấy danh sách các hình ảnh từ Intent
+//                val imageResource = intent.getStringArrayListExtra("imageResource")
+//
+//                // Kiểm tra xem danh sách có dữ liệu không
+//                if (!imageResource.isNullOrEmpty()) {
+//                    val imageView = findViewById<ImageView>(R.id.imageProduct)
+//
+//                    // Sử dụng Glide để tải ảnh từ URL vào ImageView
+//                    Glide.with(this)
+//                        .load(imageResource[0])  // Lấy ảnh đầu tiên từ danh sách
+//                        .into(imageView)
+//                }
+//            }
+//            true
+//        }
 
         var soLuong = 1
         var unitPrice = intent.getIntExtra("price", 0)

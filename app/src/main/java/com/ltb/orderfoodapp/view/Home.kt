@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.provider.ContactsContract.Profile
 import android.widget.GridView
 import android.widget.ImageButton
+import android.widget.RelativeLayout
 import android.widget.Switch
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge

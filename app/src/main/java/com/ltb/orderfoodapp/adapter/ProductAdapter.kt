@@ -42,6 +42,7 @@ class ProductAdapter(
                 text = "No product"
             }
         }
+        println(context.javaClass.simpleName)
         val view = LayoutInflater.from(context).inflate(R.layout.product, parent, false)
         // Kiem cac thanh phan trong layout cua product
         val imgProduct = view.findViewById<ImageView>(R.id.img_product)

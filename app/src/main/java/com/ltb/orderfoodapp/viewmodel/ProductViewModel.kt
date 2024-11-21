@@ -22,6 +22,15 @@ class ProductViewModel(context: Context) {
     fun getProducts(): MutableList<Product> {
         return products
     }
+    fun getProductsFilter(kw: String):MutableList<Product>{
+        var listFilter : MutableList<Product> = mutableListOf()
+        for (product in products){
+            if(product.name.contains(kw, ignoreCase = true)){
+                listFilter.add(product)
+            }
+        }
+        return listFilter
+    }
 
     fun close() {
         productDAO.close()
