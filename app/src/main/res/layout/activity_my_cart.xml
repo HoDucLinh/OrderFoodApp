@@ -9,6 +9,7 @@
     android:layout_marginTop="@dimen/margin_layoutTop"
     tools:context=".view.MyCart">
 
+    <!-- Thanh tiêu đề với nút quay lại, tên giỏ hàng và nút sửa -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/back" />
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,203 +43,25 @@
             android:textColor="@color/orange"
             android:textSize="16dp"
             android:textStyle="bold" />
-
-
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/parentLayout"
+    <!-- RecyclerView cho giỏ hàng -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCart"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_marginTop="10dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clipToOutline="true"
-                app:cardBackgroundColor="@android:color/transparent"
-                app:cardCornerRadius="30dp"
-                app:cardElevation="4dp"
-                app:cardPreventCornerOverlap="true">
-
-                <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:scaleType="centerCrop" />
-
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="157dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:fontFamily="@font/sen"
-                    android:text="Pizza Calzone European"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:text="$32"
-                    android:textSize="18dp" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-                <ImageButton
-                    android:id="@+id/cancel1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_button"
-                    android:tag="cancelButton"
-                    android:visibility="invisible"
-                    android:background="@drawable/cancel"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_number"
-                    android:paddingHorizontal="@dimen/padding_rounded_number"
-                    android:paddingVertical="5dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-                    <ImageButton
-                        android:id="@+id/btgiam"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/icon_remove"/>
-                    <TextView
-                        android:id="@+id/soluong"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sen"
-                        android:layout_marginHorizontal="@dimen/margin_roundedNumber"
-                        android:background="@android:color/transparent"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_medium"
-                        android:text="2"/>
-                    <ImageButton
-                        android:id="@+id/bttang"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/icon_add"/>
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clipToOutline="true"
-                app:cardBackgroundColor="@android:color/transparent"
-                app:cardCornerRadius="30dp"
-                app:cardElevation="4dp"
-                app:cardPreventCornerOverlap="true">
-
-                <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:scaleType="centerCrop" />
-
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="157dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:fontFamily="@font/sen"
-                    android:text="Pizza Calzone European"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:text="$32"
-                    android:textSize="18dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-                <ImageButton
-                    android:id="@+id/cancel2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="invisible"
-                    android:tag="cancelButton"
-                    android:layout_marginBottom="@dimen/margin_button"
-                    android:background="@drawable/cancel"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_number"
-                    android:paddingHorizontal="@dimen/padding_rounded_number"
-                    android:paddingVertical="5dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/icon_remove"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sen"
-                        android:layout_marginHorizontal="@dimen/margin_roundedNumber"
-                        android:background="@android:color/transparent"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_medium"
-                        android:text="2"/>
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/icon_add"/>
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
-
-
+    <!-- Phần địa chỉ giao hàng và tổng tiền -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_top_corners"
         android:orientation="vertical"
         android:scaleType="centerCrop">
+
+        <!-- Địa chỉ giao hàng -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -281,10 +103,9 @@
             android:padding="16dp"
             android:paddingLeft="10dp"
             android:text="2118 Thornridge Cir. Syracuse"
-            android:textColor="@color/textDark"
+            android:textColor="@color/textDark" />
 
-            />
-
+        <!-- Tổng tiền và các nút -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -326,6 +147,7 @@
                 android:textSize="13dp" />
         </LinearLayout>
 
+        <!-- Nút để đặt hàng -->
         <Button
             android:id="@+id/btnPayment"
             android:layout_width="match_parent"
@@ -336,10 +158,7 @@
             android:fontFamily="@font/sen_bold"
             android:padding="@dimen/padding_button"
             android:text="PLACE ORDER"
-            android:textSize="@dimen/font_size_medium"
-            />
-
+            android:textSize="@dimen/font_size_medium" />
     </LinearLayout>
-
 
 </LinearLayout>

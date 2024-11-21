@@ -60,10 +60,9 @@ class Home : AppCompatActivity() {
     }
     override fun onStart() {
         super.onStart()
-
         darkTheme = findViewById(R.id.darkTheme)
         setupGridViewProduct()
-    setupTheme()
+        setupTheme()
     }
     private fun setupTheme() {
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)

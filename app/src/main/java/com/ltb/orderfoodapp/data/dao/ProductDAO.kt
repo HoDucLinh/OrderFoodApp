@@ -26,7 +26,8 @@ class ProductDAO(context: Context) {
         db.close()
 
     }
-    fun demo(){
+
+    fun demo() {
         val product = Product(
             name = "Pizza Margherita",
             price = 150000,
@@ -41,6 +42,7 @@ class ProductDAO(context: Context) {
         )
         addProduct(product)
     }
+
     fun addProduct(product: Product): Long {
         // Kiểm tra tính hợp lệ của thông tin sản phẩm
         if (product.name.isEmpty() || product.price <= 0 || product.rating < 0 || product.description.isEmpty()) {
@@ -171,7 +173,6 @@ class ProductDAO(context: Context) {
         }
         return productList
     }
-
 
 
 //
