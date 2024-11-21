@@ -47,8 +47,7 @@ class FoodDetail : AppCompatActivity() {
         addToCart.setOnClickListener {
             try {
                 // Lấy `idProduct` từ Intent
-                val productId = intent.getIntExtra("idProduct", 0)
-
+                val productId = intent.getIntExtra("id", 0)
                 // Lấy thông tin sản phẩm từ các View
                 val productName = findViewById<TextView>(R.id.productName).text.toString()
                 val priceText = findViewById<TextView>(R.id.priceTotal).text.toString().replace(" VND", "")
@@ -74,7 +73,7 @@ class FoodDetail : AppCompatActivity() {
                     idProduct = productId,
                     name = productName,
                     price = unitPrice,
-                    rating = 0f, // Giá trị mặc định
+                    rating = 0f,
                     description = description
                 )
 

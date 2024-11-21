@@ -76,6 +76,7 @@ class ProductAdapter(
         val intent = Intent(context, FoodDetail::class.java)
         val imageList: MutableList<String> = product.images
         val imageListArrayList = ArrayList(imageList)
+        intent.putExtra("id",product.idProduct)
         intent.putStringArrayListExtra("imageResource", imageListArrayList)
         intent.putExtra("name", product.name)
         intent.putExtra("storeName", product.restaurant)
