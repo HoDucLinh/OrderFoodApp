@@ -39,42 +39,42 @@
         android:orientation="vertical"
         android:padding="@dimen/padding_login">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sen"
-            android:background="@android:color/transparent"
-            android:text="Email" />
-
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/userNameLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginTop="@dimen/margin_input_login"
-            android:layout_marginBottom="@dimen/margin_input_login"
-            android:padding="@dimen/padding_input_login"
-            android:inputType="textEmailAddress" />
+            app:boxBackgroundColor="@color/white"
+            android:background="@color/white"
+            android:hint="Email"
+            android:layout_marginTop="@dimen/margin_layout"
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sen"
-            android:background="@android:color/transparent"
-            android:text="Password" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/sen"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/orange"
+            android:background="@color/white"
+            app:boxBackgroundColor="@color/white"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginTop="@dimen/margin_input_login"
-            android:layout_marginBottom="@dimen/margin_input_login"
-            android:drawableRight="@drawable/eye"
-            android:padding="@dimen/padding_input_login"
-            android:inputType="textPassword" />
+            android:layout_marginBottom="@dimen/margin_input_login">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:fontFamily="@font/sen" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,20 +83,14 @@
             android:background="@android:color/transparent"
             android:layout_marginBottom="@dimen/margin_input_login">
 
-            <CheckBox
-                android:id="@+id/remenberPass"
-                android:layout_width="215dp"
-                android:layout_height="wrap_content"
-                android:shadowColor="@color/white"
-                android:fontFamily="@font/sen"
-                android:text="Remember me" />
-
             <TextView
                 android:id="@+id/forgotPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/sen"
+                android:textColor="@color/darkBG"
+                android:textAlignment="center"
                 android:background="@android:color/transparent"
                 android:text="Forgot Password" />
         </LinearLayout>
@@ -106,7 +100,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sen"
-            android:background="@color/orange"
             android:layout_marginTop="@dimen/margin_input_login"
             android:text="Login" />
 
@@ -117,6 +110,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_input_login"
             android:fontFamily="@font/sen"
+            android:textColor="@color/darkBG"
             android:background="@android:color/transparent"
             android:text='@string/already_have_an_account' />
 
@@ -126,6 +120,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:layout_marginBottom="@dimen/margin_input_login"
+            android:textColor="@color/darkBG"
             android:background="@android:color/transparent"
             android:text="Or" />
 

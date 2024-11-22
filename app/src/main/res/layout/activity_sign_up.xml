@@ -44,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sen"
+            android:textColor="@color/darkBG"
             android:background="@android:color/transparent"
             android:text="Name" />
 
@@ -55,6 +56,8 @@
             android:layout_marginTop="@dimen/margin_input_login"
             android:layout_marginBottom="@dimen/margin_input_login"
             android:padding="@dimen/padding_input_login"
+            android:textColor="@color/darkBG"
+            android:background="@drawable/border_search"
             android:inputType="text" />
 
         <TextView
@@ -63,6 +66,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:fontFamily="@font/sen"
+            android:textColor="@color/darkBG"
             android:text="Email/Phone" />
 
         <EditText
@@ -73,6 +77,8 @@
             android:layout_marginTop="@dimen/margin_input_login"
             android:layout_marginBottom="@dimen/margin_input_login"
             android:drawableRight="@drawable/eye"
+            android:textColor="@color/darkBG"
+            android:background="@drawable/border_search"
             android:padding="@dimen/padding_input_login"
             android:inputType="text" />
         <TextView
@@ -81,6 +87,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:fontFamily="@font/sen"
+            android:textColor="@color/darkBG"
             android:text="Password" />
 
         <EditText
@@ -91,6 +98,8 @@
             android:layout_marginTop="@dimen/margin_input_login"
             android:layout_marginBottom="@dimen/margin_input_login"
             android:drawableRight="@drawable/eye"
+            android:textColor="@color/darkBG"
+            android:background="@drawable/border_search"
             android:padding="@dimen/padding_input_login"
             android:inputType="textPassword" />
         <TextView
@@ -99,6 +108,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:fontFamily="@font/sen"
+            android:textColor="@color/darkBG"
             android:text="Re-Type Password" />
 
         <EditText
@@ -109,6 +119,8 @@
             android:layout_marginTop="@dimen/margin_input_login"
             android:layout_marginBottom="@dimen/margin_input_login"
             android:drawableRight="@drawable/eye"
+            android:textColor="@color/darkBG"
+            android:background="@drawable/border_search"
             android:padding="@dimen/padding_input_login"
             android:inputType="textPassword" />
 
@@ -118,7 +130,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sen"
-            android:background="@color/orange"
             android:text="Login" />
 
 

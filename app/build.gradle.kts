@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.play.services.maps)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -78,11 +79,15 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     // Su dung cho welcome de chay coroutines trong vong doi Activity
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+    implementation (libs.kotlinx.coroutines.android)
     //
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation (libs.glide)
+    implementation (libs.facebook.login)
+    implementation (libs.play.services.auth)
 
 
 
 
-}
+
+
+  }
