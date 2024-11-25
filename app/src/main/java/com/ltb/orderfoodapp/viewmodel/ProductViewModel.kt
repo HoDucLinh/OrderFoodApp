@@ -1,6 +1,7 @@
 package com.ltb.orderfoodapp.viewmodel
 
 import android.content.Context
+import com.ltb.orderfoodapp.data.dao.ProductCartDAO
 import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.model.Product
 
@@ -8,6 +9,7 @@ class ProductViewModel(context: Context) {
 
     private val productDAO = ProductDAO(context)
     private var products: MutableList<Product> = mutableListOf()
+
 
     init {
         fetchProducts()
@@ -31,6 +33,7 @@ class ProductViewModel(context: Context) {
         }
         return listFilter
     }
+
 
     fun close() {
         productDAO.close()
