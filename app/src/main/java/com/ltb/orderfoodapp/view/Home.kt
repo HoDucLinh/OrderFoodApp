@@ -28,7 +28,6 @@ class Home : AppCompatActivity() {
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
-        var user =  intent.getStringExtra("userId")
 
 
 //        chuyen sang trang tim kiem

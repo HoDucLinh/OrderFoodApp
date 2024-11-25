@@ -48,8 +48,8 @@ class SignIn : AppCompatActivity() {
 
         //Lay userName, password de login
         loginBtn.setOnClickListener{
-            val userNameLogin = findViewById<TextInputLayout>(R.id.userNameLogin).toString()
-            val passwordLogin = findViewById<TextInputLayout>(R.id.passwordLogin).toString()
+            val userNameLogin = findViewById<TextInputLayout>(R.id.userNameLogin).editText?.text.toString()
+            val passwordLogin = findViewById<TextInputLayout>(R.id.passwordLogin).editText?.text.toString()
             if(userNameLogin!=""&&passwordLogin!=""){
                 auth.authEmail(userNameLogin,passwordLogin)
             }else Toast.makeText(this, "Please enter email, password", Toast.LENGTH_SHORT).show()
@@ -100,14 +100,6 @@ class SignIn : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-
-    fun saveLoginStatus(isLoggedIn: Boolean, userId: String?) {
-        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("isLoggedIn", isLoggedIn)
-        editor.putString("userId", userId)
-        editor.apply()
-    }
 
 
 }

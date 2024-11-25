@@ -17,8 +17,9 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.view.Home
+import com.ltb.orderfoodapp.view.SellerDashboardHome
+
 class AuthManager(private val context: Context) {
-    private var callback: ((FirebaseUser?) -> Unit)? = null
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 
@@ -33,19 +34,16 @@ class AuthManager(private val context: Context) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val homePage = Intent(context, Home::class.java)
-                    context.startActivity(homePage)
+                    checkAdmin(email,password)
                 } else {
                     Toast.makeText(context, "Login Error.", Toast.LENGTH_SHORT).show()
                 }
             }
     }
     fun createAccount(email: String, password: String) {
-        // [START create_user_with_email]
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener{ task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
                     updateUI(user)
@@ -88,9 +86,23 @@ class AuthManager(private val context: Context) {
         }
     }
 
-    // Cập nhật UI (có thể thực hiện thêm các thao tác khi có người dùng)
     private fun updateUI(user: FirebaseUser?) {
-        // Thực hiện cập nhật giao diện nếu cần
+    }
+    fun checkAdmin(userName: String?, password: String) {
+        if (userName == "admin@gmail.com" && password == "123456") {
+            val adminHomePage = Intent(context, SellerDashboardHome::class.java)
+            context.startActivity(adminHomePage)
+        } else {
+            val userHomePage = Intent(context, Home::class.java)
+            context.startActivity(userHomePage)
+        }
+    }
+
+    fun saveLoginStatus(isLoggedIn: Boolean, userId: String?, role : String?) {
+        val sharedPreferences = context.getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", isLoggedIn)
+        editor.apply()
     }
 
     companion object {
