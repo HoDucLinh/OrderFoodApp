@@ -47,8 +47,7 @@
             android:background="@color/white"
             android:hint="Email"
             android:layout_marginTop="@dimen/margin_layout"
-
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -64,7 +63,7 @@
             app:passwordToggleTint="@color/orange"
             android:background="@color/white"
             app:boxBackgroundColor="@color/white"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_marginTop="@dimen/margin_input_login"
             android:layout_marginBottom="@dimen/margin_input_login">
             <com.google.android.material.textfield.TextInputEditText

@@ -19,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.textfield.TextInputLayout
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.api.AuthManager
 import com.ltb.orderfoodapp.data.api.AuthManager.Companion.RC_SIGN_IN
@@ -47,8 +48,8 @@ class SignIn : AppCompatActivity() {
 
         //Lay userName, password de login
         loginBtn.setOnClickListener{
-            val userNameLogin = findViewById<EditText>(R.id.userNameLogin).getText().toString()
-            val passwordLogin = findViewById<EditText>(R.id.passwordLogin).getText().toString()
+            val userNameLogin = findViewById<TextInputLayout>(R.id.userNameLogin).toString()
+            val passwordLogin = findViewById<TextInputLayout>(R.id.passwordLogin).toString()
             if(userNameLogin!=""&&passwordLogin!=""){
                 auth.authEmail(userNameLogin,passwordLogin)
             }else Toast.makeText(this, "Please enter email, password", Toast.LENGTH_SHORT).show()

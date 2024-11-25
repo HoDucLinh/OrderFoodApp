@@ -1,7 +1,9 @@
 package com.ltb.orderfoodapp.view
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ViewPagerAdapter
 import com.ltb.orderfoodapp.data.DatabaseHelper
+import com.ltb.orderfoodapp.data.model.ProductCart
 
 class MyOrder : AppCompatActivity() {
     private lateinit var dbHelper: DatabaseHelper

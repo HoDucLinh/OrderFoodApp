@@ -15,9 +15,9 @@ class SignUp : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_sign_up)
         val signUpBtn = findViewById<Button>(R.id.signUpBtn)
-        signUpBtn.setOnClickListener{
-            val returnLogin = Intent( this, SignIn::class.java)
-            startActivity(returnLogin)
-        }
+//        signUpBtn.setOnClickListener{
+//            val returnLogin = Intent( this, SignIn::class.java)
+//            startActivity(returnLogin)
+//        }
     }
 }

@@ -21,17 +21,13 @@ class ProductAdapter(
     private val products: MutableList<Product>,
 ) : BaseAdapter() {
 
-    // Trả về số lượng sản phẩm
     override fun getCount(): Int {
         return products.size
     }
-
-    // Trả về sản phẩm ở vị trí 'position'
     override fun getItem(position: Int): Any {
         return products[position]
     }
 
-    // Trả về ID của sản phẩm (ở đây sử dụng vị trí làm ID)
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
@@ -42,7 +38,6 @@ class ProductAdapter(
                 text = "No product"
             }
         }
-        println(context.javaClass.simpleName)
         val view = LayoutInflater.from(context).inflate(R.layout.product, parent, false)
         // Kiem cac thanh phan trong layout cua product
         val imgProduct = view.findViewById<ImageView>(R.id.img_product)
