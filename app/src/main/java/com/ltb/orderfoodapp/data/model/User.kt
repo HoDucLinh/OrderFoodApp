@@ -1,16 +1,16 @@
 package com.ltb.orderfoodapp.data.model
 
 class User (
-    var idUser : Int,
-    var fullName : String,
-    var email : String,
-    var phoneNumber : String,
-    var bioInfor : String,
-    var accountId : Int,
-    var cartId : Int,
-    var addresses: MutableList<AddressOfUser>,
-    var roles: MutableList<Role>
+    var idUser : Int = 0,
+    var fullName : String = "",
+    var email : String = "",
+    var phoneNumber : String = "",
+    var bioInfor : String = "",
+    var accountId : Int = 0,
+    var password : String = "",
+    var cartId : Int = 0,
+    var addresses: MutableList<AddressOfUser> = mutableListOf(),
+    var roles: Role = Role.CUSTOMER
 )
 {
-    constructor() : this(0,"", "","","",0 ,0, mutableListOf(), mutableListOf())
 }

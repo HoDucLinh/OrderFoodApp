@@ -33,8 +33,8 @@ class ProductDAO(context: Context) {
             price = 150000,
             rating = 4.5f,
             description = "Pizza với phô mai và cà chua tươi",
-            restaurant = "Pizza Hut",  // Tên nhà hàng
-            category = "Pizza",        // Danh mục
+            restaurant = "Pizza Hut",
+            category = "Pizza",
             images = mutableListOf(
                 "https://example.com/image1.jpg",
                 "https://example.com/image2.jpg"
@@ -44,7 +44,6 @@ class ProductDAO(context: Context) {
     }
 
     fun addProduct(product: Product): Long {
-        // Kiểm tra tính hợp lệ của thông tin sản phẩm
         if (product.name.isEmpty() || product.price <= 0 || product.rating < 0 || product.description.isEmpty()) {
             throw IllegalArgumentException("Invalid product data")
         }

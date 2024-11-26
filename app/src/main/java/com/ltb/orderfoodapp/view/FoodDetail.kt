@@ -27,6 +27,7 @@ class FoodDetail : AppCompatActivity() {
         val txtresult = findViewById<TextView>(R.id.txtSoLuong)
         val priceTextView = findViewById<TextView>(R.id.priceTotal)
         val previewImage = findViewById<RelativeLayout>(R.id.previewImage)
+        
         previewImage.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 // Lấy danh sách các hình ảnh từ Intent
@@ -99,7 +100,6 @@ class FoodDetail : AppCompatActivity() {
                 Toast.makeText(this, "An error occurred while adding product to cart", Toast.LENGTH_SHORT).show()
             }
         }
-
 
 
         var soLuong = 1

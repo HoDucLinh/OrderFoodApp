@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.provider.ContactsContract.Profile
 import android.widget.GridView
 import android.widget.ImageButton
+import android.widget.RelativeLayout
 import android.widget.Switch
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -27,7 +28,6 @@ class Home : AppCompatActivity() {
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
-        var user =  intent.getStringExtra("userId")
 
 
 //        chuyen sang trang tim kiem

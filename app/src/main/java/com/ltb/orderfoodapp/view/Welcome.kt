@@ -33,9 +33,7 @@ class Welcome : AppCompatActivity() {
         if (isLoggedIn) {
             lifecycleScope.launch {
                 delay(3000)
-                val userId = sharedPreferences.getString("userId", null)
                 val home = Intent(this@Welcome, Home::class.java)
-                home.putExtra("userId",userId)
                 startActivity(home)
                 finish()
             }

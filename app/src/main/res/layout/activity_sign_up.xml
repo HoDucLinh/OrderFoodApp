@@ -39,78 +39,111 @@
         android:orientation="vertical"
         android:padding="@dimen/padding_login">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sen"
-            android:background="@android:color/transparent"
-            android:text="Name" />
-
-        <EditText
-            android:id="@+id/userNameLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginTop="@dimen/margin_input_login"
-            android:layout_marginBottom="@dimen/margin_input_login"
-            android:padding="@dimen/padding_input_login"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/textUserName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:fontFamily="@font/sen"
-            android:text="Email/Phone" />
-
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/userNameSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginTop="@dimen/margin_input_login"
-            android:layout_marginBottom="@dimen/margin_input_login"
-            android:drawableRight="@drawable/eye"
-            android:padding="@dimen/padding_input_login"
-            android:inputType="text" />
-        <TextView
-            android:id="@+id/textpasswordSignUp"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="@color/orange"
+            app:boxStrokeWidth="3dp"
+            app:boxStrokeWidthFocused="3dp"
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/margin_layout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Full Name"
+                android:textColor="@color/darkBG"
+                android:fontFamily="@font/sen"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:fontFamily="@font/sen"
-            android:text="Password" />
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="@color/orange"
+            app:boxStrokeWidth="3dp"
+            app:boxStrokeWidthFocused="3dp"
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/margin_layout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/darkBG"
+                android:hint="Email"
+                android:fontFamily="@font/sen"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="@color/orange"
+            app:boxStrokeWidth="3dp"
+            app:boxStrokeWidthFocused="3dp"
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/margin_layout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/darkBG"
+                android:hint="Phone"
+                android:fontFamily="@font/sen"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginTop="@dimen/margin_input_login"
-            android:layout_marginBottom="@dimen/margin_input_login"
-            android:drawableRight="@drawable/eye"
-            android:padding="@dimen/padding_input_login"
-            android:inputType="textPassword" />
-        <TextView
-            android:id="@+id/textRePassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:fontFamily="@font/sen"
-            android:text="Re-Type Password" />
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="@color/orange"
+            app:boxStrokeWidth="3dp"
+            app:boxStrokeWidthFocused="3dp"
+            android:background="@color/white"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/orange"
+            android:layout_marginTop="@dimen/margin_layout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/darkBG"
+                android:hint="Password"
+                android:fontFamily="@font/sen"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/rePasswordSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginTop="@dimen/margin_input_login"
-            android:layout_marginBottom="@dimen/margin_input_login"
-            android:drawableRight="@drawable/eye"
-            android:padding="@dimen/padding_input_login"
-            android:inputType="textPassword" />
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="@color/orange"
+            app:boxStrokeWidth="3dp"
+            app:boxStrokeWidthFocused="3dp"
+            android:background="@color/white"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/orange"
+            android:layout_marginTop="@dimen/margin_layout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/darkBG"
+                android:fontFamily="@font/sen"
+                android:hint="Re - password"
+
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <Button
@@ -118,7 +151,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sen"
-            android:background="@color/orange"
             android:text="Login" />
 
 

@@ -60,19 +60,43 @@
                 android:textColor="@color/white" />
         </RelativeLayout>
     </LinearLayout>
-    <EditText
-        android:id="@+id/editTextText5"
-        android:layout_width="match_parent"
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_margin="@dimen/margin_input_login"
-        android:drawableLeft="@drawable/search"
-        android:drawableRight="@drawable/close"
-        android:padding="@dimen/padding_input_login"
-        android:background="@drawable/border_search"
-        android:inputType="text"
-        android:drawablePadding="@dimen/margin_input_login"
-        android:hint="Search dishes, restaurants"/>
+        >
+
+        <ImageButton
+            android:id="@+id/searchBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="@dimen/margin_searchInput"/>
+
+        <EditText
+            android:id="@+id/searchInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_margin="@dimen/margin_input_login"
+            android:padding="@dimen/padding_searchInput"
+            android:background="@drawable/border_search"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:fontFamily="@font/sen"
+            android:textSize="@dimen/font_size_small"
+            android:hint="Search dishes, restaurants" />
+
+        <ImageButton
+            android:id="@+id/closeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="@dimen/margin_searchInput"
+            android:background="@drawable/close" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textView19"
@@ -82,11 +106,12 @@
         android:layout_margin="@dimen/margin_layout"
         android:textSize="@dimen/font_size_medium"
         android:text="Category" />
-      <GridView
-          android:id="@+id/gridViewCategoryName"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:numColumns="5"/>
+
+    <GridView
+        android:id="@+id/gridViewCategoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="5" />
 
     <TextView
         android:id="@+id/textView20"

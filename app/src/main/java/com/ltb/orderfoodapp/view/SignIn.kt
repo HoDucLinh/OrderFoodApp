@@ -1,44 +1,57 @@
+@file:Suppress("DEPRECATION")
+
 package com.ltb.orderfoodapp.view
 
 
-import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.auth
-import com.google.firebase.Firebase
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.material.textfield.TextInputLayout
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.data.api.AuthManager
+import com.ltb.orderfoodapp.data.api.AuthManager.Companion.RC_SIGN_IN
 
 class SignIn : AppCompatActivity() {
-
-    // [START declare_auth]
-    private lateinit var auth: FirebaseAuth
-    // [END declare_auth]
-
+    private lateinit var auth: AuthManager
+    private lateinit var googleSignInClient: GoogleSignInClient
     public override fun onCreate(savedInstanceState: Bundle?) {
+        // Configure Google Sign In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+        auth = AuthManager(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_sign_in)
-        // [START initialize_auth]
-        // Initialize Firebase Auth
-        auth = Firebase.auth
+
         val loginBtn = findViewById<Button>(R.id.loginBtn)
         val forgotPassword = findViewById<TextView>(R.id.forgotPass)
         val signUpBtn = findViewById<TextView>(R.id.signUp)
+        val sigInFacebook = findViewById<ImageView>(R.id.facebook)
+        val signInGoogle = findViewById<ImageView>(R.id.google)
+
         //Lay userName, password de login
         loginBtn.setOnClickListener{
-            val userNameLogin = findViewById<EditText>(R.id.userNameLogin).getText().toString()
-            val passwordLogin = findViewById<EditText>(R.id.passwordLogin).getText().toString()
+            val userNameLogin = findViewById<TextInputLayout>(R.id.userNameLogin).editText?.text.toString()
+            val passwordLogin = findViewById<TextInputLayout>(R.id.passwordLogin).editText?.text.toString()
             if(userNameLogin!=""&&passwordLogin!=""){
-                signIn(userNameLogin,passwordLogin)
+                auth.authEmail(userNameLogin,passwordLogin)
             }else Toast.makeText(this, "Please enter email, password", Toast.LENGTH_SHORT).show()
 
         }
@@ -52,65 +65,41 @@ class SignIn : AppCompatActivity() {
             val signUp = Intent(this, SignUp::class.java)
             startActivity(signUp)
         }
-
-
-    }
-
-    // [START on_start_check_user]
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            reload()
+        sigInFacebook.setOnClickListener{
+//                AuthFacebook.login(this) { user ->
+//                    if (user != null) {
+//                        // Đăng nhập thành công
+//                    } else {
+//                        // Đăng nhập thất bại
+//                    }
+//                }
+            }
+        signInGoogle.setOnClickListener{
+            signIn()
         }
-
     }
-    // [END on_start_check_user]
+    //activity sign in with gooogle
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-    private fun signIn(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val homePage = Intent(this, Home::class.java)
-                    startActivity(homePage)
-                    val user = auth.currentUser
-                    saveLoginStatus(true, user.toString())
-                } else {
-                    Toast.makeText(
-                        baseContext,
-                        "Login Error.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                    updateUI(null)
-                }
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                auth.firebaseAuthWithGoogle(account.idToken!!)
+                Toast.makeText(this, "Success, Hello${account.displayName}", Toast.LENGTH_SHORT).show()
+
+            } catch (e: ApiException) {
+                Log.w(TAG, "Google sign in failed", e)
             }
+        }
     }
-    fun saveLoginStatus(isLoggedIn: Boolean, userId: String?) {
-        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("isLoggedIn", isLoggedIn)
-        editor.putString("userId", userId)
-        editor.apply()
+    private fun signIn() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun sendEmailVerification() {
-        // [START send_email_verification]
-        val user = auth.currentUser!!
-        user.sendEmailVerification()
-            .addOnCompleteListener(this) { task ->
-                // Email Verification sent
-            }
-        // [END send_email_verification]
-    }
 
-    private fun updateUI(user: FirebaseUser?) {
-    }
 
-    private fun reload() {
-    }
-
-    companion object {
-        private const val TAG = "EmailPassword"
-    }
 }

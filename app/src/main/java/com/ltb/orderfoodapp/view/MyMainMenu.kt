@@ -1,6 +1,7 @@
 package com.ltb.orderfoodapp.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
@@ -50,12 +51,19 @@ class MyMainMenu : AppCompatActivity() {
             val paymentmethod = Intent(this, PaymentMethod::class.java)
             startActivity(paymentmethod)
         }
-        // Chuyen sang sign in
+        // Logout ra khoi nguoi dung hien tai
         val logout = findViewById<TextView>(R.id.logout)
         logout.setOnClickListener{
-            val login = Intent(this, SignIn::class.java)
-            startActivity(login)
+            val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("isLoggedIn", false)
+            editor.apply()
+            val loginIntent = Intent(this, SignIn::class.java)
+            startActivity(loginIntent)
+            finish()
+
         }
+
 
     }
 }

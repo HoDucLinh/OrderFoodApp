@@ -49,4 +49,6 @@
     <dimen name="margin_roundedNumber">5dp</dimen>
 <!--    search-->
     <dimen name="margin_search">12dp</dimen>
+    <dimen name="margin_searchInput">50dp</dimen>
+    <dimen name="padding_searchInput">30dp</dimen>
 </resources>

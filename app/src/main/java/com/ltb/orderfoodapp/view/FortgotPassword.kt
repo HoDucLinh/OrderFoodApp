@@ -17,12 +17,12 @@ class FortgotPassword : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_fortgot_password)
-        val backSignIn = findViewById<Button>(R.id.backSignIn)
+//        val backSignIn = findViewById<Button>(R.id.backSignIn)
         val sendCode = findViewById<Button>(R.id.sendCodeBtn)
-        backSignIn.setOnClickListener{
-            val backLogin = Intent(this, SignIn::class.java)
-            startActivity(backLogin)
-        }
+//        backSignIn.setOnClickListener{
+//            val backLogin = Intent(this, SignIn::class.java)
+//            startActivity(backLogin)
+//        }
         sendCode.setOnClickListener{
             val emailForgot = findViewById<EditText>(R.id.userForgot).getText().toString()
             if(emailForgot!=""){
