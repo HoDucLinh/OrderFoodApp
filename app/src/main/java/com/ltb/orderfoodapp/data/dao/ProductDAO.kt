@@ -26,7 +26,8 @@ class ProductDAO(context: Context) {
         db.close()
 
     }
-    fun demo(){
+
+    fun demo() {
         val product = Product(
             name = "Pizza Margherita",
             price = 150000,
@@ -41,6 +42,7 @@ class ProductDAO(context: Context) {
         )
         addProduct(product)
     }
+
     fun addProduct(product: Product): Long {
         if (product.name.isEmpty() || product.price <= 0 || product.rating < 0 || product.description.isEmpty()) {
             throw IllegalArgumentException("Invalid product data")
@@ -55,7 +57,10 @@ class ProductDAO(context: Context) {
             val restaurantId = getOrInsertRestaurant(product.restaurant)
             updateProductRestaurant(productId, restaurantId)
 
-            addImagesToProduct(productId, product.images)
+            // Thêm hình ảnh vào sản phẩm
+            if (product.images.isNotEmpty()) {
+                addImagesToProduct(productId, product.images)
+            }
 
             productId
         } catch (e: Exception) {
@@ -122,7 +127,11 @@ class ProductDAO(context: Context) {
     private fun addImagesToProduct(productId: Long, images: List<String>) {
         val imageDAO = ImageDAO(db)
         images.forEach { imageUrl ->
-            imageDAO.addImage(imageUrl, productId.toInt())
+            try {
+                imageDAO.addImage(imageUrl, productId.toInt())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -170,7 +179,6 @@ class ProductDAO(context: Context) {
         }
         return productList
     }
-
 
 
 //

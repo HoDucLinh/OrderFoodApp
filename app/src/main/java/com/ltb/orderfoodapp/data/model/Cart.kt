@@ -1,7 +1,7 @@
 package com.ltb.orderfoodapp.data.model
 
 class Cart (
-    var idCart : Int,
+    var idCart : Int = 0,
     var totalNumber: Int,
     var userId : Int,
     var products: MutableList<Product>

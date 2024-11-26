@@ -8,7 +8,5 @@ open class Product(
     var description: String = "",
     var restaurant: String = "",
     var category: String = "",
-    var images: MutableList<String> = mutableListOf()
-) {
-
-}
+    var images: MutableList<String> = mutableListOf(),
+)

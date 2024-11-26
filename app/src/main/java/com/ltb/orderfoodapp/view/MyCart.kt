@@ -2,87 +2,72 @@ package com.ltb.orderfoodapp.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.adapter.ProductCartAdapter
+import com.ltb.orderfoodapp.data.dao.ProductCartDAO
 
 class MyCart : AppCompatActivity() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var productCartAdapter: ProductCartAdapter
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_my_cart)
+
         val backHome = findViewById<ImageButton>(R.id.backHome)
         val payment = findViewById<Button>(R.id.btnPayment)
-        val editItems = findViewById<Button>(R.id.editItems)
+        val total = findViewById<TextView>(R.id.total)
+
         // Lui ve home
         backHome.setOnClickListener{
             val home = Intent(this,Home::class.java)
             startActivity(home)
         }
-        // Chueen toi payment
+        // Chuyen toi payment
         payment.setOnClickListener{
             val payment = Intent(this, PaymentMethodNoMC::class.java)
             startActivity(payment)
         }
-        // Chinh sua item
 
-        editItems.setOnClickListener {
-            val parentLayout: ViewGroup = findViewById(R.id.parentLayout)
-            val imageButtonsWithTag = mutableListOf<ImageButton>()
+        // Tìm RecyclerView trong layout
+        recyclerView = findViewById(R.id.recyclerViewCart)
 
-            // Duyệt qua tất cả các View con trong parentLayout
-            for (i in 0 until parentLayout.childCount) {
-                val child = parentLayout.getChildAt(i)
-                if (child is ImageButton && child.tag == "cancelButton") {
-                    imageButtonsWithTag.add(child)
-                    Log.d("ImageButtonTag", "Found ImageButton with tag: cancelButton")
-                }
-            }
+        // Tạo DAO và lấy danh sách sản phẩm trong giỏ hàng
+        val cartDAO = ProductCartDAO(this)
+        val cartId = 1 // ID giỏ hàng, giả định là 1
+        val productCartList = cartDAO.getAllProductsOfCart()
 
-            // Kiểm tra nếu danh sách không rỗng, sau đó đặt visibility
-            if (imageButtonsWithTag.isNotEmpty()) {
-                for (imageButton in imageButtonsWithTag) {
-                    imageButton.visibility = View.VISIBLE
-                }
-            } else {
-                Log.d("ImageButtonTag", "No ImageButton found with tag: cancelButton")
-            }
-        }
-        val bttang = findViewById<ImageButton>(R.id.bttang)
-        val btgiam = findViewById<ImageView>(R.id.btgiam)
-        val txtresult = findViewById<TextView>(R.id.soluong)
+        // Đặt layout manager và adapter cho RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        productCartAdapter = ProductCartAdapter(this, productCartList)
+        recyclerView.adapter = productCartAdapter
 
-        // Khởi tạo giá trị ban đầu cho số lượng
-        var soLuong = 0
-        txtresult.text = soLuong.toString()
+        //Cập nhat tong tien
+        val totalPrice = productCartList.sumOf { it.price * it.quantity }
+        total.text = "$totalPrice VND"
+    }
 
-        // Xử lý sự kiện khi nhấn nút tăng
-        bttang.setOnClickListener {
-            soLuong += 1
-            txtresult.text = soLuong.toString()
-        }
+    override fun onResume() {
+        super.onResume()
 
-        // Xử lý sự kiện khi nhấn nút giảm
-        btgiam.setOnClickListener {
-            if (soLuong > 0) {
-                soLuong -= 1
-            }
-            txtresult.text = soLuong.toString()
-        }
+        // Làm mới dữ liệu
+        val cartDAO = ProductCartDAO(this)
+        val productCartList = cartDAO.getAllProductsOfCart()
 
-
-
-
-
+        // Cập nhật Adapter
+        productCartAdapter.productCartList.clear()
+        productCartAdapter.productCartList.addAll(productCartList)
+        productCartAdapter.notifyDataSetChanged()
     }
 }

@@ -85,6 +85,10 @@ dependencies {
     implementation (libs.facebook.login)
     implementation (libs.play.services.auth)
 
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")  // Hoặc phiên bản mới nhất
+
+
+
 
 
 

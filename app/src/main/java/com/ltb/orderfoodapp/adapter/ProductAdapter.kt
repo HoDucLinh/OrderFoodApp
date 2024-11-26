@@ -1,5 +1,6 @@
 package com.ltb.orderfoodapp.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -32,6 +33,7 @@ class ProductAdapter(
         return position.toLong()
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         if (products.isEmpty() || position < 0 || position >= products.size) {
             return TextView(parent?.context).apply {
@@ -61,6 +63,8 @@ class ProductAdapter(
             openFoodDetail(context, product)
         }
         return view
+
+
     }
 
     //     Mo trang food detail
@@ -68,6 +72,7 @@ class ProductAdapter(
         val intent = Intent(context, FoodDetail::class.java)
         val imageList: MutableList<String> = product.images
         val imageListArrayList = ArrayList(imageList)
+        intent.putExtra("id",product.idProduct)
         intent.putStringArrayListExtra("imageResource", imageListArrayList)
         intent.putExtra("name", product.name)
         intent.putExtra("storeName", product.restaurant)
