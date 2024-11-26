@@ -58,7 +58,10 @@ class ProductDAO(context: Context) {
             val restaurantId = getOrInsertRestaurant(product.restaurant)
             updateProductRestaurant(productId, restaurantId)
 
-            addImagesToProduct(productId, product.images)
+            // Thêm hình ảnh vào sản phẩm
+            if (product.images.isNotEmpty()) {
+                addImagesToProduct(productId, product.images)
+            }
 
             productId
         } catch (e: Exception) {
@@ -125,7 +128,11 @@ class ProductDAO(context: Context) {
     private fun addImagesToProduct(productId: Long, images: List<String>) {
         val imageDAO = ImageDAO(db)
         images.forEach { imageUrl ->
-            imageDAO.addImage(imageUrl, productId.toInt())
+            try {
+                imageDAO.addImage(imageUrl, productId.toInt())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 

@@ -1,8 +1,11 @@
 package com.ltb.orderfoodapp.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +25,21 @@ class MyCart : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_my_cart)
 
+        val backHome = findViewById<ImageButton>(R.id.backHome)
+        val payment = findViewById<Button>(R.id.btnPayment)
+        val total = findViewById<TextView>(R.id.total)
+
+        // Lui ve home
+        backHome.setOnClickListener{
+            val home = Intent(this,Home::class.java)
+            startActivity(home)
+        }
+        // Chuyen toi payment
+        payment.setOnClickListener{
+            val payment = Intent(this, PaymentMethodNoMC::class.java)
+            startActivity(payment)
+        }
+
         // Tìm RecyclerView trong layout
         recyclerView = findViewById(R.id.recyclerViewCart)
 
@@ -34,6 +52,10 @@ class MyCart : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         productCartAdapter = ProductCartAdapter(this, productCartList)
         recyclerView.adapter = productCartAdapter
+
+        //Cập nhat tong tien
+        val totalPrice = productCartList.sumOf { it.price * it.quantity }
+        total.text = "$totalPrice VND"
     }
 
     override fun onResume() {

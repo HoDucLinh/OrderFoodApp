@@ -63,7 +63,7 @@
                 />
 
             <EditText
-                android:id="@+id/editTextText"
+                android:id="@+id/nameitem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -148,7 +148,7 @@
                 android:layout_marginLeft="10dp">
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/txtPrice"
                     android:layout_width="108dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
@@ -184,14 +184,14 @@
                 android:layout_marginLeft="10dp">
 
                 <CheckBox
-                    android:id="@+id/checkBox3"
+                    android:id="@+id/cateFood"
                     android:layout_width="18dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Food" />
 
                 <CheckBox
-                    android:id="@+id/checkBox4"
+                    android:id="@+id/cateDrink"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -209,32 +209,30 @@
                 android:id="@+id/textView17"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DESCRIPTION"
-                android:textFontWeight="500"
                 android:layout_marginLeft="10dp"
-                />
+                android:text="DESCRIPTION"
+                android:textFontWeight="500" />
 
             <EditText
-                android:id="@+id/TextText"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:layout_margin="10dp"
-                android:padding="20dp"
                 android:background="@drawable/rounded_linear_layout"
+                android:ems="10"
                 android:inputType="textMultiLine"
-                android:textColor="@color/black"
-                />
+                android:padding="20dp"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:background="@color/orange"
+                android:text="SAVE CHANGES"
+                android:textColor="@color/white" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:text="SAVE CHANGES"
-            android:textColor="@color/white"
-            android:background="@color/orange"/>
 
     </LinearLayout>
 </LinearLayout>

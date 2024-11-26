@@ -76,6 +76,12 @@ class FoodDetail : AppCompatActivity() {
                     rating = 0f,
                     description = description
                 )
+                // Thêm kiểm tra sản phẩm đã tồn tại trong giỏ hàng
+                val pro_cart = ProductCartDAO(this)
+                if (pro_cart.isProductInCart(productId)) {
+                    Toast.makeText(this, "Sản phẩm đã tồn tại trong giỏ hàng!", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
 
                 // Thêm sản phẩm vào giỏ hàng
                 val productCartDAO = ProductCartDAO(this)
@@ -83,10 +89,10 @@ class FoodDetail : AppCompatActivity() {
 
                 if (result != -1L) {
                     // Hiển thị thông báo thành công
-                    Toast.makeText(this, "Product added to cart successfully!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Thêm thành công!!!", Toast.LENGTH_SHORT).show()
                 } else {
                     // Thông báo lỗi khi thêm sản phẩm
-                    Toast.makeText(this, "Failed to add product to cart", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Thêm thất bại", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

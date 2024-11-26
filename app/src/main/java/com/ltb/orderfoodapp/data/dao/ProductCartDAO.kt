@@ -10,6 +10,7 @@ import com.ltb.orderfoodapp.data.model.ProductCart
 
 class ProductCartDAO(context: Context) {
     private val db: SQLiteDatabase = DatabaseHelper.getInstance(context).writableDatabase
+    private val dt: SQLiteDatabase = DatabaseHelper.getInstance(context).readableDatabase
     //them san pham vao database
     fun insertProduct(product: Product, number:Int): Long {
         val values = ContentValues().apply {
@@ -19,6 +20,7 @@ class ProductCartDAO(context: Context) {
         }
         return db.insert("Product_Cart", null, values)
     }
+    //lấy ds sp Product
     fun getAllProductsOfCart(): MutableList<ProductCart> {
         val productCartList = mutableListOf<ProductCart>()
         val query = """
@@ -56,6 +58,26 @@ class ProductCartDAO(context: Context) {
         }
         return productCartList
     }
+    //xoa Product
+    fun deleteProduct(productId: Int) {
+        db.delete("Product_Cart", "Product_ID = ?", arrayOf(productId.toString()))
+        db.close()
+    }
+    //hàm kiểm tra sản phẩm đã tồn tại hay chưa
+    fun isProductInCart(productId: Int): Boolean {
+        val query = "SELECT COUNT(*) FROM Product_Cart WHERE Product_ID = ?"
+        val cursor = db.rawQuery(query, arrayOf(productId.toString()))
+
+        var exists = false
+        if (cursor.moveToFirst()) {
+            exists = cursor.getInt(0) > 0
+        }
+
+        cursor.close()
+        db.close()
+        return exists
+    }
+
 
 
 }
