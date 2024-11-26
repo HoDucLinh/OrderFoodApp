@@ -7,7 +7,7 @@ import com.ltb.orderfoodapp.data.model.User
 
 class UserDAO() {
     private lateinit var db: SQLiteDatabase
-    fun addRestaurant(user : User): Int {
+    fun addUser(user : User): Int {
         val values = ContentValues().apply {
             put("fullName", user.fullName)
             put("email", user.email)
@@ -20,7 +20,7 @@ class UserDAO() {
         return restaurantId.toInt()
     }
 
-    fun getRestaurantIdByName(restaurantName: String): Int {
+    fun getUser(restaurantName: String): Int {
         val cursor = db.query(
             "Restaurant",
             arrayOf("ID"),
