@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +16,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme_OrderFoodApp"
         tools:targetApi="31">
+        <activity
+            android:name=".view.MyOrder"
+            android:exported="false" />
+        <activity
+            android:name=".view.FoodRating"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.RateProductDialogFragment"
+            android:exported="false" />
+
         <activity
             android:name=".view.Message01"
             android:exported="false" />
@@ -30,7 +43,7 @@
             android:name=".view.PersonalInformation"
             android:exported="false" />
         <activity
-            android:name=".view.MyMainMenu"
+            android:name=".view.FoodRatingDetail"
             android:exported="false" />
         <activity
             android:name=".view.Welcome"
@@ -117,7 +130,7 @@
             android:name=".view.AddNewAddress"
             android:exported="false" /> <!-- android:theme="@style/AppTheme"   Theme light -->
         <activity
-            android:name=".view.MyOrder"
+            android:name=".view.MyMainMenu"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -126,9 +139,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
 </manifest>
