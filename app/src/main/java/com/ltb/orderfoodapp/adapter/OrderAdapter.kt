@@ -9,14 +9,17 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
+import com.ltb.orderfoodapp.view.OngoingFragment
 
 class OrderAdapter(
     private val context: Context,
     private val products: MutableList<ProductCart>,
+//    private val fragment: Fragment
 ) : BaseAdapter() {
     // Trả về số lượng sản phẩm
     override fun getCount(): Int {
