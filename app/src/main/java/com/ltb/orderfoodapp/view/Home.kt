@@ -43,9 +43,7 @@ class Home : AppCompatActivity() {
         nextMenu.setOnClickListener {
             val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
             val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-
             if (isLoggedIn) {
-
                 val profileIntent = Intent(this, MyMainMenu::class.java)
                 startActivity(profileIntent)
             } else {

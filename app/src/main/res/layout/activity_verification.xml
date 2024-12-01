@@ -10,12 +10,12 @@
     tools:context=".view.Verification">
 
     <ImageButton
-        android:id="@+id/navigator_SignIn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="@dimen/margin_navigate"
-        android:background="@drawable/navigate"
-        />
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/back" />
 
     <TextView
         android:id="@+id/textView"

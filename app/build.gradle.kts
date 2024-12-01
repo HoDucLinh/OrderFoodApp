@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
+//    implementation(files("src/main/java/com/ltb/orderfoodapp/data/api/zpdk-release-v3.1.aar"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -85,8 +86,8 @@ dependencies {
     implementation (libs.facebook.login)
     implementation (libs.play.services.auth)
 
-    implementation ("androidx.recyclerview:recyclerview:1.2.1")  // Hoặc phiên bản mới nhất
-
+    implementation (libs.androidx.recyclerview)
+    implementation (libs.gson)
 
 
 

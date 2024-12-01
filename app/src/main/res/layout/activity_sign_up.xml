@@ -116,6 +116,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:inputType="textPassword"
                 android:textColor="@color/darkBG"
                 android:hint="Password"
                 android:fontFamily="@font/sen"
@@ -138,6 +139,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:inputType="textPassword"
                 android:textColor="@color/darkBG"
                 android:fontFamily="@font/sen"
                 android:hint="Re - password"

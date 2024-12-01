@@ -17,11 +17,11 @@ class CategoryDAO(context: Context) {
         val categoryList = mutableListOf<Category>()
 
         val cursor = db.query(
-            "Category",        // Tên bảng
-            arrayOf("ID", "Name", "Description"), // Các cột cần lấy
-            null, // Không có điều kiện
-            null, // Không có giá trị điều kiện
-            null, null, null  // Không group, không order
+            "Category",
+            arrayOf("ID", "Name", "Description"),
+            null,
+            null,
+            null, null, null
         )
 
         cursor.use {
@@ -78,10 +78,10 @@ class CategoryDAO(context: Context) {
     // Lấy ID của Category theo tên
     fun getCategoryIdByName(categoryName: String): Int {
         val cursor = db.query(
-            "Category",               // Tên bảng
-            arrayOf("ID"),            // Cột cần lấy là ID
-            "Name = ?",             // Điều kiện tìm kiếm theo tên Category
-            arrayOf(categoryName),   // Giá trị của điều kiện
+            "Category",
+            arrayOf("ID"),
+            "Name = ?",
+            arrayOf(categoryName),
             null, null, null
         )
 

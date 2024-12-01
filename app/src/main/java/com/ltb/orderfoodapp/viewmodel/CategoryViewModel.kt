@@ -29,7 +29,8 @@ class CategoryViewModel(context: Context) {
         return categoryName
 
     }
-    // Trả về danh sách sản phẩm
+
+
     fun getProducts(): MutableList<Product> {
         return products
     }
