@@ -24,6 +24,7 @@ import com.ltb.orderfoodapp.data.model.Role
 import com.ltb.orderfoodapp.data.model.User
 import com.ltb.orderfoodapp.view.Home
 import com.ltb.orderfoodapp.view.SellerDashboardHome
+import com.ltb.orderfoodapp.view.SignIn
 import kotlin.math.truncate
 
 class AuthManager(private val context: Context) {
@@ -153,7 +154,26 @@ class AuthManager(private val context: Context) {
         editor.putString("user", Gson().toJson(user))
         editor.apply()
     }
+    fun logout() {
+        val sharedPreferences = context.getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", false)
+        editor.apply()
 
+        val loginIntent = Intent(context, SignIn::class.java)
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK) // Xóa tất cả activity trước đó
+        context.startActivity(loginIntent)
+    }
+
+//    fun logout(){
+//        val sharedPreferences = context.getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+//        val editor = sharedPreferences.edit()
+//        editor.putBoolean("isLoggedIn", false)
+//        editor.apply()
+//        val loginIntent = Intent(this, SignIn::class.java)
+//        startActivity(loginIntent)
+//        finish()
+//    }
 
     companion object {
         const val RC_SIGN_IN = 9001

@@ -169,6 +169,7 @@
                 android:textSize="16dp" />
 
             <TextView
+                android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/WhisperWhite"

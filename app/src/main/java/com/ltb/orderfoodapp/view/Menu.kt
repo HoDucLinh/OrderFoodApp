@@ -8,8 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.data.api.AuthManager
 
 class Menu : AppCompatActivity() {
+    private lateinit var auth : AuthManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,9 +22,14 @@ class Menu : AppCompatActivity() {
             insets
         }
         val btnfoodlist = findViewById<TextView>(R.id.myfoodlist)
+        val logout = findViewById<TextView>(R.id.logout)
         btnfoodlist.setOnClickListener{
             val myfoodlist = Intent(this, MyFood::class.java)
             startActivity(myfoodlist)
+        }
+        logout.setOnClickListener{
+            auth = AuthManager(this)
+            auth.logout()
         }
     }
 }
