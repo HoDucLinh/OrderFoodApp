@@ -1,5 +1,6 @@
 package com.ltb.orderfoodapp.view
 
+import ProductViewModel
 import android.app.Activity
 import android.content.Intent
 import android.media.Image
@@ -16,11 +17,11 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.ViewModelProvider
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.CategoryAdapter
 import com.ltb.orderfoodapp.adapter.ProductAdapter
 import com.ltb.orderfoodapp.viewmodel.CategoryViewModel
-import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class Search : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
@@ -29,7 +30,7 @@ class Search : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_search)
-        productViewModel = ProductViewModel(this)
+        productViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
         categoryViewModel = CategoryViewModel(this)
         setupGridViewCategory()
 

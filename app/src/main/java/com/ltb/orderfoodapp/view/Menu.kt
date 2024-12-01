@@ -1,10 +1,14 @@
 package com.ltb.orderfoodapp.view
 
+import MyFood
+import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.ltb.orderfoodapp.R
 
 class Menu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +19,11 @@ class Menu : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        val btnfoodlist = findViewById<TextView>(R.id.myfoodlist)
+        btnfoodlist.setOnClickListener{
+            val myfoodlist = Intent(this, MyFood::class.java)
+            startActivity(myfoodlist)
         }
     }
 }
