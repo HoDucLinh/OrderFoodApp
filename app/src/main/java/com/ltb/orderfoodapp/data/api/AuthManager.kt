@@ -71,6 +71,7 @@ class AuthManager(private val context: Context) {
                 // Sign in success, update UI with the signed-in user's information
                 Log.d(TAG, "signInWithCredential:success")
                 val user = auth.currentUser
+                checkAdmin(user?.email.toString(),"")
                 updateUI(user)
             } else {
                 // If sign in fails, display a message to the user.
@@ -161,7 +162,7 @@ class AuthManager(private val context: Context) {
         editor.apply()
 
         val loginIntent = Intent(context, SignIn::class.java)
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK) // Xóa tất cả activity trước đó
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startActivity(loginIntent)
     }
 
