@@ -4,20 +4,22 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.model.Category
 import com.ltb.orderfoodapp.data.model.Image
 import com.ltb.orderfoodapp.data.model.Product
 
 class ProductDAO(context: Context) {
-    private val db: SQLiteDatabase = DatabaseHelper.getInstance(context).writableDatabase
+    private val db: SQLiteDatabase
     private lateinit var categoryDAO: CategoryDAO
     private lateinit var imageDAO: ImageDAO
     private lateinit var restaurantDAO: RestaurantDAO
 
     init {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         categoryDAO = CategoryDAO(context)
-        restaurantDAO = RestaurantDAO()
+        restaurantDAO = RestaurantDAO(context)
 
     }
 
@@ -44,9 +46,9 @@ class ProductDAO(context: Context) {
     }
 
     fun addProduct(product: Product): Long {
-        if (product.name.isEmpty() || product.price <= 0 || product.rating < 0 || product.description.isEmpty()) {
-            throw IllegalArgumentException("Invalid product data")
-        }
+//        if (product.name.isEmpty() || product.price <= 0 || product.rating < 0 || product.description.isEmpty()) {
+//            throw IllegalArgumentException("Invalid product data")
+//        }
 
         return try {
             val productId = insertProduct(product)
@@ -64,7 +66,7 @@ class ProductDAO(context: Context) {
 
             productId
         } catch (e: Exception) {
-            throw RuntimeException("Failed to add product", e)
+            throw e
         }
     }
 

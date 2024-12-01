@@ -65,6 +65,11 @@ class Home : AppCompatActivity() {
         setupGridViewProduct()
         setupTheme()
     }
+
+    override fun onResume() {
+        super.onResume()
+        setupGridViewProduct()
+    }
     private fun setupTheme() {
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night", false)

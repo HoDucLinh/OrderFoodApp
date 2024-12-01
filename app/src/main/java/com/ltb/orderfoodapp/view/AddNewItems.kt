@@ -2,8 +2,6 @@ package com.ltb.orderfoodapp.view
 
 import android.app.Activity
 import android.content.ContentValues
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -21,7 +19,7 @@ import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.model.Product
 
-private lateinit var productDAO: ProductDAO
+
 private lateinit var edtName: EditText
 private lateinit var edtDescription: EditText
 private lateinit var txtPrice: TextView
@@ -31,7 +29,7 @@ private val images: MutableList<String> = mutableListOf()
 
 private val PICK_IMAGE_REQUEST = 1
 class AddNewItems : AppCompatActivity() {
-    private lateinit var dbHelper: DatabaseHelper
+    private lateinit var productDAO: ProductDAO
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -67,26 +65,9 @@ class AddNewItems : AppCompatActivity() {
             return
         }
 
-        // Chèn dữ liệu vào cơ sở dữ liệu
-        val db = dbHelper.writableDatabase
-        val values = ContentValues().apply {
-            put("Name", nameItem)
-            put("Price", price)
-            put("Rating", 0.0)
-            put("Description", description)
-            put("Category_ID", if (category == "Food") 1 else 2)
-            put("Restaurant_ID", 1)
-        }
-
-        val newRowId = db.insert("Product", null, values)
-        if (newRowId != -1L) {
-            Log.d("AddNewItemsActivity", "Product added successfully: ID = $newRowId")
-            Toast.makeText(this, "Product added successfully", Toast.LENGTH_SHORT).show()
-        } else {
-            Log.e("AddNewItemsActivity", "Failed to add product")
-            Toast.makeText(this, "Failed to add product", Toast.LENGTH_SHORT).show()
-        }
-        db.close()
+        val newProduct = Product(name = nameItem, price = price, category = category )
+        productDAO = ProductDAO(this)
+        productDAO.addProduct(newProduct)
     }
 
 }

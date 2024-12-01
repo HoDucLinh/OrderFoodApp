@@ -1,6 +1,5 @@
 package com.ltb.orderfoodapp.view
 
-import MyFood
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView

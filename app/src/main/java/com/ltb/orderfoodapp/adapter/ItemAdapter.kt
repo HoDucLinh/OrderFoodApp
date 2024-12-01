@@ -16,15 +16,15 @@ import com.ltb.orderfoodapp.data.model.ProductCart
 class ItemAdapter (private val context: Context,
                    val products: MutableList<Product>): BaseAdapter() {
     override fun getCount(): Int {
-        TODO("Not yet implemented")
+        return products.size
     }
 
     override fun getItem(position: Int): Any {
-        TODO("Not yet implemented")
+        return  products[position]
     }
 
     override fun getItemId(position: Int): Long {
-        TODO("Not yet implemented")
+        return position.toLong()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
