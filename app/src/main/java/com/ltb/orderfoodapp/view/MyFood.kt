@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -53,5 +54,11 @@ class MyFood : AppCompatActivity() {
         // Optional: Update total items TextView
         val totalItemsTextView: TextView = findViewById(R.id.textView6)
         totalItemsTextView.text = "Total ${productList.size} items"
+
+        val back = findViewById<ImageButton>(R.id.back)
+        back.setOnClickListener{
+            val myBack = Intent(this, Menu::class.java)
+            startActivity(myBack)
+        }
     }
 }

@@ -1,10 +1,12 @@
 package com.ltb.orderfoodapp.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.RatingBar
 import android.widget.TextView
@@ -12,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
+import com.ltb.orderfoodapp.view.EditItem
 
 class ItemAdapter (private val context: Context,
                    val products: MutableList<Product>): BaseAdapter() {
@@ -28,24 +31,29 @@ class ItemAdapter (private val context: Context,
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_food_list, parent, false)
+        val view = convertView ?: LayoutInflater.from(context).inflate(
+            R.layout.item_food_list, parent, false
+        )
 
         val product = products[position]
-
-        val imgProduct = view.findViewById<ImageButton>(R.id.imageButton2)
         val txtNameFood = view.findViewById<TextView>(R.id.txtNameFood)
-        val txtNameRestaurant = view.findViewById<TextView>(R.id.txtNameRestaurant)
-        val txtPrice = view.findViewById<TextView>(R.id.txtPrice)
-        val ratingBar = view.findViewById<RatingBar>(R.id.txtRating)
+        val btnEdit = view.findViewById<Button>(R.id.btnEdit)
 
-        // Bind product data
-        Glide.with(context).load(product.images.getOrNull(0) ?: R.drawable.burger).into(imgProduct)
         txtNameFood.text = product.name
-        txtNameRestaurant.text = product.restaurant
-        txtPrice.text = "${product.price} VND"
-        ratingBar.rating = product.rating
+
+        // Xử lý sự kiện click nút Edit
+        btnEdit.setOnClickListener {
+            openEditItemActivity(context, product.idProduct , product.rating)
+        }
 
         return view
+    }
+
+    private fun openEditItemActivity(context: Context, productId: Int , rating : Float) {
+        val intent = Intent(context, EditItem::class.java)
+        intent.putExtra("product_id", productId)
+        intent.putExtra("rating" , rating)
+        context.startActivity(intent)
     }
 
 

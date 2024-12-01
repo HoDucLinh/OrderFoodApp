@@ -64,7 +64,7 @@
                 />
 
             <EditText
-                android:id="@+id/editTextText3"
+                android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -143,10 +143,10 @@
                 android:orientation="horizontal"
                 android:layout_marginLeft="10dp">
 
-                <TextView
-                    android:id="@+id/txtPrice"
-                    android:layout_width="108dp"
-                    android:layout_height="30dp"
+                <EditText
+                    android:id="@+id/editTextPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="50$" />
 

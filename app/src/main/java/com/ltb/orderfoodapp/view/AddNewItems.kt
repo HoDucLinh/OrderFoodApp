@@ -49,8 +49,10 @@ class AddNewItems : AppCompatActivity() {
         val description = findViewById<EditText>(R.id.description).text.toString()
         val categoryFood = findViewById<CheckBox>(R.id.cateFood).isChecked
         val categoryDrink = findViewById<CheckBox>(R.id.cateDrink).isChecked
-        val priceText = findViewById<TextView>(R.id.txtPrice).text.toString().replace("$", "")
-        val price = priceText.toIntOrNull() ?: 0
+        val priceText = findViewById<EditText>(R.id.txtPrice).text.toString().replace("$", "")
+
+        // Chuyển giá trị thành Float thay vì Int để xử lý các giá trị thập phân
+        val price = priceText.toFloatOrNull() ?: 0f
 
         val category = when {
             categoryFood -> "Food"
@@ -58,16 +60,23 @@ class AddNewItems : AppCompatActivity() {
             else -> "Unknown"
         }
 
-        Log.d("AddNewItemsActivity", "Name: $nameItem, Description: $description, Price: $price, Category: $category")
-
-        if (nameItem.isEmpty() || price <= 0 || category == "Unknown") {
+        // Kiểm tra trường hợp các trường quan trọng trống
+        if (nameItem.isEmpty() || description.isEmpty() || price <= 0 || category == "Unknown") {
             Toast.makeText(this, "Please fill all required fields", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val newProduct = Product(name = nameItem, price = price, category = category , description = description )
+        Log.d("AddNewItemsActivity", "Name: $nameItem, Description: $description, Price: $price, Category: $category")
+
+        // Tạo sản phẩm mới và thêm vào cơ sở dữ liệu
+        val newProduct = Product(name = nameItem,price = price.toInt(), category = category, description = description)
         productDAO = ProductDAO(this)
-        productDAO.addProduct(newProduct)
+
+        val isAdded = productDAO.addProduct(newProduct)
+
+        Toast.makeText(this, "Product added successfully", Toast.LENGTH_SHORT).show()
+
     }
+
 
 }
