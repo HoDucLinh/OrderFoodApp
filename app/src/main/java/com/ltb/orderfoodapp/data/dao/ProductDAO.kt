@@ -4,21 +4,22 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.model.Category
 import com.ltb.orderfoodapp.data.model.Image
 import com.ltb.orderfoodapp.data.model.Product
 
 class ProductDAO(context: Context) {
-    private val db: SQLiteDatabase = DatabaseHelper.getInstance(context).writableDatabase
+    private val db: SQLiteDatabase
     private lateinit var categoryDAO: CategoryDAO
     private lateinit var imageDAO: ImageDAO
     private lateinit var restaurantDAO: RestaurantDAO
 
     init {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         categoryDAO = CategoryDAO(context)
-        restaurantDAO = RestaurantDAO()
-//        demo()
+        restaurantDAO = RestaurantDAO(context)
 
     }
 
@@ -29,139 +30,26 @@ class ProductDAO(context: Context) {
     }
 
     fun demo() {
-        val products = mutableListOf<Product>()
-
-        val sampleProducts = listOf(
-            Product(
-                name = "Pizza Margherita",
-                price = 150000,
-                rating = 4.5f,
-                description = "Pizza với phô mai và cà chua tươi",
-                restaurant = "Pizza Hut",
-                category = "Pizza",
-                images = mutableListOf(
-                    "https://example.com/image1.jpg",
-                    "https://example.com/image2.jpg"
-                )
-            ),
-            Product(
-                name = "Hamburger Classic",
-                price = 120000,
-                rating = 4.0f,
-                description = "Hamburger với thịt bò và rau tươi",
-                restaurant = "Burger King",
-                category = "Hamburger",
-                images = mutableListOf(
-                    "https://example.com/image3.jpg",
-                    "https://example.com/image4.jpg"
-                )
-            ),
-            Product(
-                name = "Sushi Combo",
-                price = 200000,
-                rating = 4.8f,
-                description = "Combo sushi với cá hồi và tôm",
-                restaurant = "Sushi House",
-                category = "Sushi",
-                images = mutableListOf(
-                    "https://example.com/image5.jpg",
-                    "https://example.com/image6.jpg"
-                )
-            ),
-            Product(
-                name = "Bánh Mì Thịt",
-                price = 30000,
-                rating = 4.2f,
-                description = "Bánh mì kẹp thịt truyền thống Việt Nam",
-                restaurant = "Bánh Mì Huỳnh Hoa",
-                category = "Bánh Mì",
-                images = mutableListOf(
-                    "https://example.com/image7.jpg",
-                    "https://example.com/image8.jpg"
-                )
-            ),
-            Product(
-                name = "Phở Bò",
-                price = 45000,
-                rating = 4.7f,
-                description = "Phở bò truyền thống với nước dùng đậm đà",
-                restaurant = "Phở 24",
-                category = "Phở",
-                images = mutableListOf(
-                    "https://example.com/image9.jpg",
-                    "https://example.com/image10.jpg"
-                )
-            ),
-            Product(
-                name = "Cơm Tấm Sườn",
-                price = 50000,
-                rating = 4.3f,
-                description = "Cơm tấm sườn bì chả",
-                restaurant = "Cơm Tấm Ba Ghiền",
-                category = "Cơm Tấm",
-                images = mutableListOf(
-                    "https://example.com/image11.jpg",
-                    "https://example.com/image12.jpg"
-                )
-            ),
-            Product(
-                name = "Bún Bò Huế",
-                price = 55000,
-                rating = 4.6f,
-                description = "Món bún bò đậm vị từ miền Trung",
-                restaurant = "Bún Bò O Nga",
-                category = "Bún Bò",
-                images = mutableListOf(
-                    "https://example.com/image13.jpg",
-                    "https://example.com/image14.jpg"
-                )
-            ),
-            Product(
-                name = "Tacos Mexico",
-                price = 180000,
-                rating = 4.4f,
-                description = "Tacos truyền thống với thịt bò",
-                restaurant = "Taco Bell",
-                category = "Tacos",
-                images = mutableListOf(
-                    "https://example.com/image15.jpg",
-                    "https://example.com/image16.jpg"
-                )
-            ),
-            Product(
-                name = "Trà Sữa Trân Châu",
-                price = 40000,
-                rating = 4.9f,
-                description = "Trà sữa hương vị truyền thống với trân châu đen",
-                restaurant = "Gong Cha",
-                category = "Đồ Uống",
-                images = mutableListOf(
-                    "https://example.com/image17.jpg",
-                    "https://example.com/image18.jpg"
-                )
-            ),
-            Product(
-                name = "Salad Caesar",
-                price = 70000,
-                rating = 4.5f,
-                description = "Salad Caesar với sốt kem và gà nướng",
-                restaurant = "The Green Table",
-                category = "Salad",
-                images = mutableListOf(
-                    "https://example.com/image19.jpg",
-                    "https://example.com/image20.jpg"
-                )
+        val product = Product(
+            name = "Pizza Margherita",
+            price = 150000,
+            rating = 4.5f,
+            description = "Pizza với phô mai và cà chua tươi",
+            restaurant = "Pizza Hut",
+            category = "Pizza",
+            images = mutableListOf(
+                "https://example.com/image1.jpg",
+                "https://example.com/image2.jpg"
             )
         )
-
-        products.addAll(sampleProducts)
+        addProduct(product)
     }
-
 
     fun addProduct(product: Product): Long {
 //        if (product.name.isEmpty() || product.price <= 0 || product.rating < 0 || product.description.isEmpty()) {
 //            throw IllegalArgumentException("Invalid product data")
 //        }
+
         return try {
             val productId = insertProduct(product)
 
@@ -178,7 +66,7 @@ class ProductDAO(context: Context) {
 
             productId
         } catch (e: Exception) {
-            throw RuntimeException("Failed to add product", e)
+            throw e
         }
     }
 

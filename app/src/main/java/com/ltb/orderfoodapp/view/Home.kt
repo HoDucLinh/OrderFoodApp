@@ -1,5 +1,6 @@
 package com.ltb.orderfoodapp.view
 
+import ProductViewModel
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,9 +13,9 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductAdapter
-import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 import java.time.LocalTime
 
 class Home : AppCompatActivity() {
@@ -22,7 +23,7 @@ class Home : AppCompatActivity() {
     private lateinit var darkTheme : Switch
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        productViewModel = ProductViewModel(this)
+        productViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
@@ -61,6 +62,11 @@ class Home : AppCompatActivity() {
         darkTheme = findViewById(R.id.darkTheme)
         setupGridViewProduct()
         setupTheme()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupGridViewProduct()
     }
     private fun setupTheme() {
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)

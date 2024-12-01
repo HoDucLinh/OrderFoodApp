@@ -1,10 +1,11 @@
 package com.ltb.orderfoodapp.view
 
 import android.app.Activity
-import android.content.Intent
-import android.net.Uri
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
@@ -18,7 +19,7 @@ import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.model.Product
 
-private lateinit var productDAO: ProductDAO
+
 private lateinit var edtName: EditText
 private lateinit var edtDescription: EditText
 private lateinit var txtPrice: TextView
@@ -28,6 +29,7 @@ private val images: MutableList<String> = mutableListOf()
 
 private val PICK_IMAGE_REQUEST = 1
 class AddNewItems : AppCompatActivity() {
+    private lateinit var productDAO: ProductDAO
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -37,85 +39,35 @@ class AddNewItems : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        // Khởi tạo DAO
-        productDAO = ProductDAO(this)
-
-        // Ánh xạ các view
-        edtName = findViewById(R.id.nameitem)
-        edtDescription = findViewById(R.id.description)
-        txtPrice = findViewById(R.id.txtPrice)
-        btnSave = findViewById(R.id.btnSave)
-        btnUploadImage = findViewById(R.id.imageButton11)
-
-        // Sự kiện chọn ảnh
-        btnUploadImage.setOnClickListener {
-            openImagePicker()
+        findViewById<Button>(R.id.btnSave).setOnClickListener {
+            addProductToDatabase()
         }
 
-        // Sự kiện nút lưu
-        btnSave.setOnClickListener {
-            saveProduct()
-        }
     }
-    private fun openImagePicker() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = "image/*"
-            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true) // Cho phép chọn nhiều ảnh
+    private fun addProductToDatabase() {
+        val nameItem = findViewById<EditText>(R.id.nameitem).text.toString()
+        val description = findViewById<EditText>(R.id.description).text.toString()
+        val categoryFood = findViewById<CheckBox>(R.id.cateFood).isChecked
+        val categoryDrink = findViewById<CheckBox>(R.id.cateDrink).isChecked
+        val priceText = findViewById<TextView>(R.id.txtPrice).text.toString().replace("$", "")
+        val price = priceText.toIntOrNull() ?: 0
+
+        val category = when {
+            categoryFood -> "Food"
+            categoryDrink -> "Drinks"
+            else -> "Unknown"
         }
-        startActivityForResult(Intent.createChooser(intent, "Select Pictures"), PICK_IMAGE_REQUEST)
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            if (data?.clipData != null) {
-                // Người dùng chọn nhiều ảnh
-                val count = data.clipData!!.itemCount
-                for (i in 0 until count) {
-                    val imageUri: Uri = data.clipData!!.getItemAt(i).uri
-                    images.add(imageUri.toString())
-                }
-            } else if (data?.data != null) {
-                // Người dùng chọn một ảnh
-                val imageUri: Uri = data.data!!
-                images.add(imageUri.toString())
-            }
-            Toast.makeText(this, "${images.size} images selected", Toast.LENGTH_SHORT).show()
-        }
-    }
+        Log.d("AddNewItemsActivity", "Name: $nameItem, Description: $description, Price: $price, Category: $category")
 
-    private fun saveProduct() {
-        val name = edtName.text.toString().trim()
-        val description = edtDescription.text.toString().trim()
-        val price = txtPrice.text.toString().replace("$", "").toIntOrNull() ?: 0
-
-        if (name.isEmpty() || description.isEmpty() || price <= 0) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+        if (nameItem.isEmpty() || price <= 0 || category == "Unknown") {
+            Toast.makeText(this, "Please fill all required fields", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val product = Product(
-            name = name,
-            price = price,
-            rating = 0f, // Giá trị mặc định
-            description = description,
-            restaurant = "Default Restaurant", // Thay thế bằng giá trị người dùng chọn
-            category = "Default Category",    // Thay thế bằng giá trị người dùng chọn
-            images = images
-        )
-
-        try {
-            val newProductId = productDAO.addProduct(product)
-            Toast.makeText(this, "Product added successfully with ID: $newProductId", Toast.LENGTH_SHORT).show()
-            finish() // Quay lại màn hình trước đó
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Toast.makeText(this, "Failed to add product: ${e.message}", Toast.LENGTH_SHORT).show()
-        }
+        val newProduct = Product(name = nameItem, price = price, category = category )
+        productDAO = ProductDAO(this)
+        productDAO.addProduct(newProduct)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        productDAO.close()
-    }
 }
