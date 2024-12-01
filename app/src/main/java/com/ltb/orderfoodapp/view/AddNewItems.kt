@@ -65,7 +65,7 @@ class AddNewItems : AppCompatActivity() {
             return
         }
 
-        val newProduct = Product(name = nameItem, price = price, category = category )
+        val newProduct = Product(name = nameItem, price = price, category = category , description = description )
         productDAO = ProductDAO(this)
         productDAO.addProduct(newProduct)
     }
