@@ -124,12 +124,13 @@
             android:textColor="@color/textDark" />
 
         <TextView
+            android:id="@+id/myfoodlist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/WhisperWhite"
             android:gravity="start|center"
             android:drawableLeft="@drawable/icon_numberorder"
-            android:text="Favorite"
+            android:text="My Food List"
             android:drawableRight="@drawable/ic_navigate_next_24"
             android:fontFamily="@font/sen_bold"
             android:textSize="16dp"

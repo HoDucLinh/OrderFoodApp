@@ -1,6 +1,8 @@
 package com.ltb.orderfoodapp.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,6 +18,11 @@ class SellerDashboardHome : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        val menu = findViewById<ImageButton>(R.id.nextMenu)
+        menu.setOnClickListener{
+            val next_menu = Intent(this , Menu::class.java)
+            startActivity(next_menu)
         }
     }
 }

@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -28,6 +28,9 @@
             android:exported="false" />
 
         <activity
+            android:name=".view.EditItem"
+            android:exported="false" />
+        <activity
             android:name=".view.Message01"
             android:exported="false" />
         <activity
@@ -43,10 +46,10 @@
             android:name=".view.PersonalInformation"
             android:exported="false" />
         <activity
-            android:name=".view.FoodRatingDetail"
+            android:name=".view.MyMainMenu"
             android:exported="false" />
         <activity
-            android:name=".view.Welcome"
+            android:name=".view.MyOrder"
             android:exported="false" />
         <activity
             android:name=".view.PaymentSuccess"
@@ -109,7 +112,7 @@
             android:name=".view.Search"
             android:exported="false" />
         <activity
-            android:name=".view.MyMainMenu"
+            android:name=".view.Home"
             android:exported="false" />
         <activity
             android:name=".view.Onboarding"
@@ -130,7 +133,7 @@
             android:name=".view.AddNewAddress"
             android:exported="false" /> <!-- android:theme="@style/AppTheme"   Theme light -->
         <activity
-            android:name=".view.Home"
+            android:name=".view.Welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

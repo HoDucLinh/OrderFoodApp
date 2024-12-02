@@ -1,11 +1,16 @@
 package com.ltb.orderfoodapp.data.dao
 
 import android.content.ContentValues
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.model.Restaurant
 
-class RestaurantDAO() {
+class RestaurantDAO(context: Context) {
     private lateinit var db: SQLiteDatabase
+    init {
+        db = DatabaseHelper.getInstance(context).writableDatabase
+    }
     fun addRestaurant(restaurantName: String): Int {
         val existingRestaurantId = getRestaurantIdByName(restaurantName)
         if (existingRestaurantId != -1) {

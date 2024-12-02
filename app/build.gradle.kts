@@ -71,7 +71,7 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
-//    implementation(files("src/main/java/com/ltb/orderfoodapp/data/api/zpdk-release-v3.1.aar"))
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
