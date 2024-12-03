@@ -52,6 +52,7 @@
             android:layout_marginTop="10dp">
 
             <ImageView
+                android:id="@+id/order_img"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:scaleType="centerCrop"
@@ -67,6 +68,7 @@
             android:layout_marginTop="30dp">
 
             <TextView
+                android:id="@+id/order_name"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:text="Pizza Hut"
@@ -81,6 +83,7 @@
                 android:layout_marginTop="16dp">
 
                 <TextView
+                    android:id="@+id/order_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="$35.25"
@@ -95,6 +98,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/order_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="30 JAN, 12:30"
@@ -103,6 +107,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/itemNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="19dp"
                     android:text="03 Items"

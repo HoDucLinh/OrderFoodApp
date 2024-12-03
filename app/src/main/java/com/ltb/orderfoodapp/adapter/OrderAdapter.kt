@@ -1,10 +1,12 @@
 package com.ltb.orderfoodapp.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -15,6 +17,7 @@ import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
 import com.ltb.orderfoodapp.view.HistoryFragment
 import com.ltb.orderfoodapp.view.OngoingFragment
+import com.ltb.orderfoodapp.view.RateProductDialogFragment
 
 class OrderAdapter(
     private val context: Context,
@@ -46,25 +49,25 @@ class OrderAdapter(
         var view = LayoutInflater.from(context).inflate(R.layout.item_orders_ongoing, parent, false)
         if(fragment is HistoryFragment){
             view = LayoutInflater.from(context).inflate(R.layout.item_orders_history, parent, false)
+
+            val ratingBtn = view.findViewById<Button>(R.id.rating)
+
+            ratingBtn.setOnClickListener {
+                if (fragment is HistoryFragment) {
+                    val dialog = RateProductDialogFragment()
+                    // Thay vì gọi supportFragmentManager, dùng fragment's childFragmentManager hoặc parentFragmentManager
+                    fragment.parentFragmentManager.beginTransaction().add(dialog, "RateProductDialog").commit()
+                }
+            }
         }
+
         // Kiem cac thanh phan trong layout cua product
         val orderImg = view.findViewById<ImageView>(R.id.order_img)
         val orderName = view.findViewById<TextView>(R.id.order_name)
         val orderPrice = view.findViewById<TextView>(R.id.order_price)
         val orderQuantity = view.findViewById<TextView>(R.id.order_quantity)
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_statistics, parent, false)
-        val order = orders[position]
+//        val orderDate = view.findViewById<TextView>(R.id.order_date)
 
-        // Gắn các view trong activity_item_statistics
-        val categoryTextView: TextView = view.findViewById(R.id.cate)
-        val statusTextView: TextView = view.findViewById(R.id.orderStatus)
-        val nameTextView: TextView = view.findViewById(R.id.nameProduct)
-        val priceTextView: TextView = view.findViewById(R.id.priceProduct)
-        val dateTextView: TextView = view.findViewById(R.id.dateOrder)
-        val ratingBar: RatingBar = view.findViewById(R.id.ratingBar)
-
-        // Gán giá trị từ đơn hàng
-        val firstOrderDetail = order.orderDetails.firstOrNull()
 
         // Lay vi tri hien tai
         val product = products[position]
@@ -75,19 +78,7 @@ class OrderAdapter(
         orderName.text = product.name
         orderPrice.text = "${product.price * product.quantity }VND"
         orderQuantity.text = "${product.quantity} Items"
-        if (firstOrderDetail != null) {
-            categoryTextView.text = "Category: ${firstOrderDetail.productId}" // You can replace this with actual category
-            nameTextView.text = "Product: ${firstOrderDetail.productId}" // Replace with actual product name
-            ratingBar.rating = firstOrderDetail.totalPrice // Replace with rating (if available)
-        } else {
-            categoryTextView.text = "Category: N/A"
-            nameTextView.text = "Product: N/A"
-            ratingBar.rating = 0f
-        }
-
-        statusTextView.text = order.orderStatus
-        priceTextView.text = "Total: $${order.totalAmount}"
-        dateTextView.text = "Date: ${SimpleDateFormat("dd MMM, yyyy").format(order.orderDate)}"
+//        orderDate.text = "Date"
 
 //        view.setOnClickListener {
 //            openFoodDetail(context, product)
