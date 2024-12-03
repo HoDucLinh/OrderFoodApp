@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductCartAdapter
+import com.ltb.orderfoodapp.data.api.Payment
 import com.ltb.orderfoodapp.data.dao.ProductCartDAO
 
 class MyCart : AppCompatActivity() {
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var productCartAdapter: ProductCartAdapter
 
@@ -34,11 +34,7 @@ class MyCart : AppCompatActivity() {
             val home = Intent(this,Home::class.java)
             startActivity(home)
         }
-        // Chuyen toi payment
-        payment.setOnClickListener{
-            val payment = Intent(this, PaymentMethodNoMC::class.java)
-            startActivity(payment)
-        }
+
 
         // Tìm RecyclerView trong layout
         recyclerView = findViewById(R.id.recyclerViewCart)
@@ -54,8 +50,15 @@ class MyCart : AppCompatActivity() {
         recyclerView.adapter = productCartAdapter
 
         //Cập nhat tong tien
-        val totalPrice = productCartList.sumOf { it.price * it.quantity }
+        val totalPrice = productCartList.sumOf { it.price * it.quantity }.toInt()
         total.text = "$totalPrice VND"
+
+        // Chuyen toi payment
+        payment.setOnClickListener{
+            val paymentMethod = Intent(this, PaymentMethod::class.java)
+            paymentMethod.putExtra("pricePayment" , totalPrice)
+            startActivity(paymentMethod)
+        }
     }
 
     override fun onResume() {
@@ -70,4 +73,5 @@ class MyCart : AppCompatActivity() {
         productCartAdapter.productCartList.addAll(productCartList)
         productCartAdapter.notifyDataSetChanged()
     }
+
 }
