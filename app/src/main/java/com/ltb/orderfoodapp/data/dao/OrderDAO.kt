@@ -1,201 +1,81 @@
 package com.ltb.orderfoodapp.data.dao
 
-import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
 import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.model.Category
-import com.ltb.orderfoodapp.data.model.Image
+import com.ltb.orderfoodapp.data.model.Order
+import com.ltb.orderfoodapp.data.model.OrderDetail
 import com.ltb.orderfoodapp.data.model.Product
+import com.ltb.orderfoodapp.data.model.User
+import java.text.SimpleDateFormat
 
-class OrderDAO(context: Context) {
-    private val db: SQLiteDatabase = DatabaseHelper.getInstance(context).writableDatabase
-    private lateinit var categoryDAO: CategoryDAO
-    private lateinit var imageDAO: ImageDAO
-    private lateinit var restaurantDAO: RestaurantDAO
+class OrderDAO(private val context: Context) {
+    private val dbHelper = DatabaseHelper(context)
 
-    init {
-        categoryDAO = CategoryDAO(context)
-        restaurantDAO = RestaurantDAO(context)
+    fun getOrdersByFilters(name: String?, date: String?, categoryId: Int?): List<Order> {
+        val orders = mutableListOf<Order>()
+        val db = dbHelper.readableDatabase
 
-    }
-
-
-    fun close() {
-        db.close()
-
-    }
-
-    fun demo() {
-        val product = Product(
-            name = "Pizza Margherita",
-            price = 150000,
-            rating = 4.5f,
-            description = "Pizza với phô mai và cà chua tươi",
-            restaurant = "Pizza Hut",  // Tên nhà hàng
-            category = "Pizza",        // Danh mục
-            images = mutableListOf(
-                "https://example.com/image1.jpg",
-                "https://example.com/image2.jpg"
-            )
+        val query = StringBuilder(
+            """
+        SELECT o.ID AS OrderID, o.totalAmount, o.orderStatus, o.orderDate, 
+               u.ID AS UserID, u.Name AS UserName, 
+               c.ID AS CategoryID, c.Name AS CategoryName,
+               p.ID AS ProductID, p.Name AS ProductName, p.Price, p.Rating, p.Category_ID
+        FROM Order o
+        LEFT JOIN User u ON o.User_ID = u.ID
+        LEFT JOIN OrderDetail od ON o.ID = od.Order_ID
+        LEFT JOIN Product p ON od.Product_ID = p.ID
+        LEFT JOIN Category c ON p.Category_ID = c.ID
+        WHERE 1 = 1
+        """
         )
-        addProduct(product)
-    }
-
-    fun addProduct(product: Product): Long {
-        // Kiểm tra tính hợp lệ của thông tin sản phẩm
-        if (product.name.isEmpty() || product.price <= 0 || product.rating < 0 || product.description.isEmpty()) {
-            throw IllegalArgumentException("Invalid product data")
+        val args = mutableListOf<String>()
+        if (!name.isNullOrEmpty()) {
+            query.append(" AND u.Name LIKE ?")
+            args.add("%$name%")
+        }
+        if (!date.isNullOrEmpty()) {
+            query.append(" AND o.orderDate LIKE ?")
+            args.add("%$date%")
+        }
+        if (categoryId != null) {
+            query.append(" AND c.ID = ?")
+            args.add(categoryId.toString())
         }
 
-        return try {
-            val productId = insertProduct(product)
+        val cursor = db.rawQuery(query.toString(), args.toTypedArray())
+        cursor.use {
+            while (it.moveToNext()) {
+                val order = Order(
+                    idOrder = it.getInt(it.getColumnIndexOrThrow("OrderID")),
+                    totalAmount = it.getFloat(it.getColumnIndexOrThrow("totalAmount")),
+                    orderStatus = it.getString(it.getColumnIndexOrThrow("orderStatus")),
+                    orderDate = SimpleDateFormat("yyyy-MM-dd").parse(it.getString(it.getColumnIndexOrThrow("orderDate"))),
+                    userId = it.getInt(it.getColumnIndexOrThrow("UserID")),
+                    restaurantId = 0,
+                    orderDetails = mutableListOf()
+                )
 
-            val categoryId = getOrInsertCategory(product.category)
-            updateProductCategory(productId, categoryId)
+                val orderDetail = OrderDetail(
+                    idOrderDetail = 0, // No specific ID for order detail in query
+                    orderId = order.idOrder,
+                    productId = it.getInt(it.getColumnIndexOrThrow("ProductID")),
+                    quantity = 1, // Default value (update if required)
+                    unitPrice = it.getFloat(it.getColumnIndexOrThrow("Price")),
+                    totalPrice = it.getFloat(it.getColumnIndexOrThrow("Price")) // Default to unitPrice (update if required)
+                )
 
-            val restaurantId = getOrInsertRestaurant(product.restaurant)
-            updateProductRestaurant(productId, restaurantId)
+                // Gắn thêm thông tin Product từ bảng
+                orderDetail.productId = it.getInt(it.getColumnIndexOrThrow("ProductID"))
+                val categoryName = it.getString(it.getColumnIndexOrThrow("CategoryName"))
+                val rating = it.getFloat(it.getColumnIndexOrThrow("Rating"))
 
-            addImagesToProduct(productId, product.images)
-
-            productId
-        } catch (e: Exception) {
-            throw RuntimeException("Failed to add product", e)
-        }
-    }
-
-    // Thêm sản phẩm vào cơ sở dữ liệu
-    private fun insertProduct(product: Product): Long {
-        val values = ContentValues().apply {
-            put("Name", product.name)
-            put("Price", product.price)
-            put("Rating", product.rating)
-            put("Description", product.description)
-        }
-        return db.insert("Product", null, values)
-    }
-
-    // Kiểm tra xem danh mục có tồn tại chưa, nếu chưa thì thêm mới
-    private fun getOrInsertCategory(categoryName: String): Int {
-        var categoryId = categoryDAO.getCategoryIdByName(categoryName)
-        if (categoryId == -1) {
-            val categoryValues = ContentValues().apply {
-                put("Name", categoryName)
-                put("Description", "dfasdf")
+                order.orderDetails.add(orderDetail)
+                orders.add(order)
             }
-            val newCategoryId = db.insert("Category", null, categoryValues)
-            categoryId = newCategoryId.toInt()
         }
-        return categoryId
+        return orders
     }
 
-    // Cập nhật sản phẩm với category_id
-    private fun updateProductCategory(productId: Long, categoryId: Int) {
-        val updateCategoryValues = ContentValues().apply {
-            put("Category_ID", categoryId)
-        }
-        db.update("Product", updateCategoryValues, "ID = ?", arrayOf(productId.toString()))
-    }
-
-    // Kiểm tra xem nhà hàng có tồn tại chưa, nếu chưa thì thêm mới
-    private fun getOrInsertRestaurant(restaurantName: String): Int {
-        var restaurantId = restaurantDAO.getRestaurantIdByName(restaurantName)
-        if (restaurantId == -1) {
-            val restaurantValues = ContentValues().apply {
-                put("Name", restaurantName)
-                put("Address", " ")
-            }
-            val newRestaurantId = db.insert("Restaurant", null, restaurantValues)
-            restaurantId = newRestaurantId.toInt()
-        }
-        return restaurantId
-    }
-
-    // Cập nhật sản phẩm với restaurant_id
-    private fun updateProductRestaurant(productId: Long, restaurantId: Int) {
-        val updateRestaurantValues = ContentValues().apply {
-            put("Restaurant_ID", restaurantId)
-        }
-        db.update("Product", updateRestaurantValues, "ID = ?", arrayOf(productId.toString()))
-    }
-
-    // Thêm hình ảnh cho sản phẩm
-    private fun addImagesToProduct(productId: Long, images: List<String>) {
-        val imageDAO = ImageDAO(db)
-        images.forEach { imageUrl ->
-            imageDAO.addImage(imageUrl, productId.toInt())
-        }
-    }
-
-    fun getAllProducts(): MutableList<Product> {
-        val productList = mutableListOf<Product>()
-        var cursor: Cursor? = null
-        try {
-            cursor = db.rawQuery(
-                """ 
-            SELECT 
-                p.ID, p.Name, p.Price, p.Rating, p.Description, 
-                c.Name AS CategoryName, r.Name AS RestaurantName, i.Value AS ImageSource 
-            FROM Product p
-            LEFT JOIN Category c ON p.Category_ID = c.ID
-            LEFT JOIN Image i ON p.ID = i.Product_ID
-            LEFT JOIN Restaurant r ON p.Restaurant_ID = r.ID
-            """, null
-            )
-
-            cursor?.use {
-                while (it.moveToNext()) {
-                    val product = Product(
-                        idProduct = it.getInt(it.getColumnIndexOrThrow("ID")),
-                        name = it.getString(it.getColumnIndexOrThrow("Name")),
-                        price = it.getInt(it.getColumnIndexOrThrow("Price")),
-                        rating = it.getFloat(it.getColumnIndexOrThrow("Rating")),
-                        description = it.getString(it.getColumnIndexOrThrow("Description")),
-                    )
-                    val restaurant = it.getString(it.getColumnIndexOrThrow("RestaurantName"))
-                    product.restaurant = restaurant
-                    val categoryName = it.getString(it.getColumnIndexOrThrow("CategoryName"))
-                    product.category = categoryName
-                    val imageUrl = it.getString(it.getColumnIndexOrThrow("ImageSource"))
-                    if (imageUrl != null) {
-                        product.images.add(imageUrl)
-                    }
-
-                    productList.add(product)
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            cursor?.close() // Đảm bảo đóng cursor khi không còn sử dụng
-        }
-        return productList
-    }
-
-
-//
-//    // Cập nhật sản phẩm
-//    fun updateProduct(product: Product): Int {
-//        val values = ContentValues().apply {
-//            put("name", product.name)
-//            put("storeName", product.storeName)
-//            put("price", product.price)
-//            put("imageResource", product.imageResource)
-//            put("rating", product.rating)
-//            put("category", product.category)
-//            put("description", product.description)
-//        }
-//        val selection = "name = ?"
-//        val selectionArgs = arrayOf(product.name)
-//        return db.update("Product", values, selection, selectionArgs)
-//    }
-//
-//    // Xóa sản phẩm
-//    fun deleteProduct(name: String): Int {
-//        val selection = "name = ?"
-//        val selectionArgs = arrayOf(name)
-//        return db.delete("Product", selection, selectionArgs)
-//    }
 }

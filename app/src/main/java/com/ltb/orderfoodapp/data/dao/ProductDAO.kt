@@ -181,29 +181,77 @@ class ProductDAO(context: Context) {
         }
         return productList
     }
+    fun getProductById(productId: Int): Product {
+        val cursor = db.rawQuery(
+            "SELECT p.ID, p.Name, p.Price, p.Rating, p.Description FROM Product p WHERE p.ID = ?",
+            arrayOf(productId.toString())
+        )
 
+        cursor?.use {
+            if (it.moveToFirst()) {
+                return Product(
+                    idProduct = it.getInt(it.getColumnIndexOrThrow("ID")),
+                    name = it.getString(it.getColumnIndexOrThrow("Name")),
+                    price = it.getInt(it.getColumnIndexOrThrow("Price")),
+                    rating = it.getFloat(it.getColumnIndexOrThrow("Rating")),
+                    description = it.getString(it.getColumnIndexOrThrow("Description"))
+                )
+            }
+        }
 
-//
-//    // Cập nhật sản phẩm
-//    fun updateProduct(product: Product): Int {
-//        val values = ContentValues().apply {
-//            put("name", product.name)
-//            put("storeName", product.storeName)
-//            put("price", product.price)
-//            put("imageResource", product.imageResource)
-//            put("rating", product.rating)
-//            put("category", product.category)
-//            put("description", product.description)
-//        }
-//        val selection = "name = ?"
-//        val selectionArgs = arrayOf(product.name)
-//        return db.update("Product", values, selection, selectionArgs)
-//    }
-//
-//    // Xóa sản phẩm
-//    fun deleteProduct(name: String): Int {
-//        val selection = "name = ?"
-//        val selectionArgs = arrayOf(name)
-//        return db.delete("Product", selection, selectionArgs)
-//    }
+        throw IllegalArgumentException("Product not found")
+    }
+    fun deleteProduct(productId: Int): Boolean {
+        val rowsDeleted = db.delete("Product", "ID = ?", arrayOf(productId.toString()))
+        return rowsDeleted > 0
+    }
+    fun updateProduct(product: Product): Boolean {
+        val values = ContentValues().apply {
+            put("Name", product.name)
+            put("Price", product.price)
+            put("Rating", product.rating)
+            put("Description", product.description)
+        }
+
+        val rowsUpdated = db.update("Product", values, "ID = ?", arrayOf(product.idProduct.toString()))
+        return rowsUpdated > 0
+    }
+    // Xóa sản phẩm và ảnh liên quan
+    fun deleteProductById(productId: Int): Boolean {
+        return try {
+            // Xóa ảnh liên quan (nếu có)
+            deleteProductImages(productId)
+
+            // Xóa sản phẩm từ bảng Product
+            val rowsAffected = db.delete("Product", "ID = ?", arrayOf(productId.toString()))
+            rowsAffected > 0
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    // Xóa ảnh liên quan đến sản phẩm
+    fun deleteProductImages(productId: Int):Boolean {
+        try {
+            db.delete("Image", "Product_ID = ?", arrayOf(productId.toString()))
+            return true
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return false
+    }
+    fun getAllCategories(): List<String> {
+        val categories = mutableListOf<String>()
+        val cursor = db.rawQuery("SELECT Name FROM Category", null) // Trực tiếp sử dụng db đã mở
+
+        cursor.use {
+            while (it.moveToNext()) {
+                categories.add(it.getString(0)) // Lấy cột Name
+            }
+        }
+
+        return categories
+    }
+
 }

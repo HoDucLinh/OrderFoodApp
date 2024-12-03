@@ -38,6 +38,12 @@
             android:name=".view.RateProductDialogFragment"
             android:exported="false" />
         <activity
+            android:name=".view.order_statistics"
+            android:exported="false" />
+        <activity
+            android:name=".view.Fillter"
+            android:exported="false" />
+        <activity
             android:name=".view.EditItem"
             android:exported="false" />
         <activity
