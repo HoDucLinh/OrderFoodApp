@@ -42,10 +42,10 @@ class MyFood : AppCompatActivity() {
         listView = findViewById(R.id.listitem)
 
         // Sử dụng ViewModelProvider để khởi tạo ViewModel
-        val viewModel = ViewModelProvider(this)[ProductViewModel::class.java]
+        val viewModel = ProductViewModel(this)
 
         // Fetch products of restaurant 1
-        productList = viewModel.getProductsByRestaurant(1)
+        productList = viewModel.getProductsByRestaurant("")
 
         // Initialize and set adapter
         itemAdapter = ItemAdapter(this, productList.toMutableList())

@@ -30,7 +30,7 @@ class Search : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_search)
-        productViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
+        productViewModel = ProductViewModel(this)
         categoryViewModel = CategoryViewModel(this)
         setupGridViewCategory()
 

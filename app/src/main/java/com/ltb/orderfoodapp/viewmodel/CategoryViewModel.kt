@@ -12,19 +12,20 @@ class CategoryViewModel(context: Context) {
 
     private val categoryDAO = CategoryDAO(context)
     private var products: MutableList<Product> = mutableListOf()
-    private var categories : MutableList<Category> = mutableListOf()
+    private var categories: MutableList<Category> = mutableListOf()
 
     init {
     }
 
-    private fun getProducts(categoryName : String) {
+    private fun getProducts(categoryName: String) {
         products = categoryDAO.getProductByCategoryName(categoryName)
     }
-     fun getCategoriesName() : MutableList<String> {
+
+    fun getCategoriesName(): MutableList<String> {
         categories = categoryDAO.getAllCategories()
-        val categoryName : MutableList<String> = mutableListOf()
-            for (c in categories) {
-                categoryName.add(c.name)
+        val categoryName: MutableList<String> = mutableListOf()
+        for (c in categories) {
+            categoryName.add(c.name)
         }
         return categoryName
 

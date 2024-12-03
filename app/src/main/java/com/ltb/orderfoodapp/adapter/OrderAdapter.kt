@@ -43,12 +43,13 @@ class OrderAdapter(
                 text = "No product"
             }
         }
-        val view = LayoutInflater.from(context).inflate(R.layout.item_orders_ongoing, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_orders_history, parent, false)
         // Kiem cac thanh phan trong layout cua product
         val orderImg = view.findViewById<ImageView>(R.id.order_img)
         val orderName = view.findViewById<TextView>(R.id.order_name)
         val orderPrice = view.findViewById<TextView>(R.id.order_price)
         val orderQuantity = view.findViewById<TextView>(R.id.order_quantity)
+        val orderDate = view.findViewById<TextView>(R.id.order_date)
 
 
         // Lay vi tri hien tai
@@ -60,6 +61,7 @@ class OrderAdapter(
         orderName.text = product.name
         orderPrice.text = "${product.price * product.quantity }VND"
         orderQuantity.text = "${product.quantity} Items"
+        orderDate.text = "Date"
 
 //        view.setOnClickListener {
 //            openFoodDetail(context, product)
