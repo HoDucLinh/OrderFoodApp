@@ -1,7 +1,7 @@
-import android.app.Application
+package com.ltb.orderfoodapp.viewmodel
+
 import android.content.Context
-import androidx.lifecycle.AndroidViewModel
-import com.ltb.orderfoodapp.data.DatabaseHelper
+import com.ltb.orderfoodapp.data.dao.ProductCartDAO
 import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.model.Product
 
@@ -10,14 +10,17 @@ class ProductViewModel(context: Context) {
     private val productDAO = ProductDAO(context)
     private var products: MutableList<Product> = mutableListOf()
 
+
     init {
         fetchProducts()
     }
 
+    // Lấy danh sách sản phẩm từ ProductDAO
     private fun fetchProducts() {
         products = productDAO.getAllProducts()
     }
 
+    // Trả về danh sách sản phẩm
     fun getProducts(): MutableList<Product> {
         return products
     }

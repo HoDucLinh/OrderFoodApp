@@ -71,7 +71,7 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
-    implementation(libs.firebase.storage)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -87,9 +87,16 @@ dependencies {
     implementation (libs.play.services.auth)
 
     implementation (libs.androidx.recyclerview)
+    // ghi toan bo user vao sharereference
     implementation (libs.gson)
 
+    implementation(files("libs/zpdk-release-v3.1.aar"))
 
+    implementation(files("libs/merchant-1.0.25.aar"))
+    implementation (libs.okhttp)
+
+    // support vnpay
+    implementation("com.android.support:support-v4:19.0.0")
 
 
 

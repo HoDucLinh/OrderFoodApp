@@ -18,13 +18,12 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(com.ltb.orderfoodapp.R.layout.fragment_history, container, false)
         ordersContainer = view.findViewById(com.ltb.orderfoodapp.R.id.ordersContainer)
         // Tạo adapter và set dữ liệu cho GridView
         val productCartViewModel = ProductCartViewModel(requireContext())
         val listCart = productCartViewModel.getProduct()
-        val adapterCart = OrderAdapter(requireContext(), listCart)
+        val adapterCart = OrderAdapter(requireContext(),listCart, this)
         ordersContainer.adapter = adapterCart
 
 

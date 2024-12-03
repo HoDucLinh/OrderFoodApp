@@ -52,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/sen"
+                android:textColor="@color/darkBG"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="Password"
+                android:textColor="@color/darkBG"
                 android:fontFamily="@font/sen" />
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -14,12 +14,13 @@ import com.bumptech.glide.Glide
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
+import com.ltb.orderfoodapp.view.HistoryFragment
 import com.ltb.orderfoodapp.view.OngoingFragment
 
 class OrderAdapter(
     private val context: Context,
     private val products: MutableList<ProductCart>,
-//    private val fragment: Fragment
+    private val fragment: Fragment
 ) : BaseAdapter() {
     // Trả về số lượng sản phẩm
     override fun getCount(): Int {
@@ -43,7 +44,10 @@ class OrderAdapter(
                 text = "No product"
             }
         }
-        val view = LayoutInflater.from(context).inflate(R.layout.item_orders_history, parent, false)
+        var view = LayoutInflater.from(context).inflate(R.layout.item_orders_ongoing, parent, false)
+        if(fragment is HistoryFragment){
+            view = LayoutInflater.from(context).inflate(R.layout.item_orders_history, parent, false)
+        }
         // Kiem cac thanh phan trong layout cua product
         val orderImg = view.findViewById<ImageView>(R.id.order_img)
         val orderName = view.findViewById<TextView>(R.id.order_name)
