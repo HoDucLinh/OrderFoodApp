@@ -76,7 +76,7 @@
                     android:background="@drawable/icon_remove"/>
 
                 <TextView
-                    android:id="@+id/numberProduct"
+                    android:id="@+id/numberProduct1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_roundedNumber"
