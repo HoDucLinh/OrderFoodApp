@@ -28,7 +28,7 @@ class OngoingFragment : Fragment() {
         // Them adapter
         val productCartViewModel = ProductCartViewModel(requireContext())
         val listCart = productCartViewModel.getProduct()
-        val adapterCart = OrderAdapter(requireContext(), listCart)
+        val adapterCart = OrderAdapter(requireContext(), listCart, this)
         ordersContainer.adapter = adapterCart
 
         return view

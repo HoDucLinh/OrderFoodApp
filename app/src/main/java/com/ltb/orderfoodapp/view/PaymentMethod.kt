@@ -1,8 +1,9 @@
 package com.ltb.orderfoodapp.view
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
@@ -14,7 +15,8 @@ import androidx.core.content.ContextCompat
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.api.Payment
 import com.vnpay.authentication.VNP_AuthenticationActivity
-import org.w3c.dom.Text
+import vn.zalopay.sdk.ZaloPaySDK
+
 
 class PaymentMethod : AppCompatActivity() {
     private lateinit var btnCash : ImageButton
@@ -28,6 +30,8 @@ class PaymentMethod : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+
         setContentView(R.layout.activity_payment_method)
         payment = Payment()
         // Khởi tạo các ImageButton
@@ -46,21 +50,12 @@ class PaymentMethod : AppCompatActivity() {
 
 
         }
-        if(isPaymentSuccess){
-            Toast.makeText(this, "PaymentSuccess", Toast.LENGTH_SHORT).show()
-        }
-
         val backCart = findViewById<ImageButton>(R.id.backCart)
         val paymentConfirm = findViewById<Button>(R.id.paymentConfirm)
         // Lui ve Cart
         backCart.setOnClickListener{
             val Cart = Intent(this,MyCart::class.java)
             startActivity(Cart)
-        }
-        // Them card moi
-        paymentConfirm.setOnClickListener{
-            val addCard = Intent(this, AddCard::class.java)
-            startActivity(addCard)
         }
         paymentConfirm.setOnClickListener{
             if(btnCash.isSelected){
@@ -80,8 +75,11 @@ class PaymentMethod : AppCompatActivity() {
                         Toast.makeText(this, "Lỗi thanh toán", Toast.LENGTH_SHORT).show()
                     },
                     onSuccess = {
-                        isPaymentSuccess = true
+                        Log.d("ZaloPay", "onSuccess được gọi")
+                        val paymentSuccess = Intent(this, PaymentSuccess::class.java)
                         Toast.makeText(this, "Thanh toán thành công", Toast.LENGTH_SHORT).show()
+                        startActivity(paymentSuccess)
+
                     },
                     onCancel = {
                         // xử lý khi người dùng hủy thanh toán
@@ -95,6 +93,10 @@ class PaymentMethod : AppCompatActivity() {
         }
     }
 
+
+
+
+    // Chon phuong thuc tahnh toan
     private fun setSelectedPaymentMethod(selectedButton: ImageButton) {
         val txtCash = findViewById<TextView>(R.id.txtCash)
         val txtVNPay = findViewById<TextView>(R.id.txtVNPay)
@@ -159,6 +161,11 @@ class PaymentMethod : AppCompatActivity() {
         }
         startActivity(intent)
     }
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        ZaloPaySDK.getInstance().onResult(intent)
+    }
+
 
 
 }

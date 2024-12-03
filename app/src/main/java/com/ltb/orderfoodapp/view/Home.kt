@@ -1,6 +1,5 @@
 package com.ltb.orderfoodapp.view
 
-import ProductViewModel
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +14,7 @@ import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductAdapter
 import com.ltb.orderfoodapp.adapter.ProductCartAdapter
 import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
+import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class Home : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel

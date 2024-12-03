@@ -17,7 +17,7 @@ class OrderDAO(context: Context) {
 
     init {
         categoryDAO = CategoryDAO(context)
-        restaurantDAO = RestaurantDAO()
+        restaurantDAO = RestaurantDAO(context)
 
     }
 

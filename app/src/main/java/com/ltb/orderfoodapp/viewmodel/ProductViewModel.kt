@@ -4,6 +4,7 @@ import android.content.Context
 import com.ltb.orderfoodapp.data.dao.ProductCartDAO
 import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.model.Product
+import com.ltb.orderfoodapp.data.model.Restaurant
 
 class ProductViewModel(context: Context) {
 
@@ -25,15 +26,11 @@ class ProductViewModel(context: Context) {
         return products
     }
     fun getProductsFilter(kw: String):MutableList<Product>{
-        var listFilter : MutableList<Product> = mutableListOf()
-        for (product in products){
-            if(product.name.contains(kw, ignoreCase = true)){
-                listFilter.add(product)
-            }
-        }
-        return listFilter
+        return  products.filter { it.name.contains(kw , ignoreCase = true) }.toMutableList()
     }
-
+    fun  getProductsByRestaurant(restaurant: String): MutableList<Product>{
+        return products.filter { it.restaurant == restaurant }.toMutableList()
+    }
 
     fun close() {
         productDAO.close()

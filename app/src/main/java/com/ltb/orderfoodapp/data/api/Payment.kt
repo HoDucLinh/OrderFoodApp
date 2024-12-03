@@ -15,6 +15,7 @@ import vn.zalopay.sdk.listeners.PayOrderListener
 
 import com.vnpay.authentication.VNP_AuthenticationActivity
 import com.vnpay.authentication.VNP_SdkCompletedCallback
+import org.json.JSONObject
 
 class Payment () {
     fun payWithZaloPay(
@@ -25,12 +26,14 @@ class Payment () {
         context: Context
     ) {
         val scope = CoroutineScope(Dispatchers.Main)
-        ZaloPaySDK.init(554, Environment.SANDBOX)
+        ZaloPaySDK.init(553, Environment.SANDBOX)
         val orderApi = CreateOrder()
         scope.launch {
             try {
                 val data = orderApi.createOrder(amount.toString())
                 val code = data.getString("return_code")
+                println("Code " + code)
+                print("code" + data.getString("zp_trans_token"))
                 if (code == "1") {
                     val token = data.getString("zp_trans_token")
                     ZaloPaySDK.getInstance().payOrder(
@@ -43,6 +46,7 @@ class Payment () {
                                 appTransID: String?
                             ) {
                                 onCancel()
+                                Log.d("ZaloPay", "Thanh toán bi cancel ")
                             }
 
                             override fun onPaymentError(
@@ -56,6 +60,7 @@ class Payment () {
                                         .navigateToZaloPayOnStore(context)
                                 }
                                 onError()
+                                Log.d("ZaloPay", "Thanh toán khong thanh cong với ")
                             }
 
                             override fun onPaymentSucceeded(
@@ -63,6 +68,7 @@ class Payment () {
                                 transToken: String,
                                 appTransID: String?
                             ) {
+                                Log.d("ZaloPay", "Thanh toán thành công với Transaction ID: $transactionId")
                                 onSuccess()
                             }
                         }
