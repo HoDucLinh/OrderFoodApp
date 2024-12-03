@@ -18,6 +18,12 @@
         android:theme="@style/Theme_OrderFoodApp"
         tools:targetApi="31">
         <activity
+            android:name=".view.order_statistics"
+            android:exported="false" />
+        <activity
+            android:name=".view.Fillter"
+            android:exported="false" />
+        <activity
             android:name=".view.EditItem"
             android:exported="false" />
         <activity

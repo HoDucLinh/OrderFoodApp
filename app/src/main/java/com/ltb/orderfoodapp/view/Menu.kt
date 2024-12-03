@@ -1,5 +1,6 @@
 package com.ltb.orderfoodapp.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
@@ -10,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.ltb.orderfoodapp.R
 
 class Menu : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,5 +26,11 @@ class Menu : AppCompatActivity() {
             val myfoodlist = Intent(this, MyFood::class.java)
             startActivity(myfoodlist)
         }
+        val statistics = findViewById<TextView>(R.id.statistics)
+        statistics.setOnClickListener{
+            val thongke = Intent(this, OrderStatistics::class.java)
+            startActivity(thongke)
+        }
+
     }
 }
