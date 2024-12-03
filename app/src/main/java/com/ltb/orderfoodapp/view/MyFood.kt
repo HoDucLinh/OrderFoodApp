@@ -1,6 +1,6 @@
 package com.ltb.orderfoodapp.view
 
-import ProductViewModel
+//import ProductViewModel
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ItemAdapter
 import com.ltb.orderfoodapp.data.model.Product
+import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class MyFood : AppCompatActivity() {
     private lateinit var itemAdapter: ItemAdapter

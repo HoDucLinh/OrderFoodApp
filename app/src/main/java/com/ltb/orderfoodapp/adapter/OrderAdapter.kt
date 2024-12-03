@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -16,6 +17,7 @@ import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
 import com.ltb.orderfoodapp.view.HistoryFragment
 import com.ltb.orderfoodapp.view.OngoingFragment
+import com.ltb.orderfoodapp.view.RateProductDialogFragment
 
 class OrderAdapter(
     private val context: Context,
@@ -47,7 +49,18 @@ class OrderAdapter(
         var view = LayoutInflater.from(context).inflate(R.layout.item_orders_ongoing, parent, false)
         if(fragment is HistoryFragment){
             view = LayoutInflater.from(context).inflate(R.layout.item_orders_history, parent, false)
+
+            val ratingBtn = view.findViewById<Button>(R.id.rating)
+
+            ratingBtn.setOnClickListener {
+                if (fragment is HistoryFragment) {
+                    val dialog = RateProductDialogFragment()
+                    // Thay vì gọi supportFragmentManager, dùng fragment's childFragmentManager hoặc parentFragmentManager
+                    fragment.parentFragmentManager.beginTransaction().add(dialog, "RateProductDialog").commit()
+                }
+            }
         }
+
         // Kiem cac thanh phan trong layout cua product
         val orderImg = view.findViewById<ImageView>(R.id.order_img)
         val orderName = view.findViewById<TextView>(R.id.order_name)
@@ -65,7 +78,7 @@ class OrderAdapter(
         orderName.text = product.name
         orderPrice.text = "${product.price * product.quantity }VND"
         orderQuantity.text = "${product.quantity} Items"
-        orderDate.text = "Date"
+//        orderDate.text = "Date"
 
 //        view.setOnClickListener {
 //            openFoodDetail(context, product)
