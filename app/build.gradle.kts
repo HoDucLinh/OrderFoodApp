@@ -86,10 +86,17 @@ dependencies {
     implementation (libs.facebook.login)
     implementation (libs.play.services.auth)
 
-    implementation ("androidx.recyclerview:recyclerview:1.2.1")  // Hoặc phiên bản mới nhất
+    implementation (libs.androidx.recyclerview)
+    // ghi toan bo user vao sharereference
+    implementation (libs.gson)
 
+    implementation(files("libs/zpdk-release-v3.1.aar"))
 
+    implementation(files("libs/merchant-1.0.25.aar"))
+    implementation (libs.okhttp)
 
+    // support vnpay
+    implementation("com.android.support:support-v4:19.0.0")
 
 
 

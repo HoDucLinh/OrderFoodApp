@@ -12,6 +12,7 @@ import kotlinx.coroutines.*
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.dao.ProductDAO
+import com.ltb.orderfoodapp.data.model.Role
 
 class Welcome : AppCompatActivity() {
     private lateinit var dbHelper: DatabaseHelper
@@ -26,16 +27,28 @@ class Welcome : AppCompatActivity() {
         productDAO = ProductDAO(this)
         checkLogin()
     }
-    fun checkLogin(){
+
+    fun checkLogin() {
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-
+        val role = sharedPreferences.getString("role", "customer")
+        println(role)
         if (isLoggedIn) {
-            lifecycleScope.launch {
-                delay(3000)
-                val home = Intent(this@Welcome, Home::class.java)
-                startActivity(home)
-                finish()
+            if (role == "admin") {
+                lifecycleScope.launch {
+                    delay(3000)
+                    val home = Intent(this@Welcome, SellerDashboardHome::class.java)
+                    startActivity(home)
+                    finish()
+                }
+            } else {
+                lifecycleScope.launch {
+                    delay(3000)
+                    val home = Intent(this@Welcome, Home::class.java)
+                    startActivity(home)
+                    finish()
+
+                }
             }
 
         } else {
@@ -48,13 +61,14 @@ class Welcome : AppCompatActivity() {
         }
 
     }
+
     override fun onStart() {
         super.onStart()
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night", false)
         if (nightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }else
+        } else
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 

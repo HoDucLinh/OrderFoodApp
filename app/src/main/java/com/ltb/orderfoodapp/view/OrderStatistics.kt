@@ -49,8 +49,8 @@ class OrderStatistics : AppCompatActivity() {
 
             val orders = OrderDAO(this).getOrdersByFilters(name, date, categoryId)
 
-            val orderAdapter = OrderAdapter(this, orders)
-            listView.adapter = orderAdapter
+//            val orderAdapter = OrderAdapter(this, orders)
+//            listView.adapter = orderAdapter
         }
 
 

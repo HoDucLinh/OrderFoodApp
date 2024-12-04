@@ -1,6 +1,5 @@
 package com.ltb.orderfoodapp.view
 
-import ProductViewModel
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -16,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ItemAdapter
 import com.ltb.orderfoodapp.data.model.Product
+import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class MyFood : AppCompatActivity() {
     private lateinit var itemAdapter: ItemAdapter
@@ -42,10 +42,10 @@ class MyFood : AppCompatActivity() {
         listView = findViewById(R.id.listitem)
 
         // Sử dụng ViewModelProvider để khởi tạo ViewModel
-        val viewModel = ViewModelProvider(this)[ProductViewModel::class.java]
+        val viewModel = ProductViewModel(this)
 
         // Fetch products of restaurant 1
-        productList = viewModel.getProductsByRestaurant(1)
+        productList = viewModel.getProductsByRestaurant("thien")
 
         // Initialize and set adapter
         itemAdapter = ItemAdapter(this, productList.toMutableList())

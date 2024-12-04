@@ -1,35 +1,38 @@
 package com.ltb.orderfoodapp.view
 
-import ProductViewModel
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract.Profile
 import android.widget.GridView
 import android.widget.ImageButton
-import android.widget.RelativeLayout
 import android.widget.Switch
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.ViewModelProvider
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductAdapter
-import java.time.LocalTime
+import com.ltb.orderfoodapp.adapter.ProductCartAdapter
+import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
+import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class Home : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
+    private lateinit var productCartViewModel: ProductCartViewModel
     private lateinit var darkTheme : Switch
+    private lateinit var productCartAdapter: ProductCartAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-        productViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
+        productViewModel = ProductViewModel(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
 
+
+        //
+        setCartCount()
 
 //        chuyen sang trang tim kiem
         nextSearch.setOnClickListener {
@@ -44,9 +47,7 @@ class Home : AppCompatActivity() {
         nextMenu.setOnClickListener {
             val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
             val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-
             if (isLoggedIn) {
-
                 val profileIntent = Intent(this, MyMainMenu::class.java)
                 startActivity(profileIntent)
             } else {
@@ -105,6 +106,18 @@ class Home : AppCompatActivity() {
         val gridView = findViewById<GridView>(R.id.gridviewProduct)
         val adapter = ProductAdapter(this, products)
         gridView.adapter = adapter
+    }
+
+    private fun setCartCount() {
+
+        productCartViewModel = ProductCartViewModel(this)
+
+        productCartAdapter = ProductCartAdapter(this, productCartViewModel.getProduct())
+        val productCartNumber = productCartAdapter.itemCount
+        val cartCount = findViewById<TextView>(R.id.cartCount)
+        cartCount.text = productCartNumber.toString()
+
+
     }
 
 }

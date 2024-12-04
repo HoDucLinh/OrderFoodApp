@@ -11,9 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.data.api.AuthManager
 
 class MyMainMenu : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
+    private lateinit var auth: AuthManager
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -54,14 +56,8 @@ class MyMainMenu : AppCompatActivity() {
         // Logout ra khoi nguoi dung hien tai
         val logout = findViewById<TextView>(R.id.logout)
         logout.setOnClickListener{
-            val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putBoolean("isLoggedIn", false)
-            editor.apply()
-            val loginIntent = Intent(this, SignIn::class.java)
-            startActivity(loginIntent)
-            finish()
-
+            auth = AuthManager(this)
+            auth.logout()
         }
 
 

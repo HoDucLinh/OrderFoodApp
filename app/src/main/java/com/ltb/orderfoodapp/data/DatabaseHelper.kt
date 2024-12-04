@@ -19,7 +19,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val TABLE_RESTAURANT = "Restaurant"
         private const val TABLE_USER = "User"
         private const val TABLE_ROLE = "Role"
-        private const val TABLE_ACCOUNT = "Account"
         private const val TABLE_ORDER = "\"Order\""
         private const val TABLE_ORDER_STATUS = "OrderStatus"
         private const val TABLE_STATUS = "Status"
@@ -46,7 +45,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(CREATE_RESTAURANT_TABLE)
         db.execSQL(CREATE_USER_TABLE)
         db.execSQL(CREATE_ROLE_TABLE)
-        db.execSQL(CREATE_ACCOUNT_TABLE)
         db.execSQL(CREATE_ORDER_TABLE)
         db.execSQL(CREATE_ORDER_STATUS_TABLE)
         db.execSQL(CREATE_STATUS_TABLE)
@@ -62,7 +60,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
 //    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-//        // Xóa bảng nếu tồn tại và tạo lại bảng
 //        db.execSQL("DROP TABLE IF EXISTS $TABLE_CATEGORY")
 //        db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCT")
 //        db.execSQL("DROP TABLE IF EXISTS $TABLE_IMAGE")
@@ -137,10 +134,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             FullName TEXT NOT NULL,
             Email TEXT NOT NULL,
             PhoneNumber TEXT NOT NULL,
-            BioInfo TEXT,
-            Account_ID INTEGER,
+            BioInfor TEXT,
+            Password TEXT NOT NULL,
             Cart_ID INTEGER,
-            FOREIGN KEY (Account_ID) REFERENCES $TABLE_ACCOUNT(ID),
             FOREIGN KEY (Cart_ID) REFERENCES $TABLE_CART(ID)
         )
     """.trimIndent()
@@ -149,16 +145,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         CREATE TABLE $TABLE_ROLE (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             RoleName TEXT NOT NULL,
-            User_ID INTEGER,
-            FOREIGN KEY (User_ID) REFERENCES $TABLE_USER(ID)
-        )
-    """.trimIndent()
-
-    private val CREATE_ACCOUNT_TABLE = """
-        CREATE TABLE $TABLE_ACCOUNT (
-            ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            Email TEXT NOT NULL,
-            Password TEXT NOT NULL,
             User_ID INTEGER,
             FOREIGN KEY (User_ID) REFERENCES $TABLE_USER(ID)
         )

@@ -1,16 +1,21 @@
 package com.ltb.orderfoodapp.view
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.adapter.OrderAdapter
+import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
 
 class OngoingFragment : Fragment() {
 
-    private lateinit var ordersContainer: LinearLayout
+    private lateinit var ordersContainer: GridView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,13 +25,11 @@ class OngoingFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_ongoing, container, false)
         ordersContainer = view.findViewById(R.id.ordersContainer)
 
-        for (i in 0 until 3) { // Ví dụ thêm 10 sản phẩm
-            // Inflate layout cho từng sản phẩm
-            val orderView = LayoutInflater.from(context).inflate(R.layout.item_orders_ongoing, ordersContainer, false)
-
-            // Thêm view vào ordersContainer
-            ordersContainer.addView(orderView)
-        }
+        // Them adapter
+        val productCartViewModel = ProductCartViewModel(requireContext())
+        val listCart = productCartViewModel.getProduct()
+        val adapterCart = OrderAdapter(requireContext(), listCart, this)
+        ordersContainer.adapter = adapterCart
 
         return view
     }
