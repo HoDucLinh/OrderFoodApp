@@ -241,4 +241,17 @@ class ProductDAO(context: Context) {
         }
         return false
     }
+    fun getAllCategories(): List<String> {
+        val categories = mutableListOf<String>()
+        val cursor = db.rawQuery("SELECT Name FROM Category", null) // Trực tiếp sử dụng db đã mở
+
+        cursor.use {
+            while (it.moveToNext()) {
+                categories.add(it.getString(0)) // Lấy cột Name
+            }
+        }
+
+        return categories
+    }
+
 }

@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <queries>
-        <package android:name="vn.com.vng.zalopay" />
-        <package android:name="vn.com.vng.zalopay.sbmc" />
-    </queries>
+<!--    <queries>-->
+<!--        <package android:name="vn.com.vng.zalopay" />-->
+<!--        <package android:name="vn.com.vng.zalopay.sbmc" />-->
+<!--    </queries>-->
 
     <application
         android:hardwareAccelerated="true"
@@ -36,6 +36,12 @@
 
         <activity
             android:name=".view.RateProductDialogFragment"
+            android:exported="false" />
+        <activity
+            android:name=".view.OrderStatistics"
+            android:exported="false" />
+        <activity
+            android:name=".view.Filter"
             android:exported="false" />
         <activity
             android:name=".view.EditItem"
@@ -69,7 +75,16 @@
             android:exported="false" />
         <activity
             android:name=".view.PaymentMethod"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="demozpdk"
+                    android:host="app" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.MyCart"
             android:exported="false" />
@@ -107,9 +122,6 @@
             android:name=".view.SellerDashboardHome"
             android:exported="false" />
         <activity
-            android:name=".view.Filter"
-            android:exported="false" />
-        <activity
             android:name=".view.RestaurantView"
             android:exported="false" />
         <activity
@@ -144,7 +156,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

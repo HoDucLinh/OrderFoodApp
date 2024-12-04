@@ -9,7 +9,7 @@ class User (
     var password : String = "",
     var cartId : Int = 0,
     var addresses: MutableList<AddressOfUser> = mutableListOf(),
-    var role: String = Role.CUSTOMER.toString()
+    var roleId: Int = 2
 )
 {
 }

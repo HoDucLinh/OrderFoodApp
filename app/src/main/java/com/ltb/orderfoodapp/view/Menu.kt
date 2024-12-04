@@ -31,5 +31,11 @@ class Menu : AppCompatActivity() {
             auth = AuthManager(this)
             auth.logout()
         }
+        val statistics = findViewById<TextView>(R.id.statistics)
+        statistics.setOnClickListener{
+            val thongke = Intent(this, OrderStatistics::class.java)
+            startActivity(thongke)
+        }
+
     }
 }

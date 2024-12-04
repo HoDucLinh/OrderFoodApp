@@ -66,15 +66,22 @@ class OrderAdapter(
         val orderName = view.findViewById<TextView>(R.id.order_name)
         val orderPrice = view.findViewById<TextView>(R.id.order_price)
         val orderQuantity = view.findViewById<TextView>(R.id.order_quantity)
-        val orderDate = view.findViewById<TextView>(R.id.order_date)
+//        val orderDate = view.findViewById<TextView>(R.id.order_date)
 
 
         // Lay vi tri hien tai
         val product = products[position]
         // Thiet lap giao dien
-        Glide.with(context)
-            .load(product.images[0])
-            .into(orderImg);
+        if (product.images.isNotEmpty() && product.images[0] != null) {
+            Glide.with(context)
+                .load(product.images[0])
+                .error(R.drawable.cancel) // ảnh mặc định
+                .into(orderImg);
+        } else {
+            Glide.with(context)
+                .load(R.drawable.burger) // ảnh mặc định
+                .into(orderImg);
+        }
         orderName.text = product.name
         orderPrice.text = "${product.price * product.quantity }VND"
         orderQuantity.text = "${product.quantity} Items"

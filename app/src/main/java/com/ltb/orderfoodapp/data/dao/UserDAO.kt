@@ -32,14 +32,10 @@ class UserDAO(context: Context) {
             put("BioInfor", user.bioInfor)
             put("Password",passwordEncrypt)
             put("Cart_ID",user.cartId)
+            put("Role_ID", user.roleId)
             
         }
         val userId = db.insert("User", null, values).toInt()
-        val roleValues = ContentValues().apply {
-            put("RoleName", user.role)
-            put("User_ID", userId)
-        }
-        db.insert("Role", null, roleValues)
         return userId
     }
     fun getUser(email: String, password: String): User? {
@@ -53,13 +49,15 @@ class UserDAO(context: Context) {
             u.BioInfor, 
             u.Password, 
             u.Cart_ID, 
-            r.RoleName 
+            u.Role_ID,
+            r.RoleName,
+            r.ID as RoleID
         FROM 
             User u 
         LEFT JOIN 
             Role r 
         ON 
-            u.ID = r.User_ID 
+            u.Role_ID = r.ID
         WHERE 
             u.Email = ? AND u.Password = ?
     """.trimIndent()
@@ -75,7 +73,7 @@ class UserDAO(context: Context) {
                 bioInfor = cursor.getString(cursor.getColumnIndexOrThrow("BioInfor")),
                 password = cursor.getString(cursor.getColumnIndexOrThrow("Password")),
                 cartId = cursor.getInt(cursor.getColumnIndexOrThrow("Cart_ID")),
-                role = cursor.getString(cursor.getColumnIndexOrThrow("RoleName")) ?: Role.CUSTOMER.toString() // Gán vai trò mặc định nếu không có
+                roleId = cursor.getInt(cursor.getColumnIndexOrThrow("RoleID"))
             )
             cursor.close()
             return user

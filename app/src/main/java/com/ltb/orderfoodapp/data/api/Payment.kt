@@ -32,8 +32,6 @@ class Payment () {
             try {
                 val data = orderApi.createOrder(amount.toString())
                 val code = data.getString("return_code")
-                println("Code " + code)
-                print("code" + data.getString("zp_trans_token"))
                 if (code == "1") {
                     val token = data.getString("zp_trans_token")
                     ZaloPaySDK.getInstance().payOrder(
@@ -41,6 +39,7 @@ class Payment () {
                         token,
                         "demozpdk://app",
                         object : PayOrderListener {
+
                             override fun onPaymentCanceled(
                                 zpTransToken: String?,
                                 appTransID: String?

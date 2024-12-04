@@ -31,7 +31,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Food List"
+                android:text="Menu"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:textSize="20dp" />
@@ -112,11 +112,12 @@
         android:paddingRight="5dp">
 
         <TextView
+            android:id="@+id/statistics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/WhisperWhite"
             android:gravity="start|center"
-            android:text="Revenue"
+            android:text="Statistics"
             android:drawableLeft="@drawable/icon_revenue"
             android:fontFamily="@font/sen_bold"
             android:drawableRight="@drawable/ic_navigate_next_24"
