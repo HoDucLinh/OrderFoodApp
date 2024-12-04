@@ -151,6 +151,6 @@ class FoodDetail : AppCompatActivity() {
         priceTextView.text = "${price}"
         ratingTextView.text = "$rating"
         descriptionTextView.text = description
-        Glide.with(this).load(imageResource[0]).into(imageView)
+        Glide.with(this).load(imageResource?.getOrNull(0) ?: R.drawable.burger).into(imageView)
     }
 }

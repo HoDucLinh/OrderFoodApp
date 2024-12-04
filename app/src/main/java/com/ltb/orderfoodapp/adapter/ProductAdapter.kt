@@ -51,9 +51,17 @@ class ProductAdapter(
         // Lay vi tri hien tai
         val product = products[position]
         // Thiet lap giao dien
-        Glide.with(context)
-            .load(product.images[0])
-            .into(imgProduct);
+        if (product.images.isNotEmpty() && product.images[0] != null) {
+            Glide.with(context)
+                .load(product.images[0])
+                .error(R.drawable.cancel) // ảnh mặc định
+                .into(imgProduct);
+        } else {
+            Glide.with(context)
+                .load(R.drawable.burger) // ảnh mặc định
+                .into(imgProduct);
+        }
+
         productName.text = product.name
         storeName.text = product.restaurant
         productPrice.text = "${product.price}VND"
