@@ -94,14 +94,15 @@ class AddNewItems : AppCompatActivity() {
             Log.e("Upload Error", "File path is null")
             return
         }
-        val riversRef = storage.reference.child("images/${resolvedFilePath.lastPathSegment}")
+        var fileDir = "images/${resolvedFilePath.lastPathSegment}"
+        val riversRef = storage.reference.child(fileDir)
         val uploadTask = riversRef.putFile(resolvedFilePath)
         uploadTask.addOnFailureListener {
             Log.e("Upload Error", "Upload failed: ${it.message}")
         }.addOnSuccessListener {
             Log.d("Upload Success", "File uploaded successfully")
         }
-        val storageRef = FirebaseStorage.getInstance().getReference("images/msf:25") // Đường dẫn của file trong Firebase Storage
+        val storageRef = FirebaseStorage.getInstance().getReference(fileDir)
         storageRef.downloadUrl.addOnSuccessListener { uri ->
             imageStorage = uri.toString()
 
