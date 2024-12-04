@@ -57,11 +57,11 @@ class PaymentMethod : AppCompatActivity() {
             val Cart = Intent(this,MyCart::class.java)
             startActivity(Cart)
         }
+        val paymentSuccess = Intent(this, PaymentSuccess::class.java)
         paymentConfirm.setOnClickListener{
             if(btnCash.isSelected){
                 print("cash")
-                val paymentsuccess = Intent (this,PaymentSuccess::class.java)
-                startActivity(paymentsuccess)
+                startActivity(paymentSuccess)
             }else if(btnVNPay.isSelected){
                 print("vnpay")
                 payWithVNPay()
@@ -75,8 +75,6 @@ class PaymentMethod : AppCompatActivity() {
                         Toast.makeText(this, "Lỗi thanh toán", Toast.LENGTH_SHORT).show()
                     },
                     onSuccess = {
-                        Log.d("ZaloPay", "onSuccess được gọi")
-                        val paymentSuccess = Intent(this, PaymentSuccess::class.java)
                         Toast.makeText(this, "Thanh toán thành công", Toast.LENGTH_SHORT).show()
                         startActivity(paymentSuccess)
 
@@ -85,6 +83,7 @@ class PaymentMethod : AppCompatActivity() {
                         // xử lý khi người dùng hủy thanh toán
                         Toast.makeText(this, "Hủy thanh toán", Toast.LENGTH_SHORT).show()
                     },
+
                     context = this
                 )
             }

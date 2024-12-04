@@ -137,6 +137,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             BioInfor TEXT,
             Password TEXT NOT NULL,
             Cart_ID INTEGER,
+            Role_ID INTEGER,
             FOREIGN KEY (Cart_ID) REFERENCES $TABLE_CART(ID)
         )
     """.trimIndent()
@@ -144,9 +145,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     private val CREATE_ROLE_TABLE = """
         CREATE TABLE $TABLE_ROLE (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            RoleName TEXT NOT NULL,
-            User_ID INTEGER,
-            FOREIGN KEY (User_ID) REFERENCES $TABLE_USER(ID)
+            RoleName TEXT NOT NULL
         )
     """.trimIndent()
 
