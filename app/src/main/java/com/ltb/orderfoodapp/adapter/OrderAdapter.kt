@@ -42,7 +42,7 @@ class OrderAdapter(
     @SuppressLint("MissingInflatedId")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         if (products.isEmpty() || position < 0 || position >= products.size) {
-            return TextView(parent?.context).apply {
+            return TextView(parent.context).apply {
                 text = "No product"
             }
         }
@@ -54,7 +54,8 @@ class OrderAdapter(
 
             ratingBtn.setOnClickListener {
                 if (fragment is HistoryFragment) {
-                    val dialog = RateProductDialogFragment()
+                    val productId = products[position].productId // Lấy ID của sản phẩm tại vị trí hiện tại
+                    val dialog = RateProductDialogFragment.newInstance(productId)
                     // Thay vì gọi supportFragmentManager, dùng fragment's childFragmentManager hoặc parentFragmentManager
                     fragment.parentFragmentManager.beginTransaction().add(dialog, "RateProductDialog").commit()
                 }

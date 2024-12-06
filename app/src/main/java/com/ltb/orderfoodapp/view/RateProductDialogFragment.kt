@@ -6,13 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.adapter.OrderAdapter
+import com.ltb.orderfoodapp.data.dao.RatingDAO
 
 
 class RateProductDialogFragment : DialogFragment() {
+
+
+    companion object {
+        private const val ARG_PRODUCT_ID = "productId"
+
+        fun newInstance(productId: Int): RateProductDialogFragment {
+            val fragment = RateProductDialogFragment()
+            val args = Bundle()
+            args.putInt(ARG_PRODUCT_ID, productId)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,13 +46,24 @@ class RateProductDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val ratingBar: RatingBar = view.findViewById(R.id.ratingBar)
-        val btnSubmit: Button = view.findViewById(R.id.btnSubmit)
+        val ratingDAO = RatingDAO(requireContext())
+
+        // Lấy productId từ arguments
+        val productId = arguments?.getInt(ARG_PRODUCT_ID) ?: 0
+        if (productId == 0) {
+            Toast.makeText(requireContext(), "Không tìm thấy ID sản phẩm", Toast.LENGTH_SHORT).show()
+            dismiss()
+            return
+        }
+
+        val commentEditText = view.findViewById<EditText>(R.id.editText_comment)
+        val ratingBar = view.findViewById<RatingBar>(R.id.ratingBar)
+        val btnSubmit = view.findViewById<Button>(R.id.btnSubmit)
 
         btnSubmit.setOnClickListener {
             val rating = ratingBar.rating
-            Toast.makeText(context, "You rated $rating stars!", Toast.LENGTH_SHORT).show()
-            dismiss()
+            val comment = commentEditText.text.toString().trim()
+            ratingDAO.addRating(rating, comment, productId) // Lưu đánh giá vào database
         }
     }
 
@@ -48,3 +75,4 @@ class RateProductDialogFragment : DialogFragment() {
         )
     }
 }
+

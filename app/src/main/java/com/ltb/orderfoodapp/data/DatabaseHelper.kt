@@ -199,8 +199,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             Rating INTEGER NOT NULL,
             Comment TEXT,
             ReviewDate TEXT NOT NULL,
-            Order_ID INTEGER,
-            FOREIGN KEY (Order_ID) REFERENCES $TABLE_ORDER(ID)
+            Product_ID INTEGER,
+            FOREIGN KEY (Product_ID) REFERENCES $TABLE_PRODUCT(ID)
         )
     """.trimIndent()
 
