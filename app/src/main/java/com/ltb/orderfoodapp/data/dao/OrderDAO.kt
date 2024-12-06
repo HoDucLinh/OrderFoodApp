@@ -10,8 +10,7 @@ import com.ltb.orderfoodapp.data.model.User
 import java.text.SimpleDateFormat
 
 class OrderDAO(private val context: Context) {
-    private val dbHelper = DatabaseHelper(context)
-
+    val dbHelper = DatabaseHelper.getInstance(context)
     fun getOrdersByFilters(name: String?, date: String?, categoryId: Int?): List<Order> {
         val orders = mutableListOf<Order>()
         val db = dbHelper.readableDatabase

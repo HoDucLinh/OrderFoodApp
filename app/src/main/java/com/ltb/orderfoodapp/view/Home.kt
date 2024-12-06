@@ -65,11 +65,13 @@ class Home : AppCompatActivity() {
         darkTheme = findViewById(R.id.darkTheme)
         setupGridViewProduct()
         setupTheme()
+        setCartCount()
     }
 
     override fun onResume() {
         super.onResume()
         setupGridViewProduct()
+        setCartCount()
     }
     private fun setupTheme() {
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)

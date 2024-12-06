@@ -19,6 +19,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.data.dao.RoleDAO
 import com.ltb.orderfoodapp.data.dao.UserDAO
 import com.ltb.orderfoodapp.data.model.Role
 import com.ltb.orderfoodapp.data.model.User
@@ -120,26 +121,33 @@ class AuthManager(private val context: Context) {
         var user = userDAO.getUser(email, password)
         if(user == null){
             val newUser = User(email = email, password = password)
+            println("new Role "+newUser.roleId)
             userDAO.addUser(newUser)
             user = userDAO.getUser(email, password)
         }
-        println(user?.role)
+        val roleId = user?.roleId ?: 2
+        val roleEnum = Role.fromRoleId(roleId)
+        println( "RoleID " + roleId + "Role Enum " +  roleEnum)
         if (user != null) {
-            when (user.role) {
-                Role.ADMIN.toString() -> {
-                    saveLoginStatus(true, "admin", user)
+            when (roleEnum) {
+                Role.RESTAURANT -> {
+                    saveLoginStatus(true, "restaurant", user)
                     val adminHomePage = Intent(context, SellerDashboardHome::class.java)
                     context.startActivity(adminHomePage)
                 }
-                Role.CUSTOMER.toString() -> {
+                Role.CUSTOMER -> {
                     saveLoginStatus(true, "customer", user)
                     val userHomePage = Intent(context, Home::class.java)
                     context.startActivity(userHomePage)
                 }
-                Role.RESTAURANT.toString() -> {
-                    saveLoginStatus(true, "restaurant", user)
+                Role.ADMIN -> {
+                    saveLoginStatus(true, "admin", user)
                     val restaurantHomePage = Intent(context, Home::class.java)
                     context.startActivity(restaurantHomePage)
+                }
+                else -> {
+                    // Xử lý khi không có role hợp lệ
+                    println("Invalid roleId: $roleId")
                 }
             }
         }

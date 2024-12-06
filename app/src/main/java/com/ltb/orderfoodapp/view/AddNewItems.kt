@@ -53,7 +53,7 @@ class AddNewItems : AppCompatActivity() {
             insets
         }
         findViewById<Button>(R.id.btnSave).setOnClickListener {
-            addProductToDatabase()
+            uploadImage { addProductToDatabase() }
         }
         storage = FirebaseStorage.getInstance()
         storageReference = storage.getReference()
@@ -83,13 +83,12 @@ class AddNewItems : AppCompatActivity() {
             } catch (e: IOException) {
 //                e.printStackTrace()
             }
-            uploadImage()
         } else {
             Log.e("Image Selection", "No image selected or data is null")
         }
     }
 
-    fun uploadImage() {
+    fun uploadImage(callback: (String?) -> Unit) {
         val resolvedFilePath = filePath ?: run {
             Log.e("Upload Error", "File path is null")
             return
@@ -136,7 +135,7 @@ class AddNewItems : AppCompatActivity() {
         Log.d("AddNewItemsActivity", "Name: $nameItem, Description: $description, Price: $price, Category: $category")
             imageList.add(imageStorage)
         // Tạo sản phẩm mới và thêm vào cơ sở dữ liệu
-        val newProduct = Product(name = nameItem,price = price.toInt(), images = imageList, category = category, description = description)
+        val newProduct = Product(name = nameItem,price = price.toInt(), images = imageList, category = category, description = description, restaurant = "Restaurant test")
         productDAO = ProductDAO(this)
 
         val isAdded = productDAO.addProduct(newProduct)
