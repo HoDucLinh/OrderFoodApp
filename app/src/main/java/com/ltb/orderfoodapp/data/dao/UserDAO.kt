@@ -82,6 +82,14 @@ class UserDAO(context: Context) {
         cursor?.close()
         return null
     }
+    
+    fun deleteUser(email :String){
+        val query = """
+            DELETE FROM user
+            WHERE Email = ? 
+        """.trimIndent()
+        db.execSQL(query)
+    }
 
 
     fun encrypt(password: String): String {

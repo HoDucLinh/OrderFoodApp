@@ -53,7 +53,8 @@ class AddNewItems : AppCompatActivity() {
             insets
         }
         findViewById<Button>(R.id.btnSave).setOnClickListener {
-            uploadImage { addProductToDatabase() }
+            addProductToDatabase()
+
         }
         storage = FirebaseStorage.getInstance()
         storageReference = storage.getReference()
@@ -83,12 +84,13 @@ class AddNewItems : AppCompatActivity() {
             } catch (e: IOException) {
 //                e.printStackTrace()
             }
+            uploadImage ()
         } else {
             Log.e("Image Selection", "No image selected or data is null")
         }
     }
 
-    fun uploadImage(callback: (String?) -> Unit) {
+    fun uploadImage() {
         val resolvedFilePath = filePath ?: run {
             Log.e("Upload Error", "File path is null")
             return

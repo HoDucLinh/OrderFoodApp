@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ltb.orderfoodapp.R
 
 class EditProfile : AppCompatActivity() {
-    @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

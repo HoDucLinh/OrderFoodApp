@@ -14,8 +14,6 @@ class CategoryViewModel(context: Context) {
     private var products: MutableList<Product> = mutableListOf()
     private var categories : MutableList<Category> = mutableListOf()
 
-    init {
-    }
 
     private fun getProducts(categoryName : String) {
         products = categoryDAO.getProductByCategoryName(categoryName)

@@ -37,7 +37,6 @@ class FoodDetail : AppCompatActivity() {
                 if (!imageResource.isNullOrEmpty()) {
                     val imageView = findViewById<ImageView>(R.id.imageProduct)
 
-                    // Sử dụng Glide để tải ảnh từ URL vào ImageView
                     Glide.with(this)
                         .load(imageResource[0])  // Lấy ảnh đầu tiên từ danh sách
                         .into(imageView)

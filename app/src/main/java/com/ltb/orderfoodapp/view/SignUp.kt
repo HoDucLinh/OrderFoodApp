@@ -26,6 +26,7 @@ class SignUp : AppCompatActivity() {
         authManager = AuthManager(this)
         setContentView(R.layout.activity_sign_up)
         val signUpBtn = findViewById<Button>(R.id.signUpBtn)
+        userDAO = UserDAO(this)
         signUpBtn.setOnClickListener{
             val fullName = findViewById<TextInputLayout>(R.id.userNameSignUp).editText?.text.toString()
             val email = findViewById<TextInputLayout>(R.id.emailSignUp).editText?.text.toString()

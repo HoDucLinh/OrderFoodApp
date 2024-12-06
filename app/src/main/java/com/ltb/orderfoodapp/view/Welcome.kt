@@ -7,12 +7,11 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.*
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.dao.ProductDAO
-import com.ltb.orderfoodapp.data.model.Role
+import java.util.Timer
+import java.util.TimerTask
 
 class Welcome : AppCompatActivity() {
     private lateinit var dbHelper: DatabaseHelper
@@ -35,31 +34,31 @@ class Welcome : AppCompatActivity() {
         println(role)
         if (isLoggedIn) {
             if (role == "admin") {
-                lifecycleScope.launch {
-                    delay(3000)
-                    val home = Intent(this@Welcome, SellerDashboardHome::class.java)
-                    startActivity(home)
-                    finish()
-                }
+                Timer().schedule(object : TimerTask() {
+                    override fun run() {
+                        val home = Intent(this@Welcome, SellerDashboardHome::class.java)
+                        startActivity(home)
+                        finish()
+                    }
+                }, 3000)
             } else {
-                lifecycleScope.launch {
-                    delay(3000)
-                    val home = Intent(this@Welcome, Home::class.java)
-                    startActivity(home)
-                    finish()
-
-                }
+                Timer().schedule(object : TimerTask() {
+                    override fun run() {
+                        val home = Intent(this@Welcome, Home::class.java)
+                        startActivity(home)
+                        finish()
+                    }
+                }, 3000)
             }
-
         } else {
-            lifecycleScope.launch {
-                delay(3000)
-                val intent = Intent(this@Welcome, Onboarding::class.java)
-                startActivity(intent)
-                finish()
-            }
+            Timer().schedule(object : TimerTask() {
+                override fun run() {
+                    val intent = Intent(this@Welcome, Onboarding::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }, 3000)
         }
-
     }
 
     override fun onStart() {

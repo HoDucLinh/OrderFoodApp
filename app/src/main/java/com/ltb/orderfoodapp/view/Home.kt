@@ -1,26 +1,38 @@
 package com.ltb.orderfoodapp.view
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.widget.GridView
 import android.widget.ImageButton
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductAdapter
 import com.ltb.orderfoodapp.adapter.ProductCartAdapter
+import com.ltb.orderfoodapp.data.LocationHelper
 import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
 import com.ltb.orderfoodapp.viewmodel.ProductViewModel
+import org.w3c.dom.Text
+import java.util.Locale
 
 class Home : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
     private lateinit var productCartViewModel: ProductCartViewModel
     private lateinit var darkTheme : Switch
     private lateinit var productCartAdapter: ProductCartAdapter
+    private lateinit var locationHelper: LocationHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         productViewModel = ProductViewModel(this)
@@ -29,9 +41,9 @@ class Home : AppCompatActivity() {
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
-
-
-        //
+        val locationUser = findViewById<TextView>(R.id.locationUser)
+        locationHelper = LocationHelper(this)
+        setupLocation(locationUser)
         setCartCount()
 
 //        chuyen sang trang tim kiem
@@ -120,6 +132,30 @@ class Home : AppCompatActivity() {
         cartCount.text = productCartNumber.toString()
 
 
+    }
+    private fun setupLocation(locationUser: TextView) {
+        // Kiểm tra quyền vị trí
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
+        } else {
+            fetchUserLocation(locationUser)
+        }
+    }
+
+    private fun fetchUserLocation(locationUser: TextView) {
+        locationHelper.getCurrentLocation { location ->
+            if (location != null) {
+                val locate = locationHelper.getAddressFromLocation(location)
+                locationUser.setText(locate)
+                Toast.makeText(this, "${locate}", Toast.LENGTH_SHORT).show()
+            } else {
+                Log.e("LocationHelper", "Không thể lấy vị trí hiện tại.")
+            }
+        }
+    }
+
+    companion object {
+        private const val REQUEST_LOCATION_PERMISSION = 1
     }
 
 }
