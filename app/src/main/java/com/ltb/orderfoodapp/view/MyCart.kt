@@ -49,10 +49,15 @@ class MyCart : AppCompatActivity() {
         productCartAdapter = ProductCartAdapter(this, productCartList)
         recyclerView.adapter = productCartAdapter
 
-        //Cập nhat tong tien
+        // Tính và cập nhật tổng tiền
         val totalPrice = productCartList.sumOf { it.price * it.quantity }.toInt()
         total.text = "$totalPrice VND"
 
+        productCartAdapter.onQuantityChanged = { updatedTotalPrice ->
+            runOnUiThread {
+                total.text = "$updatedTotalPrice VND"
+            }
+        }
         // Chuyen toi payment
         payment.setOnClickListener{
             val paymentMethod = Intent(this, PaymentMethod::class.java)
@@ -72,6 +77,11 @@ class MyCart : AppCompatActivity() {
         productCartAdapter.productCartList.clear()
         productCartAdapter.productCartList.addAll(productCartList)
         productCartAdapter.notifyDataSetChanged()
+
+        // Tính và cập nhật tổng tiền
+        val totalPrice = productCartList.sumOf { it.price * it.quantity }.toInt()
+        val total = findViewById<TextView>(R.id.total)
+        total.text = "$totalPrice VND"
     }
 
 }

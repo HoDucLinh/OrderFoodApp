@@ -25,12 +25,16 @@ class ProductCartAdapter(
     val productCartList: MutableList<ProductCart>
 ) : RecyclerView.Adapter<ProductCartAdapter.ViewHolder>() {
 
+    // Khai báo callback
+    var onQuantityChanged: ((Int) -> Unit)? = null
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgProduct: ImageView = itemView.findViewById(R.id.imageProduct)
         val productName: TextView = itemView.findViewById(R.id.nameProduct)
         val productPrice: TextView = itemView.findViewById(R.id.priceProduct)
         val quantity: TextView = itemView.findViewById(R.id.numberProduct1)
         val btnDelete: ImageButton = itemView.findViewById(R.id.btnDelete)
+        val btnTang:ImageButton = itemView.findViewById(R.id.btnTang)
+        val btnGiam:ImageButton = itemView.findViewById(R.id.btnGiam)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -76,9 +80,48 @@ class ProductCartAdapter(
                 }
             }
         }
+        //xử lí sự kien tang giam so luong
+        holder.btnTang.setOnClickListener {
+            val newQuantity = productCart.quantity + 1
+            updateQuantityAndRefresh(holder, position, newQuantity)
+            onQuantityChanged?.invoke(productCartList.sumOf { it.price * it.quantity }.toInt())
+        }
+
+        holder.btnGiam.setOnClickListener {
+            if (productCart.quantity > 1) {
+                val newQuantity = productCart.quantity - 1
+                updateQuantityAndRefresh(holder, position, newQuantity)
+                onQuantityChanged?.invoke(productCartList.sumOf { it.price * it.quantity }.toInt())
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {
         return productCartList.size
     }
+    private fun updateQuantityAndRefresh(holder: ViewHolder, position: Int, newQuantity: Int) {
+        val productCart = productCartList[position]
+        GlobalScope.launch {
+            val cartDAO = ProductCartDAO(context)
+            val isSuccess = cartDAO.updateQuantity(productCart.productId, newQuantity)
+
+            if (isSuccess) {
+                // Refresh the productCartList from the database
+                val updatedProductList = cartDAO.getAllProductsOfCart()
+
+                withContext(Dispatchers.Main) {
+                    productCartList.clear()
+                    productCartList.addAll(updatedProductList)
+
+                    // Notify RecyclerView of the change
+                    notifyDataSetChanged()
+
+                    // Trigger the callback with the updated total price
+                    onQuantityChanged?.invoke(updatedProductList.sumOf { it.price * it.quantity }.toInt())
+                }
+            }
+        }
+    }
+
 }

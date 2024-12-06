@@ -6,7 +6,7 @@ class ProductCart(
     var cartId : Int,
     var quantity : Int,
     var name: String,
-    var price: Double,
+    var price: Int,
     var rating: Float = 0f,
     var images: MutableList<String> = mutableListOf(),
 )
