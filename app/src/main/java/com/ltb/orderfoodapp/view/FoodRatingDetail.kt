@@ -26,6 +26,7 @@ class FoodRatingDetail : AppCompatActivity() {
 
         ratingBtn.setOnClickListener{
             val dialog = RateProductDialogFragment()
+//            dialog.show(supportFragmentManager, "RateProductDialog")
             dialog.show(supportFragmentManager, "RateProductDialog")
         }
     }

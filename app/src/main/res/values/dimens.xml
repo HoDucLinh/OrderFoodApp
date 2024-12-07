@@ -23,7 +23,7 @@
     <dimen name="textLogin">35dp</dimen>
     <dimen name="border_with_login">40dp</dimen>
     <dimen name="border_radius_login">40dp</dimen>
-    <dimen name="margin_input_login">25dp</dimen>
+    <dimen name="margin_input_login">15dp</dimen>
     <dimen name="padding_input_login">15dp</dimen>
 <!--    verification-->
     <dimen name="border_radius_verification">15dp</dimen>
@@ -50,5 +50,5 @@
 <!--    search-->
     <dimen name="margin_search">12dp</dimen>
     <dimen name="margin_searchInput">50dp</dimen>
-    <dimen name="padding_searchInput">30dp</dimen>
+    <dimen name="padding_searchInput">25dp</dimen>
 </resources>

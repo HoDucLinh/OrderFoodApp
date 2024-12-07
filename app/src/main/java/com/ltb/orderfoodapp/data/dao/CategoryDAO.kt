@@ -1,5 +1,6 @@
 package com.ltb.orderfoodapp.data.dao
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.ltb.orderfoodapp.data.DatabaseHelper
@@ -92,5 +93,34 @@ class CategoryDAO(context: Context) {
             }
         }
         return categoryId
+    }
+
+    fun addCategory(name: String, description: String): Long {
+        // Kiểm tra xem Category đã tồn tại chưa
+        val cursor = db.query(
+            "Category",
+            null,
+            "Name = ? AND Description = ?",
+            arrayOf(name, description),
+            null, null, null
+        )
+
+        if (cursor.moveToFirst()) {
+            cursor.close()
+            return -1L
+        }
+        cursor.close()
+
+        // Chèn dữ liệu mới
+        val values = ContentValues().apply {
+            put("Name", name)
+            put("Description", description)
+        }
+        return db.insert("Category", null, values)
+    }
+
+
+    fun deleteCategory(category: String) {
+        db.delete("Category", "Name = ?", arrayOf(category))
     }
 }

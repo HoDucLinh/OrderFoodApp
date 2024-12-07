@@ -14,10 +14,10 @@ class ProductCartDAO(context: Context) {
     private val db: SQLiteDatabase = DatabaseHelper.getInstance(context).writableDatabase
     private val dt: SQLiteDatabase = DatabaseHelper.getInstance(context).readableDatabase
     //them san pham vao database
-    fun insertProduct(product: Product, number:Int): Long {
+    fun insertProduct(product: Product, number:Int, carId : Int): Long {
         val values = ContentValues().apply {
             put("Product_ID", product.idProduct)
-            put("Cart_ID", 1)
+            put("Cart_ID", carId)
             put("Quantity",number)
         }
         return db.insert("Product_Cart", null, values)

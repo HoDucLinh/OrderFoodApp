@@ -19,6 +19,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.data.dao.CartDAO
 import com.ltb.orderfoodapp.data.dao.RoleDAO
 import com.ltb.orderfoodapp.data.dao.UserDAO
 import com.ltb.orderfoodapp.data.model.Role
@@ -121,8 +122,10 @@ class AuthManager(private val context: Context) {
         var user = userDAO.getUser(email, password)
         if(user == null){
             val newUser = User(email = email, password = password)
-            println("new Role "+newUser.roleId)
-            userDAO.addUser(newUser)
+            val cartDAO = CartDAO(context)
+            val userID = userDAO.addUser(newUser)
+            val cartID = cartDAO.insertCart(0, userID)
+            userDAO.updateUserCartId(userID, cartID.toInt())
             user = userDAO.getUser(email, password)
         }
         val roleId = user?.roleId ?: 2
@@ -131,16 +134,19 @@ class AuthManager(private val context: Context) {
         if (user != null) {
             when (roleEnum) {
                 Role.RESTAURANT -> {
+                    println("CardID " + user.cartId)
                     saveLoginStatus(true, "restaurant", user)
                     val adminHomePage = Intent(context, SellerDashboardHome::class.java)
                     context.startActivity(adminHomePage)
                 }
                 Role.CUSTOMER -> {
+                    println("CardID " + user.cartId)
                     saveLoginStatus(true, "customer", user)
                     val userHomePage = Intent(context, Home::class.java)
                     context.startActivity(userHomePage)
                 }
                 Role.ADMIN -> {
+                    println("CardID " + user.cartId)
                     saveLoginStatus(true, "admin", user)
                     val restaurantHomePage = Intent(context, Home::class.java)
                     context.startActivity(restaurantHomePage)

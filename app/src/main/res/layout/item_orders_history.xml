@@ -98,7 +98,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/order_quantity"
+                    android:id="@+id/order_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="30 JAN, 12:30"
@@ -107,7 +107,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/itemNumber"
+                    android:id="@+id/order_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="19dp"
                     android:text="03 Items"

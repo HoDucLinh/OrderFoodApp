@@ -1,6 +1,7 @@
 package com.ltb.orderfoodapp.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,10 +10,12 @@ import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.dao.ProductCartDAO
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
+import com.ltb.orderfoodapp.data.model.User
 
 class FoodDetail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +40,6 @@ class FoodDetail : AppCompatActivity() {
                 if (!imageResource.isNullOrEmpty()) {
                     val imageView = findViewById<ImageView>(R.id.imageProduct)
 
-                    // Sử dụng Glide để tải ảnh từ URL vào ImageView
                     Glide.with(this)
                         .load(imageResource[0])  // Lấy ảnh đầu tiên từ danh sách
                         .into(imageView)
@@ -85,16 +87,23 @@ class FoodDetail : AppCompatActivity() {
                 }
 
                 // Thêm sản phẩm vào giỏ hàng
-                val productCartDAO = ProductCartDAO(this)
-                val result = productCartDAO.insertProduct(product, quantity)
-
-                if (result != -1L) {
-                    // Hiển thị thông báo thành công
-                    Toast.makeText(this, "Thêm thành công!!!", Toast.LENGTH_SHORT).show()
-                } else {
-                    // Thông báo lỗi khi thêm sản phẩm
-                    Toast.makeText(this, "Thêm thất bại", Toast.LENGTH_SHORT).show()
+                val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+                val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+                if (isLoggedIn) {
+                    val user = sharedPreferences.getString("user", "")
+                    val userObject = Gson().fromJson(user, User::class.java)
+                    val cartId = userObject.cartId
+                    val productCartDAO = ProductCartDAO(this)
+                    val result = productCartDAO.insertProduct(product, quantity,cartId)
+                    if (result != -1L) {
+                        // Hiển thị thông báo thành công
+                        Toast.makeText(this, "Thêm thành công!!!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // Thông báo lỗi khi thêm sản phẩm
+                        Toast.makeText(this, "Thêm thất bại", Toast.LENGTH_SHORT).show()
+                    }
                 }
+                else Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 e.printStackTrace()
                 Toast.makeText(this, "An error occurred while adding product to cart", Toast.LENGTH_SHORT).show()

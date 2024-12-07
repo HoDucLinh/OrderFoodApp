@@ -12,27 +12,31 @@ import androidx.lifecycle.ViewModelProvider
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.CategoryAdapter
 import com.ltb.orderfoodapp.adapter.ProductAdapter
+import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.viewmodel.CategoryViewModel
 import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class Search : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
     private lateinit var categoryViewModel: CategoryViewModel
+    private lateinit var products : MutableList<Product>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_search)
         productViewModel = ProductViewModel(this)
         categoryViewModel = CategoryViewModel(this)
+        products = productViewModel.getProducts()
         setupGridViewCategory()
-
+        setupGridView()
         val backHome = findViewById<ImageButton>(R.id.backHome)
         val category = findViewById<GridView>(R.id.gridViewCategoryName)
         val searchbar = findViewById<EditText>(R.id.searchInput)
         val clearInput = findViewById<ImageButton>(R.id.closeBtn)
         val searchInput = findViewById<EditText>(R.id.searchInput)
         searchInput.addTextChangedListener{
-            setupGridView(searchInput.text.toString())
+            products = productViewModel.getProductsFilter(searchInput.text.toString())
+            setupGridView()
         }
 
         searchbar.requestFocus()
@@ -47,19 +51,15 @@ class Search : AppCompatActivity() {
         }
 
         category.setOnItemClickListener { parent, view, position, id ->
-            // Lấy đối tượng category tại vị trí người dùng nhấn
             val selectedCategory = parent.getItemAtPosition(position) as String
+            products = productViewModel.getProductByCategory(selectedCategory)
+            setupGridView()
 
-            // Chuyển qua FoodDetail Activity và truyền dữ liệu
-            val categoryIntent = Intent(this, FoodDetail::class.java)
-            categoryIntent.putExtra("category", selectedCategory)
-            startActivity(categoryIntent)
         }
 
 
     }
-    private fun setupGridView(kw : String){
-        val products = productViewModel.getProductsFilter(kw)
+    private fun setupGridView(){
         val gridView = findViewById<GridView>(R.id.gridviewProduct)
         val adapter = ProductAdapter(this, products)
         gridView.adapter = adapter

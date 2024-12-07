@@ -83,6 +83,21 @@ class UserDAO(context: Context) {
         return null
     }
 
+    fun updateUserCartId(userId: Int, cartId: Int): Int {
+        val values = ContentValues().apply {
+            put("Cart_ID", cartId)
+        }
+        return db.update("User", values, "ID = ?", arrayOf(userId.toString()))
+    }
+
+    fun deleteUser(email :String){
+        val query = """
+            DELETE FROM user
+            WHERE Email = ? 
+        """.trimIndent()
+        db.execSQL(query)
+    }
+
 
     fun encrypt(password: String): String {
         val md = MessageDigest.getInstance("SHA-256")
