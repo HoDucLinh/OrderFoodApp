@@ -254,4 +254,56 @@ class ProductDAO(context: Context) {
         return categories
     }
 
+    // Lấy toàn bộ productID
+    fun getAllProductIds(): List<Int> {
+        val productIds = mutableListOf<Int>()
+        val query = "SELECT ID FROM Product"
+        val cursor = db.rawQuery(query, null)
+
+        if (cursor.moveToFirst()) {
+            do {
+                val id = cursor.getInt(cursor.getColumnIndexOrThrow("ID"))
+                productIds.add(id)
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+        return productIds
+    }
+
+    // Lấy trung bình đánh giá
+    fun getAverageRatingForProduct(productId: Int): Float {
+        val query = """
+        SELECT AVG(Rating) AS AverageRating
+        FROM ReviewOrder
+        WHERE Product_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(productId.toString()))
+        var averageRating = 0f
+        if (cursor.moveToFirst()) {
+            averageRating = cursor.getFloat(cursor.getColumnIndexOrThrow("AverageRating"))
+        }
+        cursor.close()
+        return averageRating
+    }
+
+    // update rating lên trên database
+    fun updateProductRating(productId: Int, newRating: Float) {
+        val values = ContentValues().apply {
+            put("Rating", newRating)
+        }
+        db.update("Product", values, "ID = ?", arrayOf(productId.toString()))
+    }
+
+    // Đồng bộ hoá
+    fun syncProductRatings() {
+        val productIds = getAllProductIds() // Hàm lấy tất cả ID sản phẩm
+        for (productId in productIds) {
+            val averageRating = getAverageRatingForProduct(productId)
+            updateProductRating(productId, averageRating)
+        }
+    }
+
+
+
 }
