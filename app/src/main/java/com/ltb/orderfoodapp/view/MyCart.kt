@@ -39,8 +39,8 @@ class MyCart : AppCompatActivity() {
         val total = findViewById<TextView>(R.id.total)
 
         // Lui ve home
-        backHome.setOnClickListener{
-            val home = Intent(this,Home::class.java)
+        backHome.setOnClickListener {
+            val home = Intent(this, Home::class.java)
             startActivity(home)
         }
 
@@ -52,9 +52,8 @@ class MyCart : AppCompatActivity() {
         productCartViewModel = ProductCartViewModel(this)
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-        if (isLoggedIn)
-        {
-            val user = sharedPreferences.getString("user","")
+        if (isLoggedIn) {
+            val user = sharedPreferences.getString("user", "")
             val userObject = Gson().fromJson(user, User::class.java)
             val cartId = userObject.cartId
             println("CartIDasdfasd" + cartId)
@@ -68,28 +67,29 @@ class MyCart : AppCompatActivity() {
             productCartAdapter = ProductCartAdapter(this, cartList)
             recyclerView.adapter = productCartAdapter
 
-        // Tính và cập nhật tổng tiền
+            // Tính và cập nhật tổng tiền
             val totalPrice = cartList.sumOf { it.price * it.quantity }.toInt()
-         total.text = "$totalPrice VND"
+            total.text = "$totalPrice VND"
 
-                 productCartAdapter.onQuantityChanged = { updatedTotalPrice ->
+            productCartAdapter.onQuantityChanged = { updatedTotalPrice ->
                 runOnUiThread {
-                total.text = "$updatedTotalPrice VND"
+                    total.text = "$updatedTotalPrice VND"
+                }
             }
-        }
-        // Chuyen toi payment
-        payment.setOnClickListener{
-            val paymentMethod = Intent(this, PaymentMethod::class.java)
-            paymentMethod.putExtra("pricePayment" , totalPrice)
-            startActivity(paymentMethod)
             // Chuyen toi payment
-            payment.setOnClickListener{
+            payment.setOnClickListener {
                 val paymentMethod = Intent(this, PaymentMethod::class.java)
-                paymentMethod.putExtra("pricePayment" , totalPrice)
+                paymentMethod.putExtra("pricePayment", totalPrice)
                 startActivity(paymentMethod)
+                // Chuyen toi payment
+                payment.setOnClickListener {
+                    val paymentMethod = Intent(this, PaymentMethod::class.java)
+                    paymentMethod.putExtra("pricePayment", totalPrice)
+                    startActivity(paymentMethod)
+                }
             }
-        }
 
+        }
     }
 
     override fun onResume() {
