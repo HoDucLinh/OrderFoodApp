@@ -50,7 +50,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="200dp"
             android:layout_marginTop="15dp"
             android:orientation="vertical">
 
@@ -64,103 +64,82 @@
                 android:layout_marginLeft="10dp"
                 />
 
-            <EditText
-                android:id="@+id/editTextText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_margin="10dp"
-                android:padding="20dp"
-                android:background="@drawable/rounded_linear_layout"
-                android:hint="Please input name of category"
-                android:inputType="text" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="UPLOAD PHOTO/VIDEO"
-                android:textFontWeight="500"
-                android:layout_marginLeft="10dp"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="116dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/editTextCategoryName"
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:layout_margin="10dp"
+                        android:padding="20dp"
+                        android:background="@drawable/rounded_linear_layout"
+                        android:hint="Please input name of category"
+                        android:inputType="text" />
+                    <EditText
+                        android:id="@+id/editTextCategoryDescription"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:layout_margin="10dp"
+                        android:padding="20dp"
+                        android:background="@drawable/rounded_linear_layout"
+                        android:hint="Please input description "
+                        android:inputType="text" />
+                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView"
+                <Button
+                    android:id="@+id/btn_add_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_launcher_background" />
-
-                <ImageButton
-                    android:id="@+id/imageButton11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="53dp"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    app:srcCompat="@drawable/ic_cloud_upload_24" />
-
-                <ImageButton
-                    android:id="@+id/imageButton10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="54dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    app:srcCompat="@drawable/ic_cloud_upload_24" />
-
+                    android:layout_marginTop="50dp"
+                    android:text="Add"/>
             </LinearLayout>
 
         </LinearLayout>
 
+        <GridView
+            android:id="@+id/gridViewCategoryName1"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:numColumns="5" >
+
+        </GridView>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="214dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="DESCRIPTION"
-                android:textFontWeight="500"
-                android:layout_marginLeft="10dp"/>
-
-            <EditText
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_margin="10dp"
-                android:padding="20dp"
-                android:background="@drawable/rounded_linear_layout"
-                android:hint="Please input description of category"
-                android:inputType="textMultiLine"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_deletecategory"
+                android:layout_width="200dp"
+                android:layout_height="61dp"
+                android:text="Delete"
+                android:textSize="20dp"
+                android:fontFamily="@font/sen_bold"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_button"
+                />
+            <Button
+                android:id="@+id/btn_save_changes"
+                android:layout_width="200dp"
+                android:layout_height="61dp"
+                android:textSize="20dp"
+                android:fontFamily="@font/sen_bold"
+                android:text="Save changes"
+                android:textColor="@color/white"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/rounded_button"/>
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:text="SAVE CHANGES"
-            android:textColor="@color/white"
-            android:background="@color/orange"/>
 
 
     </LinearLayout>

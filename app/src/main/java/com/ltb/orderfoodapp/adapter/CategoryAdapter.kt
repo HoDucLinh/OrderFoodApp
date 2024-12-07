@@ -31,4 +31,6 @@ class CategoryAdapter(
         categoryName.text =  category
         return view
     }
+
+
 }
