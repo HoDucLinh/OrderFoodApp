@@ -1,41 +1,31 @@
 package com.ltb.orderfoodapp.view
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.widget.GridView
 import android.widget.ImageButton
 import android.widget.Switch
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductAdapter
 import com.ltb.orderfoodapp.adapter.ProductCartAdapter
 import com.ltb.orderfoodapp.data.LocationHelper
 import com.ltb.orderfoodapp.data.dao.CartDAO
 import com.ltb.orderfoodapp.data.model.User
+import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
 import com.ltb.orderfoodapp.viewmodel.ProductViewModel
-import org.w3c.dom.Text
-import java.util.Locale
-import kotlin.math.log
 
 class Home : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
     private lateinit var productCartViewModel: ProductCartViewModel
     private lateinit var darkTheme : Switch
     private lateinit var productCartAdapter: ProductCartAdapter
+    private lateinit var productDAO: ProductDAO
     private lateinit var locationHelper: LocationHelper
     private lateinit var cartDAO : CartDAO
     private var productCartNumber : Int = 0
@@ -58,6 +48,11 @@ class Home : AppCompatActivity() {
 
         locationHelper = LocationHelper(this)
 
+        //
+
+        productDAO = ProductDAO(this)
+
+        //
 
         cartDAO = CartDAO(this)
         setupLocation(locationUser)
@@ -75,7 +70,7 @@ class Home : AppCompatActivity() {
                 startActivity(nextCart)
             }
             else Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
-          
+
         }
         nextMenu.setOnClickListener {
             if (isLoggedIn) {
@@ -97,6 +92,7 @@ class Home : AppCompatActivity() {
         setupGridViewProduct()
         setupTheme()
         setCartCount()
+        productDAO.syncProductRatings() // đồng bộ hoá rating khi start
     }
 
     override fun onResume() {

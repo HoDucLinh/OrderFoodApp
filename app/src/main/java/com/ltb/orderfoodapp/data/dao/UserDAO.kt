@@ -38,6 +38,33 @@ class UserDAO(context: Context) {
         val userId = db.insert("User", null, values).toInt()
         return userId
     }
+    fun getAllUsers(): MutableList<User> {
+        val userList = mutableListOf<User>()
+        val cursor = db.rawQuery("SELECT * FROM User", null)
+
+        cursor.use {
+            while (it.moveToNext()) {
+                val user = User(
+                    idUser = it.getInt(it
+                        .getColumnIndexOrThrow("ID")),
+                    fullName = it.getString(it.getColumnIndexOrThrow("FullName")),
+                    email = it.getString(it.getColumnIndexOrThrow("Email")),
+                    phoneNumber = it
+                        .getString(it.getColumnIndexOrThrow("PhoneNumber")),
+                    bioInfor = it
+                        .getString(it.getColumnIndexOrThrow("BioInfor")),
+                    password = it
+                        .getString(it.getColumnIndexOrThrow("Password")),
+                    cartId = it
+                        .getInt(it.getColumnIndexOrThrow("Cart_ID")),
+                    roleId = cursor.getInt(cursor.getColumnIndexOrThrow("Role_ID"))
+                )
+                userList.add(user)
+            }
+        }
+        return userList
+    }
+
     fun getUser(email: String, password: String): User? {
         val hashedPassword = encrypt(password)
         val query = """
@@ -107,6 +134,21 @@ class UserDAO(context: Context) {
     fun decrypt(hexString: String): String {
         val byteArray = hexString.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
         return String(byteArray, Charsets.UTF_8)
+    }
+
+    // Cập nhật thông tin người dùng
+    fun updateRole(userId: Int, userRoleId: Int): Int {
+        val values = ContentValues().apply {
+            put("Role_ID", userRoleId)
+        }
+        // Cập nhật roleId cho người dùng có userId tương ứng
+        return db.update("User", values, "ID = ?", arrayOf(userId.toString()))
+    }
+
+
+    // Xóa người dùng
+    fun deleteUser(userId: Int): Boolean {
+        return db.delete("User", "id = ?", arrayOf(userId.toString())) > 0
     }
 
 }
