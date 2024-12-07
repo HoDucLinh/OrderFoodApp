@@ -82,7 +82,14 @@ class UserDAO(context: Context) {
         cursor?.close()
         return null
     }
-    
+
+    fun updateUserCartId(userId: Int, cartId: Int): Int {
+        val values = ContentValues().apply {
+            put("Cart_ID", cartId)
+        }
+        return db.update("User", values, "ID = ?", arrayOf(userId.toString()))
+    }
+
     fun deleteUser(email :String){
         val query = """
             DELETE FROM user

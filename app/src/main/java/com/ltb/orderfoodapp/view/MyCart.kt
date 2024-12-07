@@ -1,23 +1,32 @@
 package com.ltb.orderfoodapp.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductCartAdapter
 import com.ltb.orderfoodapp.data.api.Payment
+import com.ltb.orderfoodapp.data.dao.CartDAO
 import com.ltb.orderfoodapp.data.dao.ProductCartDAO
+import com.ltb.orderfoodapp.data.model.ProductCart
+import com.ltb.orderfoodapp.data.model.User
+import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
 
 class MyCart : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var productCartAdapter: ProductCartAdapter
+    private lateinit var productCartViewModel : ProductCartViewModel
+    private var cartList : MutableList<ProductCart> = mutableListOf()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,37 +49,59 @@ class MyCart : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerViewCart)
 
         // Tạo DAO và lấy danh sách sản phẩm trong giỏ hàng
-        val cartDAO = ProductCartDAO(this)
-        val cartId = 1 // ID giỏ hàng, giả định là 1
-        val productCartList = cartDAO.getAllProductsOfCart()
+        productCartViewModel = ProductCartViewModel(this)
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+        if (isLoggedIn)
+        {
+            val user = sharedPreferences.getString("user","")
+            val userObject = Gson().fromJson(user, User::class.java)
+            val cartId = userObject.cartId
+            println("CartIDasdfasd" + cartId)
+            cartList = productCartViewModel.getProductCartByCartID(cartId)
+            println(cartList)
+            for (productCart in cartList) {
+                println(productCart.name)
+            }
+            // Đặt layout manager và adapter cho RecyclerView
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            productCartAdapter = ProductCartAdapter(this, cartList)
+            recyclerView.adapter = productCartAdapter
 
-        // Đặt layout manager và adapter cho RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        productCartAdapter = ProductCartAdapter(this, productCartList)
-        recyclerView.adapter = productCartAdapter
+            //Cập nhat tong tien
+            val totalPrice = cartList.sumOf { it.price * it.quantity }.toInt()
+            total.text = "$totalPrice VND"
 
-        //Cập nhat tong tien
-        val totalPrice = productCartList.sumOf { it.price * it.quantity }.toInt()
-        total.text = "$totalPrice VND"
-
-        // Chuyen toi payment
-        payment.setOnClickListener{
-            val paymentMethod = Intent(this, PaymentMethod::class.java)
-            paymentMethod.putExtra("pricePayment" , totalPrice)
-            startActivity(paymentMethod)
+            // Chuyen toi payment
+            payment.setOnClickListener{
+                val paymentMethod = Intent(this, PaymentMethod::class.java)
+                paymentMethod.putExtra("pricePayment" , totalPrice)
+                startActivity(paymentMethod)
+            }
         }
+        else {
+            Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     override fun onResume() {
         super.onResume()
 
-        // Làm mới dữ liệu
-        val cartDAO = ProductCartDAO(this)
-        val productCartList = cartDAO.getAllProductsOfCart()
 
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+        if (isLoggedIn) {
+            val user = sharedPreferences.getString("user", "")
+            val userObject = Gson().fromJson(user, User::class.java)
+            val cartId = userObject.cartId
+            println("CartIDasdfasd" + cartId)
+            cartList = productCartViewModel.getProductCartByCartID(cartId)
+
+        }
         // Cập nhật Adapter
         productCartAdapter.productCartList.clear()
-        productCartAdapter.productCartList.addAll(productCartList)
+        productCartAdapter.productCartList.addAll(cartList)
         productCartAdapter.notifyDataSetChanged()
     }
 

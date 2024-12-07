@@ -30,7 +30,7 @@ class Welcome : AppCompatActivity() {
     fun checkLogin() {
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-        val role = sharedPreferences.getString("role", "customer")
+        val role = sharedPreferences.getString("role", "guess")
         println(role)
         if (isLoggedIn) {
             if (role == "admin") {

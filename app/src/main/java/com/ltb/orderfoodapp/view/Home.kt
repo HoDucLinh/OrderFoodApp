@@ -18,14 +18,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductAdapter
 import com.ltb.orderfoodapp.adapter.ProductCartAdapter
 import com.ltb.orderfoodapp.data.LocationHelper
+import com.ltb.orderfoodapp.data.dao.CartDAO
+import com.ltb.orderfoodapp.data.model.User
 import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
 import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 import org.w3c.dom.Text
 import java.util.Locale
+import kotlin.math.log
 
 class Home : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
@@ -33,6 +37,10 @@ class Home : AppCompatActivity() {
     private lateinit var darkTheme : Switch
     private lateinit var productCartAdapter: ProductCartAdapter
     private lateinit var locationHelper: LocationHelper
+    private lateinit var cartDAO : CartDAO
+    private var productCartNumber : Int = 0
+    private var userId : Int = -1
+    private var cartId : Int = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         productViewModel = ProductViewModel(this)
@@ -42,7 +50,16 @@ class Home : AppCompatActivity() {
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
         val locationUser = findViewById<TextView>(R.id.locationUser)
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+        if(isLoggedIn){
+
+        }
+
         locationHelper = LocationHelper(this)
+
+
+        cartDAO = CartDAO(this)
         setupLocation(locationUser)
         setCartCount()
 
@@ -53,12 +70,14 @@ class Home : AppCompatActivity() {
         }
 //        chuyen sang cart
         nextCart.setOnClickListener {
-            val nextCart = Intent(this, MyCart::class.java)
-            startActivity(nextCart)
+            if (isLoggedIn){
+                val nextCart = Intent(this, MyCart::class.java)
+                startActivity(nextCart)
+            }
+            else Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
+          
         }
         nextMenu.setOnClickListener {
-            val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-            val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
             if (isLoggedIn) {
                 val profileIntent = Intent(this, MyMainMenu::class.java)
                 startActivity(profileIntent)
@@ -127,7 +146,7 @@ class Home : AppCompatActivity() {
         productCartViewModel = ProductCartViewModel(this)
 
         productCartAdapter = ProductCartAdapter(this, productCartViewModel.getProduct())
-        val productCartNumber = productCartAdapter.itemCount
+        productCartNumber = productCartAdapter.itemCount
         val cartCount = findViewById<TextView>(R.id.cartCount)
         cartCount.text = productCartNumber.toString()
 

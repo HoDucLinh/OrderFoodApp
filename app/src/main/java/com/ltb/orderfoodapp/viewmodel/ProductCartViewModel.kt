@@ -9,15 +9,16 @@ class ProductCartViewModel (context: Context) {
     private val productCartDAO = ProductCartDAO(context)
     private var productCart: MutableList<ProductCart> = mutableListOf()
 
-
     init {
-        getProductCart()
+        fetchProductCart()
+    }
+    fun getProductCartByCartID(cartId : Int): MutableList<ProductCart> {
+        return productCart.filter { it.cartId == cartId}.toMutableList()
     }
 
-    fun getProductCart() {
+    private fun fetchProductCart(){
         productCart = productCartDAO.getAllProductsOfCart()
     }
-
     fun getProduct(): MutableList<ProductCart> {
         return productCart
     }

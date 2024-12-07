@@ -21,7 +21,7 @@ import java.util.Locale
 class LocationHelper(private val context: Context) {
 
     private val fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
-    private lateinit var locationPath : String
+    private var locationPath : String = ""
 
     fun getCurrentLocation(onLocationReceived: (Location) -> Unit) {
         // Kiểm tra quyền truy cập vị trí
