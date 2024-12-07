@@ -97,9 +97,8 @@ dependencies {
 
     // support vnpay
     implementation("com.android.support:support-v4:19.0.0")
-
-
-
+    //
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
 
   }
