@@ -12,11 +12,13 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.OrderAdapter
+import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.dao.RatingDAO
 
 
 class RateProductDialogFragment : DialogFragment() {
 
+    private lateinit var productDAO: ProductDAO
 
     companion object {
         private const val ARG_PRODUCT_ID = "productId"
@@ -34,6 +36,8 @@ class RateProductDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.CustomDialog)
+
+        productDAO = ProductDAO(requireContext())
     }
 
     override fun onCreateView(
@@ -64,6 +68,8 @@ class RateProductDialogFragment : DialogFragment() {
             val rating = ratingBar.rating
             val comment = commentEditText.text.toString().trim()
             ratingDAO.addRating(rating, comment, productId) // Lưu đánh giá vào database
+            productDAO.syncProductRatings() // đồng bộ hoá rating khi start
+
         }
     }
 

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductAdapter
 import com.ltb.orderfoodapp.adapter.ProductCartAdapter
+import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
 import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
@@ -21,6 +22,7 @@ class Home : AppCompatActivity() {
     private lateinit var productCartViewModel: ProductCartViewModel
     private lateinit var darkTheme : Switch
     private lateinit var productCartAdapter: ProductCartAdapter
+    private lateinit var productDAO: ProductDAO
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         productViewModel = ProductViewModel(this)
@@ -30,6 +32,10 @@ class Home : AppCompatActivity() {
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
 
+
+        //
+
+        productDAO = ProductDAO(this)
 
         //
         setCartCount()
@@ -66,6 +72,7 @@ class Home : AppCompatActivity() {
         setupGridViewProduct()
         setupTheme()
         setCartCount()
+        productDAO.syncProductRatings() // đồng bộ hoá rating khi start
     }
 
     override fun onResume() {

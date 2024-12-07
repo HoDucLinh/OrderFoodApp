@@ -121,7 +121,8 @@ class UserDAO(context: Context) {
         return String(byteArray, Charsets.UTF_8)
     }
 
-    fun saveChangeUserRole(userId: Int, userRoleId: Int): Int {
+    // Cập nhật thông tin người dùng
+    fun updateRole(userId: Int, userRoleId: Int): Int {
         val values = ContentValues().apply {
             put("Role_ID", userRoleId)
         }
@@ -129,5 +130,10 @@ class UserDAO(context: Context) {
         return db.update("User", values, "ID = ?", arrayOf(userId.toString()))
     }
 
+
+    // Xóa người dùng
+    fun deleteUser(userId: Int): Boolean {
+        return db.delete("User", "id = ?", arrayOf(userId.toString())) > 0
+    }
 
 }

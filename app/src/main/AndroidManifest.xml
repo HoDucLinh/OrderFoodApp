@@ -20,7 +20,7 @@
         android:theme="@style/Theme_OrderFoodApp"
         tools:targetApi="31">
         <activity
-            android:name=".view.EditRole"
+            android:name=".view.MyMainMenu"
             android:exported="false" />
         <activity
             android:name="com.vnpay.authentication.VNP_AuthenticationActivity"
@@ -59,7 +59,7 @@
             android:name=".view.PersonalInformation"
             android:exported="false" />
         <activity
-            android:name=".view.Welcome"
+            android:name=".view.EditRole"
             android:exported="false" />
         <activity
             android:name=".view.FoodRatingDetail"
@@ -152,7 +152,7 @@
             android:name=".view.AddNewAddress"
             android:exported="false" />
         <activity
-            android:name=".view.MyMainMenu"
+            android:name=".view.Welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
