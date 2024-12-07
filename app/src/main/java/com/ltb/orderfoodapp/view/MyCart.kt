@@ -68,10 +68,20 @@ class MyCart : AppCompatActivity() {
             productCartAdapter = ProductCartAdapter(this, cartList)
             recyclerView.adapter = productCartAdapter
 
-            //Cập nhat tong tien
+        // Tính và cập nhật tổng tiền
             val totalPrice = cartList.sumOf { it.price * it.quantity }.toInt()
-            total.text = "$totalPrice VND"
+         total.text = "$totalPrice VND"
 
+                 productCartAdapter.onQuantityChanged = { updatedTotalPrice ->
+                runOnUiThread {
+                total.text = "$updatedTotalPrice VND"
+            }
+        }
+        // Chuyen toi payment
+        payment.setOnClickListener{
+            val paymentMethod = Intent(this, PaymentMethod::class.java)
+            paymentMethod.putExtra("pricePayment" , totalPrice)
+            startActivity(paymentMethod)
             // Chuyen toi payment
             payment.setOnClickListener{
                 val paymentMethod = Intent(this, PaymentMethod::class.java)
@@ -79,16 +89,11 @@ class MyCart : AppCompatActivity() {
                 startActivity(paymentMethod)
             }
         }
-        else {
-            Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
-        }
 
     }
 
     override fun onResume() {
         super.onResume()
-
-
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
         if (isLoggedIn) {
@@ -103,6 +108,11 @@ class MyCart : AppCompatActivity() {
         productCartAdapter.productCartList.clear()
         productCartAdapter.productCartList.addAll(cartList)
         productCartAdapter.notifyDataSetChanged()
+
+        // Tính và cập nhật tổng tiền
+        val totalPrice = cartList.sumOf { it.price * it.quantity }.toInt()
+        val total = findViewById<TextView>(R.id.total)
+        total.text = "$totalPrice VND"
     }
 
 }

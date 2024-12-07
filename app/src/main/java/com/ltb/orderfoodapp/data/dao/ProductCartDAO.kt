@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase
 import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class ProductCartDAO(context: Context) {
     private val db: SQLiteDatabase = DatabaseHelper.getInstance(context).writableDatabase
@@ -42,7 +44,7 @@ class ProductCartDAO(context: Context) {
                     cartId = it.getInt(it.getColumnIndexOrThrow("Cart_ID")),
                     quantity = it.getInt(it.getColumnIndexOrThrow("Quantity")),
                     name = it.getString(it.getColumnIndexOrThrow("Name")) ?: "Unknown",
-                    price = it.getDouble(it.getColumnIndexOrThrow("Price"))
+                    price = it.getInt(it.getColumnIndexOrThrow("Price"))
                 )
 
                 productCart.rating = it.getFloat(it.getColumnIndexOrThrow("Rating"))
@@ -77,6 +79,17 @@ class ProductCartDAO(context: Context) {
         db.close()
         return exists
     }
+    suspend fun updateQuantity(productId: Int, newQuantity: Int): Boolean {
+        return withContext(Dispatchers.IO) {
+            val values = ContentValues().apply {
+                put("Quantity", newQuantity)
+            }
+            val rowsUpdated = db.update("Product_Cart", values, "Product_ID = ?", arrayOf(productId.toString()))
+            rowsUpdated > 0
+        }
+    }
+
+
 
 
 

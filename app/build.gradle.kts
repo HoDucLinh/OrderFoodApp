@@ -73,6 +73,7 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.play.services.maps)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.storage)
@@ -100,8 +101,9 @@ dependencies {
 
     // support vnpay
     implementation("com.android.support:support-v4:19.0.0")
+    //
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
-    implementation(libs.play.services.maps)
 
 
 

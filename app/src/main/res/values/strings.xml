@@ -47,4 +47,11 @@
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="statistics_filters">
+        <item>Thống kê theo người dùng</item>
+        <item>Thống kê theo ngày</item>
+        <item>Thống kê theo tháng</item>
+        <item>Thống kê theo danh mục</item>
+    </string-array>
+    <string name="select_filter">Select Filter</string>
 </resources>
