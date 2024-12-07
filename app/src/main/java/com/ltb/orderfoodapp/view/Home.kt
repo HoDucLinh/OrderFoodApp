@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductAdapter
 import com.ltb.orderfoodapp.adapter.ProductCartAdapter
+import com.ltb.orderfoodapp.data.LocationHelper
+import com.ltb.orderfoodapp.data.dao.CartDAO
+import com.ltb.orderfoodapp.data.model.User
 import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
 import com.ltb.orderfoodapp.viewmodel.ProductViewModel
@@ -23,6 +26,11 @@ class Home : AppCompatActivity() {
     private lateinit var darkTheme : Switch
     private lateinit var productCartAdapter: ProductCartAdapter
     private lateinit var productDAO: ProductDAO
+    private lateinit var locationHelper: LocationHelper
+    private lateinit var cartDAO : CartDAO
+    private var productCartNumber : Int = 0
+    private var userId : Int = -1
+    private var cartId : Int = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         productViewModel = ProductViewModel(this)
@@ -31,13 +39,23 @@ class Home : AppCompatActivity() {
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
+        val locationUser = findViewById<TextView>(R.id.locationUser)
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+        if(isLoggedIn){
 
+        }
+
+        locationHelper = LocationHelper(this)
 
         //
 
         productDAO = ProductDAO(this)
 
         //
+
+        cartDAO = CartDAO(this)
+        setupLocation(locationUser)
         setCartCount()
 
 //        chuyen sang trang tim kiem
@@ -47,12 +65,14 @@ class Home : AppCompatActivity() {
         }
 //        chuyen sang cart
         nextCart.setOnClickListener {
-            val nextCart = Intent(this, MyCart::class.java)
-            startActivity(nextCart)
+            if (isLoggedIn){
+                val nextCart = Intent(this, MyCart::class.java)
+                startActivity(nextCart)
+            }
+            else Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
+
         }
         nextMenu.setOnClickListener {
-            val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-            val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
             if (isLoggedIn) {
                 val profileIntent = Intent(this, MyMainMenu::class.java)
                 startActivity(profileIntent)
@@ -122,11 +142,35 @@ class Home : AppCompatActivity() {
         productCartViewModel = ProductCartViewModel(this)
 
         productCartAdapter = ProductCartAdapter(this, productCartViewModel.getProduct())
-        val productCartNumber = productCartAdapter.itemCount
+        productCartNumber = productCartAdapter.itemCount
         val cartCount = findViewById<TextView>(R.id.cartCount)
         cartCount.text = productCartNumber.toString()
 
 
+    }
+    private fun setupLocation(locationUser: TextView) {
+        // Kiểm tra quyền vị trí
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
+        } else {
+            fetchUserLocation(locationUser)
+        }
+    }
+
+    private fun fetchUserLocation(locationUser: TextView) {
+        locationHelper.getCurrentLocation { location ->
+            if (location != null) {
+                val locate = locationHelper.getAddressFromLocation(location)
+                locationUser.setText(locate)
+                Toast.makeText(this, "${locate}", Toast.LENGTH_SHORT).show()
+            } else {
+                Log.e("LocationHelper", "Không thể lấy vị trí hiện tại.")
+            }
+        }
+    }
+
+    companion object {
+        private const val REQUEST_LOCATION_PERMISSION = 1
     }
 
 }
