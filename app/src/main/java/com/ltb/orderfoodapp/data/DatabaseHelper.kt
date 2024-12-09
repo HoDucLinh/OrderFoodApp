@@ -195,14 +195,17 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     """.trimIndent()
 
     private val CREATE_REVIEW_ORDER_TABLE = """
-        CREATE TABLE $TABLE_REVIEW_ORDER (
-            ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            Rating INTEGER NOT NULL,
-            Comment TEXT,
-            ReviewDate TEXT NOT NULL,
-            Product_ID INTEGER,
-            FOREIGN KEY (Product_ID) REFERENCES $TABLE_PRODUCT(ID)
-        )
+    CREATE TABLE $TABLE_REVIEW_ORDER (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        Rating INTEGER NOT NULL,
+        Comment TEXT,
+        ReviewDate TEXT NOT NULL,
+        User_ID INTEGER NOT NULL,
+        Product_ID INTEGER NOT NULL,
+        FOREIGN KEY (User_ID) REFERENCES $TABLE_USER(ID),
+        FOREIGN KEY (Product_ID) REFERENCES $TABLE_PRODUCT(ID),
+        UNIQUE(User_ID, Product_ID) ON CONFLICT REPLACE
+    )
     """.trimIndent()
 
     private val CREATE_REVIEW_RESTAURANT_TABLE = """

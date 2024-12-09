@@ -1,6 +1,7 @@
 package com.ltb.orderfoodapp.view
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,12 @@ import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.OrderAdapter
 import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.dao.RatingDAO
+import com.ltb.orderfoodapp.data.model.User
 
 
 class RateProductDialogFragment : DialogFragment() {
@@ -64,10 +67,25 @@ class RateProductDialogFragment : DialogFragment() {
         val ratingBar = view.findViewById<RatingBar>(R.id.ratingBar)
         val btnSubmit = view.findViewById<Button>(R.id.btnSubmit)
 
+        // Lấy userID
+        // Lấy thông tin từ SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+
+        val userJson = sharedPreferences.getString("user", null)
+        val userObject = Gson().fromJson(userJson, User::class.java)
+        val userId = userObject?.idUser ?: -1
+
+        if (userId == -1) {
+            Toast.makeText(requireContext(), "Không tìm thấy thông tin người dùng!", Toast.LENGTH_SHORT).show()
+            dismiss()
+            return
+        }
+
+
         btnSubmit.setOnClickListener {
             val rating = ratingBar.rating
             val comment = commentEditText.text.toString().trim()
-            ratingDAO.addRating(rating, comment, productId) // Lưu đánh giá vào database
+            ratingDAO.addRating(rating, comment, productId, userId) // Lưu đánh giá vào database
             productDAO.syncProductRatings() // đồng bộ hoá rating khi start
 
         }
