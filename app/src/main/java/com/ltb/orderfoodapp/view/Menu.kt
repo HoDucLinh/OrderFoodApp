@@ -1,6 +1,5 @@
 package com.ltb.orderfoodapp.view
 
-import Statistics_fragment
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
@@ -34,7 +33,7 @@ class Menu : AppCompatActivity() {
         }
         val statistics = findViewById<TextView>(R.id.statistics)
         statistics.setOnClickListener{
-            val thongke = Intent(this, Statistics_fragment::class.java)
+            val thongke = Intent(this, StatisticsFragment::class.java)
             startActivity(thongke)
         }
 

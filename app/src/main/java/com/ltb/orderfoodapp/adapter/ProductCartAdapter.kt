@@ -77,21 +77,27 @@ class ProductCartAdapter(
                 withContext(Dispatchers.Main) {
                     productCartList.removeAt(position) // Xóa sản phẩm khỏi danh sách
                     notifyItemRemoved(position) // Cập nhật RecyclerView
+
+                    // Kiểm tra nếu giỏ hàng trống
+                    if (productCartList.isEmpty()) {
+                        onQuantityChanged?.invoke(0) // Gọi callback với giá trị 0
+                    } else {
+                        onQuantityChanged?.invoke(productCartList.sumOf { it.price * it.quantity }.toInt())
+                    }
                 }
             }
         }
+
         //xử lí sự kien tang giam so luong
         holder.btnTang.setOnClickListener {
             val newQuantity = productCart.quantity + 1
             updateQuantityAndRefresh(holder, position, newQuantity)
-            onQuantityChanged?.invoke(productCartList.sumOf { it.price * it.quantity }.toInt())
         }
 
         holder.btnGiam.setOnClickListener {
             if (productCart.quantity > 1) {
                 val newQuantity = productCart.quantity - 1
                 updateQuantityAndRefresh(holder, position, newQuantity)
-                onQuantityChanged?.invoke(productCartList.sumOf { it.price * it.quantity }.toInt())
             }
         }
 
@@ -107,18 +113,12 @@ class ProductCartAdapter(
             val isSuccess = cartDAO.updateQuantity(productCart.productId, newQuantity)
 
             if (isSuccess) {
-                // Refresh the productCartList from the database
-                val updatedProductList = cartDAO.getAllProductsOfCart()
-
                 withContext(Dispatchers.Main) {
-                    productCartList.clear()
-                    productCartList.addAll(updatedProductList)
+                    productCart.quantity = newQuantity
+                    notifyItemChanged(position) // Cập nhật RecyclerView tại vị trí này
 
-                    // Notify RecyclerView of the change
-                    notifyDataSetChanged()
-
-                    // Trigger the callback with the updated total price
-                    onQuantityChanged?.invoke(updatedProductList.sumOf { it.price * it.quantity }.toInt())
+                    // Gọi callback với tổng giá trị mới
+                    onQuantityChanged?.invoke(productCartList.sumOf { it.price * it.quantity }.toInt())
                 }
             }
         }

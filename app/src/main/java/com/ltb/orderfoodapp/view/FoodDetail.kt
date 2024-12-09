@@ -30,7 +30,6 @@ class FoodDetail : AppCompatActivity() {
         val txtresult = findViewById<TextView>(R.id.txtSoLuong)
         val priceTextView = findViewById<TextView>(R.id.priceTotal)
         val previewImage = findViewById<RelativeLayout>(R.id.previewImage)
-        
         previewImage.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 // Lấy danh sách các hình ảnh từ Intent
