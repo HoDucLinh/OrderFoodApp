@@ -24,6 +24,7 @@ import com.ltb.orderfoodapp.data.dao.RoleDAO
 import com.ltb.orderfoodapp.data.dao.UserDAO
 import com.ltb.orderfoodapp.data.model.Role
 import com.ltb.orderfoodapp.data.model.User
+import com.ltb.orderfoodapp.view.EditRole
 import com.ltb.orderfoodapp.view.Home
 import com.ltb.orderfoodapp.view.SellerDashboardHome
 import com.ltb.orderfoodapp.view.SignIn
@@ -148,7 +149,7 @@ class AuthManager(private val context: Context) {
                 Role.ADMIN -> {
                     println("CardID " + user.cartId)
                     saveLoginStatus(true, "admin", user)
-                    val restaurantHomePage = Intent(context, Home::class.java)
+                    val restaurantHomePage = Intent(context, EditRole::class.java)
                     context.startActivity(restaurantHomePage)
                 }
                 else -> {
