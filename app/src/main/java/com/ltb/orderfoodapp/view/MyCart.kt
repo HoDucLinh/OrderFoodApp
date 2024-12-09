@@ -102,8 +102,8 @@ class MyCart : AppCompatActivity() {
             val cartId = userObject.cartId
             println("CartIDasdfasd" + cartId)
             cartList = productCartViewModel.getProductCartByCartID(cartId)
-
         }
+
         // Cập nhật Adapter
         productCartAdapter.productCartList.clear()
         productCartAdapter.productCartList.addAll(cartList)

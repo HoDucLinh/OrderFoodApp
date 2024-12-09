@@ -5,30 +5,81 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.media.Rating
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.ltb.orderfoodapp.data.DatabaseHelper
+import com.ltb.orderfoodapp.data.model.Review
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class RatingDAO(context: Context) {
+class RatingDAO(private val context: Context) {
     private var db: SQLiteDatabase
+
     init {
         val dbHelper = DatabaseHelper.getInstance(context)
         db = dbHelper.writableDatabase
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun addRating(rating: Float, comment: String, productId: Int): Long {
+    fun addRating(rating: Float, comment: String, productId: Int, userId: Int): Long {
+        // Lấy UserID từ SharedPreferences
+
+
+
+        // Lấy thời gian hiện tại
         val currentDateTime = LocalDateTime.now()
         val formattedDate = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
+        // Chuẩn bị dữ liệu để chèn
         val values = ContentValues().apply {
             put("Rating", rating)
             put("Comment", comment)
             put("ReviewDate", formattedDate)
             put("Product_ID", productId)
+            put("User_ID", userId) // Thêm User_ID
         }
 
+        // Chèn dữ liệu vào bảng ReviewOrder
         return db.insert("ReviewOrder", null, values) // Trả về ID của dòng vừa được chèn, hoặc -1 nếu lỗi
     }
+
+    fun getReviewsForProduct(productId: Int): List<Review> {
+        val reviews = mutableListOf<Review>()
+        val query = """
+        SELECT 
+            User.FullName, 
+            ReviewOrder.Rating, 
+            ReviewOrder.Comment, 
+            ReviewOrder.ReviewDate 
+        FROM 
+            ReviewOrder
+        JOIN 
+            User 
+        ON 
+            ReviewOrder.User_ID = User.ID
+        WHERE 
+            ReviewOrder.Product_ID = ?
+        ORDER BY 
+            ReviewOrder.ReviewDate DESC
+    """
+
+        val cursor = db.rawQuery(query, arrayOf(productId.toString()))
+
+        if (cursor.moveToFirst()) {
+            do {
+                val fullName = cursor.getString(cursor.getColumnIndexOrThrow("FullName"))
+                val rating = cursor.getInt(cursor.getColumnIndexOrThrow("Rating"))
+                val comment = cursor.getString(cursor.getColumnIndexOrThrow("Comment"))
+                val reviewDate = cursor.getString(cursor.getColumnIndexOrThrow("ReviewDate"))
+
+                reviews.add(Review(fullName, rating, comment, reviewDate))
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+//        db.close()
+        return reviews
+    }
+
+
 }

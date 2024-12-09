@@ -5,11 +5,13 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 
-class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DatabaseHelper(context: Context) :
+    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     private var db: SQLiteDatabase? = null
+
     companion object {
         private const val DATABASE_NAME = "oderfoodapp.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
 
         // Tên bảng và các cột
         private const val TABLE_CATEGORY = "Category"
@@ -38,21 +40,22 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     override fun onCreate(db: SQLiteDatabase) {
         // Tạo các bảng
-        db.execSQL(CREATE_CATEGORY_TABLE)
-        db.execSQL(CREATE_PRODUCT_TABLE)
-        db.execSQL(CREATE_IMAGE_TABLE)
-        db.execSQL(CREATE_ADDRESS_USER_TABLE)
-        db.execSQL(CREATE_RESTAURANT_TABLE)
-        db.execSQL(CREATE_USER_TABLE)
-        db.execSQL(CREATE_ROLE_TABLE)
-        db.execSQL(CREATE_ORDER_TABLE)
-        db.execSQL(CREATE_ORDER_STATUS_TABLE)
-        db.execSQL(CREATE_STATUS_TABLE)
-        db.execSQL(CREATE_ORDER_DETAIL_TABLE)
+//        db.execSQL(CREATE_CATEGORY_TABLE)
+//        db.execSQL(CREATE_PRODUCT_TABLE)
+//        db.execSQL(CREATE_IMAGE_TABLE)
+//        db.execSQL(CREATE_ADDRESS_USER_TABLE)
+//        db.execSQL(CREATE_RESTAURANT_TABLE)
+//        db.execSQL(CREATE_USER_TABLE)
+//        db.execSQL(CREATE_ROLE_TABLE)
+//        db.execSQL(CREATE_ORDER_TABLE)
+//        db.execSQL(CREATE_ORDER_STATUS_TABLE)
+//        db.execSQL(CREATE_STATUS_TABLE)
+//        db.execSQL(CREATE_ORDER_DETAIL_TABLE)
         db.execSQL(CREATE_REVIEW_ORDER_TABLE)
-        db.execSQL(CREATE_REVIEW_RESTAURANT_TABLE)
-        db.execSQL(CREATE_CART_TABLE)
-        db.execSQL(CREATE_PRODUCT_CART_TABLE)
+
+//        db.execSQL(CREATE_REVIEW_RESTAURANT_TABLE)
+//        db.execSQL(CREATE_CART_TABLE)
+//        db.execSQL(CREATE_PRODUCT_CART_TABLE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -194,14 +197,17 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     """.trimIndent()
 
     private val CREATE_REVIEW_ORDER_TABLE = """
-        CREATE TABLE $TABLE_REVIEW_ORDER (
-            ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            Rating INTEGER NOT NULL,
-            Comment TEXT,
-            ReviewDate TEXT NOT NULL,
-            Product_ID INTEGER,
-            FOREIGN KEY (Product_ID) REFERENCES $TABLE_PRODUCT(ID)
-        )
+    CREATE TABLE $TABLE_REVIEW_ORDER (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        Rating INTEGER NOT NULL,
+        Comment TEXT,
+        ReviewDate TEXT NOT NULL,
+        User_ID INTEGER NOT NULL,
+        Product_ID INTEGER NOT NULL,
+        FOREIGN KEY (User_ID) REFERENCES $TABLE_USER(ID),
+        FOREIGN KEY (Product_ID) REFERENCES $TABLE_PRODUCT(ID),
+        UNIQUE(User_ID, Product_ID) ON CONFLICT REPLACE
+    )
     """.trimIndent()
 
     private val CREATE_REVIEW_RESTAURANT_TABLE = """

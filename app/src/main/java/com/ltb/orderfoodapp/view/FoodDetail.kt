@@ -12,12 +12,19 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.adapter.ReviewAdapter
 import com.ltb.orderfoodapp.data.dao.ProductCartDAO
+import com.ltb.orderfoodapp.data.dao.ProductDAO
+import com.ltb.orderfoodapp.data.dao.RatingDAO
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
 import com.ltb.orderfoodapp.data.model.User
+import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class FoodDetail : AppCompatActivity() {
+
+    private lateinit var ratingDAO: RatingDAO
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,6 +37,8 @@ class FoodDetail : AppCompatActivity() {
         val txtresult = findViewById<TextView>(R.id.txtSoLuong)
         val priceTextView = findViewById<TextView>(R.id.priceTotal)
         val previewImage = findViewById<RelativeLayout>(R.id.previewImage)
+
+        ratingDAO = RatingDAO(this)
         
         previewImage.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
@@ -135,6 +144,7 @@ class FoodDetail : AppCompatActivity() {
             startActivity(home)
         }
 
+        setGridViewReview()
     }
 
     fun getProductInfor() {
@@ -161,5 +171,13 @@ class FoodDetail : AppCompatActivity() {
         ratingTextView.text = "$rating"
         descriptionTextView.text = description
         Glide.with(this).load(imageResource?.getOrNull(0) ?: R.drawable.burger).into(imageView)
+    }
+
+    fun setGridViewReview() {
+        val productId = intent.getIntExtra("id", 0)
+        val reviews = ratingDAO.getReviewsForProduct(productId)
+        val gridView = findViewById<GridView>(R.id.gridview_review)
+        val adapter = ReviewAdapter(this, reviews)
+        gridView.adapter = adapter
     }
 }

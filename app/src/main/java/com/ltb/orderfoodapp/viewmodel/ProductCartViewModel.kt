@@ -26,4 +26,8 @@ class ProductCartViewModel (context: Context) {
         return productCart
 
     }
+
+    fun getProductByCartId(cardId: Int): Int{
+        return productCart.filter { it.cartId == cardId }.size
+    }
 }
