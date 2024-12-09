@@ -14,11 +14,11 @@ class ProductCartDAO(context: Context) {
     private val db: SQLiteDatabase = DatabaseHelper.getInstance(context).writableDatabase
     private val dt: SQLiteDatabase = DatabaseHelper.getInstance(context).readableDatabase
     //them san pham vao database
-    fun insertProduct(product: Product, number:Int, carId : Int): Long {
+    fun insertProduct(product: Product, number: Int, cartId: Int): Long {
         val values = ContentValues().apply {
             put("Product_ID", product.idProduct)
-            put("Cart_ID", carId)
-            put("Quantity",number)
+            put("Cart_ID", cartId)
+            put("Quantity", number)
         }
         return db.insert("Product_Cart", null, values)
     }
@@ -66,9 +66,9 @@ class ProductCartDAO(context: Context) {
         db.close()
     }
     //hàm kiểm tra sản phẩm đã tồn tại hay chưa
-    fun isProductInCart(productId: Int): Boolean {
-        val query = "SELECT COUNT(*) FROM Product_Cart WHERE Product_ID = ?"
-        val cursor = db.rawQuery(query, arrayOf(productId.toString()))
+    fun isProductInCart(productId: Int, cartId: Int): Boolean {
+        val query = "SELECT COUNT(*) FROM Product_Cart WHERE Product_ID = ? AND Cart_ID = ?"
+        val cursor = db.rawQuery(query, arrayOf(productId.toString(), cartId.toString()))
 
         var exists = false
         if (cursor.moveToFirst()) {
@@ -76,7 +76,6 @@ class ProductCartDAO(context: Context) {
         }
 
         cursor.close()
-        db.close()
         return exists
     }
     suspend fun updateQuantity(productId: Int, newQuantity: Int): Boolean {

@@ -79,36 +79,42 @@ class FoodDetail : AppCompatActivity() {
                     rating = 0f,
                     description = description
                 )
-                // Thêm kiểm tra sản phẩm đã tồn tại trong giỏ hàng
-                val pro_cart = ProductCartDAO(this)
-                if (pro_cart.isProductInCart(productId)) {
+
+                // Kiểm tra xem người dùng đã đăng nhập hay chưa
+                val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+                val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+                if (!isLoggedIn) {
+                    Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                // Lấy thông tin người dùng và giỏ hàng
+                val user = sharedPreferences.getString("user", "")
+                val userObject = Gson().fromJson(user, User::class.java)
+                val cartId = userObject.cartId
+
+                // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng của người dùng
+                val productCartDAO = ProductCartDAO(this)
+                if (productCartDAO.isProductInCart(productId, cartId)) {
                     Toast.makeText(this, "Sản phẩm đã tồn tại trong giỏ hàng!", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 
                 // Thêm sản phẩm vào giỏ hàng
-                val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-                val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-                if (isLoggedIn) {
-                    val user = sharedPreferences.getString("user", "")
-                    val userObject = Gson().fromJson(user, User::class.java)
-                    val cartId = userObject.cartId
-                    val productCartDAO = ProductCartDAO(this)
-                    val result = productCartDAO.insertProduct(product, quantity,cartId)
-                    if (result != -1L) {
-                        // Hiển thị thông báo thành công
-                        Toast.makeText(this, "Thêm thành công!!!", Toast.LENGTH_SHORT).show()
-                    } else {
-                        // Thông báo lỗi khi thêm sản phẩm
-                        Toast.makeText(this, "Thêm thất bại", Toast.LENGTH_SHORT).show()
-                    }
+                val result = productCartDAO.insertProduct(product, quantity, cartId)
+                if (result != -1L) {
+                    // Hiển thị thông báo thành công
+                    Toast.makeText(this, "Thêm thành công!!!", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Thông báo lỗi khi thêm sản phẩm
+                    Toast.makeText(this, "Thêm thất bại", Toast.LENGTH_SHORT).show()
                 }
-                else Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 e.printStackTrace()
                 Toast.makeText(this, "An error occurred while adding product to cart", Toast.LENGTH_SHORT).show()
             }
         }
+
 
 
         var soLuong = 1
