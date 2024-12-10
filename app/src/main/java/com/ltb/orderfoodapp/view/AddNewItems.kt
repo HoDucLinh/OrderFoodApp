@@ -137,7 +137,7 @@ class AddNewItems : AppCompatActivity() {
         Log.d("AddNewItemsActivity", "Name: $nameItem, Description: $description, Price: $price, Category: $category")
             imageList.add(imageStorage)
         // Tạo sản phẩm mới và thêm vào cơ sở dữ liệu
-        val newProduct = Product(name = nameItem,price = price.toInt(), images = imageList, category = category, description = description, restaurant = "Restaurant test")
+        val newProduct = Product(name = nameItem,price = price.toInt(), images = imageList, category = category, description = description)
         productDAO = ProductDAO(this)
 
         val isAdded = productDAO.addProduct(newProduct)

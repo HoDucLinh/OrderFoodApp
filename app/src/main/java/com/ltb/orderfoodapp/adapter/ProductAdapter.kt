@@ -63,7 +63,7 @@ class ProductAdapter(
         }
 
         productName.text = product.getName()
-        storeName.text = product.getRestaurant()
+//        storeName.text = product.getRestaurant()
         productPrice.text = "${product.getPrice()}VND"
         productRating.rating = product.getRating()
 
@@ -83,7 +83,7 @@ class ProductAdapter(
         intent.putExtra("id",product.getIdProduct())
         intent.putStringArrayListExtra("imageResource", imageListArrayList)
         intent.putExtra("name", product.getName())
-        intent.putExtra("storeName", product.getRestaurant())
+//        intent.putExtra("storeName", product.getRestaurant())
         intent.putExtra("price", product.getPrice())
         intent.putExtra("rating", product.getRating())
         context.startActivity(intent)

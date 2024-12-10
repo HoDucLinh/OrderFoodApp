@@ -26,6 +26,22 @@ class Welcome : AppCompatActivity() {
         productDAO = ProductDAO(this)
         checkLogin()
     }
+    override fun onStart() {
+        super.onStart()
+        val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
+        val nightMode = sharedPreferences.getBoolean("night", false)
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        checkLogin()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkLogin()
+    }
+
 
     fun checkLogin() {
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
@@ -36,39 +52,43 @@ class Welcome : AppCompatActivity() {
             if (role == "admin") {
                 Timer().schedule(object : TimerTask() {
                     override fun run() {
-                        val home = Intent(this@Welcome, SellerDashboardHome::class.java)
+                        println("admin")
+                        val home = Intent(this@Welcome, EditRole::class.java)
                         startActivity(home)
                         finish()
                     }
                 }, 3000)
-            } else {
+            } else if(role == "restaurant") {
                 Timer().schedule(object : TimerTask() {
                     override fun run() {
+                        val intent = Intent(this@Welcome, SellerDashboardHome::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }, 3000)
+
+            }
+            else{
+                Timer().schedule(object : TimerTask() {
+                    override fun run() {
+                        println("customer")
                         val home = Intent(this@Welcome, Home::class.java)
                         startActivity(home)
                         finish()
                     }
                 }, 3000)
             }
+
         } else {
             Timer().schedule(object : TimerTask() {
                 override fun run() {
-                    val intent = Intent(this@Welcome, Onboarding::class.java)
-                    startActivity(intent)
+                    val home = Intent(this@Welcome, Onboarding::class.java)
+                    startActivity(home)
                     finish()
                 }
             }, 3000)
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
-        val nightMode = sharedPreferences.getBoolean("night", false)
-        if (nightMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-    }
 
 }

@@ -36,6 +36,11 @@ class Menu : AppCompatActivity() {
             val thongke = Intent(this, StatisticsFragment::class.java)
             startActivity(thongke)
         }
+        val personalInforBtn = findViewById<TextView>(R.id.personalInfo)
+        personalInforBtn.setOnClickListener{
+            val personalInfor = Intent(this,PersonalInformation::class.java)
+            startActivity(personalInfor)
+        }
 
     }
 }

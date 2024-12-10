@@ -14,12 +14,12 @@ class ProductDAO(context: Context) {
     private val db: SQLiteDatabase
     private lateinit var categoryDAO: CategoryDAO
     private lateinit var imageDAO: ImageDAO
-    private lateinit var restaurantDAO: RestaurantDAO
+//    private lateinit var restaurantDAO: RestaurantDAO
 
     init {
         db = DatabaseHelper.getInstance(context).writableDatabase
         categoryDAO = CategoryDAO(context)
-        restaurantDAO = RestaurantDAO(context)
+//        restaurantDAO = RestaurantDAO(context)
 
     }
 
@@ -27,22 +27,6 @@ class ProductDAO(context: Context) {
     fun close() {
         db.close()
 
-    }
-
-    fun demo() {
-        val product = Product(
-            name = "Pizza Margherita",
-            price = 150000,
-            rating = 4.5f,
-            description = "Pizza với phô mai và cà chua tươi",
-            restaurant = "Pizza Hut",
-            category = "Pizza",
-            images = mutableListOf(
-                "https://example.com/image1.jpg",
-                "https://example.com/image2.jpg"
-            )
-        )
-        addProduct(product)
     }
 
     fun addProduct(product: Product): Long {
@@ -56,8 +40,8 @@ class ProductDAO(context: Context) {
             val categoryId = getOrInsertCategory(product.getCategory())
             updateProductCategory(productId, categoryId)
 
-            val restaurantId = getOrInsertRestaurant(product.getRestaurant())
-            updateProductRestaurant(productId, restaurantId)
+//            val restaurantId = getOrInsertRestaurant(product.getRestaurant())
+//            updateProductRestaurant(productId, restaurantId)
 
             // Thêm hình ảnh vào sản phẩm
             if (product.getImages().isNotEmpty()) {
@@ -102,28 +86,28 @@ class ProductDAO(context: Context) {
         }
         db.update("Product", updateCategoryValues, "ID = ?", arrayOf(productId.toString()))
     }
-
-    // Kiểm tra xem nhà hàng có tồn tại chưa, nếu chưa thì thêm mới
-    private fun getOrInsertRestaurant(restaurantName: String): Int {
-        var restaurantId = restaurantDAO.getRestaurantIdByName(restaurantName)
-        if (restaurantId == -1) {
-            val restaurantValues = ContentValues().apply {
-                put("Name", restaurantName)
-                put("Address", " ")
-            }
-            val newRestaurantId = db.insert("Restaurant", null, restaurantValues)
-            restaurantId = newRestaurantId.toInt()
-        }
-        return restaurantId
-    }
-
-    // Cập nhật sản phẩm với restaurant_id
-    private fun updateProductRestaurant(productId: Long, restaurantId: Int) {
-        val updateRestaurantValues = ContentValues().apply {
-            put("Restaurant_ID", restaurantId)
-        }
-        db.update("Product", updateRestaurantValues, "ID = ?", arrayOf(productId.toString()))
-    }
+//
+//    // Kiểm tra xem nhà hàng có tồn tại chưa, nếu chưa thì thêm mới
+//    private fun getOrInsertRestaurant(restaurantName: String): Int {
+//        var restaurantId = restaurantDAO.getRestaurantIdByName(restaurantName)
+//        if (restaurantId == -1) {
+//            val restaurantValues = ContentValues().apply {
+//                put("Name", restaurantName)
+//                put("Address", " ")
+//            }
+//            val newRestaurantId = db.insert("Restaurant", null, restaurantValues)
+//            restaurantId = newRestaurantId.toInt()
+//        }
+//        return restaurantId
+//    }
+//
+//    // Cập nhật sản phẩm với restaurant_id
+//    private fun updateProductRestaurant(productId: Long, restaurantId: Int) {
+//        val updateRestaurantValues = ContentValues().apply {
+//            put("Restaurant_ID", restaurantId)
+//        }
+//        db.update("Product", updateRestaurantValues, "ID = ?", arrayOf(productId.toString()))
+//    }
 
     // Thêm hình ảnh cho sản phẩm
     private fun addImagesToProduct(productId: Long, images: List<String>) {
@@ -145,11 +129,10 @@ class ProductDAO(context: Context) {
                 """ 
             SELECT 
                 p.ID, p.Name, p.Price, p.Rating, p.Description, 
-                c.Name AS CategoryName, r.Name AS RestaurantName, i.Value AS ImageSource 
+                c.Name AS CategoryName, i.Value AS ImageSource 
             FROM Product p
             LEFT JOIN Category c ON p.Category_ID = c.ID
             LEFT JOIN Image i ON p.ID = i.Product_ID
-            LEFT JOIN Restaurant r ON p.Restaurant_ID = r.ID
             """, null
             )
 
@@ -162,8 +145,8 @@ class ProductDAO(context: Context) {
                         rating = it.getFloat(it.getColumnIndexOrThrow("Rating")),
                         description = it.getString(it.getColumnIndexOrThrow("Description")),
                     )
-                    val restaurant = it.getString(it.getColumnIndexOrThrow("RestaurantName"))
-                    product.setRestaurant(restaurant)
+//                    val restaurant = it.getString(it.getColumnIndexOrThrow("RestaurantName"))
+//                    product.setRestaurant(restaurant)
                     val categoryName = it.getString(it.getColumnIndexOrThrow("CategoryName"))
                     product.setCategory(categoryName)
                     val imageUrl = it.getString(it.getColumnIndexOrThrow("ImageSource"))

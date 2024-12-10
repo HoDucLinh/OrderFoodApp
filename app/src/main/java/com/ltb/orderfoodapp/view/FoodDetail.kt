@@ -154,7 +154,7 @@ class FoodDetail : AppCompatActivity() {
     fun getProductInfor() {
         // Lấy giá trị từ Intent và gán cho các thuộc tính
         val name = intent.getStringExtra("name") ?: ""
-        val storeName = intent.getStringExtra("storeName") ?: ""
+//        val storeName = intent.getStringExtra("storeName") ?: ""
         val price = intent.getIntExtra("price", 0)
         val imageResource = intent.getStringArrayListExtra("imageResource") ?: arrayListOf()  // Nhận mảng chuỗi
         val rating = intent.getFloatExtra("rating", 0f)  // Sử dụng getFloatExtra thay vì getIntExtra
@@ -170,7 +170,7 @@ class FoodDetail : AppCompatActivity() {
 
         // Gán các giá trị vào các phần tử
         productNameTextView.text = name
-        storeNameTextView.text = storeName
+        storeNameTextView.text = "storeName"
         priceTextView.text = "${price}"
         ratingTextView.text = "$rating"
         descriptionTextView.text = description

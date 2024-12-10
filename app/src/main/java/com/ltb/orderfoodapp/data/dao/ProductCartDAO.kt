@@ -17,7 +17,7 @@ class ProductCartDAO(context: Context) {
     fun insertProduct(product: Product, number: Int, cartId: Int): Long {
         val values = ContentValues().apply {
             put("Product_ID", product.getIdProduct())
-            put("Cart_ID", carId)
+            put("Cart_ID", cartId)
             put("Quantity",number)
         }
         return db.insert("Product_Cart", null, values)

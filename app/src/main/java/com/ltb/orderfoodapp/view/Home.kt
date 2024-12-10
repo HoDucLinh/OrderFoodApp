@@ -31,7 +31,6 @@ class Home : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
     private lateinit var productCartViewModel: ProductCartViewModel
     private lateinit var darkTheme : Switch
-    private lateinit var productCartAdapter: ProductCartAdapter
     private lateinit var productDAO: ProductDAO
     private lateinit var locationHelper: LocationHelper
     private lateinit var cartDAO : CartDAO
@@ -151,8 +150,8 @@ class Home : AppCompatActivity() {
         productCartViewModel = ProductCartViewModel(this)
 
 
-        productCartNumber = productCartViewModel.getProductByCartId(cartId)
-        println("cardID" +cartId)
+        productCartNumber = productCartViewModel.getCartTotal()
+        println("cardID" +productCartNumber)
         val cartCount = findViewById<TextView>(R.id.cartCount)
         cartCount.text = productCartNumber.toString()
 

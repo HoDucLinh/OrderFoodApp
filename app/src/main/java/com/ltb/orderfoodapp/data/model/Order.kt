@@ -8,7 +8,7 @@ class Order(
     private var orderStatus: String = "",
     private var orderDate: Date = Date(),
     private var userId: Int = 0,
-    private var restaurantId: Int = 0,
+//    private var restaurantId: Int = 0,
     private var orderDetails: MutableList<OrderDetail> = mutableListOf()
 ) {
     fun getIdOrder(): Int {
@@ -51,13 +51,13 @@ class Order(
         userId = value
     }
 
-    fun getRestaurantId(): Int {
-        return restaurantId
-    }
-
-    fun setRestaurantId(value: Int) {
-        restaurantId = value
-    }
+//    fun getRestaurantId(): Int {
+//        return restaurantId
+//    }
+//
+//    fun setRestaurantId(value: Int) {
+//        restaurantId = value
+//    }
 
     fun getOrderDetails(): MutableList<OrderDetail> {
         return orderDetails

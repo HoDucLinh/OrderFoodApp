@@ -47,7 +47,7 @@ class PersonalInformation : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val userJson = sharedPreferences.getString("user", null)
         val userObject = Gson().fromJson(userJson, User::class.java)
-        userId = userObject?.idUser ?: -1
+        userId = userObject?.getIdUser() ?: -1
 
         if (userId == -1) {
             Toast.makeText(this, "Không tìm thấy thông tin người dùng!", Toast.LENGTH_SHORT).show()
@@ -82,11 +82,11 @@ class PersonalInformation : AppCompatActivity() {
     private fun loadUserData() {
         val user = userDAO.getUserById(userId)
         if (user != null) {
-            textViewFullName.text = user.fullName
-            textViewFullName2.text = user.fullName
-            textViewEmail.text = user.email
-            textViewPhoneNumber.text = user.phoneNumber
-            textViewBio.text = user.bioInfor
+            textViewFullName.text = user.getFullName()
+            textViewFullName2.text = user.getFullName()
+            textViewEmail.text = user.getEmail()
+            textViewPhoneNumber.text = user.getPhoneNumber()
+            textViewBio.text = user.getBioInfor()
         } else {
             Toast.makeText(this, "Không thể tải thông tin người dùng!", Toast.LENGTH_SHORT).show()
         }

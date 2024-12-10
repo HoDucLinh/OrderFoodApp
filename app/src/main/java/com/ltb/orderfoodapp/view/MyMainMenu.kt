@@ -42,7 +42,7 @@ class MyMainMenu : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val userJson = sharedPreferences.getString("user", null)
         val userObject = Gson().fromJson(userJson, User::class.java)
-        userId = userObject?.idUser ?: -1
+        userId = userObject?.getIdUser() ?: -1
 
         if (userId == -1) {
             // Xử lý trường hợp không tìm thấy user
@@ -69,23 +69,23 @@ class MyMainMenu : AppCompatActivity() {
             val myOrders = Intent(this, MyOrder::class.java)
             startActivity(myOrders)
         }
-        // Chuyen sang my address
-        val address = findViewById<TextView>(R.id.address)
-        address.setOnClickListener{
-            val editAddress = Intent(this, MyAddress::class.java)
-            startActivity(editAddress)
-        }
+//        // Chuyen sang my address
+//        val address = findViewById<TextView>(R.id.address)
+//        address.setOnClickListener{
+//            val editAddress = Intent(this, MyAddress::class.java)
+//            startActivity(editAddress)
+//        }
         // Chuyen sang notification
         val notification = findViewById<TextView>(R.id.notification)
         notification.setOnClickListener{
             val notification = Intent(this, Notification::class.java)
             startActivity(notification)
         }
-        val paymentmethod = findViewById<TextView>(R.id.paymentmethod)
-        paymentmethod.setOnClickListener{
-            val paymentmethod = Intent(this, PaymentMethod::class.java)
-            startActivity(paymentmethod)
-        }
+//        val paymentmethod = findViewById<TextView>(R.id.paymentmethod)
+//        paymentmethod.setOnClickListener{
+//            val paymentmethod = Intent(this, PaymentMethod::class.java)
+//            startActivity(paymentmethod)
+//        }
         // Logout ra khoi nguoi dung hien tai
         val logout = findViewById<TextView>(R.id.logout)
         logout.setOnClickListener{
@@ -104,8 +104,8 @@ class MyMainMenu : AppCompatActivity() {
     private fun loadUserData() {
         val user = userDAO.getUserById(userId)
         if (user != null) {
-            textViewFullName.text = user.fullName
-            textViewBio.text = user.bioInfor
+            textViewFullName.text = user.getFullName()
+            textViewBio.text = user.getBioInfor()
         } else {
             textViewFullName.text = "Unknown User"
             textViewBio.text = "No bio available"

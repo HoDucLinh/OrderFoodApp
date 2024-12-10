@@ -79,7 +79,7 @@ class PaymentMethod : AppCompatActivity() {
 
 
 
-        val userId = userObject.idUser
+        val userId = userObject.getIdUser()
         val paymentSuccess = Intent(this, PaymentSuccess::class.java)
         paymentConfirm.setOnClickListener {
             if (btnCash.isSelected) {

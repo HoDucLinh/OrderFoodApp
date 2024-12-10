@@ -6,7 +6,7 @@ open class Product(
     private var price: Int = 0,
     private var rating: Float = 0f,
     private var description: String = "",
-    private var restaurant: String = "",
+//    private var restaurant: String = "",
     private var category: String = "",
     private var images: MutableList<String> = mutableListOf()
 ) {
@@ -50,13 +50,13 @@ open class Product(
         description = value
     }
 
-    fun getRestaurant(): String {
-        return restaurant
-    }
-
-    fun setRestaurant(value: String) {
-        restaurant = value
-    }
+//    fun getRestaurant(): String {
+//        return restaurant
+//    }
+//
+//    fun setRestaurant(value: String) {
+//        restaurant = value
+//    }
 
     fun getCategory(): String {
         return category
