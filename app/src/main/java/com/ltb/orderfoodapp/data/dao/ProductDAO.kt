@@ -53,15 +53,15 @@ class ProductDAO(context: Context) {
         return try {
             val productId = insertProduct(product)
 
-            val categoryId = getOrInsertCategory(product.category)
+            val categoryId = getOrInsertCategory(product.getCategory())
             updateProductCategory(productId, categoryId)
 
-            val restaurantId = getOrInsertRestaurant(product.restaurant)
+            val restaurantId = getOrInsertRestaurant(product.getRestaurant())
             updateProductRestaurant(productId, restaurantId)
 
             // Thêm hình ảnh vào sản phẩm
-            if (product.images.isNotEmpty()) {
-                addImagesToProduct(productId, product.images)
+            if (product.getImages().isNotEmpty()) {
+                addImagesToProduct(productId, product.getImages())
             }
 
             productId
@@ -73,10 +73,10 @@ class ProductDAO(context: Context) {
     // Thêm sản phẩm vào cơ sở dữ liệu
     private fun insertProduct(product: Product): Long {
         val values = ContentValues().apply {
-            put("Name", product.name)
-            put("Price", product.price)
-            put("Rating", product.rating)
-            put("Description", product.description)
+            put("Name", product.getName())
+            put("Price", product.getPrice())
+            put("Rating", product.getRating())
+            put("Description", product.getDescription())
         }
         return db.insert("Product", null, values)
     }
@@ -163,13 +163,16 @@ class ProductDAO(context: Context) {
                         description = it.getString(it.getColumnIndexOrThrow("Description")),
                     )
                     val restaurant = it.getString(it.getColumnIndexOrThrow("RestaurantName"))
-                    product.restaurant = restaurant
+                    product.setRestaurant(restaurant)
                     val categoryName = it.getString(it.getColumnIndexOrThrow("CategoryName"))
-                    product.category = categoryName
+                    product.setCategory(categoryName)
                     val imageUrl = it.getString(it.getColumnIndexOrThrow("ImageSource"))
                     if (imageUrl != null) {
-                        product.images.add(imageUrl)
+                        val currentImages = product.getImages()
+                        currentImages.add(imageUrl)
+                        product.setImages(currentImages)
                     }
+
 
                     productList.add(product)
                 }
@@ -201,19 +204,20 @@ class ProductDAO(context: Context) {
 
         throw IllegalArgumentException("Product not found")
     }
+
     fun deleteProduct(productId: Int): Boolean {
         val rowsDeleted = db.delete("Product", "ID = ?", arrayOf(productId.toString()))
         return rowsDeleted > 0
     }
     fun updateProduct(product: Product): Boolean {
         val values = ContentValues().apply {
-            put("Name", product.name)
-            put("Price", product.price)
-            put("Rating", product.rating)
-            put("Description", product.description)
+            put("Name", product.getName())
+            put("Price", product.getPrice())
+            put("Rating", product.getRating())
+            put("Description", product.getDescription())
         }
 
-        val rowsUpdated = db.update("Product", values, "ID = ?", arrayOf(product.idProduct.toString()))
+        val rowsUpdated = db.update("Product", values, "ID = ?", arrayOf(product.getIdProduct().toString()))
         return rowsUpdated > 0
     }
     // Xóa sản phẩm và ảnh liên quan
@@ -243,7 +247,7 @@ class ProductDAO(context: Context) {
     }
     fun getAllCategories(): List<String> {
         val categories = mutableListOf<String>()
-        val cursor = db.rawQuery("SELECT Name FROM Category", null) // Trực tiếp sử dụng db đã mở
+        val cursor = db.rawQuery("SELECT Name FROM Category", null)
 
         cursor.use {
             while (it.moveToNext()) {

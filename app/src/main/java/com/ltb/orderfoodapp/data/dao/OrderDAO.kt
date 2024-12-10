@@ -11,7 +11,6 @@ import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.model.Category
 import com.ltb.orderfoodapp.data.model.Order
 import com.ltb.orderfoodapp.data.model.OrderDetail
-import com.ltb.orderfoodapp.data.model.OrderStatus
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
 import com.ltb.orderfoodapp.data.model.Restaurant
@@ -38,9 +37,8 @@ class OrderDAO(private val context: Context) {
             put("User_ID", userId)
         }
         val orderId = db.insert("\"Order\"", null, values)
-        // Thêm dữ liệu vào bảng "OrderDetail"
+        println(orderId)
         listProduct.forEach { product ->
-            // Truy vấn để lấy giá sản phẩm từ bảng "Product"
             val cursor = db.rawQuery(
                 "SELECT Price, Restaurant_ID FROM Product WHERE ID = ?",
                 arrayOf(product.productId.toString())
@@ -54,7 +52,6 @@ class OrderDAO(private val context: Context) {
                 }
             }
 
-            // Kiểm tra nếu không tìm thấy giá sản phẩm
             if (unitPrice == null) {
                 throw Exception("Failed to find price for Product ID: ${product.productId}")
             }
@@ -121,18 +118,18 @@ class OrderDAO(private val context: Context) {
 
                 val orderDetail = OrderDetail(
                     idOrderDetail = 0, // No specific ID for order detail in query
-                    orderId = order.idOrder,
+                    orderId = order.getIdOrder(),
                     productId = it.getInt(it.getColumnIndexOrThrow("ProductID")),
                     quantity = 1, // Default value (update if required)
                     unitPrice = it.getFloat(it.getColumnIndexOrThrow("Price")),
                     totalPrice = it.getFloat(it.getColumnIndexOrThrow("Price")) // Default to unitPrice (update if required)
                 )
 
-                orderDetail.productId = it.getInt(it.getColumnIndexOrThrow("ProductID"))
+                orderDetail.setProductId(it.getInt(it.getColumnIndexOrThrow("ProductID")))
                 val categoryName = it.getString(it.getColumnIndexOrThrow("CategoryName"))
                 val rating = it.getFloat(it.getColumnIndexOrThrow("Rating"))
 
-                order.orderDetails.add(orderDetail)
+                order.getOrderDetails().add(orderDetail)
                 orders.add(order)
             }
         }
