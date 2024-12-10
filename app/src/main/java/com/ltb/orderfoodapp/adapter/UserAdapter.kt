@@ -42,35 +42,35 @@ class UserAdapter(
 
 
         val user = users[position]
-        username.text = user.fullName
-        name_role.setText(user.roleId.toString())
+        username.text = user.getFullName()
+        name_role.setText(user.getRoleId().toString())
 
         // Xử lý sự kiện nút Edit
         btnEdit.setOnClickListener {
             val newrole = name_role.text.toString().toInt()
 
             if (newrole != null) {
-                user.roleId = newrole // Cập nhật vai trò trong danh sách
-                if (userDAO.updateRole(user.idUser, newrole) != null) { // Lưu vào database
-                    Toast.makeText(context, "Updated role for ${user.fullName} to $newrole", Toast.LENGTH_SHORT).show()
+                user.setRoleId(newrole) // Cập nhật vai trò trong danh sách
+                if (userDAO.updateRole(user.getIdUser(), newrole) != null) { // Lưu vào database
+                    Toast.makeText(context, "Updated role for ${user.getFullName()} to $newrole", Toast.LENGTH_SHORT).show()
 
                     // Làm mới danh sách để đồng bộ
-                    users[position].roleId = newrole
+                    users[position].setRoleId(newrole)
                     notifyDataSetChanged()
                 } else {
-                    Toast.makeText(context, "Failed to update role for ${user.fullName}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Failed to update role for ${user.getFullName()}", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(context, "Invalid role input for ${user.fullName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Invalid role input for ${user.getFullName()}", Toast.LENGTH_SHORT).show()
             }
         }
 
 
         // Xử lý sự kiện nút Delete
         btnDelete.setOnClickListener {
-            userDAO.deleteUser(user.idUser) // Xóa user khỏi database
+            userDAO.deleteUser(user.getIdUser()) // Xóa user khỏi database
             users.removeAt(position) // Xóa khỏi danh sách hiển thị
-            Toast.makeText(context, "Deleted ${user.fullName}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Deleted ${user.getFullName()}", Toast.LENGTH_SHORT).show()
             notifyDataSetChanged() // Làm mới GridView
         }
 

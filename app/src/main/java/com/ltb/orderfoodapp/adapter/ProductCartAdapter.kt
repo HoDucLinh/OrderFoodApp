@@ -46,10 +46,10 @@ class ProductCartAdapter(
         val productCart = productCartList[position]
 
         // Hiển thị thông tin sản phẩm
-        holder.productName.text = productCart.name
-        val totalPrice = productCart.price * productCart.quantity
+        holder.productName.text = productCart.getName()
+        val totalPrice = productCart.getPrice() * productCart.getQuantity()
         holder.productPrice.text = "${totalPrice} VND"
-        holder.quantity.text = "${productCart.quantity}"
+        holder.quantity.text = "${productCart.getQuantity()}"
 
         // Kiểm tra và tải ảnh
         if (productCart.images.isNotEmpty()) {
@@ -61,10 +61,10 @@ class ProductCartAdapter(
         // Xử lý sự kiện click
         holder.itemView.setOnClickListener {
             val intent = Intent(context, FoodDetail::class.java)
-            intent.putExtra("idProduct", productCart.productId)
-            intent.putExtra("name", productCart.name)
-            intent.putExtra("price", productCart.price)
-            intent.putExtra("rating", productCart.rating)
+            intent.putExtra("idProduct", productCart.getProductId())
+            intent.putExtra("name", productCart.getName())
+            intent.putExtra("price", productCart.getPrice())
+            intent.putExtra("rating", productCart.getRating())
             intent.putStringArrayListExtra("imageResource", ArrayList(productCart.images))
             context.startActivity(intent)
         }
@@ -72,7 +72,7 @@ class ProductCartAdapter(
         holder.btnDelete.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO) {
                 val cartDAO = ProductCartDAO(context)
-                cartDAO.deleteProduct(productCart.productId) // Xóa sản phẩm khỏi database
+                cartDAO.deleteProduct(productCart.getProductId()) // Xóa sản phẩm khỏi database
 
                 withContext(Dispatchers.Main) {
                     productCartList.removeAt(position) // Xóa sản phẩm khỏi danh sách
@@ -82,7 +82,7 @@ class ProductCartAdapter(
                     if (productCartList.isEmpty()) {
                         onQuantityChanged?.invoke(0) // Gọi callback với giá trị 0
                     } else {
-                        onQuantityChanged?.invoke(productCartList.sumOf { it.price * it.quantity }.toInt())
+                        onQuantityChanged?.invoke(productCartList.sumOf { it.getPrice() * it.getQuantity() }.toInt())
                     }
                 }
             }
@@ -90,13 +90,13 @@ class ProductCartAdapter(
 
         //xử lí sự kien tang giam so luong
         holder.btnTang.setOnClickListener {
-            val newQuantity = productCart.quantity + 1
+            val newQuantity = productCart.getQuantity() + 1
             updateQuantityAndRefresh(holder, position, newQuantity)
         }
 
         holder.btnGiam.setOnClickListener {
-            if (productCart.quantity > 1) {
-                val newQuantity = productCart.quantity - 1
+            if (productCart.getQuantity() > 1) {
+                val newQuantity = productCart.getQuantity() - 1
                 updateQuantityAndRefresh(holder, position, newQuantity)
             }
         }
@@ -110,15 +110,15 @@ class ProductCartAdapter(
         val productCart = productCartList[position]
         GlobalScope.launch {
             val cartDAO = ProductCartDAO(context)
-            val isSuccess = cartDAO.updateQuantity(productCart.productId, newQuantity)
+            val isSuccess = cartDAO.updateQuantity(productCart.getProductId(), newQuantity)
 
             if (isSuccess) {
                 withContext(Dispatchers.Main) {
-                    productCart.quantity = newQuantity
+                    productCart.setQuantity(newQuantity)
                     notifyItemChanged(position) // Cập nhật RecyclerView tại vị trí này
 
                     // Gọi callback với tổng giá trị mới
-                    onQuantityChanged?.invoke(productCartList.sumOf { it.price * it.quantity }.toInt())
+                    onQuantityChanged?.invoke(productCartList.sumOf { it.getPrice() * it.getQuantity() }.toInt())
                 }
             }
         }

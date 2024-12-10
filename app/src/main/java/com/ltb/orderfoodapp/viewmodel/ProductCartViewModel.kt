@@ -13,7 +13,7 @@ class ProductCartViewModel (context: Context) {
         fetchProductCart()
     }
     fun getProductCartByCartID(cartId : Int): MutableList<ProductCart> {
-        return productCart.filter { it.cartId == cartId}.toMutableList()
+        return productCart.filter { it.getCartId() == cartId}.toMutableList()
     }
 
     private fun fetchProductCart(){

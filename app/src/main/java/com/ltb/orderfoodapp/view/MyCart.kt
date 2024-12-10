@@ -55,12 +55,12 @@ class MyCart : AppCompatActivity() {
         if (isLoggedIn) {
             val user = sharedPreferences.getString("user", "")
             val userObject = Gson().fromJson(user, User::class.java)
-            val cartId = userObject.cartId
+            val cartId = userObject.getCartId()
             println("CartIDasdfasd" + cartId)
             cartList = productCartViewModel.getProductCartByCartID(cartId)
             println(cartList)
             for (productCart in cartList) {
-                println(productCart.name)
+                println(productCart.getName())
             }
             // Đặt layout manager và adapter cho RecyclerView
             recyclerView.layoutManager = LinearLayoutManager(this)
@@ -71,7 +71,7 @@ class MyCart : AppCompatActivity() {
             val totalPrice = if (cartList.isEmpty()) {
                 0
             } else {
-                cartList.sumOf { it.price * it.quantity }.toInt()
+                cartList.sumOf { it.getPrice() * it.getQuantity() }.toInt()
             }
             total.text = "$totalPrice VND"
 
@@ -110,7 +110,7 @@ class MyCart : AppCompatActivity() {
         if (isLoggedIn) {
             val user = sharedPreferences.getString("user", "")
             val userObject = Gson().fromJson(user, User::class.java)
-            val cartId = userObject.cartId
+            val cartId = userObject.getCartId()
             println("CartIDasdfasd" + cartId)
             cartList = productCartViewModel.getProductCartByCartID(cartId)
 
@@ -125,7 +125,7 @@ class MyCart : AppCompatActivity() {
         if (cartList.isEmpty()) {
             total.text = "0 VND"
         } else {
-            val totalPrice = cartList.sumOf { it.price * it.quantity }.toInt()
+            val totalPrice = cartList.sumOf { it.getPrice() * it.getQuantity() }.toInt()
             total.text = "$totalPrice VND"
         }
     }

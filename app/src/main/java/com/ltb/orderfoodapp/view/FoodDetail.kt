@@ -90,7 +90,7 @@ class FoodDetail : AppCompatActivity() {
                 // Lấy thông tin người dùng và giỏ hàng
                 val user = sharedPreferences.getString("user", "")
                 val userObject = Gson().fromJson(user, User::class.java)
-                val cartId = userObject.cartId
+                val cartId = userObject.getCartId()
 
                 // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng của người dùng
                 val productCartDAO = ProductCartDAO(this)

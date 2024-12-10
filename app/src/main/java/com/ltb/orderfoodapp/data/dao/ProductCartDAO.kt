@@ -47,7 +47,7 @@ class ProductCartDAO(context: Context) {
                     price = it.getInt(it.getColumnIndexOrThrow("Price"))
                 )
 
-                productCart.rating = it.getFloat(it.getColumnIndexOrThrow("Rating"))
+                productCart.setRating(it.getFloat(it.getColumnIndexOrThrow("Rating")))
 
                 // Xử lý danh sách ảnh
                 val images = it.getString(it.getColumnIndexOrThrow("ImageSources"))

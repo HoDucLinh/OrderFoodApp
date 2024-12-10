@@ -44,7 +44,7 @@ class EditRole : AppCompatActivity(), AddUserFragment.OnUserAddedListener {
     override fun onUserAdded(user: User) {
         val userId = userDAO.addUser(user)
         if (userId > 0) {
-            user.idUser = userId // Cập nhật ID của user
+            user.setIdUser(userId) // Cập nhật ID của user
             users.add(user)      // Thêm user mới vào danh sách
             adapter.notifyDataSetChanged()
             Toast.makeText(this, "User added successfully", Toast.LENGTH_SHORT).show()
