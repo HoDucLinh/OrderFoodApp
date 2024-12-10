@@ -148,12 +148,12 @@ class Home : AppCompatActivity() {
 
     private fun setCartCount() {
 
-        productCartViewModel = ProductCartViewModel(this)
-
-
-        productCartNumber = productCartViewModel.getProductByCartId(cartId)
-        val cartCount = findViewById<TextView>(R.id.cartCount)
-        cartCount.setText(productCartNumber)
+//        productCartViewModel = ProductCartViewModel(this)
+//
+//
+//        productCartNumber = productCartViewModel.getProductByCartId(cartId)
+//        val cartCount = findViewById<TextView>(R.id.cartCount)
+//        cartCount.setText(productCartNumber)
 
 
     }

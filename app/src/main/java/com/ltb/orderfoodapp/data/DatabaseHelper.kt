@@ -9,7 +9,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     private var db: SQLiteDatabase? = null
     companion object {
         private const val DATABASE_NAME = "oderfoodapp.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
 
         // Tên bảng và các cột
         private const val TABLE_CATEGORY = "Category"

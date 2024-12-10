@@ -10,16 +10,49 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.api.AuthManager
+import com.ltb.orderfoodapp.data.dao.UserDAO
+import com.ltb.orderfoodapp.data.model.User
 
 class MyMainMenu : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     private lateinit var auth: AuthManager
+
+    private lateinit var userDAO: UserDAO
+
+    private lateinit var textViewFullName: TextView
+    private lateinit var textViewBio: TextView
+
+    private var userId: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        userDAO = UserDAO(this)
+
+
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_main_menu)
+
+        textViewFullName = findViewById(R.id.textView_fullName)
+        textViewBio = findViewById(R.id.textView_bio)
+
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val userJson = sharedPreferences.getString("user", null)
+        val userObject = Gson().fromJson(userJson, User::class.java)
+        userId = userObject?.idUser ?: -1
+
+        if (userId == -1) {
+            // Xử lý trường hợp không tìm thấy user
+            textViewFullName.text = "Guest"
+            textViewBio.text = "Welcome to the app"
+        } else {
+            // Đổ dữ liệu người dùng
+            loadUserData()
+        }
+
         val btnPersonalInfor = findViewById<TextView>(R.id.personalInfo)
         btnPersonalInfor.setOnClickListener{
             val personalInfor = Intent(this, PersonalInformation::class.java)
@@ -61,5 +94,21 @@ class MyMainMenu : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadUserData()
+    }
+
+    private fun loadUserData() {
+        val user = userDAO.getUserById(userId)
+        if (user != null) {
+            textViewFullName.text = user.fullName
+            textViewBio.text = user.bioInfor
+        } else {
+            textViewFullName.text = "Unknown User"
+            textViewBio.text = "No bio available"
+        }
     }
 }
