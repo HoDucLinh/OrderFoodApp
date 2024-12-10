@@ -23,7 +23,7 @@ class CategoryViewModel(context: Context) {
         categories = categoryDAO.getAllCategories()
         val categoryName: MutableList<String> = mutableListOf()
         for (c in categories) {
-            categoryName.add(c.name)
+            categoryName.add(c.getName())
         }
         return categoryName
 

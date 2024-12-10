@@ -62,13 +62,16 @@ class CategoryDAO(context: Context) {
                     description = it.getString(it.getColumnIndexOrThrow("Description")),
                 )
                 val restaurant = it.getString(it.getColumnIndexOrThrow("RestaurantName"))
-                product.restaurant = restaurant
+                product.setRestaurant(restaurant)
                 val categoryName = it.getString(it.getColumnIndexOrThrow("CategoryName"))
-                product.category = categoryName
+                product.setCategory(categoryName)
                 val imageUrl = it.getString(it.getColumnIndexOrThrow("ImageSource"))
                 if (imageUrl != null) {
-                    product.images.add(imageUrl)
+                    val currentImages = product.getImages()
+                    currentImages.add(imageUrl)
+                    product.setImages(currentImages)
                 }
+
 
                 productList.add(product)
             }

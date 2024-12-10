@@ -51,9 +51,9 @@ class ProductAdapter(
         // Lay vi tri hien tai
         val product = products[position]
         // Thiet lap giao dien
-        if (product.images.isNotEmpty() && product.images[0] != null) {
+        if (product.getImages().isNotEmpty() && product.getImages()[0] != null) {
             Glide.with(context)
-                .load(product.images[0])
+                .load(product.getImages()[0])
                 .error(R.drawable.cancel) // ảnh mặc định
                 .into(imgProduct);
         } else {
@@ -62,10 +62,10 @@ class ProductAdapter(
                 .into(imgProduct);
         }
 
-        productName.text = product.name
-        storeName.text = product.restaurant
-        productPrice.text = "${product.price}VND"
-        productRating.rating = product.rating
+        productName.text = product.getName()
+        storeName.text = product.getRestaurant()
+        productPrice.text = "${product.getPrice()}VND"
+        productRating.rating = product.getRating()
 
         view.setOnClickListener {
             openFoodDetail(context, product)
@@ -78,14 +78,14 @@ class ProductAdapter(
     //     Mo trang food detail
     private fun openFoodDetail(context: Context, product: Product) {
         val intent = Intent(context, FoodDetail::class.java)
-        val imageList: MutableList<String> = product.images
+        val imageList: MutableList<String> = product.getImages()
         val imageListArrayList = ArrayList(imageList)
-        intent.putExtra("id",product.idProduct)
+        intent.putExtra("id",product.getIdProduct())
         intent.putStringArrayListExtra("imageResource", imageListArrayList)
-        intent.putExtra("name", product.name)
-        intent.putExtra("storeName", product.restaurant)
-        intent.putExtra("price", product.price)
-        intent.putExtra("rating", product.rating)
+        intent.putExtra("name", product.getName())
+        intent.putExtra("storeName", product.getRestaurant())
+        intent.putExtra("price", product.getPrice())
+        intent.putExtra("rating", product.getRating())
         context.startActivity(intent)
     }
 }

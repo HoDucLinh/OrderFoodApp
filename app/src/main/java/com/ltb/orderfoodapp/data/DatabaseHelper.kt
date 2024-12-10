@@ -156,9 +156,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             Status INTEGER NOT NULL,
             orderDate TEXT NOT NULL,
             User_ID INTEGER NOT NULL,
-            Restaurant_ID INTEGER,
-            FOREIGN KEY (User_ID) REFERENCES $TABLE_USER(ID),
-            FOREIGN KEY (Restaurant_ID) REFERENCES $TABLE_RESTAURANT(ID)
+            FOREIGN KEY (User_ID) REFERENCES $TABLE_USER(ID)
         )
     """.trimIndent()
 
