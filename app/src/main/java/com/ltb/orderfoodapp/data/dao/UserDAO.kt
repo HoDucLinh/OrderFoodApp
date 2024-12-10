@@ -4,7 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.ltb.orderfoodapp.data.DatabaseHelper
-import com.ltb.orderfoodapp.data.model.Role
 import com.ltb.orderfoodapp.data.model.User
 import java.security.MessageDigest
 
@@ -150,5 +149,46 @@ class UserDAO(context: Context) {
     fun deleteUser(userId: Int): Boolean {
         return db.delete("User", "id = ?", arrayOf(userId.toString())) > 0
     }
+
+    fun updateUser(userId: Int, fullName: String, email: String, phone: String, bio: String): Boolean {
+        val values = ContentValues().apply {
+            put("FullName", fullName)
+            put("Email", email)
+            put("PhoneNumber", phone)
+            put("BioInfor", bio)
+        }
+
+        val result = db.update("User", values, "ID = ?", arrayOf(userId.toString()))
+        return result > 0
+    }
+
+    fun getUserById(userId: Int): User? {
+        val cursor = db.query(
+            "User", // Tên bảng
+            null, // Cột cần lấy (null để lấy tất cả)
+            "ID = ?", // Điều kiện WHERE
+            arrayOf(userId.toString()), // Giá trị của điều kiện WHERE
+            null, // Nhóm theo
+            null, // Điều kiện nhóm
+            null // Sắp xếp
+        )
+
+        cursor?.use {
+            if (it.moveToFirst()) {
+                return User(
+                    idUser = it.getInt(it.getColumnIndexOrThrow("ID")),
+                    fullName = it.getString(it.getColumnIndexOrThrow("FullName")),
+                    email = it.getString(it.getColumnIndexOrThrow("Email")),
+                    phoneNumber = it.getString(it.getColumnIndexOrThrow("PhoneNumber")),
+                    bioInfor = it.getString(it.getColumnIndexOrThrow("BioInfor")),
+                    password = "", // Không cần mật khẩu ở đây
+                    cartId = it.getInt(it.getColumnIndexOrThrow("Cart_ID")),
+                    roleId = it.getInt(it.getColumnIndexOrThrow("Role_ID"))
+                )
+            }
+        }
+        return null
+    }
+
 
 }
