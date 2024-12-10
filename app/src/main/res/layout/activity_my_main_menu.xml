@@ -15,11 +15,13 @@
         android:padding="@dimen/padding_layout"
         android:gravity="center"
         android:orientation="horizontal">
+
         <ImageButton
             android:id="@+id/backHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/back" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,8 +42,6 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginLeft="30dp"
-            android:background="@drawable/round_background"
-            android:clipToOutline="true"
             android:src="@drawable/personal" />
 
         <LinearLayout
@@ -85,7 +85,7 @@
             android:background="@drawable/rounded_linear_layout"
             android:orientation="horizontal"
             android:paddingTop="10dp"
-            android:paddingBottom="15dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:layout_margin="@dimen/margin_layout">
@@ -109,21 +109,6 @@
 
                     android:fontFamily="@font/sen_bold"
                     android:textSize="16dp"
-                    android:textColor="@color/textDark"
-                    />
-
-                <TextView
-                    android:id="@+id/address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:gravity="start|center"
-                    android:drawableLeft="@drawable/icon_address"
-                    android:text="Address"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/sen_bold"
-                    android:textSize="16dp"
-                    android:drawableRight="@drawable/ic_navigate_next_24"
                     android:textColor="@color/textDark" />
 
             </LinearLayout>
@@ -137,10 +122,11 @@
             android:background="@drawable/rounded_linear_layout"
             android:orientation="horizontal"
             android:paddingTop="10dp"
-            android:paddingBottom="15dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:layout_margin="@dimen/margin_layout">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -192,20 +178,17 @@
                     android:textColor="@color/textDark" />
 
                 <TextView
-                    android:id="@+id/paymentmethod"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:gravity="start|center"
-                    android:text="Payment Method"
-                    android:drawableLeft="@drawable/icon_payment"
-                    android:textAllCaps="false"
-
+                    android:drawableLeft="@drawable/icon_review"
                     android:fontFamily="@font/sen_bold"
+                    android:gravity="start|center"
+                    android:text="User Reviews"
+                    android:textAllCaps="false"
                     android:drawableRight="@drawable/ic_navigate_next_24"
-                    android:textSize="16dp"
-                    android:textColor="@color/textDark" />
-
+                    android:textColor="@color/textDark"
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
@@ -218,92 +201,29 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/rounded_linear_layout"
             android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="15dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_margin="@dimen/margin_layout">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:fontFamily="@font/sen_bold"
-                        android:text="FAQs"
-                        android:gravity="start|center"
-                        android:drawableLeft="@drawable/icon_help"
-                        android:textAllCaps="false"
-                        android:drawableRight="@drawable/ic_navigate_next_24"
-                        android:textColor="@color/textDark"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/icon_review"
-                        android:fontFamily="@font/sen_bold"
-                        android:gravity="start|center"
-                        android:text="User Reviews"
-                        android:textAllCaps="false"
-                        android:drawableRight="@drawable/ic_navigate_next_24"
-                        android:textColor="@color/textDark"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:fontFamily="@font/sen_bold"
-                        android:gravity="start|center"
-                        android:drawableLeft="@drawable/icon_setting"
-                        android:text="Settings"
-                        android:textAllCaps="false"
-                        android:drawableRight="@drawable/ic_navigate_next_24"
-                        android:textColor="@color/textDark"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+                android:backgroundTint="@color/WhisperWhite"
+                android:gravity="start|center"
+                android:text="Log Out"
+                android:textAllCaps="false"
+                android:drawableLeft="@drawable/icon_logout"
+                android:fontFamily="@font/sen_bold"
+                android:drawableRight="@drawable/ic_navigate_next_24"
+                android:textSize="16dp"
+                android:textColor="@color/textDark" />
 
 
+        </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/WhisperWhite"
-                    android:gravity="start|center"
-                    android:text="Log Out"
-                    android:textAllCaps="false"
-                    android:drawableLeft="@drawable/icon_logout"
-                    android:fontFamily="@font/sen_bold"
-                    android:drawableRight="@drawable/ic_navigate_next_24"
-                    android:textSize="16dp"
-                    android:textColor="@color/textDark" />
-
-
-            </LinearLayout>
 
     </LinearLayout>
-
-
-</LinearLayout>
 </LinearLayout>

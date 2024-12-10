@@ -66,11 +66,12 @@ class SignIn : AppCompatActivity() {
             startActivity(signUp)
         }
         sigInFacebook.setOnClickListener{
+            Toast.makeText(this, "Tinh nang dang phat trien thu lai sau", Toast.LENGTH_SHORT).show()
 //                AuthFacebook.login(this) { user ->
 //                    if (user != null) {
-//                        // Đăng nhập thành công
+//
 //                    } else {
-//                        // Đăng nhập thất bại
+//
 //                    }
 //                }
             }
@@ -86,7 +87,6 @@ class SignIn : AppCompatActivity() {
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 auth.firebaseAuthWithGoogle(account.idToken!!)
-                Toast.makeText(this, "Success, Hello${account.displayName}", Toast.LENGTH_SHORT).show()
 
             } catch (e: ApiException) {
                 Log.w(TAG, "Google sign in failed", e)

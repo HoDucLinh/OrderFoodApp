@@ -32,10 +32,13 @@ class ProductViewModel(context: Context) {
     fun getProductByCategory(category: String):MutableList<Product>{
         return products.filter { it.getCategory() == category }.toMutableList()
     }
-
-    fun getProductsByRestaurant(restaurant: String): List<Product> {
-        return products.filter { it.getRestaurant() == restaurant }.toMutableList()
+    fun getProductById(idProduct : Int): MutableList<Product>{
+        return products.filter { it.getIdProduct() == idProduct}.toMutableList()
     }
+
+//    fun getProductsByRestaurant(restaurant: String): List<Product> {
+//        return products.filter { it.getRestaurant() == restaurant }.toMutableList()
+//    }
     // Phương thức đóng cơ sở dữ liệu
     fun close() {
         productDAO.close()

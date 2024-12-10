@@ -13,7 +13,7 @@ import com.ltb.orderfoodapp.data.model.Order
 import com.ltb.orderfoodapp.data.model.OrderDetail
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
-import com.ltb.orderfoodapp.data.model.Restaurant
+//import com.ltb.orderfoodapp.data.model.Restaurant
 import com.ltb.orderfoodapp.data.model.Status
 import com.ltb.orderfoodapp.data.model.User
 import java.text.SimpleDateFormat
@@ -40,20 +40,20 @@ class OrderDAO(private val context: Context) {
         println(orderId)
         listProduct.forEach { product ->
             val cursor = db.rawQuery(
-                "SELECT Price, Restaurant_ID FROM Product WHERE ID = ?",
-                arrayOf(product.productId.toString())
+                "SELECT Price FROM Product WHERE ID = ?",
+                arrayOf(product.getProductId().toString())
             )
             var unitPrice: Int? = null
-            var RestaurantId : Int? = null
+//            var RestaurantId : Int? = null
             cursor.use {
                 if (it.moveToFirst()) {
                     unitPrice = it.getInt(it.getColumnIndexOrThrow("Price"))
-                    RestaurantId = it.getInt(it.getColumnIndexOrThrow("Restaurant_ID"))
+//                    RestaurantId = it.getInt(it.getColumnIndexOrThrow("Restaurant_ID"))
                 }
             }
 
             if (unitPrice == null) {
-                throw Exception("Failed to find price for Product ID: ${product.productId}")
+                throw Exception("Failed to find price for Product ID: ${product.getProductId()}")
             }
 
 
@@ -61,10 +61,10 @@ class OrderDAO(private val context: Context) {
             // Thêm vào bảng "OrderDetail"
             val orderDetail = ContentValues().apply {
                 put("Order_ID", orderId)
-                put("Product_ID", product.productId)
-                put("Quantity", product.quantity)
+                put("Product_ID", product.getProductId())
+                put("Quantity", product.getQuantity())
                 put("UnitPrice", unitPrice)
-                put("Restaurant_ID",RestaurantId)
+//                put("Restaurant_ID",RestaurantId)
             }
             db.insert("OrderDetail", null, orderDetail)
         }
@@ -112,7 +112,7 @@ class OrderDAO(private val context: Context) {
                     orderStatus = it.getString(it.getColumnIndexOrThrow("orderStatus")),
                     orderDate = SimpleDateFormat("yyyy-MM-dd").parse(it.getString(it.getColumnIndexOrThrow("orderDate"))),
                     userId = it.getInt(it.getColumnIndexOrThrow("UserID")),
-                    restaurantId = 0,
+//                    restaurantId = 0,
                     orderDetails = mutableListOf()
                 )
 

@@ -45,8 +45,7 @@ class MyFood : AppCompatActivity() {
         // Sử dụng ViewModelProvider để khởi tạo ViewModel
         val viewModel = ProductViewModel(this)
 
-        // Fetch products of restaurant 1
-        productList = viewModel.getProductsByRestaurant("")
+        productList = viewModel.getProducts()
 
         // Initialize and set adapter
         itemAdapter = ItemAdapter(this, productList.toMutableList())
