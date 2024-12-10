@@ -152,8 +152,9 @@ class Home : AppCompatActivity() {
 
 
         productCartNumber = productCartViewModel.getProductByCartId(cartId)
+        println("cardID" +cartId)
         val cartCount = findViewById<TextView>(R.id.cartCount)
-        cartCount.setText(productCartNumber)
+        cartCount.text = productCartNumber.toString()
 
 
     }
