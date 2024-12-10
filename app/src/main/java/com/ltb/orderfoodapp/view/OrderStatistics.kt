@@ -27,31 +27,7 @@ class OrderStatistics : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        // Lấy Spinner từ XML
-        val spinner: Spinner = findViewById(R.id.spinner)
-        val nameEditText: EditText = findViewById(R.id.Name)
-        val dateEditText: EditText = findViewById(R.id.Date)
-        val listView: ListView = findViewById(R.id.list_item)
 
-        // Lấy dữ liệu từ database
-        val categories = ProductDAO(this).getAllCategories()
-
-        // Tạo ArrayAdapter
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        // Gắn adapter vào Spinner
-        spinner.adapter = adapter
-        findViewById<Button>(R.id.filterButton).setOnClickListener {
-            val name = nameEditText.text.toString()
-            val date = dateEditText.text.toString()
-            val categoryId = if (spinner.selectedItemPosition >= 0) spinner.selectedItemPosition + 1 else null
-
-            val orders = OrderDAO(this).getOrdersByFilters(name, date, categoryId)
-
-//            val orderAdapter = OrderAdapter(this, orders)
-//            listView.adapter = orderAdapter
-        }
 
 
     }

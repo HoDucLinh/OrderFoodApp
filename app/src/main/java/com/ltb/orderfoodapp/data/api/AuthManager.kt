@@ -129,25 +129,25 @@ class AuthManager(private val context: Context) {
             userDAO.updateUserCartId(userID, cartID.toInt())
             user = userDAO.getUser(email, password)
         }
-        val roleId = user?.roleId ?: 2
+        val roleId = user?.getRoleId() ?: 2
         val roleEnum = Role.fromRoleId(roleId)
         println( "RoleID " + roleId + "Role Enum " +  roleEnum)
         if (user != null) {
             when (roleEnum) {
                 Role.RESTAURANT -> {
-                    println("CardID " + user.cartId)
+                    println("CardID " + user.getCartId())
                     saveLoginStatus(true, "restaurant", user)
                     val adminHomePage = Intent(context, SellerDashboardHome::class.java)
                     context.startActivity(adminHomePage)
                 }
                 Role.CUSTOMER -> {
-                    println("CardID " + user.cartId)
+                    println("CardID " + user.getCartId())
                     saveLoginStatus(true, "customer", user)
                     val userHomePage = Intent(context, Home::class.java)
                     context.startActivity(userHomePage)
                 }
                 Role.ADMIN -> {
-                    println("CardID " + user.cartId)
+                    println("CardID " + user.getCartId())
                     saveLoginStatus(true, "admin", user)
                     val restaurantHomePage = Intent(context, EditRole::class.java)
                     context.startActivity(restaurantHomePage)

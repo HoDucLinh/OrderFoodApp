@@ -54,7 +54,7 @@ class OrderAdapter(
 
             ratingBtn.setOnClickListener {
                 if (fragment is HistoryFragment) {
-                    val productId = products[position].productId // Lấy ID của sản phẩm tại vị trí hiện tại
+                    val productId = products[position].getProductId() // Lấy ID của sản phẩm tại vị trí hiện tại
                     val dialog = RateProductDialogFragment.newInstance(productId)
                     // Thay vì gọi supportFragmentManager, dùng fragment's childFragmentManager hoặc parentFragmentManager
                     fragment.parentFragmentManager.beginTransaction().add(dialog, "RateProductDialog").commit()
@@ -83,9 +83,9 @@ class OrderAdapter(
                 .load(R.drawable.burger) // ảnh mặc định
                 .into(orderImg);
         }
-        orderName.text = product.name
-        orderPrice.text = "${product.price * product.quantity }VND"
-        orderQuantity.text = "${product.quantity} Items"
+        orderName.text = product.getName()
+        orderPrice.text = "${product.getPrice() * product.getQuantity() }VND"
+        orderQuantity.text = "${product.getQuantity()} Items"
 //        orderDate.text = "Date"
 
 //        view.setOnClickListener {

@@ -23,15 +23,15 @@ class UserDAO(context: Context) {
 
 
     fun addUser(user : User): Int {
-        val passwordEncrypt = encrypt(user.password)
+        val passwordEncrypt = encrypt(user.getPassword())
         val values = ContentValues().apply {
-            put("FullName", user.fullName)
-            put("Email", user.email)
-            put("PhoneNumber", user.phoneNumber)
-            put("BioInfor", user.bioInfor)
+            put("FullName", user.getFullName())
+            put("Email", user.getEmail())
+            put("PhoneNumber", user.getPhoneNumber())
+            put("BioInfor", user.getBioInfor())
             put("Password",passwordEncrypt)
-            put("Cart_ID",user.cartId)
-            put("Role_ID", user.roleId)
+            put("Cart_ID",user.getCartId())
+            put("Role_ID", user.getRoleId())
             
         }
         val userId = db.insert("User", null, values).toInt()

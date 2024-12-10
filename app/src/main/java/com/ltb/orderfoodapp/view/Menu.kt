@@ -33,7 +33,7 @@ class Menu : AppCompatActivity() {
         }
         val statistics = findViewById<TextView>(R.id.statistics)
         statistics.setOnClickListener{
-            val thongke = Intent(this, Statistics_Fragment::class.java)
+            val thongke = Intent(this, StatisticsFragment::class.java)
             startActivity(thongke)
         }
 
