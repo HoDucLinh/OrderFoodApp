@@ -26,4 +26,14 @@ class ProductCartViewModel (context: Context) {
         return productCart
 
     }
+
+    fun getProductByCartId(cardId: Int): Int{
+        println(cardId)
+        val a =  productCart.filter { it.cartId == cardId }
+        for (x in a){
+            println(x.name)
+        }
+        println( " a "  + a )
+        return a.size
+    }
 }

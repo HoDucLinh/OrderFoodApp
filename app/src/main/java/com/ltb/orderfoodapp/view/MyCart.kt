@@ -91,13 +91,10 @@ class MyCart : AppCompatActivity() {
             payment.setOnClickListener {
                 val paymentMethod = Intent(this, PaymentMethod::class.java)
                 paymentMethod.putExtra("pricePayment", totalPrice)
+                val gson = Gson()
+                val cartProductsJson = gson.toJson(cartList)
+                paymentMethod.putExtra("cartProductsJson", cartProductsJson)
                 startActivity(paymentMethod)
-                // Chuyen toi payment
-                payment.setOnClickListener {
-                    val paymentMethod = Intent(this, PaymentMethod::class.java)
-                    paymentMethod.putExtra("pricePayment", totalPrice)
-                    startActivity(paymentMethod)
-                }
             }
 
         }
@@ -113,8 +110,8 @@ class MyCart : AppCompatActivity() {
             val cartId = userObject.getCartId()
             println("CartIDasdfasd" + cartId)
             cartList = productCartViewModel.getProductCartByCartID(cartId)
-
         }
+
         // Cập nhật Adapter
         productCartAdapter.productCartList.clear()
         productCartAdapter.productCartList.addAll(cartList)

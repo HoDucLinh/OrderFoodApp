@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductAdapter
 import com.ltb.orderfoodapp.adapter.ProductCartAdapter
@@ -48,10 +49,12 @@ class Home : AppCompatActivity() {
         val locationUser = findViewById<TextView>(R.id.locationUser)
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-        if(isLoggedIn){
-
-        }
-
+//        if (isLoggedIn) {
+//            val user = sharedPreferences.getString("user", "")
+//            val userObject = Gson().fromJson(user, User::class.java)
+//            cartId = userObject.cartId
+//            userId = userObject.idUser
+//        }
         locationHelper = LocationHelper(this)
 
         //
@@ -147,8 +150,9 @@ class Home : AppCompatActivity() {
 
         productCartViewModel = ProductCartViewModel(this)
 
-        productCartAdapter = ProductCartAdapter(this, productCartViewModel.getProduct())
-        productCartNumber = productCartAdapter.itemCount
+
+        productCartNumber = productCartViewModel.getProductByCartId(cartId)
+        println("cardID" +cartId)
         val cartCount = findViewById<TextView>(R.id.cartCount)
         cartCount.text = productCartNumber.toString()
 
@@ -168,7 +172,6 @@ class Home : AppCompatActivity() {
             if (location != null) {
                 val locate = locationHelper.getAddressFromLocation(location)
                 locationUser.setText(locate)
-                Toast.makeText(this, "${locate}", Toast.LENGTH_SHORT).show()
             } else {
                 Log.e("LocationHelper", "Không thể lấy vị trí hiện tại.")
             }

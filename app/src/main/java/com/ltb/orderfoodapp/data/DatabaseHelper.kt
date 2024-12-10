@@ -9,7 +9,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     private var db: SQLiteDatabase? = null
     companion object {
         private const val DATABASE_NAME = "oderfoodapp.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
 
         // Tên bảng và các cột
         private const val TABLE_CATEGORY = "Category"
@@ -20,8 +20,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val TABLE_USER = "User"
         private const val TABLE_ROLE = "Role"
         private const val TABLE_ORDER = "\"Order\""
-        private const val TABLE_ORDER_STATUS = "OrderStatus"
-        private const val TABLE_STATUS = "Status"
+//        private const val TABLE_ORDER_STATUS = "OrderStatus"
+//        private const val TABLE_STATUS = "Status"
         private const val TABLE_ORDER_DETAIL = "OrderDetail"
         private const val TABLE_REVIEW_ORDER = "ReviewOrder"
         private const val TABLE_REVIEW_RESTAURANT = "ReviewRestaurant"
@@ -46,8 +46,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(CREATE_USER_TABLE)
         db.execSQL(CREATE_ROLE_TABLE)
         db.execSQL(CREATE_ORDER_TABLE)
-        db.execSQL(CREATE_ORDER_STATUS_TABLE)
-        db.execSQL(CREATE_STATUS_TABLE)
+//        db.execSQL(CREATE_ORDER_STATUS_TABLE)
+//        db.execSQL(CREATE_STATUS_TABLE)
         db.execSQL(CREATE_ORDER_DETAIL_TABLE)
         db.execSQL(CREATE_REVIEW_ORDER_TABLE)
         db.execSQL(CREATE_REVIEW_RESTAURANT_TABLE)
@@ -153,55 +153,57 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         CREATE TABLE $TABLE_ORDER (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             totalAmount REAL NOT NULL,
-            orderStatus TEXT NOT NULL,
+            Status INTEGER NOT NULL,
             orderDate TEXT NOT NULL,
-            User_ID INTEGER,
-            Restaurant_ID INTEGER,
-            FOREIGN KEY (User_ID) REFERENCES $TABLE_USER(ID),
-            FOREIGN KEY (Restaurant_ID) REFERENCES $TABLE_RESTAURANT(ID)
+            User_ID INTEGER NOT NULL,
+            FOREIGN KEY (User_ID) REFERENCES $TABLE_USER(ID)
         )
     """.trimIndent()
 
-    private val CREATE_ORDER_STATUS_TABLE = """
-        CREATE TABLE $TABLE_ORDER_STATUS (
-            ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            Order_ID INTEGER,
-            Status_ID INTEGER,
-            FOREIGN KEY (Order_ID) REFERENCES $TABLE_ORDER(ID),
-            FOREIGN KEY (Status_ID) REFERENCES $TABLE_STATUS(ID)
-        )
-    """.trimIndent()
+//    private val CREATE_ORDER_STATUS_TABLE = """
+//        CREATE TABLE $TABLE_ORDER_STATUS (
+//            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+//            Order_ID INTEGER,
+//            Status_ID INTEGER,
+//            FOREIGN KEY (Order_ID) REFERENCES $TABLE_ORDER(ID),
+//            FOREIGN KEY (Status_ID) REFERENCES $TABLE_STATUS(ID)
+//        )
+//    """.trimIndent()
 
-    private val CREATE_STATUS_TABLE = """
-        CREATE TABLE $TABLE_STATUS (
-            ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            StatusName TEXT NOT NULL,
-            Description TEXT
-        )
-    """.trimIndent()
+//    private val CREATE_STATUS_TABLE = """
+//        CREATE TABLE $TABLE_STATUS (
+//            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+//            StatusName TEXT NOT NULL,
+//            Description TEXT
+//        )
+//    """.trimIndent()
 
     private val CREATE_ORDER_DETAIL_TABLE = """
         CREATE TABLE $TABLE_ORDER_DETAIL (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            Order_ID INTEGER,
-            Product_ID INTEGER,
+            Order_ID INTEGER NOT NULL,
+            Product_ID INTEGER NOT NULL,
             Quantity INTEGER NOT NULL,
             UnitPrice REAL NOT NULL,
-            totalPrice REAL NOT NULL,
+            Restaurant_ID INTEGER NOT NULL,
             FOREIGN KEY (Order_ID) REFERENCES $TABLE_ORDER(ID),
-            FOREIGN KEY (Product_ID) REFERENCES $TABLE_PRODUCT(ID)
+            FOREIGN KEY (Product_ID) REFERENCES $TABLE_PRODUCT(ID),
+            FOREIGN KEY (Restaurant_ID) REFERENCES $TABLE_RESTAURANT(ID)
         )
     """.trimIndent()
 
     private val CREATE_REVIEW_ORDER_TABLE = """
-        CREATE TABLE $TABLE_REVIEW_ORDER (
-            ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            Rating INTEGER NOT NULL,
-            Comment TEXT,
-            ReviewDate TEXT NOT NULL,
-            Product_ID INTEGER,
-            FOREIGN KEY (Product_ID) REFERENCES $TABLE_PRODUCT(ID)
-        )
+    CREATE TABLE $TABLE_REVIEW_ORDER (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        Rating INTEGER NOT NULL,
+        Comment TEXT,
+        ReviewDate TEXT NOT NULL,
+        User_ID INTEGER NOT NULL,
+        Product_ID INTEGER NOT NULL,
+        FOREIGN KEY (User_ID) REFERENCES $TABLE_USER(ID),
+        FOREIGN KEY (Product_ID) REFERENCES $TABLE_PRODUCT(ID),
+        UNIQUE(User_ID, Product_ID) ON CONFLICT REPLACE
+    )
     """.trimIndent()
 
     private val CREATE_REVIEW_RESTAURANT_TABLE = """

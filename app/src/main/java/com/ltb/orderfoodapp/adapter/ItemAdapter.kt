@@ -39,11 +39,11 @@ class ItemAdapter (private val context: Context,
         val txtNameFood = view.findViewById<TextView>(R.id.txtNameFood)
         val btnEdit = view.findViewById<Button>(R.id.btnEdit)
 
-        txtNameFood.text = product.name
+        txtNameFood.text = product.getName()
 
         // Xử lý sự kiện click nút Edit
         btnEdit.setOnClickListener {
-            openEditItemActivity(context, product.idProduct , product.rating)
+            openEditItemActivity(context, product.getIdProduct() , product.getRating())
         }
 
         return view

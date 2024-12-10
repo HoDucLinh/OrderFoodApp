@@ -1,28 +1,14 @@
 package com.ltb.orderfoodapp.data.model
 
-class Status(
-    private var idStatus: Int,
-    private var statusName: String,
-    private var description: String
-) {
-    // Constructor không tham số
-    constructor() : this(0, "", "")
+enum class Status(val id: Int, val description: String) {
+    PENDING(1, "Pending approval"),
+    PROCESSING(2, "Order is being processed"),
+    DELIVERED(3, "Order delivered"),
+    CANCELED(4, "Order canceled");
 
-    // Getter và Setter cho idStatus
-    fun getIdStatus(): Int = idStatus
-    fun setIdStatus(idStatus: Int) {
-        this.idStatus = idStatus
-    }
-
-    // Getter và Setter cho statusName
-    fun getStatusName(): String = statusName
-    fun setStatusName(statusName: String) {
-        this.statusName = statusName
-    }
-
-    // Getter và Setter cho description
-    fun getDescription(): String = description
-    fun setDescription(description: String) {
-        this.description = description
+    companion object {
+        fun fromId(id: Int): Status? {
+            return values().find { it.id == id }
+        }
     }
 }

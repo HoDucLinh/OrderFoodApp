@@ -46,9 +46,9 @@ class EditItem : AppCompatActivity() {
         // Lấy sản phẩm từ cơ sở dữ liệu và hiển thị
         productDAO = ProductDAO(this)
         val product = productDAO.getProductById(productId)
-        editTextName.setText(product.name)
-        editTextPrice.setText(product.price.toString())
-        description.setText(product.description)
+        editTextName.setText(product.getName())
+        editTextPrice.setText(product.getPrice().toString())
+        description.setText(product.getDescription())
 
         // Xử lý sự kiện nút lưu
         val btnSave = findViewById<Button>(R.id.btnSave)
@@ -69,7 +69,7 @@ class EditItem : AppCompatActivity() {
 
     private fun saveProductChanges(product: Product) {
         // Lưu lại các thay đổi vào cơ sở dữ liệu
-        val updatedProduct = Product(product.idProduct, editTextName.text.toString(), editTextPrice.text.toString().toInt(),rating, description.text.toString())
+        val updatedProduct = Product(product.getIdProduct(), editTextName.text.toString(), editTextPrice.text.toString().toInt(),rating, description.text.toString())
         productDAO.updateProduct(updatedProduct)
         Toast.makeText(this, "Product updated", Toast.LENGTH_SHORT).show()
         finish()
