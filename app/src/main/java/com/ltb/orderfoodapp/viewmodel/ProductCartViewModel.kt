@@ -8,12 +8,15 @@ import com.ltb.orderfoodapp.data.model.ProductCart
 class ProductCartViewModel (context: Context) {
     private val productCartDAO = ProductCartDAO(context)
     private var productCart: MutableList<ProductCart> = mutableListOf()
+    private var cartTotal : Int = 0
 
     init {
         fetchProductCart()
     }
     fun getProductCartByCartID(cartId : Int): MutableList<ProductCart> {
-        return productCart.filter { it.cartId == cartId}.toMutableList()
+        val productByID = productCart.filter { it.getCartId() == cartId}.toMutableList()
+        cartTotal = productByID.size
+        return productByID
     }
 
     private fun fetchProductCart(){
@@ -26,14 +29,7 @@ class ProductCartViewModel (context: Context) {
         return productCart
 
     }
-
-    fun getProductByCartId(cardId: Int): Int{
-        println(cardId)
-        val a =  productCart.filter { it.cartId == cardId }
-        for (x in a){
-            println(x.name)
-        }
-        println( " a "  + a )
-        return a.size
+    fun getCartTotal() : Int{
+        return cartTotal
     }
 }

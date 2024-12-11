@@ -71,7 +71,6 @@ class AuthManager(private val context: Context) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener(context as Activity) { task ->
             if (task.isSuccessful) {
-                // Sign in success, update UI with the signed-in user's information
                 Log.d(TAG, "signInWithCredential:success")
                 val user = auth.currentUser
                 checkAdmin(user?.email.toString(),"")
@@ -129,28 +128,31 @@ class AuthManager(private val context: Context) {
             userDAO.updateUserCartId(userID, cartID.toInt())
             user = userDAO.getUser(email, password)
         }
-        val roleId = user?.roleId ?: 2
+        val roleId = user?.getRoleId() ?: 2
         val roleEnum = Role.fromRoleId(roleId)
         println( "RoleID " + roleId + "Role Enum " +  roleEnum)
         if (user != null) {
             when (roleEnum) {
                 Role.RESTAURANT -> {
-                    println("CardID " + user.cartId)
+                    println("CardID " + user.getCartId())
                     saveLoginStatus(true, "restaurant", user)
-                    val adminHomePage = Intent(context, SellerDashboardHome::class.java)
-                    context.startActivity(adminHomePage)
+                    val restaurantHomePage = Intent(context, SellerDashboardHome::class.java)
+                    Toast.makeText(context, "Login success, hello ${user.getFullName()}", Toast.LENGTH_SHORT).show()
+                    context.startActivity(restaurantHomePage)
                 }
                 Role.CUSTOMER -> {
-                    println("CardID " + user.cartId)
+                    println("CardID " + user.getCartId())
                     saveLoginStatus(true, "customer", user)
                     val userHomePage = Intent(context, Home::class.java)
+                    Toast.makeText(context, "Login success, hello ${user.getFullName()}", Toast.LENGTH_SHORT).show()
                     context.startActivity(userHomePage)
                 }
                 Role.ADMIN -> {
-                    println("CardID " + user.cartId)
+                    println("CardID " + user.getCartId())
                     saveLoginStatus(true, "admin", user)
-                    val restaurantHomePage = Intent(context, EditRole::class.java)
-                    context.startActivity(restaurantHomePage)
+                    val  adminHomePage= Intent(context, EditRole::class.java)
+                    Toast.makeText(context, "Login success, hello ${user.getFullName()}", Toast.LENGTH_SHORT).show()
+                    context.startActivity(adminHomePage)
                 }
                 else -> {
                     // Xử lý khi không có role hợp lệ

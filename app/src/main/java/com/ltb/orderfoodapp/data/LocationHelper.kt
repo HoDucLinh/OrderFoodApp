@@ -24,7 +24,6 @@ class LocationHelper(private val context: Context) {
     private var locationPath : String = ""
 
     fun getCurrentLocation(onLocationReceived: (Location) -> Unit) {
-        // Kiểm tra quyền truy cập vị trí
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
@@ -37,15 +36,39 @@ class LocationHelper(private val context: Context) {
             Log.e("LocationHelper", "Quyền truy cập vị trí không được cấp.")
         }
     }
-    fun getAddressFromLocation(location: Location) : String {
+    fun getAddressFromLocation(location: Location): String {
         val geocoder = Geocoder(context, Locale.getDefault())
+        locationPath = "Không xác định"
         try {
             val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
             if (!addresses.isNullOrEmpty()) {
                 val address = addresses[0]
-                val addressLine = address.getAddressLine(0)
-                val parts = addressLine.split("/")
-                locationPath = "${parts[1]} ${parts[0]} "
+                val components = mutableListOf<String>()
+
+                // Lấy các thành phần của địa chỉ
+                val houseAndStreet = address.getAddressLine(0)
+
+                // Kiểm tra và thêm các thành phần vào list
+                if (!houseAndStreet.isNullOrEmpty() && !houseAndStreet.contains("Unnamed Road")) {
+                    components.add(houseAndStreet.trim())
+                }
+
+                // Lấy xã/phường (subLocality) nếu có
+                address.subLocality?.let {
+                    components.add(it.trim())
+                }
+
+                // Lấy quận/huyện (locality) nếu có
+                address.locality?.let {
+                    components.add(it.trim())
+                }
+                // Nối tất cả các thành phần lại với nhau
+                locationPath = components.joinToString(", ")
+
+                // Nếu không có thông tin gì, gán là không xác định
+                if (locationPath.isEmpty()) {
+                    locationPath = "Không xác định"
+                }
             } else {
                 Log.e("LocationHelper", "Không tìm thấy địa chỉ cho vị trí này.")
             }
@@ -54,6 +77,8 @@ class LocationHelper(private val context: Context) {
         }
         return locationPath
     }
+
+
 
 
 }

@@ -73,7 +73,7 @@ class RateProductDialogFragment : DialogFragment() {
 
         val userJson = sharedPreferences.getString("user", null)
         val userObject = Gson().fromJson(userJson, User::class.java)
-        val userId = userObject?.idUser ?: -1
+        val userId = userObject?.getIdUser() ?: -1
 
         if (userId == -1) {
             Toast.makeText(requireContext(), "Không tìm thấy thông tin người dùng!", Toast.LENGTH_SHORT).show()

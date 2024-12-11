@@ -1,6 +1,5 @@
 package com.ltb.orderfoodapp.view
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -21,11 +20,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.dao.ProductDAO
-import com.ltb.orderfoodapp.data.model.Image
 import com.ltb.orderfoodapp.data.model.Product
 import java.io.IOException
-import java.util.UUID
-import kotlin.math.log
 
 
 private lateinit var edtName: EditText
@@ -137,7 +133,9 @@ class AddNewItems : AppCompatActivity() {
         Log.d("AddNewItemsActivity", "Name: $nameItem, Description: $description, Price: $price, Category: $category")
             imageList.add(imageStorage)
         // Tạo sản phẩm mới và thêm vào cơ sở dữ liệu
-        val newProduct = Product(name = nameItem,price = price.toInt(), images = imageList, category = category, description = description, restaurant = "Restaurant test")
+        val newProduct = Product(
+            name = nameItem,
+            price = price.toInt(), images = imageList, category = category, description = description)
         productDAO = ProductDAO(this)
 
         val isAdded = productDAO.addProduct(newProduct)

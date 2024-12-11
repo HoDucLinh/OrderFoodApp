@@ -1,24 +1,19 @@
 package com.ltb.orderfoodapp.data.dao
 
+//import com.ltb.orderfoodapp.data.model.Restaurant
 import android.content.ContentValues
 import android.content.Context
 import android.os.Build
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.currentCompositionErrors
-import com.google.type.DateTime
 import com.ltb.orderfoodapp.data.DatabaseHelper
-import com.ltb.orderfoodapp.data.model.Category
 import com.ltb.orderfoodapp.data.model.Order
 import com.ltb.orderfoodapp.data.model.OrderDetail
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
-import com.ltb.orderfoodapp.data.model.Restaurant
-import com.ltb.orderfoodapp.data.model.Status
-import com.ltb.orderfoodapp.data.model.User
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+
 
 class OrderDAO(private val context: Context) {
     val dbHelper = DatabaseHelper.getInstance(context)
@@ -40,20 +35,20 @@ class OrderDAO(private val context: Context) {
         println(orderId)
         listProduct.forEach { product ->
             val cursor = db.rawQuery(
-                "SELECT Price, Restaurant_ID FROM Product WHERE ID = ?",
-                arrayOf(product.productId.toString())
+                "SELECT Price FROM Product WHERE ID = ?",
+                arrayOf(product.getProductId().toString())
             )
             var unitPrice: Int? = null
-            var RestaurantId : Int? = null
+//            var RestaurantId : Int? = null
             cursor.use {
                 if (it.moveToFirst()) {
                     unitPrice = it.getInt(it.getColumnIndexOrThrow("Price"))
-                    RestaurantId = it.getInt(it.getColumnIndexOrThrow("Restaurant_ID"))
+//                    RestaurantId = it.getInt(it.getColumnIndexOrThrow("Restaurant_ID"))
                 }
             }
 
             if (unitPrice == null) {
-                throw Exception("Failed to find price for Product ID: ${product.productId}")
+                throw Exception("Failed to find price for Product ID: ${product.getProductId()}")
             }
 
 
@@ -61,15 +56,14 @@ class OrderDAO(private val context: Context) {
             // Thêm vào bảng "OrderDetail"
             val orderDetail = ContentValues().apply {
                 put("Order_ID", orderId)
-                put("Product_ID", product.productId)
-                put("Quantity", product.quantity)
+                put("Product_ID", product.getProductId())
+                put("Quantity", product.getQuantity())
                 put("UnitPrice", unitPrice)
-                put("Restaurant_ID",RestaurantId)
+//                put("Restaurant_ID",RestaurantId)
             }
             db.insert("OrderDetail", null, orderDetail)
         }
     }
-
 
 
     fun getOrdersByFilters(name: String?, date: String?, categoryId: Int?): List<Order> {
@@ -112,7 +106,7 @@ class OrderDAO(private val context: Context) {
                     orderStatus = it.getString(it.getColumnIndexOrThrow("orderStatus")),
                     orderDate = SimpleDateFormat("yyyy-MM-dd").parse(it.getString(it.getColumnIndexOrThrow("orderDate"))),
                     userId = it.getInt(it.getColumnIndexOrThrow("UserID")),
-                    restaurantId = 0,
+//                    restaurantId = 0,
                     orderDetails = mutableListOf()
                 )
 
@@ -135,5 +129,40 @@ class OrderDAO(private val context: Context) {
         }
         return orders
     }
+
+//    fun getProductsByOrderStatus(status: Int): List<Product> {
+//        val productList = mutableListOf<Product>()
+//        val db = dbHelper.readableDatabase
+//        val query = """
+//        SELECT
+//            Product.ProductID,
+//            Product.ProductName,
+//            Product.Price,
+//            Product.Description
+//        FROM Orders
+//        JOIN OrderDetail ON Orders.OrderID = OrderDetail.OrderID
+//        JOIN Product ON OrderDetail.ProductID = Product.ProductID
+//        WHERE Orders.Status = ?
+//    """
+//
+//        val cursor = db.rawQuery(query, arrayOf(status.toString()))
+//
+//        cursor.use {
+//            if (it.moveToFirst()) {
+//                do {
+//                    val product = Product(
+//                        idProduct = it.getInt(it.getColumnIndexOrThrow("ProductID")),
+//                        name = it.getString(it.getColumnIndexOrThrow("ProductName")),
+//                        price = it.getInt(it.getColumnIndexOrThrow("Price")),
+//                        description = it.getString(it.getColumnIndexOrThrow("Description"))
+//                    )
+//                    productList.add(product)
+//                } while (it.moveToNext())
+//            }
+//        }
+//        db.close()
+//        return productList
+//    }
+
 
 }

@@ -24,5 +24,6 @@ class SellerDashboardHome : AppCompatActivity() {
             val next_menu = Intent(this , Menu::class.java)
             startActivity(next_menu)
         }
+
     }
 }

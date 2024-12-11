@@ -34,9 +34,9 @@ class ReviewAdapter(
         val review = getItem(position) as Review
 
         // Đổ dữ liệu vào các thành phần
-        userName.text = review.fullName
-        userComment.text = review.comment
-        userRating.rating = review.rating.toFloat()
+        userName.text = review.getFullName()
+        userComment.text = review.getComment()
+        userRating.rating = review.getRating().toFloat()
 
         return view
     }

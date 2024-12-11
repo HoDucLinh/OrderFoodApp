@@ -1,4 +1,5 @@
 package com.ltb.orderfoodapp.view
+
 import StaticticsDAO
 import android.os.Bundle
 import android.widget.AdapterView
@@ -10,7 +11,7 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.ltb.orderfoodapp.R
 
-class Statistics_Fragment : AppCompatActivity() {
+class StatisticsFragment : AppCompatActivity() {
     private lateinit var barChart: BarChart
     private lateinit var spinnerFilter: Spinner
     private lateinit var statisticsDAO: StaticticsDAO

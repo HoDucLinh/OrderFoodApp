@@ -1,10 +1,8 @@
 package com.ltb.orderfoodapp.view
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
@@ -14,12 +12,9 @@ import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ReviewAdapter
 import com.ltb.orderfoodapp.data.dao.ProductCartDAO
-import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.dao.RatingDAO
 import com.ltb.orderfoodapp.data.model.Product
-import com.ltb.orderfoodapp.data.model.ProductCart
 import com.ltb.orderfoodapp.data.model.User
-import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class FoodDetail : AppCompatActivity() {
 
@@ -37,9 +32,7 @@ class FoodDetail : AppCompatActivity() {
         val txtresult = findViewById<TextView>(R.id.txtSoLuong)
         val priceTextView = findViewById<TextView>(R.id.priceTotal)
         val previewImage = findViewById<RelativeLayout>(R.id.previewImage)
-
         ratingDAO = RatingDAO(this)
-        
         previewImage.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 // Lấy danh sách các hình ảnh từ Intent
@@ -88,36 +81,42 @@ class FoodDetail : AppCompatActivity() {
                     rating = 0f,
                     description = description
                 )
-                // Thêm kiểm tra sản phẩm đã tồn tại trong giỏ hàng
-                val pro_cart = ProductCartDAO(this)
-                if (pro_cart.isProductInCart(productId)) {
+
+                // Kiểm tra xem người dùng đã đăng nhập hay chưa
+                val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+                val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+                if (!isLoggedIn) {
+                    Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                // Lấy thông tin người dùng và giỏ hàng
+                val user = sharedPreferences.getString("user", "")
+                val userObject = Gson().fromJson(user, User::class.java)
+                val cartId = userObject.getCartId()
+
+                // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng của người dùng
+                val productCartDAO = ProductCartDAO(this)
+                if (productCartDAO.isProductInCart(productId, cartId)) {
                     Toast.makeText(this, "Sản phẩm đã tồn tại trong giỏ hàng!", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 
                 // Thêm sản phẩm vào giỏ hàng
-                val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-                val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-                if (isLoggedIn) {
-                    val user = sharedPreferences.getString("user", "")
-                    val userObject = Gson().fromJson(user, User::class.java)
-                    val cartId = userObject.cartId
-                    val productCartDAO = ProductCartDAO(this)
-                    val result = productCartDAO.insertProduct(product, quantity,cartId)
-                    if (result != -1L) {
-                        // Hiển thị thông báo thành công
-                        Toast.makeText(this, "Thêm thành công!!!", Toast.LENGTH_SHORT).show()
-                    } else {
-                        // Thông báo lỗi khi thêm sản phẩm
-                        Toast.makeText(this, "Thêm thất bại", Toast.LENGTH_SHORT).show()
-                    }
+                val result = productCartDAO.insertProduct(product, quantity, cartId)
+                if (result != -1L) {
+                    // Hiển thị thông báo thành công
+                    Toast.makeText(this, "Thêm thành công!!!", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Thông báo lỗi khi thêm sản phẩm
+                    Toast.makeText(this, "Thêm thất bại", Toast.LENGTH_SHORT).show()
                 }
-                else Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 e.printStackTrace()
                 Toast.makeText(this, "An error occurred while adding product to cart", Toast.LENGTH_SHORT).show()
             }
         }
+
 
 
         var soLuong = 1
@@ -150,7 +149,7 @@ class FoodDetail : AppCompatActivity() {
     fun getProductInfor() {
         // Lấy giá trị từ Intent và gán cho các thuộc tính
         val name = intent.getStringExtra("name") ?: ""
-        val storeName = intent.getStringExtra("storeName") ?: ""
+//        val storeName = intent.getStringExtra("storeName") ?: ""
         val price = intent.getIntExtra("price", 0)
         val imageResource = intent.getStringArrayListExtra("imageResource") ?: arrayListOf()  // Nhận mảng chuỗi
         val rating = intent.getFloatExtra("rating", 0f)  // Sử dụng getFloatExtra thay vì getIntExtra
@@ -166,7 +165,7 @@ class FoodDetail : AppCompatActivity() {
 
         // Gán các giá trị vào các phần tử
         productNameTextView.text = name
-        storeNameTextView.text = storeName
+        storeNameTextView.text = "storeName"
         priceTextView.text = "${price}"
         ratingTextView.text = "$rating"
         descriptionTextView.text = description

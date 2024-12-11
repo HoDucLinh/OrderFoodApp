@@ -4,10 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.util.Log
 import com.ltb.orderfoodapp.data.DatabaseHelper
-import com.ltb.orderfoodapp.data.model.Category
-import com.ltb.orderfoodapp.data.model.Image
 import com.ltb.orderfoodapp.data.model.Product
 
 class ProductDAO(context: Context) {
@@ -29,22 +26,6 @@ class ProductDAO(context: Context) {
 
     }
 
-    fun demo() {
-        val product = Product(
-            name = "Pizza Margherita",
-            price = 150000,
-            rating = 4.5f,
-            description = "Pizza với phô mai và cà chua tươi",
-//            restaurant = "Pizza Hut",
-            category = "Pizza",
-            images = mutableListOf(
-                "https://example.com/image1.jpg",
-                "https://example.com/image2.jpg"
-            )
-        )
-        addProduct(product)
-    }
-
     fun addProduct(product: Product): Long {
 //        if (product.name.isEmpty() || product.price <= 0 || product.rating < 0 || product.description.isEmpty()) {
 //            throw IllegalArgumentException("Invalid product data")
@@ -56,8 +37,8 @@ class ProductDAO(context: Context) {
             val categoryId = getOrInsertCategory(product.getCategory())
             updateProductCategory(productId, categoryId)
 
-            val restaurantId = getOrInsertRestaurant(product.getRestaurant())
-            updateProductRestaurant(productId, restaurantId)
+//            val restaurantId = getOrInsertRestaurant(product.getRestaurant())
+//            updateProductRestaurant(productId, restaurantId)
 
             // Thêm hình ảnh vào sản phẩm
             if (product.getImages().isNotEmpty()) {
@@ -102,8 +83,8 @@ class ProductDAO(context: Context) {
         }
         db.update("Product", updateCategoryValues, "ID = ?", arrayOf(productId.toString()))
     }
-
-    // Kiểm tra xem nhà hàng có tồn tại chưa, nếu chưa thì thêm mới
+//
+//    // Kiểm tra xem nhà hàng có tồn tại chưa, nếu chưa thì thêm mới
 //    private fun getOrInsertRestaurant(restaurantName: String): Int {
 //        var restaurantId = restaurantDAO.getRestaurantIdByName(restaurantName)
 //        if (restaurantId == -1) {
@@ -116,14 +97,14 @@ class ProductDAO(context: Context) {
 //        }
 //        return restaurantId
 //    }
-
-    // Cập nhật sản phẩm với restaurant_id
-    private fun updateProductRestaurant(productId: Long, restaurantId: Int) {
-        val updateRestaurantValues = ContentValues().apply {
-            put("Restaurant_ID", restaurantId)
-        }
-        db.update("Product", updateRestaurantValues, "ID = ?", arrayOf(productId.toString()))
-    }
+//
+//    // Cập nhật sản phẩm với restaurant_id
+//    private fun updateProductRestaurant(productId: Long, restaurantId: Int) {
+//        val updateRestaurantValues = ContentValues().apply {
+//            put("Restaurant_ID", restaurantId)
+//        }
+//        db.update("Product", updateRestaurantValues, "ID = ?", arrayOf(productId.toString()))
+//    }
 
     // Thêm hình ảnh cho sản phẩm
     private fun addImagesToProduct(productId: Long, images: List<String>) {
@@ -145,11 +126,10 @@ class ProductDAO(context: Context) {
                 """ 
             SELECT 
                 p.ID, p.Name, p.Price, p.Rating, p.Description, 
-                c.Name AS CategoryName, r.Name AS RestaurantName, i.Value AS ImageSource 
+                c.Name AS CategoryName, i.Value AS ImageSource 
             FROM Product p
             LEFT JOIN Category c ON p.Category_ID = c.ID
             LEFT JOIN Image i ON p.ID = i.Product_ID
-            LEFT JOIN Restaurant r ON p.Restaurant_ID = r.ID
             """, null
             )
 
@@ -162,8 +142,8 @@ class ProductDAO(context: Context) {
                         rating = it.getFloat(it.getColumnIndexOrThrow("Rating")),
                         description = it.getString(it.getColumnIndexOrThrow("Description")),
                     )
-                    val restaurant = it.getString(it.getColumnIndexOrThrow("RestaurantName"))
-                    product.setRestaurant(restaurant)
+//                    val restaurant = it.getString(it.getColumnIndexOrThrow("RestaurantName"))
+//                    product.setRestaurant(restaurant)
                     val categoryName = it.getString(it.getColumnIndexOrThrow("CategoryName"))
                     product.setCategory(categoryName)
                     val imageUrl = it.getString(it.getColumnIndexOrThrow("ImageSource"))

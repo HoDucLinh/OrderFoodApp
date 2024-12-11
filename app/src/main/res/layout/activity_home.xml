@@ -26,7 +26,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:paddingLeft="@dimen/padding_text">
+            android:paddingLeft="@dimen/padding_text"
+            android:layout_gravity="center_vertical"
+            >
 
             <TextView
                 android:id="@+id/textView13"
@@ -42,8 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sen"
-                android:text="Halal Lab office"
-                android:textSize="@dimen/fontSize" />
+                android:text="Please enable location"
+                android:textSize="@dimen/fontLocation" />
         </LinearLayout>
 
         <Switch

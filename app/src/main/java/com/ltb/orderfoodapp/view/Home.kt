@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.GridView
 import android.widget.ImageButton
 import android.widget.Switch
@@ -31,13 +30,11 @@ class Home : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
     private lateinit var productCartViewModel: ProductCartViewModel
     private lateinit var darkTheme : Switch
-    private lateinit var productCartAdapter: ProductCartAdapter
     private lateinit var productDAO: ProductDAO
     private lateinit var locationHelper: LocationHelper
     private lateinit var cartDAO : CartDAO
     private var productCartNumber : Int = 0
-    private var userId : Int = -1
-    private var cartId : Int = -1
+    private var locate = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         productViewModel = ProductViewModel(this)
@@ -49,34 +46,28 @@ class Home : AppCompatActivity() {
         val locationUser = findViewById<TextView>(R.id.locationUser)
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-//        if (isLoggedIn) {
-//            val user = sharedPreferences.getString("user", "")
-//            val userObject = Gson().fromJson(user, User::class.java)
-//            cartId = userObject.cartId
-//            userId = userObject.idUser
-//        }
-        locationHelper = LocationHelper(this)
 
-        //
+        locationHelper = LocationHelper(this)
 
         productDAO = ProductDAO(this)
 
         //
 
         cartDAO = CartDAO(this)
-        setupLocation(locationUser)
+        fetchUserLocation(locationUser)
         setCartCount()
 
 //        chuyen sang trang tim kiem
         nextSearch.setOnClickListener {
-            val nextSearch = Intent(this, Search::class.java)
-            startActivity(nextSearch)
+            val search = Intent(this, Search::class.java)
+            startActivity(search)
         }
 //        chuyen sang cart
         nextCart.setOnClickListener {
             if (isLoggedIn){
-                val nextCart = Intent(this, MyCart::class.java)
-                startActivity(nextCart)
+                val cart = Intent(this, MyCart::class.java)
+                cart.putExtra("locationPath",locate )
+                startActivity(cart)
             }
             else Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
 
@@ -101,7 +92,7 @@ class Home : AppCompatActivity() {
         setupGridViewProduct()
         setupTheme()
         setCartCount()
-        productDAO.syncProductRatings() // đồng bộ hoá rating khi start
+        productDAO.syncProductRatings()
     }
 
     override fun onResume() {
@@ -113,12 +104,11 @@ class Home : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night", false)
 
-        // Kiểm tra trạng thái theme hiện tại và thay đổi nếu cần
         if (nightMode != darkTheme.isChecked) {
             darkTheme.isChecked = nightMode
         }
 
-        // Thiết lập chế độ tối/sáng
+
         AppCompatDelegate.setDefaultNightMode(
             if (nightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         )
@@ -151,31 +141,19 @@ class Home : AppCompatActivity() {
         productCartViewModel = ProductCartViewModel(this)
 
 
-        productCartNumber = productCartViewModel.getProductByCartId(cartId)
-        println("cardID" +cartId)
+        productCartNumber = productCartViewModel.getCartTotal()
         val cartCount = findViewById<TextView>(R.id.cartCount)
         cartCount.text = productCartNumber.toString()
 
 
     }
-    private fun setupLocation(locationUser: TextView) {
-        // Kiểm tra quyền vị trí
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
-        } else {
-            fetchUserLocation(locationUser)
-        }
-    }
 
-    private fun fetchUserLocation(locationUser: TextView) {
+    private fun fetchUserLocation(locationUser: TextView) : String{
         locationHelper.getCurrentLocation { location ->
-            if (location != null) {
-                val locate = locationHelper.getAddressFromLocation(location)
-                locationUser.setText(locate)
-            } else {
-                Log.e("LocationHelper", "Không thể lấy vị trí hiện tại.")
-            }
+            locate = locationHelper.getAddressFromLocation(location)
+            locationUser.setText(locate)
         }
+        return locate
     }
 
     companion object {

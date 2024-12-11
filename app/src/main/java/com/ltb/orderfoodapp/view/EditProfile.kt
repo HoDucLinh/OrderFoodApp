@@ -40,16 +40,16 @@ class EditProfile : AppCompatActivity() {
             startActivity(personalInformation)
         }
 
-        editFullName = findViewById(R.id.editText_fullname)
-        editEmail = findViewById(R.id.editText_email)
-        editPhone = findViewById(R.id.editText_phone)
-        editBio = findViewById(R.id.editText_bio)
+        editFullName = findViewById(R.id.fullname)
+        editEmail = findViewById(R.id.email)
+        editPhone = findViewById(R.id.phone)
+        editBio = findViewById(R.id.bio)
 
         // Lấy userID từ SharedPreferences
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val userJson = sharedPreferences.getString("user", null)
         val userObject = Gson().fromJson(userJson, User::class.java)
-        userId = userObject?.idUser ?: -1
+        userId = userObject?.getIdUser() ?: -1
 
         if (userId == -1) {
             Toast.makeText(this, "Không tìm thấy thông tin người dùng!", Toast.LENGTH_SHORT).show()
@@ -70,10 +70,10 @@ class EditProfile : AppCompatActivity() {
     private fun loadUserData() {
         val user = userDAO.getUserById(userId)
         if (user != null) {
-            editFullName.setText(user.fullName)
-            editEmail.setText(user.email)
-            editPhone.setText(user.phoneNumber)
-            editBio.setText(user.bioInfor)
+            editFullName.setText(user.getFullName())
+            editEmail.setText(user.getEmail())
+            editPhone.setText(user.getPhoneNumber())
+            editBio.setText(user.getBioInfor())
         } else {
             Toast.makeText(this, "Không thể tải thông tin người dùng!", Toast.LENGTH_SHORT).show()
         }

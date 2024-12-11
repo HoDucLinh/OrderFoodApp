@@ -45,11 +45,10 @@ class CategoryDAO(context: Context) {
         val cursor = db.rawQuery("""
         SELECT 
             p.ID, p.Name, p.Price, p.Rating, p.Description, 
-            c.Name AS CategoryName, r.Name AS RestaurantName, i.Value AS ImageSource 
+            c.Name AS CategoryName, i.Value AS ImageSource 
         FROM Product p
         LEFT JOIN Category c ON p.Category_ID = c.ID
         LEFT JOIN Image i ON p.ID = i.Product_ID
-        LEFT JOIN Restaurant r ON p.Restaurant_ID = r.ID
         WHERE c.Name = ?
     """, arrayOf(categoryName))
         cursor.use {
@@ -61,8 +60,8 @@ class CategoryDAO(context: Context) {
                     rating = it.getFloat(it.getColumnIndexOrThrow("Rating")),
                     description = it.getString(it.getColumnIndexOrThrow("Description")),
                 )
-                val restaurant = it.getString(it.getColumnIndexOrThrow("RestaurantName"))
-                product.setRestaurant(restaurant)
+//                val restaurant = it.getString(it.getColumnIndexOrThrow("RestaurantName"))
+//                product.setRestaurant(restaurant)
                 val categoryName = it.getString(it.getColumnIndexOrThrow("CategoryName"))
                 product.setCategory(categoryName)
                 val imageUrl = it.getString(it.getColumnIndexOrThrow("ImageSource"))

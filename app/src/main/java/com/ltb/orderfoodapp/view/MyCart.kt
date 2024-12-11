@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -44,8 +45,6 @@ class MyCart : AppCompatActivity() {
             startActivity(home)
         }
 
-
-        // Tìm RecyclerView trong layout
         recyclerView = findViewById(R.id.recyclerViewCart)
 
         // Tạo DAO và lấy danh sách sản phẩm trong giỏ hàng
@@ -55,12 +54,10 @@ class MyCart : AppCompatActivity() {
         if (isLoggedIn) {
             val user = sharedPreferences.getString("user", "")
             val userObject = Gson().fromJson(user, User::class.java)
-            val cartId = userObject.cartId
-            println("CartIDasdfasd" + cartId)
+            val cartId = userObject.getCartId()
             cartList = productCartViewModel.getProductCartByCartID(cartId)
-            println(cartList)
             for (productCart in cartList) {
-                println(productCart.name)
+                println(productCart.getName())
             }
             // Đặt layout manager và adapter cho RecyclerView
             recyclerView.layoutManager = LinearLayoutManager(this)
@@ -68,14 +65,33 @@ class MyCart : AppCompatActivity() {
             recyclerView.adapter = productCartAdapter
 
             // Tính và cập nhật tổng tiền
-            val totalPrice = cartList.sumOf { it.price * it.quantity }.toInt()
+            val totalPrice = if (cartList.isEmpty()) {
+                0
+            } else {
+                cartList.sumOf { it.getPrice() * it.getQuantity() }.toInt()
+            }
             total.text = "$totalPrice VND"
 
             productCartAdapter.onQuantityChanged = { updatedTotalPrice ->
                 runOnUiThread {
-                    total.text = "$updatedTotalPrice VND"
+                    val totalPrice = if (productCartAdapter.productCartList.isEmpty()) {
+                        0
+                    } else {
+                        updatedTotalPrice
+                    }
+                    total.text = "$totalPrice VND"
                 }
             }
+            val editAddress = findViewById<Button>(R.id.editAddress)
+            val locationPath = intent.getStringExtra("locationPath")
+            val address = findViewById<EditText>(R.id.addressUser)
+            address.setText(locationPath)
+            editAddress.setOnClickListener{
+                address.isEnabled = true
+                address.requestFocus()
+            }
+
+
             // Chuyen toi payment
             payment.setOnClickListener {
                 val paymentMethod = Intent(this, PaymentMethod::class.java)
@@ -96,7 +112,7 @@ class MyCart : AppCompatActivity() {
         if (isLoggedIn) {
             val user = sharedPreferences.getString("user", "")
             val userObject = Gson().fromJson(user, User::class.java)
-            val cartId = userObject.cartId
+            val cartId = userObject.getCartId()
             println("CartIDasdfasd" + cartId)
             cartList = productCartViewModel.getProductCartByCartID(cartId)
         }
@@ -107,9 +123,13 @@ class MyCart : AppCompatActivity() {
         productCartAdapter.notifyDataSetChanged()
 
         // Tính và cập nhật tổng tiền
-        val totalPrice = cartList.sumOf { it.price * it.quantity }.toInt()
         val total = findViewById<TextView>(R.id.total)
-        total.text = "$totalPrice VND"
+        if (cartList.isEmpty()) {
+            total.text = "0 VND"
+        } else {
+            val totalPrice = cartList.sumOf { it.getPrice() * it.getQuantity() }.toInt()
+            total.text = "$totalPrice VND"
+        }
     }
 
 }

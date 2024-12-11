@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.data.dao.OrderDAO
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
 import com.ltb.orderfoodapp.view.HistoryFragment
@@ -22,7 +23,8 @@ import com.ltb.orderfoodapp.view.RateProductDialogFragment
 class OrderAdapter(
     private val context: Context,
     private val products: MutableList<ProductCart>,
-    private val fragment: Fragment
+    private val fragment: Fragment,
+    private lateinit var orderDAO: OrderDAO
 ) : BaseAdapter() {
     // Trả về số lượng sản phẩm
     override fun getCount(): Int {
@@ -47,6 +49,11 @@ class OrderAdapter(
             }
         }
         var view = LayoutInflater.from(context).inflate(R.layout.item_orders_ongoing, parent, false)
+        val orderImg = view.findViewById<ImageView>(R.id.order_img)
+        val orderName = view.findViewById<TextView>(R.id.order_name)
+        val orderPrice = view.findViewById<TextView>(R.id.order_price)
+        val orderQuantity = view.findViewById<TextView>(R.id.order_quantity)
+//        val orderDate = view.findViewById<TextView>(R.id.order_date)
         if(fragment is HistoryFragment){
             view = LayoutInflater.from(context).inflate(R.layout.item_orders_history, parent, false)
 
@@ -54,20 +61,36 @@ class OrderAdapter(
 
             ratingBtn.setOnClickListener {
                 if (fragment is HistoryFragment) {
-                    val productId = products[position].productId // Lấy ID của sản phẩm tại vị trí hiện tại
+                    val productId = products[position].getProductId() // Lấy ID của sản phẩm tại vị trí hiện tại
                     val dialog = RateProductDialogFragment.newInstance(productId)
                     // Thay vì gọi supportFragmentManager, dùng fragment's childFragmentManager hoặc parentFragmentManager
                     fragment.parentFragmentManager.beginTransaction().add(dialog, "RateProductDialog").commit()
                 }
             }
-        }
 
-        // Kiem cac thanh phan trong layout cua product
-        val orderImg = view.findViewById<ImageView>(R.id.order_img)
-        val orderName = view.findViewById<TextView>(R.id.order_name)
-        val orderPrice = view.findViewById<TextView>(R.id.order_price)
-        val orderQuantity = view.findViewById<TextView>(R.id.order_quantity)
-//        val orderDate = view.findViewById<TextView>(R.id.order_date)
+            val product = products[position]
+            val product2 =
+            // Thiet lap giao dien
+            if (product.images.isNotEmpty() && product.images[0] != null) {
+                Glide.with(context)
+                    .load(product.images[0])
+                    .error(R.drawable.cancel) // ảnh mặc định
+                    .into(orderImg);
+            } else {
+                Glide.with(context)
+                    .load(R.drawable.burger) // ảnh mặc định
+                    .into(orderImg);
+            }
+            orderName.text = product.getName()
+            orderPrice.text = "${product.getPrice() * product.getQuantity() }VND"
+            orderQuantity.text = "${product.getQuantity()} Items"
+//        orderDate.text = "Date"
+
+//        view.setOnClickListener {
+//            openFoodDetail(context, product)
+//        }
+            return view
+        }
 
 
         // Lay vi tri hien tai
@@ -83,9 +106,9 @@ class OrderAdapter(
                 .load(R.drawable.burger) // ảnh mặc định
                 .into(orderImg);
         }
-        orderName.text = product.name
-        orderPrice.text = "${product.price * product.quantity }VND"
-        orderQuantity.text = "${product.quantity} Items"
+        orderName.text = product.getName()
+        orderPrice.text = "${product.getPrice() * product.getQuantity() }VND"
+        orderQuantity.text = "${product.getQuantity()} Items"
 //        orderDate.text = "Date"
 
 //        view.setOnClickListener {

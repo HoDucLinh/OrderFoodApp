@@ -37,7 +37,7 @@ class SignUp : AppCompatActivity() {
             if(password == rePassword){
                 val newUser = User(fullName = fullName, email = email, phoneNumber = phone, password = password)
                 val cartDAO = CartDAO(this)
-                println(newUser.idUser)
+                println(newUser.getIdUser())
                 var userID = userDAO.addUser(newUser)
                 val cartID = cartDAO.insertCart(0, userID)
                 userDAO.updateUserCartId(userID, cartID.toInt())
