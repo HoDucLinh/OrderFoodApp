@@ -6,7 +6,6 @@ open class Product(
     private var price: Int = 0,
     private var rating: Float = 0f,
     private var description: String = "",
-//    private var restaurant: String = "",
     private var category: String = "",
     private var images: MutableList<String> = mutableListOf()
 ) {
