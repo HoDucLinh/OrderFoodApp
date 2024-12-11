@@ -16,6 +16,8 @@ import com.ltb.orderfoodapp.data.dao.ImageDAO
 import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.view.FoodDetail
+import com.ltb.orderfoodapp.view.Home
+import com.ltb.orderfoodapp.view.Search
 
 class ProductAdapter(
     private val context: Context,
@@ -40,40 +42,47 @@ class ProductAdapter(
                 text = "No product"
             }
         }
-        val view = LayoutInflater.from(context).inflate(R.layout.product, parent, false)
-        // Kiem cac thanh phan trong layout cua product
+
+        val layout = if (context is Search) R.layout.product_search else R.layout.product
+        val view = LayoutInflater.from(context).inflate(layout, parent, false)
+
         val imgProduct = view.findViewById<ImageView>(R.id.img_product)
         val productName = view.findViewById<TextView>(R.id.product_name)
-        val storeName = view.findViewById<TextView>(R.id.store_name)
         val productPrice = view.findViewById<TextView>(R.id.product_price)
-        val productRating = view.findViewById<RatingBar>(R.id.ratingBar)
+        val productRating: View = if (context is Search) {
+            view.findViewById<TextView>(R.id.ratingBar)
+        } else {
+            view.findViewById<RatingBar>(R.id.ratingBar)
+        }
 
-        // Lay vi tri hien tai
         val product = products[position]
-        // Thiet lap giao dien
+
         if (product.getImages().isNotEmpty() && product.getImages()[0] != null) {
             Glide.with(context)
                 .load(product.getImages()[0])
-                .error(R.drawable.cancel) // ảnh mặc định
-                .into(imgProduct);
+                .error(R.drawable.cancel)
+                .into(imgProduct)
         } else {
             Glide.with(context)
-                .load(R.drawable.burger) // ảnh mặc định
-                .into(imgProduct);
+                .load(R.drawable.burger)
+                .into(imgProduct)
         }
 
         productName.text = product.getName()
-//        storeName.text = product.getRestaurant()
         productPrice.text = "${product.getPrice()}VND"
-        productRating.rating = product.getRating()
+
+        if (productRating is RatingBar) {
+            productRating.rating = product.getRating()
+        } else if (productRating is TextView) {
+            productRating.text = product.getRating().toString()
+        }
 
         view.setOnClickListener {
             openFoodDetail(context, product)
         }
         return view
-
-
     }
+
 
     //     Mo trang food detail
     private fun openFoodDetail(context: Context, product: Product) {
