@@ -61,9 +61,9 @@ class ProductCartDAO(context: Context) {
         return productCartList
     }
     //xoa Product
-    fun deleteProduct(productId: Int) {
-        db.delete("Product_Cart", "Product_ID = ?", arrayOf(productId.toString()))
-        db.close()
+    fun deleteProduct(productId: Int): Boolean {
+        val rowsAffected = db.delete("Product_Cart", "Product_ID = ?", arrayOf(productId.toString()))
+        return rowsAffected > 0 // Trả về true nếu xóa thành công, false nếu không
     }
     //hàm kiểm tra sản phẩm đã tồn tại hay chưa
     fun isProductInCart(productId: Int, cartId: Int): Boolean {
