@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -44,8 +45,6 @@ class MyCart : AppCompatActivity() {
             startActivity(home)
         }
 
-
-        // Tìm RecyclerView trong layout
         recyclerView = findViewById(R.id.recyclerViewCart)
 
         // Tạo DAO và lấy danh sách sản phẩm trong giỏ hàng
@@ -56,9 +55,7 @@ class MyCart : AppCompatActivity() {
             val user = sharedPreferences.getString("user", "")
             val userObject = Gson().fromJson(user, User::class.java)
             val cartId = userObject.getCartId()
-            println("CartIDasdfasd" + cartId)
             cartList = productCartViewModel.getProductCartByCartID(cartId)
-            println(cartList)
             for (productCart in cartList) {
                 println(productCart.getName())
             }
@@ -84,6 +81,14 @@ class MyCart : AppCompatActivity() {
                     }
                     total.text = "$totalPrice VND"
                 }
+            }
+            val editAddress = findViewById<Button>(R.id.editAddress)
+            val locationPath = intent.getStringExtra("locationPath")
+            val address = findViewById<EditText>(R.id.addressUser)
+            address.setText(locationPath)
+            editAddress.setOnClickListener{
+                address.isEnabled = true
+                address.requestFocus()
             }
 
 

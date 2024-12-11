@@ -84,9 +84,13 @@
 
     <GridView
         android:id="@+id/gridViewCategoryName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="5" />
+        android:gravity="center"
+        android:numColumns="auto_fit"
+        android:columnWidth="100dp" />
+
+
 
     <TextView
         android:id="@+id/textView20"

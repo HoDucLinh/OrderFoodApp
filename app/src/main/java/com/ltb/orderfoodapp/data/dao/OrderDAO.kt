@@ -71,7 +71,6 @@ class OrderDAO(private val context: Context) {
     }
 
 
-
     fun getOrdersByFilters(name: String?, date: String?, categoryId: Int?): List<Order> {
         val orders = mutableListOf<Order>()
         val db = dbHelper.readableDatabase

@@ -19,6 +19,7 @@ import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.api.Payment
 import com.ltb.orderfoodapp.data.dao.OrderDAO
+import com.ltb.orderfoodapp.data.dao.ProductCartDAO
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
 import com.ltb.orderfoodapp.data.model.User
@@ -86,6 +87,7 @@ class PaymentMethod : AppCompatActivity() {
                 print("cash")
 
                 orderDAO.addOrder(pricePayment, 1, userId, cartProducts.toMutableList())
+                deleteProductsFromCart(cartProducts)
                 startActivity(paymentSuccess)
             } else if (btnVNPay.isSelected) {
                 print("vnpay")
@@ -102,7 +104,7 @@ class PaymentMethod : AppCompatActivity() {
                         Toast.makeText(this, "Thanh toán thành công", Toast.LENGTH_SHORT).show()
 
                         orderDAO.addOrder(pricePayment, 3, userId, cartProducts.toMutableList())
-
+                        deleteProductsFromCart(cartProducts)
                         // Chuyển đến màn hình thành công
                         startActivity(paymentSuccess)
 
@@ -119,7 +121,13 @@ class PaymentMethod : AppCompatActivity() {
         }
     }
 
-
+    fun deleteProductsFromCart(cartProducts: List<ProductCart>) {
+        val cartDAO = ProductCartDAO(this) // Giả sử bạn có một DBHelper để tương tác với CSDL
+        for (product in cartProducts) {
+            // Xóa từng sản phẩm trong giỏ hàng sau khi thanh toán
+            cartDAO.deleteProduct(product.getProductId())
+        }
+    }
     // Chon phuong thuc tahnh toan
     private fun setSelectedPaymentMethod(selectedButton: ImageButton) {
         val txtCash = findViewById<TextView>(R.id.txtCash)
