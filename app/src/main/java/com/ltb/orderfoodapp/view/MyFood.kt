@@ -1,64 +1,71 @@
 package com.ltb.orderfoodapp.view
 
-//import ProductViewModel
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ListView
+import android.widget.Spinner
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModelProvider
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.adapter.CategoryAdapter
 import com.ltb.orderfoodapp.adapter.ItemAdapter
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class MyFood : AppCompatActivity() {
     private lateinit var itemAdapter: ItemAdapter
-    private lateinit var productList: List<Product>
+    private lateinit var productList: MutableList<Product>
+    private lateinit var filteredList: MutableList<Product>
     private lateinit var listView: ListView
+    private lateinit var categorySpinner: Spinner
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_my_food)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-        val btnAdd = findViewById<Button>(R.id.btnAddNew)
-        btnAdd.setOnClickListener {
-            val newItem = Intent(this, AddNewItems::class.java)
-            startActivity(newItem)
-        }
+        val viewModel = ProductViewModel(this)
+        productList = viewModel.getProducts().toMutableList()
+        filteredList = productList
 
         listView = findViewById(R.id.listitem)
-
-        // Sử dụng ViewModelProvider để khởi tạo ViewModel
-        val viewModel = ProductViewModel(this)
-
-        productList = viewModel.getProducts()
-
-        // Initialize and set adapter
-        itemAdapter = ItemAdapter(this, productList.toMutableList())
-        listView.adapter = itemAdapter
-
-        // Optional: Update total items TextView
+        categorySpinner = findViewById(R.id.categorySpinner)
         val totalItemsTextView: TextView = findViewById(R.id.textView6)
-        totalItemsTextView.text = "Total ${productList.size} items"
 
-        val back = findViewById<ImageButton>(R.id.back)
-        back.setOnClickListener{
-            val myBack = Intent(this, Menu::class.java)
-            startActivity(myBack)
+        // Thiết lập Spinner
+        val categories = mutableListOf("All")
+        categories.addAll(viewModel.getCategories())
+        val categoryAdapter = CategoryAdapter(this, categories)
+        categorySpinner.adapter = categoryAdapter
+
+        // Xử lý khi chọn danh mục
+        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedCategory = categories[position]
+                filteredList = if (selectedCategory == "All") {
+                    productList
+                } else {
+                    productList.filter { it.getCategory() == selectedCategory }.toMutableList()
+                }
+                itemAdapter = ItemAdapter(this@MyFood, filteredList)
+                listView.adapter = itemAdapter
+                totalItemsTextView.text = "Total ${filteredList.size} items"
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        // Nút quay lại
+        findViewById<View>(R.id.back).setOnClickListener {
+            startActivity(Intent(this, Menu::class.java))
+        }
+
+        // Nút thêm mới
+        findViewById<View>(R.id.btnAddNew).setOnClickListener {
+            startActivity(Intent(this, AddNewItems::class.java))
         }
     }
 }

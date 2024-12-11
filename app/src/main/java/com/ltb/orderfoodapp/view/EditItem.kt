@@ -15,7 +15,6 @@ import com.ltb.orderfoodapp.data.model.Product
 
 class EditItem : AppCompatActivity() {
     private var productId: Int = -1
-    private var rating: Float = 0f
     private lateinit var productDAO: ProductDAO
     private lateinit var editTextName: EditText
     private lateinit var editTextPrice: EditText
@@ -28,7 +27,6 @@ class EditItem : AppCompatActivity() {
 
         // Nhận product_id từ Intent
         productId = intent.getIntExtra("product_id", -1)
-        rating = intent.getFloatExtra("rating" , 0f)
         if (productId == -1) {
             Toast.makeText(this, "Invalid product", Toast.LENGTH_SHORT).show()
             finish()
@@ -65,7 +63,7 @@ class EditItem : AppCompatActivity() {
 
     private fun saveProductChanges(product: Product) {
         // Lưu lại các thay đổi vào cơ sở dữ liệu
-        val updatedProduct = Product(product.getIdProduct(), editTextName.text.toString(), editTextPrice.text.toString().toInt(),rating, description.text.toString())
+        val updatedProduct = Product(product.getIdProduct(), editTextName.text.toString(), editTextPrice.text.toString().toInt(),product.getRating(), description.text.toString())
         productDAO.updateProduct(updatedProduct)
         Toast.makeText(this, "Product updated", Toast.LENGTH_SHORT).show()
         finish()

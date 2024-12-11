@@ -2,6 +2,7 @@ package com.ltb.orderfoodapp.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,30 +60,25 @@ class ProductCartAdapter(
         }
 
         // Xử lý sự kiện click
-        holder.itemView.setOnClickListener {
-            val intent = Intent(context, FoodDetail::class.java)
-            intent.putExtra("idProduct", productCart.getProductId())
-            intent.putExtra("name", productCart.getName())
-            intent.putExtra("price", productCart.getPrice())
-            intent.putExtra("rating", productCart.getRating())
-            intent.putStringArrayListExtra("imageResource", ArrayList(productCart.images))
-            context.startActivity(intent)
-        }
-        // Xử lý sự kiện click nút Delete
         holder.btnDelete.setOnClickListener {
-            GlobalScope.launch(Dispatchers.IO) {
-                val cartDAO = ProductCartDAO(context)
-                cartDAO.deleteProduct(productCart.getProductId()) // Xóa sản phẩm khỏi database
+            val currentPosition = holder.absoluteAdapterPosition
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                GlobalScope.launch(Dispatchers.IO) {
+                    val cartDAO = ProductCartDAO(context)
+                    val isDeleted = cartDAO.deleteProduct(productCartList[currentPosition].getProductId())
 
-                withContext(Dispatchers.Main) {
-                    productCartList.removeAt(position) // Xóa sản phẩm khỏi danh sách
-                    notifyItemRemoved(position) // Cập nhật RecyclerView
+                    if (isDeleted) {
+                        withContext(Dispatchers.Main) {
+                            if (currentPosition >= 0 && currentPosition < productCartList.size) {
+                                productCartList.removeAt(currentPosition)
+                                notifyItemRemoved(currentPosition)
 
-                    // Kiểm tra nếu giỏ hàng trống
-                    if (productCartList.isEmpty()) {
-                        onQuantityChanged?.invoke(0) // Gọi callback với giá trị 0
-                    } else {
-                        onQuantityChanged?.invoke(productCartList.sumOf { it.getPrice() * it.getQuantity() }.toInt())
+                                val totalAmount = productCartList.sumOf { it.getPrice() * it.getQuantity() }.toInt()
+                                onQuantityChanged?.invoke(if (productCartList.isEmpty()) 0 else totalAmount)
+                            } else {
+                                Log.e("ProductCartAdapter", "Invalid position: $currentPosition, Size: ${productCartList.size}")
+                            }
+                        }
                     }
                 }
             }
