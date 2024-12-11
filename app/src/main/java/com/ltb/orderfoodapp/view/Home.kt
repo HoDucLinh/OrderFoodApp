@@ -66,7 +66,7 @@ class Home : AppCompatActivity() {
         nextCart.setOnClickListener {
             if (isLoggedIn){
                 val cart = Intent(this, MyCart::class.java)
-                cart.putExtra("locationPath",locate )
+//                cart.putExtra("locationPath",locate )
                 startActivity(cart)
             }
             else Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
@@ -147,13 +147,17 @@ class Home : AppCompatActivity() {
 
 
     }
-
-    private fun fetchUserLocation(locationUser: TextView) : String{
+    private fun fetchUserLocation(locationUser: TextView) {
         locationHelper.getCurrentLocation { location ->
-            locate = locationHelper.getAddressFromLocation(location)
-            locationUser.setText(locate)
+            val locate = locationHelper.getAddressFromLocation(location)
+            locationUser.text = locate
+
+            val locationPath = getSharedPreferences("locationPath", MODE_PRIVATE)
+            val locationEditor = locationPath.edit()
+            locationEditor.putString("locationPath", locate)
+            locationEditor.apply()
+
         }
-        return locate
     }
 
     companion object {

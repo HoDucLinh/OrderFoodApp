@@ -108,7 +108,7 @@ class OrderDAO(private val context: Context) {
                 val order = Order(
                     idOrder = it.getInt(it.getColumnIndexOrThrow("OrderID")),
                     totalAmount = it.getFloat(it.getColumnIndexOrThrow("totalAmount")),
-                    orderStatus = it.getString(it.getColumnIndexOrThrow("orderStatus")),
+                    Status = it.getInt(it.getColumnIndexOrThrow("Status")),
                     orderDate = SimpleDateFormat("yyyy-MM-dd").parse(it.getString(it.getColumnIndexOrThrow("orderDate"))),
                     userId = it.getInt(it.getColumnIndexOrThrow("UserID")),
 //                    restaurantId = 0,
@@ -120,8 +120,7 @@ class OrderDAO(private val context: Context) {
                     orderId = order.getIdOrder(),
                     productId = it.getInt(it.getColumnIndexOrThrow("ProductID")),
                     quantity = 1, // Default value (update if required)
-                    unitPrice = it.getFloat(it.getColumnIndexOrThrow("Price")),
-                    totalPrice = it.getFloat(it.getColumnIndexOrThrow("Price")) // Default to unitPrice (update if required)
+                    unitPrice = it.getFloat(it.getColumnIndexOrThrow("Price"))
                 )
 
                 orderDetail.setProductId(it.getInt(it.getColumnIndexOrThrow("ProductID")))

@@ -44,57 +44,39 @@
 <!--        android:layout_height="match_parent"-->
 <!--        tools:context=".MapsActivity" />-->
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="641dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/title"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:layout_margin="@dimen/font_size_large"
+            android:textSize="@dimen/font_size_medium"
+            android:text="" />
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:textSize="@dimen/font_size_large"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="20:00 Minute" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Received"
+            android:fontFamily="@font/sen"
+            android:layout_margin="@dimen/margin_button"
+            />
 
-            <ImageView
-                android:layout_width="168dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/burger" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Uttora Coffee House" />
-
-                <TextView
-                    android:id="@+id/textView28"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Orderd at 06 Sept, 10:00pm" />
-
-                <TextView
-                    android:id="@+id/textView29"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="2x Burger" />
-
-                <TextView
-                    android:id="@+id/textView30"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="4x Sanwitch" />
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

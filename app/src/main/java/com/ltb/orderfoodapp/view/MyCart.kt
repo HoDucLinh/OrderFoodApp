@@ -83,9 +83,11 @@ class MyCart : AppCompatActivity() {
                 }
             }
             val editAddress = findViewById<Button>(R.id.editAddress)
-            val locationPath = intent.getStringExtra("locationPath")
+            val sharedPreferences = getSharedPreferences("locationPath", MODE_PRIVATE)
+            val locationPath = sharedPreferences.getString("locationPath", "Không có địa chỉ")
             val address = findViewById<EditText>(R.id.addressUser)
             address.setText(locationPath)
+
             editAddress.setOnClickListener{
                 address.isEnabled = true
                 address.requestFocus()

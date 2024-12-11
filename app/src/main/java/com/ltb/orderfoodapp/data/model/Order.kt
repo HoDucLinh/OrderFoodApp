@@ -5,7 +5,7 @@ import java.util.Date
 class Order(
     private var idOrder: Int = 0,
     private var totalAmount: Float = 0f,
-    private var orderStatus: String = "",
+    private var Status: Int = 0,
     private var orderDate: Date = Date(),
     private var userId: Int = 0,
 //    private var restaurantId: Int = 0,
@@ -27,12 +27,12 @@ class Order(
         totalAmount = value
     }
 
-    fun getOrderStatus(): String {
-        return orderStatus
+    fun getStatus(): Int {
+        return Status
     }
 
-    fun setOrderStatus(value: String) {
-        orderStatus = value
+    fun setStatus(value: Int) {
+        Status = value
     }
 
     fun getOrderDate(): Date {

@@ -84,8 +84,6 @@ class PaymentMethod : AppCompatActivity() {
         val paymentSuccess = Intent(this, PaymentSuccess::class.java)
         paymentConfirm.setOnClickListener {
             if (btnCash.isSelected) {
-                print("cash")
-
                 orderDAO.addOrder(pricePayment, 1, userId, cartProducts.toMutableList())
                 deleteProductsFromCart(cartProducts)
                 startActivity(paymentSuccess)
@@ -103,7 +101,7 @@ class PaymentMethod : AppCompatActivity() {
                     onSuccess = {
                         Toast.makeText(this, "Thanh toán thành công", Toast.LENGTH_SHORT).show()
 
-                        orderDAO.addOrder(pricePayment, 3, userId, cartProducts.toMutableList())
+                        orderDAO.addOrder(pricePayment, 1, userId, cartProducts.toMutableList())
                         deleteProductsFromCart(cartProducts)
                         // Chuyển đến màn hình thành công
                         startActivity(paymentSuccess)

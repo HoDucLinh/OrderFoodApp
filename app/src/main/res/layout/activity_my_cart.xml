@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:layout_marginTop="@dimen/margin_layoutTop"
     tools:context=".view.MyCart">
 
     <!-- Thanh tiêu đề với nút quay lại, tên giỏ hàng và nút sửa -->
@@ -15,8 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:orientation="horizontal"
         android:padding="@dimen/padding_layout"
-        android:orientation="horizontal">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/backHome"
@@ -58,11 +60,13 @@
         android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/rounded_top_corners"
         android:orientation="vertical"
+        android:scaleType="centerCrop"
         android:windowSoftInputMode="adjustPan"
-        android:layout_alignParentBottom="true"
-        android:scaleType="centerCrop">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewCart">
 
         <!-- Địa chỉ giao hàng -->
         <LinearLayout
@@ -76,22 +80,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/sen"
                 android:padding="10dp"
-                android:layout_weight="1"
-                android:textColor="@color/darkBG"
-                android:background="@android:color/transparent"
-                android:text="Delivery Address" />
+                android:text="Delivery Address"
+                android:textColor="@color/darkBG" />
 
             <Button
                 android:id="@+id/editAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
                 android:fontFamily="@font/sen_regular"
                 android:text="Edit"
-                android:textSize="15dp"
-                android:layout_marginRight="30dp"/>
+                android:textSize="15dp" />
         </LinearLayout>
 
         <EditText
@@ -102,13 +106,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:background="@color/aliceblue"
+            android:enabled="false"
             android:fontFamily="@font/sen"
             android:padding="@dimen/padding_input_login"
             android:paddingLeft="10dp"
-            android:enabled="false"
-            android:textSize="@dimen/font_size_small"
             android:text="Khong the lay dia chi"
-            android:textColor="@color/textDark" />
+            android:textColor="@color/textDark"
+            android:textSize="@dimen/font_size_small" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -121,10 +125,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
 
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/sen"
                 android:padding="10dp"
                 android:text="TOTAL:"
-                android:background="@android:color/transparent"
                 android:textColor="@color/textDark" />
 
             <TextView
@@ -132,11 +136,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/sen"
                 android:padding="10dp"
                 android:text="$96"
                 android:textColor="@color/textDark"
-                android:background="@android:color/transparent"
                 android:textSize="@dimen/font_size_medium" />
 
         </LinearLayout>
@@ -153,4 +157,4 @@
             android:text="PLACE ORDER" />
     </LinearLayout>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
