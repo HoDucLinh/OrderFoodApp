@@ -55,11 +55,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(CREATE_PRODUCT_CART_TABLE)
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        TODO("Not yet implemented")
-    }
 
-//    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
 //        db.execSQL("DROP TABLE IF EXISTS $TABLE_CATEGORY")
 //        db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCT")
 //        db.execSQL("DROP TABLE IF EXISTS $TABLE_IMAGE")
@@ -77,7 +75,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 //        db.execSQL("DROP TABLE IF EXISTS $TABLE_CART")
 //        db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCT_CART")
 //        onCreate(db)
-//    }
+    }
 
     // Tạo các bảng
     private val CREATE_CATEGORY_TABLE = """

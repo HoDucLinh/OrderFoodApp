@@ -14,12 +14,12 @@ class ProductDAO(context: Context) {
     private val db: SQLiteDatabase
     private lateinit var categoryDAO: CategoryDAO
     private lateinit var imageDAO: ImageDAO
-    private lateinit var restaurantDAO: RestaurantDAO
+//    private lateinit var restaurantDAO: RestaurantDAO
 
     init {
         db = DatabaseHelper.getInstance(context).writableDatabase
         categoryDAO = CategoryDAO(context)
-        restaurantDAO = RestaurantDAO(context)
+//        restaurantDAO = RestaurantDAO(context)
 
     }
 
@@ -35,7 +35,7 @@ class ProductDAO(context: Context) {
             price = 150000,
             rating = 4.5f,
             description = "Pizza với phô mai và cà chua tươi",
-            restaurant = "Pizza Hut",
+//            restaurant = "Pizza Hut",
             category = "Pizza",
             images = mutableListOf(
                 "https://example.com/image1.jpg",
@@ -104,18 +104,18 @@ class ProductDAO(context: Context) {
     }
 
     // Kiểm tra xem nhà hàng có tồn tại chưa, nếu chưa thì thêm mới
-    private fun getOrInsertRestaurant(restaurantName: String): Int {
-        var restaurantId = restaurantDAO.getRestaurantIdByName(restaurantName)
-        if (restaurantId == -1) {
-            val restaurantValues = ContentValues().apply {
-                put("Name", restaurantName)
-                put("Address", " ")
-            }
-            val newRestaurantId = db.insert("Restaurant", null, restaurantValues)
-            restaurantId = newRestaurantId.toInt()
-        }
-        return restaurantId
-    }
+//    private fun getOrInsertRestaurant(restaurantName: String): Int {
+//        var restaurantId = restaurantDAO.getRestaurantIdByName(restaurantName)
+//        if (restaurantId == -1) {
+//            val restaurantValues = ContentValues().apply {
+//                put("Name", restaurantName)
+//                put("Address", " ")
+//            }
+//            val newRestaurantId = db.insert("Restaurant", null, restaurantValues)
+//            restaurantId = newRestaurantId.toInt()
+//        }
+//        return restaurantId
+//    }
 
     // Cập nhật sản phẩm với restaurant_id
     private fun updateProductRestaurant(productId: Long, restaurantId: Int) {
