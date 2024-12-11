@@ -133,5 +133,67 @@ class OrderDAO(private val context: Context) {
         }
         return orders
     }
+    fun getAllOrders(): MutableList<Order> {
+        val orders = mutableListOf<Order>()
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT o.ID AS OrderID, o.totalAmount, o.Status, o.orderDate
+        FROM "Order" o
+        """
+        val cursor = db.rawQuery(query, null)
+        cursor.use {
+            while (it.moveToNext()) {
+                val order = Order(
+                    idOrder = it.getInt(it.getColumnIndexOrThrow("OrderID")),
+                    totalAmount = it.getFloat(it.getColumnIndexOrThrow("totalAmount")),
+                    Status = it.getInt(it.getColumnIndexOrThrow("Status")),
+                    orderDate = SimpleDateFormat("yyyy-MM-dd").parse(it.getString(it.getColumnIndexOrThrow("orderDate"))),
+                )
+                orders.add(order)
+            }
+        }
+        return orders
+    }
+//    fun getRunningOrders(): List<Order> {
+//        val orders = mutableListOf<Order>()
+//        val db = dbHelper.readableDatabase
+//        val query = """
+//        SELECT o.ID AS OrderID, o.totalAmount, o.Status, o.orderDate
+//        FROM "Order" o
+//        WHERE o.Status = 1
+//    """
+//        val cursor = db.rawQuery(query, null)
+//        cursor.use {
+//            while (it.moveToNext()) {
+//                val order = Order(
+//                    idOrder = it.getInt(it.getColumnIndexOrThrow("OrderID")),
+//                    totalAmount = it.getFloat(it.getColumnIndexOrThrow("totalAmount")),
+//                    orderStatus = it.getString(it.getColumnIndexOrThrow("Status")),
+//                    orderDate = SimpleDateFormat("yyyy-MM-dd").parse(it.getString(it.getColumnIndexOrThrow("orderDate"))),
+//                )
+//                orders.add(order)
+//            }
+//        }
+//        return orders
+//    }
+
+    fun getTotalRevenue(): Float {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT SUM(o.totalAmount) AS totalRevenue
+        FROM "Order" o
+        WHERE o.Status = 'Completed'
+    """
+        val cursor = db.rawQuery(query, null)
+        var totalRevenue = 0f
+        cursor.use {
+            if (it.moveToFirst()) {
+                totalRevenue = it.getFloat(it.getColumnIndexOrThrow("totalRevenue"))
+            }
+        }
+        return totalRevenue
+    }
+
+
 
 }

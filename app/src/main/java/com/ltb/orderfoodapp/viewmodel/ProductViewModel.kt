@@ -35,10 +35,6 @@ class ProductViewModel(context: Context) {
     fun getProductById(idProduct : Int): MutableList<Product>{
         return products.filter { it.getIdProduct() == idProduct}.toMutableList()
     }
-
-//    fun getProductsByRestaurant(restaurant: String): List<Product> {
-//        return products.filter { it.getRestaurant() == restaurant }.toMutableList()
-//    }
     // Phương thức đóng cơ sở dữ liệu
     fun close() {
         productDAO.close()

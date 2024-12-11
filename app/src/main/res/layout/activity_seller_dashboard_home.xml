@@ -69,7 +69,7 @@
                 android:fontFamily="@font/sen"
                 android:background="@color/white"
                 android:textColor="@color/darkBG"
-                android:text="20"
+                android:text="0"
                 android:textSize="100dp" />
 
             <TextView
@@ -93,13 +93,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/totalOrders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sen"
                 android:background="@color/white"
                 android:textColor="@color/darkBG"
-                android:text="05"
+                android:text="0"
                 android:textSize="100dp" />
 
             <TextView
@@ -110,7 +110,7 @@
                 android:fontFamily="@font/sen"
                 android:textColor="@color/darkBG"
                 android:background="@color/white"
-                android:text="Order Request" />
+                android:text="Total Orders" />
         </LinearLayout>
 
     </LinearLayout>
