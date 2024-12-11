@@ -43,4 +43,8 @@ class ProductViewModel(context: Context) {
     fun close() {
         productDAO.close()
     }
+    fun getCategories(): List<String> {
+        return products.map { it.getCategory() }.distinct()
+    }
+
 }

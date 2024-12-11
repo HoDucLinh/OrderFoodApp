@@ -6,7 +6,7 @@
     android:padding="@dimen/padding_layout">
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/image"
         android:layout_width="195dp"
         android:layout_height="157dp"
         android:layout_weight="1" />
@@ -19,7 +19,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="73dp">
+            android:layout_height="88dp">
 
             <TextView
                 android:id="@+id/txtNameFood"
@@ -40,17 +40,18 @@
                 android:text="Edit" />
         </RelativeLayout>
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="43dp"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtNameRestaurant"
+                android:id="@+id/txtCate"
                 android:layout_width="159dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:text="Breakfast" />
+                android:text="Food" />
 
             <TextView
                 android:id="@+id/txtPrice"
@@ -63,19 +64,5 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:orientation="horizontal">
-
-            <RatingBar
-                android:id="@+id/txtRating"
-                android:layout_width="wrap_content"
-                android:layout_height="39dp"
-                android:gravity="center"
-                />
-
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
