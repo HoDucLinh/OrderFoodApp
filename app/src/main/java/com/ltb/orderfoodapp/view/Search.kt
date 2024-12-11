@@ -34,9 +34,13 @@ class Search : AppCompatActivity() {
         val searchbar = findViewById<EditText>(R.id.searchInput)
         val clearInput = findViewById<ImageButton>(R.id.closeBtn)
         val searchInput = findViewById<EditText>(R.id.searchInput)
+        val filter = findViewById<ImageButton>(R.id.searchBtn)
         searchInput.addTextChangedListener{
             products = productViewModel.getProductsFilter(searchInput.text.toString())
             setupGridView()
+        }
+        filter.setOnClickListener{
+
         }
 
         searchbar.requestFocus()

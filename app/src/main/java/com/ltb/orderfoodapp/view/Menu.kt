@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.api.AuthManager
+import org.w3c.dom.Text
 
 class Menu : AppCompatActivity() {
     private lateinit var auth : AuthManager
@@ -40,6 +41,11 @@ class Menu : AppCompatActivity() {
         personalInforBtn.setOnClickListener{
             val personalInfor = Intent(this,PersonalInformation::class.java)
             startActivity(personalInfor)
+        }
+        val myCateList = findViewById<TextView>(R.id.myCateList)
+        myCateList.setOnClickListener{
+            val addCategory = Intent(this,AddNewCategory::class.java)
+            startActivity(addCategory)
         }
 
     }
