@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.UserAdapter
+import com.ltb.orderfoodapp.data.api.AuthManager
 import com.ltb.orderfoodapp.data.dao.UserDAO
 import com.ltb.orderfoodapp.data.model.User
 
@@ -16,6 +17,7 @@ class EditRole : AppCompatActivity(), AddUserFragment.OnUserAddedListener {
     private lateinit var userDAO: UserDAO
     private lateinit var users: MutableList<User>
     private lateinit var adapter: UserAdapter
+    private lateinit var authManager : AuthManager
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,12 +42,13 @@ class EditRole : AppCompatActivity(), AddUserFragment.OnUserAddedListener {
     }
 
 
-    // Hàm xử lý sự kiện khi người dùng thêm mới user
     override fun onUserAdded(user: User) {
         val userId = userDAO.addUser(user)
+        authManager = AuthManager(this)
+        authManager.createAccount(user.getEmail(),user.getPassword())
         if (userId > 0) {
-            user.setIdUser(userId) // Cập nhật ID của user
-            users.add(user)      // Thêm user mới vào danh sách
+            user.setIdUser(userId)
+            users.add(user)
             adapter.notifyDataSetChanged()
             Toast.makeText(this, "User added successfully", Toast.LENGTH_SHORT).show()
         } else {

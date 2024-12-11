@@ -98,7 +98,7 @@
                 android:textSize="15dp" />
         </LinearLayout>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/addressUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

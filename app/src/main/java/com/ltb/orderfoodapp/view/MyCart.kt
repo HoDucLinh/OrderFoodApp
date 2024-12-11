@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -16,9 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ProductCartAdapter
-import com.ltb.orderfoodapp.data.api.Payment
-import com.ltb.orderfoodapp.data.dao.CartDAO
-import com.ltb.orderfoodapp.data.dao.ProductCartDAO
+import com.ltb.orderfoodapp.data.LocationHelper
 import com.ltb.orderfoodapp.data.model.ProductCart
 import com.ltb.orderfoodapp.data.model.User
 import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
@@ -28,6 +29,7 @@ class MyCart : AppCompatActivity() {
     private lateinit var productCartAdapter: ProductCartAdapter
     private lateinit var productCartViewModel : ProductCartViewModel
     private var cartList : MutableList<ProductCart> = mutableListOf()
+    private lateinit var locationHelper: LocationHelper
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,14 +87,13 @@ class MyCart : AppCompatActivity() {
             val editAddress = findViewById<Button>(R.id.editAddress)
             val sharedPreferences = getSharedPreferences("locationPath", MODE_PRIVATE)
             val locationPath = sharedPreferences.getString("locationPath", "Không có địa chỉ")
-            val address = findViewById<EditText>(R.id.addressUser)
-            address.setText(locationPath)
-
-            editAddress.setOnClickListener{
-                address.isEnabled = true
-                address.requestFocus()
-            }
-
+//            val address = findViewById<EditText>(R.id.addressUser)
+//            address.setText(locationPath)
+//
+//            editAddress.setOnClickListener{
+//                address.isEnabled = true
+//                address.requestFocus()
+//            }
 
             // Chuyen toi payment
             payment.setOnClickListener {
@@ -101,9 +102,36 @@ class MyCart : AppCompatActivity() {
                 val gson = Gson()
                 val cartProductsJson = gson.toJson(cartList)
                 paymentMethod.putExtra("cartProductsJson", cartProductsJson)
+                val editor = sharedPreferences.edit()
+//                editor.putString("locationPath", address.text.toString())
+                editor.apply()
                 startActivity(paymentMethod)
             }
 
+            locationHelper = LocationHelper(this)
+            val autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.addressUser)
+            editAddress.setOnClickListener{
+                autoCompleteTextView.isEnabled = true
+                autoCompleteTextView.requestFocus()
+            }
+            // Lắng nghe sự kiện thay đổi văn bản trên AutoCompleteTextView
+            autoCompleteTextView.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
+                    // Có thể bỏ qua
+                }
+
+                override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+                    // Kiểm tra nếu người dùng đã nhập văn bản
+                    val query = charSequence.toString()
+                    if (query.isNotEmpty()) {
+                        locationHelper.fetchAddressSuggestions(query, autoCompleteTextView)
+                    }
+                }
+
+                override fun afterTextChanged(editable: Editable?) {
+
+                }
+            })
         }
     }
 
@@ -133,5 +161,7 @@ class MyCart : AppCompatActivity() {
             total.text = "$totalPrice VND"
         }
     }
+
+
 
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ltb.orderfoodapp.R
@@ -41,7 +42,7 @@ class ItemAdapter(
         val txtNameFood = view.findViewById<TextView>(R.id.txtNameFood)
         val txtCate = view.findViewById<TextView>(R.id.txtCate)
         val txtPrice = view.findViewById<TextView>(R.id.txtPrice)
-        val image = view.findViewById<ImageButton>(R.id.image)
+        val image = view.findViewById<ImageView>(R.id.image)
         val btnEdit = view.findViewById<Button>(R.id.btnEdit)
 
         txtNameFood.text = product.getName()
