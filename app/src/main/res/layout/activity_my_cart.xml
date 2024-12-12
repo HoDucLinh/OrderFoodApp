@@ -40,7 +40,8 @@
             android:id="@+id/all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:fontFamily="@font/sen"
+            android:textSize="@dimen/font_size_medium"
             android:text="All" />
 
 
