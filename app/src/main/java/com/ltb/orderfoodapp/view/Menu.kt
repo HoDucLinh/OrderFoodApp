@@ -2,9 +2,11 @@ package com.ltb.orderfoodapp.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.text.input.ImeAction
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ltb.orderfoodapp.R
@@ -46,6 +48,11 @@ class Menu : AppCompatActivity() {
         myCateList.setOnClickListener{
             val addCategory = Intent(this,AddNewCategory::class.java)
             startActivity(addCategory)
+        }
+        val back = findViewById<ImageButton>(R.id.back)
+        back.setOnClickListener {
+            val sellerDashboard = Intent(this,SellerDashboardHome::class.java)
+            startActivity(sellerDashboard)
         }
 
     }

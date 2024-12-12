@@ -211,7 +211,7 @@
                 android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/WhisperWhite"
+                android:background="@android:color/transparent"
                 android:gravity="start|center"
                 android:text="Log Out"
                 android:textAllCaps="false"
