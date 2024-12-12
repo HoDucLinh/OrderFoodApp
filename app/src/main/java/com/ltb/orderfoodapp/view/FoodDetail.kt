@@ -1,10 +1,8 @@
 package com.ltb.orderfoodapp.view
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
@@ -14,12 +12,9 @@ import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.ReviewAdapter
 import com.ltb.orderfoodapp.data.dao.ProductCartDAO
-import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.dao.RatingDAO
 import com.ltb.orderfoodapp.data.model.Product
-import com.ltb.orderfoodapp.data.model.ProductCart
 import com.ltb.orderfoodapp.data.model.User
-import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class FoodDetail : AppCompatActivity() {
 

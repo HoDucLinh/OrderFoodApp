@@ -1,24 +1,19 @@
 package com.ltb.orderfoodapp.data.dao
 
+//import com.ltb.orderfoodapp.data.model.Restaurant
 import android.content.ContentValues
 import android.content.Context
 import android.os.Build
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.currentCompositionErrors
-import com.google.type.DateTime
 import com.ltb.orderfoodapp.data.DatabaseHelper
-import com.ltb.orderfoodapp.data.model.Category
 import com.ltb.orderfoodapp.data.model.Order
 import com.ltb.orderfoodapp.data.model.OrderDetail
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
-//import com.ltb.orderfoodapp.data.model.Restaurant
-import com.ltb.orderfoodapp.data.model.Status
-import com.ltb.orderfoodapp.data.model.User
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+
 
 class OrderDAO(private val context: Context) {
     val dbHelper = DatabaseHelper.getInstance(context)
@@ -192,6 +187,64 @@ class OrderDAO(private val context: Context) {
             }
         }
         return totalRevenue
+    }
+
+
+    fun getAllProducts(status :Int): List<Product> {
+        val productList = mutableListOf<Product>()
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT
+            p.ID AS ProductID,
+            p.Name AS ProductName,
+            p.Price,
+            p.Description
+        FROM "Order"
+        JOIN OrderDetail od ON "Order".ID = od.Order_ID
+        JOIN Product p ON od.Product_ID = p.ID
+        WHERE "Order".Status = ?
+    """
+
+        val cursor = db.rawQuery(query, arrayOf(status.toString()))
+
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    val product = Product(
+                        idProduct = cursor.getInt(cursor.getColumnIndexOrThrow("ProductID")),
+                        name = cursor.getString(cursor.getColumnIndexOrThrow("ProductName")),
+                        price = cursor.getInt(cursor.getColumnIndexOrThrow("Price")),
+                        description = cursor.getString(cursor.getColumnIndexOrThrow("Description"))
+                    )
+                    productList.add(product)
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+            // Handle any exception that might occur
+            e.printStackTrace()
+        } finally {
+            cursor.close()
+            db.close()
+        }
+
+        return productList
+    }
+
+    fun getProductQuantityByProductId(productId: Int): Int {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT Quantity FROM OrderDetail WHERE Product_ID = ?",
+            arrayOf(productId.toString())
+        )
+
+        var quantity = 0
+        cursor.use {
+            if (it.moveToFirst()) {
+                quantity = it.getInt(it.getColumnIndexOrThrow("Quantity"))
+            }
+        }
+        db.close()
+        return quantity
     }
 
 
