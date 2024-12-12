@@ -234,6 +234,26 @@ class OrderDAO(private val context: Context) {
         return quantity
     }
 
+    // In OrderDAO class
+    fun addProductToCart(productId: Int, cartId: Int) {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("Product_ID", productId)
+            put("Cart_ID", cartId)
+            put("quantity", 1)  // Quantity mặc định là 1
+        }
+
+        val newRowId = db.insert("Product_Cart", null, values)
+        db.close()
+
+        if (newRowId != -1L) {
+            Log.d("OrderDAO", "Thêm sản phẩm vào giỏ hàng thành công: Row ID $newRowId")
+        } else {
+            Log.e("OrderDAO", "Lỗi khi thêm sản phẩm vào giỏ hàng")
+        }
+    }
+
+
 
 
 }

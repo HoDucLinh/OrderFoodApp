@@ -2,6 +2,7 @@ package com.ltb.orderfoodapp.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,16 +13,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.dao.OrderDAO
 import com.ltb.orderfoodapp.data.model.Product
+import com.ltb.orderfoodapp.data.model.User
 import com.ltb.orderfoodapp.view.HistoryFragment
 import com.ltb.orderfoodapp.view.RateProductDialogFragment
 
 class OrderAdapter(
     private val context: Context,
     private val products: List<Product>,
-    private val fragment: Fragment
+    private val fragment: Fragment,
+    private val cartId: Int
 ) : BaseAdapter() {
 
     private val orderDAO = OrderDAO(context)
@@ -66,6 +70,13 @@ class OrderAdapter(
         Log.d("OrderAdapter", "productsList size history: ${products.size}")
         val product = products[position]
 
+
+
+        val reOrderButton = view.findViewById<Button>(R.id.btn_reorder)
+        reOrderButton.setOnClickListener {
+            orderDAO.addProductToCart(product.getIdProduct(), cartId)
+        }
+
         val ratingBtn = view.findViewById<Button>(R.id.rating)
         ratingBtn.setOnClickListener {
             val dialog = RateProductDialogFragment.newInstance(product.getIdProduct())
@@ -102,6 +113,7 @@ class OrderAdapter(
         val product = products[position]
         val productQuantity = orderDAO.getProductQuantityByProductId(product.getIdProduct())
 
+
         val orderImg = view.findViewById<ImageView>(R.id.order_img)
         Glide.with(context)
             .load(product.getImages().firstOrNull() ?: R.drawable.burger)
@@ -116,4 +128,6 @@ class OrderAdapter(
         orderPrice.text = "${product.getPrice() * productQuantity}VND"
         orderQuantity.text = "$productQuantity Items"
     }
+
+
 }
