@@ -3,5 +3,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!-- item_no_product.xml -->
+    <TextView
+        android:id="@+id/no_product_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Không có sản phẩm để hiển thị"
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray" />
 
 </LinearLayout>

@@ -4,7 +4,9 @@ package com.ltb.orderfoodapp.data.dao
 import android.content.ContentValues
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.core.database.getStringOrNull
 import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.model.Order
 import com.ltb.orderfoodapp.data.model.OrderDetail
@@ -149,28 +151,6 @@ class OrderDAO(private val context: Context) {
         }
         return orders
     }
-//    fun getRunningOrders(): List<Order> {
-//        val orders = mutableListOf<Order>()
-//        val db = dbHelper.readableDatabase
-//        val query = """
-//        SELECT o.ID AS OrderID, o.totalAmount, o.Status, o.orderDate
-//        FROM "Order" o
-//        WHERE o.Status = 1
-//    """
-//        val cursor = db.rawQuery(query, null)
-//        cursor.use {
-//            while (it.moveToNext()) {
-//                val order = Order(
-//                    idOrder = it.getInt(it.getColumnIndexOrThrow("OrderID")),
-//                    totalAmount = it.getFloat(it.getColumnIndexOrThrow("totalAmount")),
-//                    orderStatus = it.getString(it.getColumnIndexOrThrow("Status")),
-//                    orderDate = SimpleDateFormat("yyyy-MM-dd").parse(it.getString(it.getColumnIndexOrThrow("orderDate"))),
-//                )
-//                orders.add(order)
-//            }
-//        }
-//        return orders
-//    }
 
     fun getTotalRevenue(): Float {
         val db = dbHelper.readableDatabase
@@ -190,7 +170,7 @@ class OrderDAO(private val context: Context) {
     }
 
 
-    fun getAllProducts(status :Int): List<Product> {
+    fun getAllProducts(status: Int): List<Product> {
         val productList = mutableListOf<Product>()
         val db = dbHelper.readableDatabase
         val query = """
@@ -198,35 +178,42 @@ class OrderDAO(private val context: Context) {
             p.ID AS ProductID,
             p.Name AS ProductName,
             p.Price,
-            p.Description
+            p.Description,
+            i.Value AS ImageSource 
         FROM "Order"
         JOIN OrderDetail od ON "Order".ID = od.Order_ID
         JOIN Product p ON od.Product_ID = p.ID
+        LEFT JOIN Image i ON p.ID = i.Product_ID
         WHERE "Order".Status = ?
     """
 
         val cursor = db.rawQuery(query, arrayOf(status.toString()))
 
-        try {
-            if (cursor.moveToFirst()) {
+        cursor.use { cur ->
+            if (cur.moveToFirst()) {
                 do {
-                    val product = Product(
-                        idProduct = cursor.getInt(cursor.getColumnIndexOrThrow("ProductID")),
-                        name = cursor.getString(cursor.getColumnIndexOrThrow("ProductName")),
-                        price = cursor.getInt(cursor.getColumnIndexOrThrow("Price")),
-                        description = cursor.getString(cursor.getColumnIndexOrThrow("Description"))
-                    )
-                    productList.add(product)
-                } while (cursor.moveToNext())
-            }
-        } catch (e: Exception) {
-            // Handle any exception that might occur
-            e.printStackTrace()
-        } finally {
-            cursor.close()
-            db.close()
-        }
+                    try {
+                        val product = Product(
+                            idProduct = cur.getInt(cur.getColumnIndexOrThrow("ProductID")),
+                            name = cur.getString(cur.getColumnIndexOrThrow("ProductName")),
+                            price = cur.getInt(cur.getColumnIndexOrThrow("Price")),
+                            description = cur.getString(cur.getColumnIndexOrThrow("Description"))
+                        )
 
+                        val imageUrl = cur.getStringOrNull(cur.getColumnIndexOrThrow("ImageSource"))
+                        if (!imageUrl.isNullOrEmpty()) {
+                            val currentImages = product.getImages()
+                            currentImages.add(imageUrl)
+                            product.setImages(currentImages)
+                        }
+                        productList.add(product)
+                    } catch (e: Exception) {
+                        Log.e("getAllProducts", "Lỗi khi xử lý dòng dữ liệu: ${e.message}")
+                    }
+                } while (cur.moveToNext())
+            }
+        }
+        db.close()
         return productList
     }
 
