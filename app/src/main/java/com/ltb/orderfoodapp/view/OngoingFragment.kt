@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.OrderAdapter
+import com.ltb.orderfoodapp.data.dao.OrderDAO
 import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
 
 class OngoingFragment : Fragment() {
@@ -26,9 +27,11 @@ class OngoingFragment : Fragment() {
         ordersContainer = view.findViewById(R.id.ordersContainer)
 
         // Them adapter
-        val productCartViewModel = ProductCartViewModel(requireContext())
-        val listCart = productCartViewModel.getProduct()
-        val adapterCart = OrderAdapter(requireContext(), listCart, this)
+//        val productCartViewModel = ProductCartViewModel(requireContext())
+//        val listCart = productCartViewModel.getProduct()
+        val orderDAO = OrderDAO(requireContext())
+        val productsList = orderDAO.getAllProducts(1)
+        val adapterCart = OrderAdapter(requireContext(), productsList, this)
         ordersContainer.adapter = adapterCart
 
         return view
