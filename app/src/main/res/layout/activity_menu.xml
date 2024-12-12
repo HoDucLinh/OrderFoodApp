@@ -143,6 +143,18 @@
             android:textColor="@color/textDark" />
 
         <TextView
+            android:id="@+id/statusOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="start|center"
+            android:drawableLeft="@drawable/icon_numberorder"
+            android:text="Order Status"
+            android:drawableRight="@drawable/ic_navigate_next_24"
+            android:fontFamily="@font/sen_bold"
+            android:textSize="16dp"
+            android:textColor="@color/textDark" />
+        <TextView
             android:id="@+id/myCateList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

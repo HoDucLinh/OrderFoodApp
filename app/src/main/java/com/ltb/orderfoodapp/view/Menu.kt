@@ -54,6 +54,10 @@ class Menu : AppCompatActivity() {
             val sellerDashboard = Intent(this,SellerDashboardHome::class.java)
             startActivity(sellerDashboard)
         }
-
+        val statusOrder = findViewById<TextView>(R.id.statusOrder)
+        statusOrder.setOnClickListener {
+            val status = Intent(this, OrderStatus::class.java)
+            startActivity(status)
+        }
     }
 }
