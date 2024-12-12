@@ -140,7 +140,5 @@
                 android:background="@drawable/rounded_button"/>
 
         </LinearLayout>
-
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
