@@ -63,7 +63,9 @@ class EditProfile : AppCompatActivity() {
 
         val btnSave: Button = findViewById(R.id.btn_saveInfor)
         btnSave.setOnClickListener {
+            val profile = Intent(this,MyMainMenu ::class.java)
             saveUserProfile()
+            startActivity(profile)
         }
     }
 

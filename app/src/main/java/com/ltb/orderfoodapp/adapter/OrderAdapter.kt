@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.dao.OrderDAO
 import com.ltb.orderfoodapp.data.model.Product
-//import com.ltb.orderfoodapp.data.model.ProductCart
 import com.ltb.orderfoodapp.view.HistoryFragment
 import com.ltb.orderfoodapp.view.RateProductDialogFragment
 
@@ -35,7 +34,13 @@ class OrderAdapter(
 
     @SuppressLint("MissingInflatedId")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        if (products.isEmpty() || position < 0 || position >= products.size) {
+        if (products.isEmpty()) {
+            Log.e("OrderAdapter", "Danh sách products rỗng.")
+            return LayoutInflater.from(context).inflate(R.layout.item_no_product, parent, false)
+        }
+
+        if (position < 0 || position >= products.size) {
+            Log.e("OrderAdapter", "Vị trí không hợp lệ: $position")
             return LayoutInflater.from(context).inflate(R.layout.item_no_product, parent, false)
         }
 
@@ -53,59 +58,62 @@ class OrderAdapter(
     }
 
     private fun setupHistoryView(position: Int, view: View) {
-        if (products.isNotEmpty()) {
-            Log.d("OrderAdapter", "productsList size history: ${products.size}")
-            val product = products[position]
-
-            val ratingBtn = view.findViewById<Button>(R.id.rating)
-            ratingBtn.setOnClickListener {
-                val dialog = RateProductDialogFragment.newInstance(product.getIdProduct())
-                fragment.parentFragmentManager.beginTransaction()
-                    .add(dialog, "RateProductDialog")
-                    .commit()
-            }
-
-            val productQuantity = orderDAO.getProductQuantityByProductId(product.getIdProduct())
-
-            val orderImg = view.findViewById<ImageView>(R.id.order_img)
-            Glide.with(context)
-                .load(product.getImages()[0] ?: R.drawable.burger)
-                .error(R.drawable.cancel) // Default image
-                .into(orderImg)
-
-            val orderName = view.findViewById<TextView>(R.id.order_name)
-            val orderPrice = view.findViewById<TextView>(R.id.order_price)
-            val orderQuantity = view.findViewById<TextView>(R.id.order_quantity)
-
-            orderName.text = product.getName()
-            orderPrice.text = "${product.getPrice() * productQuantity}VND"
-            orderQuantity.text = "$productQuantity Items"
-        } else {
-            Log.e("OrderAdapter", "No products available for the current status.")
+        if (products.isEmpty() || position < 0 || position >= products.size) {
+            Log.e("OrderAdapter", "Không có dữ liệu hợp lệ tại vị trí $position để thiết lập view lịch sử.")
+            return
         }
+
+        Log.d("OrderAdapter", "productsList size history: ${products.size}")
+        val product = products[position]
+
+        val ratingBtn = view.findViewById<Button>(R.id.rating)
+        ratingBtn.setOnClickListener {
+            val dialog = RateProductDialogFragment.newInstance(product.getIdProduct())
+            fragment.parentFragmentManager.beginTransaction()
+                .add(dialog, "RateProductDialog")
+                .commit()
+        }
+
+        val productQuantity = orderDAO.getProductQuantityByProductId(product.getIdProduct())
+
+        val orderImg = view.findViewById<ImageView>(R.id.order_img)
+
+        Glide.with(context)
+            .load(product.getImages().firstOrNull()?: R.drawable.burger)
+            .error(R.drawable.cancel) // Default image
+            .into(orderImg)
+
+        val orderName = view.findViewById<TextView>(R.id.order_name)
+        val orderPrice = view.findViewById<TextView>(R.id.order_price)
+        val orderQuantity = view.findViewById<TextView>(R.id.order_quantity)
+
+        orderName.text = product.getName()
+        orderPrice.text = "${product.getPrice() * productQuantity}VND"
+        orderQuantity.text = "$productQuantity Items"
     }
 
     private fun setupOngoingView(position: Int, view: View) {
-        Log.d("OrderAdapter", "productsList size on going : ${products.size}")
-        if (products.isNotEmpty() && position >= 0 && position < products.size) {
-            val product = products[position]
-            val productQuantity = orderDAO.getProductQuantityByProductId(product.getIdProduct())
-
-            val orderImg = view.findViewById<ImageView>(R.id.order_img)
-            Glide.with(context)
-                .load(product.getImages()[0] ?: R.drawable.burger)
-                .error(R.drawable.cancel) // Default image
-                .into(orderImg)
-
-            val orderName = view.findViewById<TextView>(R.id.order_name)
-            val orderPrice = view.findViewById<TextView>(R.id.order_price)
-            val orderQuantity = view.findViewById<TextView>(R.id.order_quantity)
-
-            orderName.text = product.getName()
-            orderPrice.text = "${product.getPrice() * productQuantity}VND"
-            orderQuantity.text = "$productQuantity Items"
-        } else {
-            Log.e("OrderAdapter", "No products available for the ongoing status or invalid position.")
+        if (products.isEmpty() || position < 0 || position >= products.size) {
+            Log.e("OrderAdapter", "Không có dữ liệu hợp lệ tại vị trí $position để thiết lập view đang hoạt động.")
+            return
         }
+
+        Log.d("OrderAdapter", "productsList size on going: ${products.size}")
+        val product = products[position]
+        val productQuantity = orderDAO.getProductQuantityByProductId(product.getIdProduct())
+
+        val orderImg = view.findViewById<ImageView>(R.id.order_img)
+        Glide.with(context)
+            .load(product.getImages().firstOrNull() ?: R.drawable.burger)
+            .error(R.drawable.cancel) // Default image
+            .into(orderImg)
+
+        val orderName = view.findViewById<TextView>(R.id.order_name)
+        val orderPrice = view.findViewById<TextView>(R.id.order_price)
+        val orderQuantity = view.findViewById<TextView>(R.id.order_quantity)
+
+        orderName.text = product.getName()
+        orderPrice.text = "${product.getPrice() * productQuantity}VND"
+        orderQuantity.text = "$productQuantity Items"
     }
 }

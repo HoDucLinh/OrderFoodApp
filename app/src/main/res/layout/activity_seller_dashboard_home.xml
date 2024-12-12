@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="@dimen/margin_layoutTop"
+
     tools:context=".view.SellerDashboardHome">
 
     <LinearLayout
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sen"
-                android:text="Deliver to"
+                android:text="Hello"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/fontSize" />
 

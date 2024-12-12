@@ -50,12 +50,11 @@
         android:id="@+id/trackOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button"
-        android:backgroundTint="@color/orange"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="100dp"
-        android:text="TRACK ORDER"
+        android:text="Track Order"
+        android:fontFamily="@font/sen"
         android:textSize="20dp"/>
 
 </LinearLayout>

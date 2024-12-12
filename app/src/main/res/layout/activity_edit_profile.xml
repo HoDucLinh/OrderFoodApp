@@ -75,6 +75,7 @@
         android:background="@drawable/border_edittext"
         android:fontFamily="@font/sen"
         android:paddingLeft="30dp"
+        android:textColor="@color/darkBG"
         android:text="Vishal Khadok" />
 
     <TextView
@@ -98,6 +99,7 @@
         android:fontFamily="@font/sen"
         android:paddingLeft="30dp"
         android:inputType="none"
+        android:textColor="@color/darkBG"
         android:text="helloworld@gmail.com" />
 
     <TextView
@@ -120,6 +122,7 @@
         android:background="@drawable/border_edittext"
         android:fontFamily="@font/sen"
         android:paddingLeft="30dp"
+        android:textColor="@color/darkBG"
         android:text="408-841-0926" />
 
     <TextView
@@ -142,6 +145,7 @@
         android:background="@drawable/border_edittext"
         android:fontFamily="@font/sen"
         android:paddingLeft="30dp"
+        android:textColor="@color/darkBG"
         android:text="I love fast food" />
 
     <Button
@@ -149,9 +153,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:backgroundTint="@color/orange"
         android:textColor="@color/white"
         android:fontFamily="@font/sen_bold"
+        android:layout_marginTop="@dimen/margin_button"
         android:textSize="16dp"/>
 
 </LinearLayout>

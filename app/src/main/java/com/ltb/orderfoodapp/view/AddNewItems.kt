@@ -1,73 +1,83 @@
 package com.ltb.orderfoodapp.view
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.adapter.CategoryAdapter
 import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.model.Product
+import com.ltb.orderfoodapp.databinding.ActivityAddNewItemsBinding
+import com.ltb.orderfoodapp.viewmodel.CategoryViewModel
+import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 import java.io.IOException
+import java.util.*
 
-
-private lateinit var edtName: EditText
-private lateinit var edtDescription: EditText
-private lateinit var txtPrice: TextView
-private lateinit var btnSave: Button
-private lateinit var btnUploadImage: ImageButton
-private val images: MutableList<String> = mutableListOf()
-
-private val PICK_IMAGE_REQUEST = 1
 class AddNewItems : AppCompatActivity() {
-    private var filePath: Uri? = null
+
+    private lateinit var binding: ActivityAddNewItemsBinding
     private lateinit var storage: FirebaseStorage
-    private lateinit var storageReference: StorageReference
     private lateinit var productDAO: ProductDAO
-    private var imageList : MutableList<String> = mutableListOf()
-    private lateinit var imageStorage : String
+    private var filePath: Uri? = null
+    private var imageStorage: String = ""
+    private var selectedCategory: String = "Unknown"
+    private val PICK_IMAGE_REQUEST = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(com.ltb.orderfoodapp.R.layout.activity_add_new_items)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(com.ltb.orderfoodapp.R.id.main)) { v, insets ->
+        binding = ActivityAddNewItemsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Enable edge-to-edge display
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        findViewById<Button>(R.id.btnSave).setOnClickListener {
-            addProductToDatabase()
 
-        }
+        // Initialize Firebase Storage and DAO
         storage = FirebaseStorage.getInstance()
-        storageReference = storage.getReference()
-        val addImage = findViewById<ImageButton>(R.id.btnTaiAnh1)
-        addImage.setOnClickListener{
-            selectAndUpload()
+        productDAO = ProductDAO(this)
+
+        // Set up event listeners
+        binding.btnSave.setOnClickListener { handleSave() }
+        binding.btnTaiAnh1.setOnClickListener { selectAndUploadImage() }
+
+        // Set up Spinner for categories
+        setupSpinner()
+    }
+
+    private fun setupSpinner() {
+        val viewModel = CategoryViewModel(this)
+        val categories = viewModel.getCategoriesName()
+        val categoryAdapter = CategoryAdapter(this, categories)
+        binding.categorySpinner.adapter = categoryAdapter
+        binding.categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedCategory = categories[position]
+                Log.d("SelectedCategory", "Category selected: $selectedCategory")
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                selectedCategory = "Unknown"
+            }
         }
     }
 
-    private fun selectAndUpload() {
+    private fun selectAndUploadImage() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(
-            Intent.createChooser(intent, "Select Image from here..."),
-            PICK_IMAGE_REQUEST
-        )
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -76,73 +86,96 @@ class AddNewItems : AppCompatActivity() {
             filePath = data.data
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
-                findViewById<ImageView>(R.id.imageView).setImageBitmap(bitmap)
+                binding.imageView.setImageBitmap(bitmap)
+                uploadImage()
             } catch (e: IOException) {
-//                e.printStackTrace()
+                Log.e("ImageSelection", "Error selecting image: ${e.message}")
             }
-            uploadImage ()
         } else {
-            Log.e("Image Selection", "No image selected or data is null")
+            Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun uploadImage() {
+    private fun uploadImage() {
         val resolvedFilePath = filePath ?: run {
-            Log.e("Upload Error", "File path is null")
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show()
             return
         }
-        var fileDir = "images/${resolvedFilePath.lastPathSegment}"
-        val riversRef = storage.reference.child(fileDir)
-        val uploadTask = riversRef.putFile(resolvedFilePath)
-        uploadTask.addOnFailureListener {
-            Log.e("Upload Error", "Upload failed: ${it.message}")
-        }.addOnSuccessListener {
-            Log.d("Upload Success", "File uploaded successfully")
-        }
-        val storageRef = FirebaseStorage.getInstance().getReference(fileDir)
-        storageRef.downloadUrl.addOnSuccessListener { uri ->
-            imageStorage = uri.toString()
 
-        }.addOnFailureListener { e ->
-            Log.e("Download URL", "Failed to get download URL: ${e.message}")
+        val fileDir = "images/${UUID.randomUUID()}.jpg"
+        val storageRef = storage.reference.child(fileDir)
+
+        val progressDialog = ProgressDialog(this).apply {
+            setMessage("Uploading image...")
+            setCancelable(false)
+            show()
         }
 
+        storageRef.putFile(resolvedFilePath)
+            .addOnSuccessListener {
+                storageRef.downloadUrl.addOnSuccessListener { uri ->
+                    imageStorage = uri.toString()
+                    progressDialog.dismiss()
+                    Toast.makeText(this, "Image uploaded successfully", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener {
+                progressDialog.dismiss()
+                Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
+            }
     }
 
-    private fun addProductToDatabase() {
-        val nameItem = findViewById<EditText>(R.id.nameitem).text.toString()
-        val description = findViewById<EditText>(R.id.description).text.toString()
-        val categoryFood = findViewById<CheckBox>(R.id.cateFood).isChecked
-        val categoryDrink = findViewById<CheckBox>(R.id.cateDrink).isChecked
-        val priceText = findViewById<EditText>(R.id.txtPrice).text.toString().replace("$", "")
+    private fun handleSave() {
+        if (!validateInput()) return
 
-        val price = priceText.toFloatOrNull() ?: 0f
+        val name = binding.nameitem.text.toString()
+        val description = binding.description.text.toString()
+        val price = binding.txtPrice.text.toString().toFloat()
 
-
-        val category = when {
-            categoryFood -> "Food"
-            categoryDrink -> "Drinks"
-            else -> "Unknown"
-        }
-
-        if (nameItem.isEmpty() || description.isEmpty() || price <= 0 || category == "Unknown") {
-            Toast.makeText(this, "Please fill all required fields", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        Log.d("AddNewItemsActivity", "Name: $nameItem, Description: $description, Price: $price, Category: $category")
-            imageList.add(imageStorage)
-        // Tạo sản phẩm mới và thêm vào cơ sở dữ liệu
         val newProduct = Product(
-            name = nameItem,
-            price = price.toInt(), images = imageList, category = category, description = description)
-        productDAO = ProductDAO(this)
+            name = name,
+            description = description,
+            price = price.toInt(),
+            images = listOf(imageStorage).toMutableList(),
+            category = selectedCategory
+        )
 
         val isAdded = productDAO.addProduct(newProduct)
-
-        Toast.makeText(this, "Product added successfully", Toast.LENGTH_SHORT).show()
-
+        if (isAdded != null) {
+            Toast.makeText(this, "Product added successfully", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Failed to add product", Toast.LENGTH_SHORT).show()
+        }
     }
 
+    private fun validateInput(): Boolean {
+        val name = binding.nameitem.text.toString()
+        val description = binding.description.text.toString()
+        val priceText = binding.txtPrice.text.toString()
+        val price = priceText.toFloatOrNull()
 
+        return when {
+            name.isEmpty() -> {
+                Toast.makeText(this, "Name is required", Toast.LENGTH_SHORT).show()
+                false
+            }
+            description.isEmpty() -> {
+                Toast.makeText(this, "Description is required", Toast.LENGTH_SHORT).show()
+                false
+            }
+            price == null || price <= 0 -> {
+                Toast.makeText(this, "Invalid price", Toast.LENGTH_SHORT).show()
+                false
+            }
+            imageStorage.isEmpty() -> {
+                Toast.makeText(this, "Please upload an image", Toast.LENGTH_SHORT).show()
+                false
+            }
+            selectedCategory == "Unknown" -> {
+                Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show()
+                false
+            }
+            else -> true
+        }
+    }
 }
