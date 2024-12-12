@@ -19,6 +19,7 @@
     <dimen name="margin_radio_welcome">5dp</dimen>
 <!--    login-->
     <dimen name="fontSize">20dp</dimen>
+    <dimen name="fontLocation">12dp</dimen>
     <dimen name="margin_Text">15dp</dimen>
     <dimen name="textLogin">35dp</dimen>
     <dimen name="border_with_login">40dp</dimen>

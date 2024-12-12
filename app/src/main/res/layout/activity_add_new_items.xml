@@ -59,8 +59,7 @@
                 android:layout_height="wrap_content"
                 android:text="ITEM NAME"
                 android:layout_marginLeft="10dp"
-                android:textFontWeight="500"
-                />
+                android:textFontWeight="500" />
 
             <EditText
                 android:id="@+id/nameitem"
@@ -87,13 +86,15 @@
                 android:layout_height="wrap_content"
                 android:text="UPLOAD PHOTO/VIDEO"
                 android:textFontWeight="500"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="116dp"
-                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_marginLeft="10dp">
 
                 <ImageView
@@ -113,22 +114,13 @@
                     android:background="@color/white"
                     app:srcCompat="@drawable/ic_cloud_upload_24" />
 
-                <ImageButton
-                    android:id="@+id/btnTaiAnh2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="54dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    app:srcCompat="@drawable/ic_cloud_upload_24" />
-
             </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="161dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -138,7 +130,7 @@
                 android:text="PRICE"
                 android:layout_marginBottom="10dp"
                 android:textFontWeight="500"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -164,34 +156,25 @@
                 android:text="CATEGORY"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="10dp"
-                android:textFontWeight="500"/>
+                android:textFontWeight="500" />
 
-            <LinearLayout
+            <!-- Spinner cho danh mục -->
+            <Spinner
+                android:id="@+id/categorySpinner"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
 
-                <CheckBox
-                    android:id="@+id/cateFood"
-                    android:layout_width="18dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Food" />
-
-                <CheckBox
-                    android:id="@+id/cateDrink"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Drinks" />
-            </LinearLayout>
+            <ListView
+                android:id="@+id/listitem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="215dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -217,7 +200,6 @@
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
-                android:background="@color/orange"
                 android:text="SAVE CHANGES"
                 android:textColor="@color/white" />
 

@@ -1,24 +1,21 @@
 package com.ltb.orderfoodapp.data.dao
 
+//import com.ltb.orderfoodapp.data.model.Restaurant
 import android.content.ContentValues
 import android.content.Context
 import android.os.Build
-import android.widget.Toast
+import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.currentCompositionErrors
-import com.google.type.DateTime
+import androidx.core.database.getStringOrNull
 import com.ltb.orderfoodapp.data.DatabaseHelper
-import com.ltb.orderfoodapp.data.model.Category
 import com.ltb.orderfoodapp.data.model.Order
 import com.ltb.orderfoodapp.data.model.OrderDetail
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
-//import com.ltb.orderfoodapp.data.model.Restaurant
-import com.ltb.orderfoodapp.data.model.Status
-import com.ltb.orderfoodapp.data.model.User
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+
 
 class OrderDAO(private val context: Context) {
     val dbHelper = DatabaseHelper.getInstance(context)
@@ -71,7 +68,6 @@ class OrderDAO(private val context: Context) {
     }
 
 
-
     fun getOrdersByFilters(name: String?, date: String?, categoryId: Int?): List<Order> {
         val orders = mutableListOf<Order>()
         val db = dbHelper.readableDatabase
@@ -109,7 +105,7 @@ class OrderDAO(private val context: Context) {
                 val order = Order(
                     idOrder = it.getInt(it.getColumnIndexOrThrow("OrderID")),
                     totalAmount = it.getFloat(it.getColumnIndexOrThrow("totalAmount")),
-                    Status = it.getInt(it.getColumnIndexOrThrow("orderStatus")),
+                    Status = it.getInt(it.getColumnIndexOrThrow("Status")),
                     orderDate = SimpleDateFormat("yyyy-MM-dd").parse(it.getString(it.getColumnIndexOrThrow("orderDate"))),
                     userId = it.getInt(it.getColumnIndexOrThrow("UserID")),
 //                    restaurantId = 0,
@@ -121,8 +117,7 @@ class OrderDAO(private val context: Context) {
                     orderId = order.getIdOrder(),
                     productId = it.getInt(it.getColumnIndexOrThrow("ProductID")),
                     quantity = 1, // Default value (update if required)
-                    unitPrice = it.getFloat(it.getColumnIndexOrThrow("Price")),
-                    totalPrice = it.getFloat(it.getColumnIndexOrThrow("Price")) // Default to unitPrice (update if required)
+                    unitPrice = it.getFloat(it.getColumnIndexOrThrow("Price"))
                 )
 
                 orderDetail.setProductId(it.getInt(it.getColumnIndexOrThrow("ProductID")))
@@ -156,28 +151,6 @@ class OrderDAO(private val context: Context) {
         }
         return orders
     }
-//    fun getRunningOrders(): List<Order> {
-//        val orders = mutableListOf<Order>()
-//        val db = dbHelper.readableDatabase
-//        val query = """
-//        SELECT o.ID AS OrderID, o.totalAmount, o.Status, o.orderDate
-//        FROM "Order" o
-//        WHERE o.Status = 1
-//    """
-//        val cursor = db.rawQuery(query, null)
-//        cursor.use {
-//            while (it.moveToNext()) {
-//                val order = Order(
-//                    idOrder = it.getInt(it.getColumnIndexOrThrow("OrderID")),
-//                    totalAmount = it.getFloat(it.getColumnIndexOrThrow("totalAmount")),
-//                    orderStatus = it.getString(it.getColumnIndexOrThrow("Status")),
-//                    orderDate = SimpleDateFormat("yyyy-MM-dd").parse(it.getString(it.getColumnIndexOrThrow("orderDate"))),
-//                )
-//                orders.add(order)
-//            }
-//        }
-//        return orders
-//    }
 
     fun getTotalRevenue(): Float {
         val db = dbHelper.readableDatabase
@@ -194,6 +167,71 @@ class OrderDAO(private val context: Context) {
             }
         }
         return totalRevenue
+    }
+
+
+    fun getAllProducts(status: Int): List<Product> {
+        val productList = mutableListOf<Product>()
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT
+            p.ID AS ProductID,
+            p.Name AS ProductName,
+            p.Price,
+            p.Description,
+            i.Value AS ImageSource 
+        FROM "Order"
+        JOIN OrderDetail od ON "Order".ID = od.Order_ID
+        JOIN Product p ON od.Product_ID = p.ID
+        LEFT JOIN Image i ON p.ID = i.Product_ID
+        WHERE "Order".Status = ?
+    """
+
+        val cursor = db.rawQuery(query, arrayOf(status.toString()))
+
+        cursor.use { cur ->
+            if (cur.moveToFirst()) {
+                do {
+                    try {
+                        val product = Product(
+                            idProduct = cur.getInt(cur.getColumnIndexOrThrow("ProductID")),
+                            name = cur.getString(cur.getColumnIndexOrThrow("ProductName")),
+                            price = cur.getInt(cur.getColumnIndexOrThrow("Price")),
+                            description = cur.getString(cur.getColumnIndexOrThrow("Description"))
+                        )
+
+                        val imageUrl = cur.getStringOrNull(cur.getColumnIndexOrThrow("ImageSource"))
+                        if (!imageUrl.isNullOrEmpty()) {
+                            val currentImages = product.getImages()
+                            currentImages.add(imageUrl)
+                            product.setImages(currentImages)
+                        }
+                        productList.add(product)
+                    } catch (e: Exception) {
+                        Log.e("getAllProducts", "Lỗi khi xử lý dòng dữ liệu: ${e.message}")
+                    }
+                } while (cur.moveToNext())
+            }
+        }
+        db.close()
+        return productList
+    }
+
+    fun getProductQuantityByProductId(productId: Int): Int {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT Quantity FROM OrderDetail WHERE Product_ID = ?",
+            arrayOf(productId.toString())
+        )
+
+        var quantity = 0
+        cursor.use {
+            if (it.moveToFirst()) {
+                quantity = it.getInt(it.getColumnIndexOrThrow("Quantity"))
+            }
+        }
+        db.close()
+        return quantity
     }
 
 

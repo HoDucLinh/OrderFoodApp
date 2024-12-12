@@ -5,7 +5,7 @@ import java.util.Date
 class Order(
     private var idOrder: Int = 0,
     private var totalAmount: Float = 0f,
-    private var Status: Int,
+    private var Status: Int = 0,
     private var orderDate: Date = Date(),
     private var userId: Int = 0,
 //    private var restaurantId: Int = 0,
@@ -31,7 +31,7 @@ class Order(
         return Status
     }
 
-    fun setOrderStatus(value: Int) {
+    fun setStatus(value: Int) {
         Status = value
     }
 
@@ -51,6 +51,13 @@ class Order(
         userId = value
     }
 
+//    fun getRestaurantId(): Int {
+//        return restaurantId
+//    }
+//
+//    fun setRestaurantId(value: Int) {
+//        restaurantId = value
+//    }
 
     fun getOrderDetails(): MutableList<OrderDetail> {
         return orderDetails

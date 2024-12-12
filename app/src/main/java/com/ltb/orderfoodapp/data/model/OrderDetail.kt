@@ -6,7 +6,6 @@ class OrderDetail(
     private var productId: Int = 0,
     private var quantity: Int = 0,
     private var unitPrice: Float = 0f,
-    private var totalPrice: Float = 0f
 ) {
 
     fun getIdOrderDetail(): Int {
@@ -53,11 +52,4 @@ class OrderDetail(
         unitPrice = value
     }
 
-   fun getTotalPrice(): Float {
-        return totalPrice
-    }
-
-    fun setTotalPrice(value: Float) {
-        totalPrice = value
-    }
 }

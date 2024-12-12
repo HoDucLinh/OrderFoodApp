@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginTop="@dimen/margin_layoutTop"
+    android:fitsSystemWindows="true"
     tools:context=".view.MyCart">
 
     <!-- Thanh tiêu đề với nút quay lại, tên giỏ hàng và nút sửa -->
     <LinearLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:orientation="horizontal"
         android:padding="@dimen/padding_layout"
-        android:orientation="horizontal">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/backHome"
@@ -37,27 +40,34 @@
             android:id="@+id/all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:fontFamily="@font/sen"
+            android:textSize="@dimen/font_size_medium"
             android:text="All" />
 
 
     </LinearLayout>
 
-    <!-- RecyclerView cho giỏ hàng -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCart"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/bottomLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp" />
 
-    <!-- Phần địa chỉ giao hàng và tổng tiền -->
     <LinearLayout
+        android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/rounded_top_corners"
         android:orientation="vertical"
-        android:scaleType="centerCrop">
+        android:scaleType="centerCrop"
+        android:windowSoftInputMode="adjustPan"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewCart">
 
         <!-- Địa chỉ giao hàng -->
         <LinearLayout
@@ -71,39 +81,40 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/sen"
                 android:padding="10dp"
-                android:textColor="@color/darkBG"
-                android:background="@android:color/transparent"
-                android:text="DELIVERY ADDRESS" />
+                android:text="Delivery Address"
+                android:textColor="@color/darkBG" />
 
             <Button
+                android:id="@+id/editAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="120dp"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="@color/white"
+                android:layout_marginRight="30dp"
                 android:fontFamily="@font/sen_regular"
-                android:text="EDIT"
-                android:textColor="@color/orange"
+                android:text="Edit"
                 android:textSize="15dp" />
         </LinearLayout>
 
-        <TextView
+        <AutoCompleteTextView
+            android:id="@+id/addressUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:background="@color/aliceblue"
+            android:enabled="false"
             android:fontFamily="@font/sen"
-            android:gravity="left"
-            android:padding="16dp"
+            android:padding="@dimen/padding_input_login"
             android:paddingLeft="10dp"
-            android:text="2118 Thornridge Cir. Syracuse"
-            android:textColor="@color/textDark" />
+            android:text="Khong the lay dia chi"
+            android:textColor="@color/textDark"
+            android:textSize="@dimen/font_size_small" />
 
-        <!-- Tổng tiền và các nút -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,24 +125,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
+
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/sen"
                 android:padding="10dp"
                 android:text="TOTAL:"
-                android:background="@android:color/transparent"
                 android:textColor="@color/textDark" />
 
             <TextView
                 android:id="@+id/total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/sen"
                 android:padding="10dp"
                 android:text="$96"
                 android:textColor="@color/textDark"
-                android:background="@android:color/transparent"
-                android:textSize="24dp" />
+                android:textSize="@dimen/font_size_medium" />
 
         </LinearLayout>
 
@@ -144,9 +155,7 @@
             android:layout_margin="@dimen/margin_button"
             android:backgroundTint="@color/orange"
             android:fontFamily="@font/sen_bold"
-            android:padding="@dimen/padding_button"
-            android:text="PLACE ORDER"
-            android:textSize="@dimen/font_size_medium" />
+            android:text="PLACE ORDER" />
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

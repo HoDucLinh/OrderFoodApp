@@ -4,10 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.util.Log
 import com.ltb.orderfoodapp.data.DatabaseHelper
-import com.ltb.orderfoodapp.data.model.Category
-import com.ltb.orderfoodapp.data.model.Image
 import com.ltb.orderfoodapp.data.model.Product
 
 class ProductDAO(context: Context) {
