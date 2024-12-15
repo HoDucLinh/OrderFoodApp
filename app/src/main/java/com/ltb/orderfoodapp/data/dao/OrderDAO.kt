@@ -6,15 +6,21 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.produceState
 import androidx.core.database.getStringOrNull
+import com.ltb.orderfoodapp.adapter.GroupOrderAdapter
 import com.ltb.orderfoodapp.data.DatabaseHelper
+import com.ltb.orderfoodapp.data.api.zalopay.helper.Helpers
 import com.ltb.orderfoodapp.data.model.Order
 import com.ltb.orderfoodapp.data.model.OrderDetail
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
+import com.ltb.orderfoodapp.data.model.Status
+import com.ltb.orderfoodapp.data.model.User
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 
 class OrderDAO(private val context: Context) {
@@ -181,10 +187,10 @@ class OrderDAO(private val context: Context) {
             p.Description,
             i.Value AS ImageSource 
         FROM "Order"
-        JOIN OrderDetail od ON "Order".ID = od.Order_ID
+        JOIN OrderDetail od ON `Order`.ID = od.Order_ID
         JOIN Product p ON od.Product_ID = p.ID
         LEFT JOIN Image i ON p.ID = i.Product_ID
-        WHERE "Order".Status = ?
+        WHERE `Order`.Status = ?
     """
 
         val cursor = db.rawQuery(query, arrayOf(status.toString()))
@@ -233,6 +239,95 @@ class OrderDAO(private val context: Context) {
         db.close()
         return quantity
     }
+
+
+
+    fun getAllOrdersWithProducts(): List<GroupOrderAdapter.OrderWithProducts> {
+        val db = dbHelper.readableDatabase
+        val orders = mutableListOf<GroupOrderAdapter.OrderWithProducts>()
+
+        val query = """
+    SELECT 
+        Product.ID AS product_id,
+        Product.Name AS product_name,
+        `Order`.Status,
+        `Order`.User_ID,
+        `Order`.ID AS OrderID,
+        User.Email,
+        Image.Value
+    FROM 
+        `Order`
+    INNER JOIN 
+        OrderDetail ON `Order`.ID = OrderDetail.Order_ID
+    INNER JOIN 
+        Product ON OrderDetail.Product_ID = Product.ID
+    INNER JOIN 
+        User ON User.ID == `Order`.User_ID
+    LEFT JOIN  Image ON Image.Product_ID == Product.ID
+""".trimIndent()
+
+        val cursor = db.rawQuery(query, null)
+        if (cursor.moveToFirst()) {
+            var currentOrderId = -1
+            var currentProducts = mutableListOf<GroupOrderAdapter.ProductWithStatus>()
+            var currentUserName = ""
+
+            do {
+                val orderId = cursor.getInt(cursor.getColumnIndexOrThrow("OrderID"))
+                val email = cursor.getString(cursor.getColumnIndexOrThrow("Email"))
+
+                if (currentOrderId == -1 || currentOrderId != orderId) {
+                    if (currentOrderId != -1) {
+                        orders.add(GroupOrderAdapter.OrderWithProducts(currentOrderId, currentProducts, currentUserName))
+                    }
+                    currentOrderId = orderId
+                    currentProducts = mutableListOf() //Khởi tạo lại list cho order mới
+                    currentUserName = email
+                }
+
+
+                val productId = cursor.getInt(cursor.getColumnIndexOrThrow("product_id"))
+                val productName = cursor.getString(cursor.getColumnIndexOrThrow("product_name"))
+                val product = Product(idProduct = productId, name = productName)
+
+                val imageUrl = cursor.getString(cursor.getColumnIndexOrThrow("Value"))
+                if (imageUrl != null) {
+                    val currentImages = product.getImages()
+                    currentImages.add(imageUrl)
+                    product.setImages(currentImages)
+                }
+
+                val status = Status.entries[cursor.getInt(cursor.getColumnIndexOrThrow("Status"))]
+
+                currentProducts.add(GroupOrderAdapter.ProductWithStatus(product, status))
+
+            } while (cursor.moveToNext())
+
+            // Thêm đơn hàng cuối cùng vào danh sách
+            if (currentOrderId != -1) {
+                orders.add(GroupOrderAdapter.OrderWithProducts(currentOrderId, currentProducts, currentUserName))
+            }
+        }
+        cursor.close()
+        return orders
+    }
+
+
+    fun updateOrderStatus(orderId: Int, newStatus: Int) {
+        val db = dbHelper.writableDatabase
+        val contentValues = ContentValues().apply {
+            put("Status", newStatus)
+        }
+
+        db.update(
+            "\"Order\"",
+            contentValues,
+            "ID = ?",
+            arrayOf(orderId.toString())
+        )
+    }
+
+
 
 
 
