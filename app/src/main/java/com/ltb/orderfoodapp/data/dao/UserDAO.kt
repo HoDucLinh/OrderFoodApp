@@ -8,8 +8,8 @@ import com.ltb.orderfoodapp.data.model.User
 import java.security.MessageDigest
 
 
-class UserDAO(context: Context) {
-    private val db: SQLiteDatabase = DatabaseHelper.getInstance(context).writableDatabase
+class UserDAO(private val context: Context) {
+    private lateinit var db: SQLiteDatabase
 //    init {
 //        val admin = User(
 //            fullName = "Admin",
@@ -23,6 +23,7 @@ class UserDAO(context: Context) {
 
 
     fun addUser(user : User): Int {
+       db  = DatabaseHelper.getInstance(context).writableDatabase
         val passwordEncrypt = encrypt(user.getPassword())
         val values = ContentValues().apply {
             put("FullName", user.getFullName())
@@ -38,6 +39,7 @@ class UserDAO(context: Context) {
         return userId
     }
     fun getAllUsers(): MutableList<User> {
+        db  = DatabaseHelper.getInstance(context).readableDatabase
         val userList = mutableListOf<User>()
         val cursor = db.rawQuery("SELECT * FROM User", null)
 
@@ -65,6 +67,7 @@ class UserDAO(context: Context) {
     }
 
     fun getUser(email: String, password: String): User? {
+        db  = DatabaseHelper.getInstance(context).readableDatabase
         val hashedPassword = encrypt(password)
         val query = """
         SELECT 
@@ -110,6 +113,7 @@ class UserDAO(context: Context) {
     }
 
     fun updateUserCartId(userId: Int, cartId: Int): Int {
+        db  = DatabaseHelper.getInstance(context).writableDatabase
         val values = ContentValues().apply {
             put("Cart_ID", cartId)
         }
@@ -137,6 +141,7 @@ class UserDAO(context: Context) {
 
     // Cập nhật thông tin người dùng
     fun updateRole(userId: Int, userRoleId: Int): Int {
+        db  = DatabaseHelper.getInstance(context).writableDatabase
         val values = ContentValues().apply {
             put("Role_ID", userRoleId)
         }
@@ -147,10 +152,12 @@ class UserDAO(context: Context) {
 
     // Xóa người dùng
     fun deleteUser(userId: Int): Boolean {
+        db  = DatabaseHelper.getInstance(context).writableDatabase
         return db.delete("User", "id = ?", arrayOf(userId.toString())) > 0
     }
 
     fun updateUser(userId: Int, fullName: String, email: String, phone: String, bio: String): Boolean {
+        db  = DatabaseHelper.getInstance(context).writableDatabase
         val values = ContentValues().apply {
             put("FullName", fullName)
             put("Email", email)
@@ -163,6 +170,7 @@ class UserDAO(context: Context) {
     }
 
     fun getUserById(userId: Int): User? {
+        db  = DatabaseHelper.getInstance(context).readableDatabase
         val cursor = db.query(
             "User", // Tên bảng
             null, // Cột cần lấy (null để lấy tất cả)

@@ -36,8 +36,8 @@ class Home : AppCompatActivity() {
     private lateinit var locationHelper: LocationHelper
     private lateinit var cartDAO: CartDAO
     private var cartId  : Int  = -1
-    private var productCartNumber: Int = 0
-    private var isSwitchChanging = false
+    private var productCartNumber: Int =0
+    private var isSwitchManuallyChanged = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,28 +85,34 @@ class Home : AppCompatActivity() {
         super.onResume()
         setCartCount()
     }
+
+
     private fun setupTheme() {
-         darkThemeSwitch = findViewById(R.id.darkTheme)
+        // Lấy giá trị của "night" từ SharedPreferences
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night", false)
 
-        // Set initial state of the switch
+        // Đặt trạng thái ban đầu của Switch dựa trên chế độ hiện tại
         darkThemeSwitch.isChecked = nightMode
 
+        // Kiểm tra nếu theme hiện tại khác với trạng thái của Switch
         darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (!isSwitchChanging) {
-                isSwitchChanging = true
-
-                // Update the theme and SharedPreferences based on the switch state
-                val newMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-                AppCompatDelegate.setDefaultNightMode(newMode)
-
+            if (nightMode != isChecked) {
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
                 sharedPreferences.edit().putBoolean("night", isChecked).apply()
-
-                isSwitchChanging = false
+            }
+            else {
             }
         }
     }
+
+
+
+
     private fun setupGridViewProduct() {
         val products = productViewModel.getProducts()
         val gridView = findViewById<GridView>(R.id.gridviewProduct)
@@ -116,10 +122,10 @@ class Home : AppCompatActivity() {
 
     private fun setCartCount() {
         productCartViewModel = ProductCartViewModel(this)
-
-        productCartNumber = productCartViewModel.getCartTotal(cartId)
-        findViewById<TextView>(R.id.cartCount).text = productCartNumber.toString()
+            productCartNumber = productCartViewModel.getCartTotal(cartId)
+        findViewById<TextView>(R.id.cartCount)?.text = productCartNumber.toString()
     }
+
 
     private fun fetchUserLocation(locationUser: TextView) {
         locationHelper.getCurrentLocation { location ->

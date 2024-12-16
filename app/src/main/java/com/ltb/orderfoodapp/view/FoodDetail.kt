@@ -35,7 +35,6 @@ class FoodDetail : AppCompatActivity() {
         ratingDAO = RatingDAO(this)
         previewImage.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
-                // Lấy danh sách các hình ảnh từ Intent
                 val imageResource = intent.getStringArrayListExtra("imageResource")
 
                 // Kiểm tra xem danh sách có dữ liệu không
@@ -147,15 +146,13 @@ class FoodDetail : AppCompatActivity() {
     }
 
     fun getProductInfor() {
-        // Lấy giá trị từ Intent và gán cho các thuộc tính
         val name = intent.getStringExtra("name") ?: ""
 //        val storeName = intent.getStringExtra("storeName") ?: ""
         val price = intent.getIntExtra("price", 0)
-        val imageResource = intent.getStringArrayListExtra("imageResource") ?: arrayListOf()  // Nhận mảng chuỗi
-        val rating = intent.getFloatExtra("rating", 0f)  // Sử dụng getFloatExtra thay vì getIntExtra
-        val category = intent.getStringExtra("category") ?: ""  // Thuộc tính category
-        val description = intent.getStringExtra("description") ?: ""  // Thuộc tính description
-        // Lấy các phần tử trong giao diện
+        val imageResource = intent.getStringArrayListExtra("imageResource") ?: arrayListOf()
+        val rating = intent.getFloatExtra("rating", 0f)
+        val category = intent.getStringExtra("category") ?: ""
+        val description = intent.getStringExtra("description") ?: ""
         val productNameTextView = findViewById<TextView>(R.id.productName)
         val storeNameTextView = findViewById<TextView>(R.id.restaurantName)
         val priceTextView = findViewById<TextView>(R.id.priceTotal)
@@ -163,7 +160,6 @@ class FoodDetail : AppCompatActivity() {
         val descriptionTextView = findViewById<TextView>(R.id.productDes)
         val imageView = findViewById<ImageView>(R.id.imageProduct)
 
-        // Gán các giá trị vào các phần tử
         productNameTextView.text = name
         storeNameTextView.text = "storeName"
         priceTextView.text = "${price}"
