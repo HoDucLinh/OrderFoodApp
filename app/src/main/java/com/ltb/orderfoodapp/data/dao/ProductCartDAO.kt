@@ -10,11 +10,11 @@ import com.ltb.orderfoodapp.data.model.ProductCart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ProductCartDAO(context: Context) {
-    private val db: SQLiteDatabase = DatabaseHelper.getInstance(context).writableDatabase
-    private val dt: SQLiteDatabase = DatabaseHelper.getInstance(context).readableDatabase
+class ProductCartDAO(private val context: Context) {
+    private lateinit var db: SQLiteDatabase
     //them san pham vao database
     fun insertProduct(product: Product, number: Int, cartId: Int): Long {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         val values = ContentValues().apply {
             put("Product_ID", product.getIdProduct())
             put("Cart_ID", cartId)
@@ -24,6 +24,7 @@ class ProductCartDAO(context: Context) {
     }
     //lấy ds sp Product
     fun getAllProductsOfCart(): MutableList<ProductCart> {
+        db = DatabaseHelper.getInstance(context).readableDatabase
         val productCartList = mutableListOf<ProductCart>()
         val query = """
         SELECT 
@@ -62,11 +63,13 @@ class ProductCartDAO(context: Context) {
     }
     //xoa Product
     fun deleteProduct(productId: Int): Boolean {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         val rowsAffected = db.delete("Product_Cart", "Product_ID = ?", arrayOf(productId.toString()))
         return rowsAffected > 0 // Trả về true nếu xóa thành công, false nếu không
     }
     //hàm kiểm tra sản phẩm đã tồn tại hay chưa
     fun isProductInCart(productId: Int, cartId: Int): Boolean {
+        db = DatabaseHelper.getInstance(context).readableDatabase
         val query = "SELECT COUNT(*) FROM Product_Cart WHERE Product_ID = ? AND Cart_ID = ?"
         val cursor = db.rawQuery(query, arrayOf(productId.toString(), cartId.toString()))
 
@@ -79,6 +82,7 @@ class ProductCartDAO(context: Context) {
         return exists
     }
     suspend fun updateQuantity(productId: Int, newQuantity: Int): Boolean {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         return withContext(Dispatchers.IO) {
             val values = ContentValues().apply {
                 put("Quantity", newQuantity)

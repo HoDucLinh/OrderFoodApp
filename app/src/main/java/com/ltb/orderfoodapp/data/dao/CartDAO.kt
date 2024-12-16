@@ -8,9 +8,10 @@ import androidx.annotation.IntegerRes
 import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.model.Product
 
-class CartDAO (context: Context){
-    private val db: SQLiteDatabase = DatabaseHelper.getInstance(context).writableDatabase
+class CartDAO (private val context: Context){
+    private lateinit var db: SQLiteDatabase
     fun insertCart(totalNumber: Int, userId: Int): Long {
+        db  = DatabaseHelper.getInstance(context).writableDatabase
         val query = "SELECT * FROM Cart WHERE User_ID = ?"
         val cursor = db.rawQuery(query, arrayOf(userId.toString()))
 
