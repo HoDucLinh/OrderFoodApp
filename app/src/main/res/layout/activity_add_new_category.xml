@@ -137,7 +137,5 @@
                 android:background="@drawable/rounded_button" />
 
         </LinearLayout>
-
-
     </LinearLayout>
 </LinearLayout>
