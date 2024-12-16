@@ -111,6 +111,15 @@ class UserDAO(private val context: Context) {
         cursor?.close()
         return null
     }
+    fun isEmailExists(email: String): Boolean {
+        db = DatabaseHelper.getInstance(context).readableDatabase
+        val query = "SELECT * FROM User WHERE Email = ?"
+        val cursor = db.rawQuery(query, arrayOf(email))
+        val exists = cursor.moveToFirst()
+        cursor.close()
+        return exists
+    }
+
 
     fun updateUserCartId(userId: Int, cartId: Int): Int {
         db  = DatabaseHelper.getInstance(context).writableDatabase

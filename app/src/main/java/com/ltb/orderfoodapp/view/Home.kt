@@ -88,14 +88,10 @@ class Home : AppCompatActivity() {
 
 
     private fun setupTheme() {
-        // Lấy giá trị của "night" từ SharedPreferences
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night", false)
-
-        // Đặt trạng thái ban đầu của Switch dựa trên chế độ hiện tại
         darkThemeSwitch.isChecked = nightMode
 
-        // Kiểm tra nếu theme hiện tại khác với trạng thái của Switch
         darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (nightMode != isChecked) {
                 if (isChecked) {

@@ -47,11 +47,11 @@ class ItemAdapter(
 
         txtNameFood.text = product.getName()
         txtCate.text = product.getCategory()
-        txtPrice.text = "$${product.getPrice()}"
+        txtPrice.text = "${product.getPrice()}VND"
 
         // Sử dụng Glide để hiển thị hình ảnh
         Glide.with(context)
-            .load(product.getImages().firstOrNull()) // URL hoặc đường dẫn hình ảnh
+            .load(product.getImages().firstOrNull())
             .into(image)
 
         // Xử lý nút Edit

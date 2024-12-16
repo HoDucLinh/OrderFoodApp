@@ -2,14 +2,15 @@
 
 package com.ltb.orderfoodapp.view
 
-
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
+import android.util.Patterns
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -27,7 +28,8 @@ import com.ltb.orderfoodapp.data.api.AuthManager.Companion.RC_SIGN_IN
 class SignIn : AppCompatActivity() {
     private lateinit var auth: AuthManager
     private lateinit var googleSignInClient: GoogleSignInClient
-    public override fun onCreate(savedInstanceState: Bundle?) {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.client_id))
@@ -45,27 +47,70 @@ class SignIn : AppCompatActivity() {
         val signUpBtn = findViewById<TextView>(R.id.signUp)
         val sigInFacebook = findViewById<ImageView>(R.id.facebook)
         val signInGoogle = findViewById<ImageView>(R.id.google)
+        val signInGithub = findViewById<ImageView>(R.id.github)
 
-        //Lay userName, password de login
-        loginBtn.setOnClickListener{
-            val userNameLogin = findViewById<TextInputLayout>(R.id.userNameLogin).editText?.text.toString()
-            val passwordLogin = findViewById<TextInputLayout>(R.id.passwordLogin).editText?.text.toString()
-            if(userNameLogin!=""&&passwordLogin!=""){
-                auth.authEmail(userNameLogin,passwordLogin)
-            }else Toast.makeText(this, "Please enter email, password", Toast.LENGTH_SHORT).show()
+        val userNameInput = findViewById<TextInputLayout>(R.id.userNameLogin)
+        val passwordInput = findViewById<TextInputLayout>(R.id.passwordLogin)
 
+        userNameInput.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val email = s.toString()
+                if (email.isNotEmpty() && !isValidEmail(email)) {
+                    userNameInput.error = "Invalid email address"
+                } else {
+                    userNameInput.error = null
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        passwordInput.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val password = s.toString()
+                if (password.isEmpty()) {
+                    passwordInput.error = "Password cannot be empty"
+                } else {
+                    passwordInput.error = null
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        // Xử lý sự kiện click của loginBtn
+        loginBtn.setOnClickListener {
+            val userNameLogin = userNameInput.editText?.text.toString()
+            val passwordLogin = passwordInput.editText?.text.toString()
+
+            // Kiểm tra xem email và password có hợp lệ hay không
+            if (userNameLogin.isNotEmpty() && passwordLogin.isNotEmpty()) {
+                if (isValidEmail(userNameLogin)) {
+                    auth.authEmail(userNameLogin, passwordLogin)
+                } else {
+                    Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+            }
         }
-        // Chuyen sang trang quen mat khau
-        forgotPassword.setOnClickListener{
-           val forgot = Intent(this, FortgotPassword::class.java)
+
+        // Chuyển sang trang quên mật khẩu
+        forgotPassword.setOnClickListener {
+            val forgot = Intent(this, FortgotPassword::class.java)
             startActivity(forgot)
         }
-        // Chuyen sang signUp
-        signUpBtn.setOnClickListener{
+
+        // Chuyển sang trang đăng ký
+        signUpBtn.setOnClickListener {
             val signUp = Intent(this, SignUp::class.java)
             startActivity(signUp)
         }
-        sigInFacebook.setOnClickListener{
+
+        // Đăng nhập với Facebook
+        sigInFacebook.setOnClickListener {
             Toast.makeText(this, "Tinh nang dang phat trien thu lai sau", Toast.LENGTH_SHORT).show()
 //                AuthFacebook.login(this) { user ->
 //                    if (user != null) {
@@ -74,12 +119,16 @@ class SignIn : AppCompatActivity() {
 //
 //                    }
 //                }
-            }
-        signInGoogle.setOnClickListener{
+        }
+        signInGithub.setOnClickListener {
+            Toast.makeText(this, "Tinh nang dang phat trien thu lai sau", Toast.LENGTH_SHORT).show()
+        }
+        signInGoogle.setOnClickListener {
             signIn()
         }
     }
-    //sign in with gooogle
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
@@ -93,11 +142,13 @@ class SignIn : AppCompatActivity() {
             }
         }
     }
+
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-
-
+    fun isValidEmail(target: CharSequence?): Boolean {
+        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+    }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style=""
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -45,6 +44,15 @@
             android:layout_height="wrap_content"
             app:boxBackgroundColor="@color/white"
             android:background="@color/white"
+            app:boxStrokeColor="@color/orange"
+            app:boxStrokeWidth="3dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:errorTextColor="@color/red_close"
+            app:boxStrokeErrorColor="@color/red_close"
             android:hint="Email"
             android:layout_marginTop="@dimen/margin_layout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
@@ -53,6 +61,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/sen"
                 android:textColor="@color/darkBG"
+                android:inputType="textEmailAddress"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,6 +73,13 @@
             app:passwordToggleTint="@color/orange"
             android:background="@color/white"
             app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="@color/orange"
+            app:boxStrokeWidth="3dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_marginTop="@dimen/margin_input_login"
             android:layout_marginBottom="@dimen/margin_input_login">
@@ -72,6 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+
                 android:hint="Password"
                 android:textColor="@color/darkBG"
                 android:fontFamily="@font/sen" />
@@ -101,6 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sen"
+            android:backgroundTint="@color/orange"
             android:layout_marginTop="@dimen/margin_input_login"
             android:text="Login" />
 

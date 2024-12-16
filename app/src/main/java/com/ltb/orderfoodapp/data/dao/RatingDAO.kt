@@ -13,19 +13,14 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class RatingDAO(private val context: Context) {
-    private var db: SQLiteDatabase
+    private lateinit var db: SQLiteDatabase
 
-    init {
-        val dbHelper = DatabaseHelper.getInstance(context)
-        db = dbHelper.writableDatabase
-    }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addRating(rating: Float, comment: String, productId: Int, userId: Int): Long {
-        // Lấy UserID từ SharedPreferences
-
-
-
+        val dbHelper = DatabaseHelper.getInstance(context)
+        db = dbHelper.writableDatabase
         // Lấy thời gian hiện tại
         val currentDateTime = LocalDateTime.now()
         val formattedDate = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
@@ -39,11 +34,12 @@ class RatingDAO(private val context: Context) {
             put("User_ID", userId) // Thêm User_ID
         }
 
-        // Chèn dữ liệu vào bảng ReviewOrder
-        return db.insert("ReviewOrder", null, values) // Trả về ID của dòng vừa được chèn, hoặc -1 nếu lỗi
+        return db.insert("ReviewOrder", null, values)
     }
 
     fun getReviewsForProduct(productId: Int): List<Review> {
+        val dbHelper = DatabaseHelper.getInstance(context)
+        db = dbHelper.readableDatabase
         val reviews = mutableListOf<Review>()
         val query = """
         SELECT 

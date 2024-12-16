@@ -48,6 +48,10 @@
             app:boxStrokeWidth="3dp"
             app:boxStrokeWidthFocused="3dp"
             android:background="@color/white"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
             android:layout_marginTop="@dimen/margin_layout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -65,18 +69,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:boxBackgroundColor="@color/white"
+            android:background="@color/white"
             app:boxStrokeColor="@color/orange"
             app:boxStrokeWidth="3dp"
-            app:boxStrokeWidthFocused="3dp"
-            android:background="@color/white"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:errorTextColor="@color/red_close"
+            app:boxStrokeErrorColor="@color/red_close"
+            android:hint="Email"
             android:layout_marginTop="@dimen/margin_layout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/darkBG"
-                android:hint="Email"
                 android:fontFamily="@font/sen"
+                android:textColor="@color/darkBG"
+                android:inputType="textEmailAddress"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,6 +98,10 @@
             app:boxStrokeColor="@color/orange"
             app:boxStrokeWidth="3dp"
             app:boxStrokeWidthFocused="3dp"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
             android:background="@color/white"
             android:layout_marginTop="@dimen/margin_layout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
@@ -96,6 +110,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/darkBG"
                 android:hint="Phone"
+                android:inputType="numberDecimal"
                 android:fontFamily="@font/sen"
                 />
         </com.google.android.material.textfield.TextInputLayout>
@@ -111,6 +126,10 @@
             android:background="@color/white"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/orange"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
             android:layout_marginTop="@dimen/margin_layout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -134,6 +153,10 @@
             android:background="@color/white"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/orange"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
             android:layout_marginTop="@dimen/margin_layout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -153,6 +176,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sen"
+            android:backgroundTint="@color/orange"
+            android:layout_marginTop="@dimen/margin_layout"
             android:text="Login" />
 
 
