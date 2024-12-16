@@ -64,11 +64,12 @@ class RatingDAO(private val context: Context) {
         if (cursor.moveToFirst()) {
             do {
                 val fullName = cursor.getString(cursor.getColumnIndexOrThrow("FullName"))
+                val displayName = if (fullName.isBlank()) "Anonymous" else fullName
                 val rating = cursor.getInt(cursor.getColumnIndexOrThrow("Rating"))
                 val comment = cursor.getString(cursor.getColumnIndexOrThrow("Comment"))
                 val reviewDate = cursor.getString(cursor.getColumnIndexOrThrow("ReviewDate"))
 
-                reviews.add(Review(fullName, rating, comment, reviewDate))
+                reviews.add(Review(displayName, rating, comment, reviewDate))
             } while (cursor.moveToNext())
         }
 

@@ -181,13 +181,13 @@ class UserDAO(private val context: Context) {
     fun getUserById(userId: Int): User? {
         db  = DatabaseHelper.getInstance(context).readableDatabase
         val cursor = db.query(
-            "User", // Tên bảng
-            null, // Cột cần lấy (null để lấy tất cả)
-            "ID = ?", // Điều kiện WHERE
-            arrayOf(userId.toString()), // Giá trị của điều kiện WHERE
-            null, // Nhóm theo
-            null, // Điều kiện nhóm
-            null // Sắp xếp
+            "User",
+            null,
+            "ID = ?",
+            arrayOf(userId.toString()),
+            null,
+            null,
+            null
         )
 
         cursor?.use {
