@@ -34,12 +34,6 @@ class EditProfile : AppCompatActivity() {
 
         userDAO = UserDAO(this)
 
-        val backmenu = findViewById<ImageButton>(R.id.backMenu)
-        backmenu.setOnClickListener {
-            val personalInformation = Intent(this, PersonalInformation::class.java)
-            startActivity(personalInformation)
-        }
-
         editFullName = findViewById(R.id.fullname)
         editEmail = findViewById(R.id.email)
         editPhone = findViewById(R.id.phone)
@@ -54,6 +48,12 @@ class EditProfile : AppCompatActivity() {
         if (userId == -1) {
             Toast.makeText(this, "Không tìm thấy thông tin người dùng!", Toast.LENGTH_SHORT).show()
             return
+        }
+
+        val backmenu = findViewById<ImageButton>(R.id.backMenu)
+        backmenu.setOnClickListener {
+                val personalInformation = Intent(this, PersonalInformation::class.java)
+                startActivity(personalInformation)
         }
 
         Log.d("EditProfile", "Current UserID: $userId")

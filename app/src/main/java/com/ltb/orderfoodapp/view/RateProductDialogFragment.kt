@@ -2,6 +2,7 @@ package com.ltb.orderfoodapp.view
 
 import android.app.Dialog
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
@@ -50,6 +52,7 @@ class RateProductDialogFragment : DialogFragment() {
         return inflater.inflate(R.layout.fragment_rate_product_dialog, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

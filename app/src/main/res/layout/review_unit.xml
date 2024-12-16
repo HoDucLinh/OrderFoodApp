@@ -1,67 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="12dp"
-    android:background="@color/white">
+    android:layout_margin="@dimen/margin_layout"
+    android:layout_gravity="center"
+    android:orientation="vertical">
 
-    <!-- Layout chứa avatar, username, và RatingBar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <!-- Avatar -->
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/github_dark"
-            android:scaleType="centerCrop"
-            android:background="@drawable/circle_background" />
-
-        <!-- Nội dung chính -->
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/textView_username"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:fontFamily="@font/sen"
+            android:background="@android:color/transparent"
+            android:textSize="@dimen/font_size_medium"
+            />
 
-            <!-- Tên người dùng -->
-            <TextView
-                android:id="@+id/textView_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Instagram"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="@color/black" />
-        </LinearLayout>
 
-        <!-- Thanh Rating -->
         <RatingBar
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5"
-            android:stepSize="1"
-            android:scaleX="0.6"
-            android:scaleY="0.6"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp" />
+            android:scaleX="0.5"
+            android:background="@android:color/transparent"
+            android:scaleY="0.5"
+            android:isIndicator="true" />
+
+
+
     </LinearLayout>
 
-    <!-- Phần bình luận -->
     <TextView
         android:id="@+id/textView_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Absolutely captivating! Your beauty shines brightly in every photo."
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        android:lineSpacingExtra="2dp"
-        android:layout_marginTop="4dp" />
+        android:textAlignment="center"
+        android:textSize="@dimen/font_size_medium"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/sen"/>
+
 </LinearLayout>

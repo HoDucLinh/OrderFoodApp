@@ -29,14 +29,15 @@ class OngoingFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_ongoing, container, false)
         ordersContainer = view.findViewById(R.id.ordersContainer)
 
-        val orderDAO = OrderDAO(requireContext())
-        val productsList = orderDAO.getAllProducts(1)
+
 
         val sharedPreferences = requireContext().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val user = sharedPreferences.getString("user", null)
         val userObject = Gson().fromJson(user, User::class.java)
         val cartId = userObject.getCartId()
-
+        val userId = userObject.getIdUser()
+        val orderDAO = OrderDAO(requireContext())
+        val productsList = orderDAO.getAllProducts(1, userId)
         val adapterCart = OrderAdapter(requireContext(), productsList, this, cartId )
         ordersContainer.adapter = adapterCart
 

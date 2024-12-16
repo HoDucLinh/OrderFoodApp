@@ -7,15 +7,14 @@ import android.database.sqlite.SQLiteDatabase
 import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.model.Product
 
-class ProductDAO(context: Context) {
-    private val db: SQLiteDatabase
+class ProductDAO(private val context: Context) {
+    private lateinit var db: SQLiteDatabase
     private lateinit var categoryDAO: CategoryDAO
     private lateinit var imageDAO: ImageDAO
 //    private lateinit var restaurantDAO: RestaurantDAO
 
     init {
-        db = DatabaseHelper.getInstance(context).writableDatabase
-        categoryDAO = CategoryDAO(context)
+
 //        restaurantDAO = RestaurantDAO(context)
 
     }
@@ -30,6 +29,7 @@ class ProductDAO(context: Context) {
 //        if (product.name.isEmpty() || product.price <= 0 || product.rating < 0 || product.description.isEmpty()) {
 //            throw IllegalArgumentException("Invalid product data")
 //        }
+        db = DatabaseHelper.getInstance(context).writableDatabase
 
         return try {
             val productId = insertProduct(product)
@@ -53,6 +53,7 @@ class ProductDAO(context: Context) {
 
     // Thêm sản phẩm vào cơ sở dữ liệu
     private fun insertProduct(product: Product): Long {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         val values = ContentValues().apply {
             put("Name", product.getName())
             put("Price", product.getPrice())
@@ -64,6 +65,8 @@ class ProductDAO(context: Context) {
 
     // Kiểm tra xem danh mục có tồn tại chưa, nếu chưa thì thêm mới
     private fun getOrInsertCategory(categoryName: String): Int {
+        db = DatabaseHelper.getInstance(context).readableDatabase
+        categoryDAO = CategoryDAO(context)
         var categoryId = categoryDAO.getCategoryIdByName(categoryName)
         if (categoryId == -1) {
             val categoryValues = ContentValues().apply {
@@ -78,6 +81,7 @@ class ProductDAO(context: Context) {
 
     // Cập nhật sản phẩm với category_id
     private fun updateProductCategory(productId: Long, categoryId: Int) {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         val updateCategoryValues = ContentValues().apply {
             put("Category_ID", categoryId)
         }
@@ -108,6 +112,7 @@ class ProductDAO(context: Context) {
 
     // Thêm hình ảnh cho sản phẩm
     private fun addImagesToProduct(productId: Long, images: List<String>) {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         val imageDAO = ImageDAO(db)
         images.forEach { imageUrl ->
             try {
@@ -119,6 +124,7 @@ class ProductDAO(context: Context) {
     }
 
     fun getAllProducts(): MutableList<Product> {
+        db = DatabaseHelper.getInstance(context).readableDatabase
         val productList = mutableListOf<Product>()
         var cursor: Cursor? = null
         try {
@@ -165,6 +171,7 @@ class ProductDAO(context: Context) {
         return productList
     }
     fun getProductById(productId: Int): Product {
+        db = DatabaseHelper.getInstance(context).readableDatabase
         val cursor = db.rawQuery(
             "SELECT p.ID, p.Name, p.Price, p.Rating, p.Description FROM Product p WHERE p.ID = ?",
             arrayOf(productId.toString())
@@ -186,10 +193,12 @@ class ProductDAO(context: Context) {
     }
 
     fun deleteProduct(productId: Int): Boolean {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         val rowsDeleted = db.delete("Product", "ID = ?", arrayOf(productId.toString()))
         return rowsDeleted > 0
     }
     fun updateProduct(product: Product): Boolean {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         val values = ContentValues().apply {
             put("Name", product.getName())
             put("Price", product.getPrice())
@@ -202,6 +211,7 @@ class ProductDAO(context: Context) {
     }
     // Xóa sản phẩm và ảnh liên quan
     fun deleteProductById(productId: Int): Boolean {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         return try {
             // Xóa ảnh liên quan (nếu có)
             deleteProductImages(productId)
@@ -217,6 +227,7 @@ class ProductDAO(context: Context) {
 
     // Xóa ảnh liên quan đến sản phẩm
     fun deleteProductImages(productId: Int):Boolean {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         try {
             db.delete("Image", "Product_ID = ?", arrayOf(productId.toString()))
             return true
@@ -226,6 +237,7 @@ class ProductDAO(context: Context) {
         return false
     }
     fun getAllCategories(): List<String> {
+        db = DatabaseHelper.getInstance(context).readableDatabase
         val categories = mutableListOf<String>()
         val cursor = db.rawQuery("SELECT Name FROM Category", null)
 
@@ -240,6 +252,7 @@ class ProductDAO(context: Context) {
 
     // Lấy toàn bộ productID
     fun getAllProductIds(): List<Int> {
+        db = DatabaseHelper.getInstance(context).readableDatabase
         val productIds = mutableListOf<Int>()
         val query = "SELECT ID FROM Product"
         val cursor = db.rawQuery(query, null)
@@ -257,6 +270,7 @@ class ProductDAO(context: Context) {
 
     // Lấy trung bình đánh giá
     fun getAverageRatingForProduct(productId: Int): Float {
+        db = DatabaseHelper.getInstance(context).readableDatabase
         val query = """
         SELECT AVG(Rating) AS AverageRating
         FROM ReviewOrder
@@ -273,6 +287,7 @@ class ProductDAO(context: Context) {
 
     // update rating lên trên database
     fun updateProductRating(productId: Int, newRating: Float) {
+        db = DatabaseHelper.getInstance(context).writableDatabase
         val values = ContentValues().apply {
             put("Rating", newRating)
         }

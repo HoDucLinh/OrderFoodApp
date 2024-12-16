@@ -7,14 +7,15 @@ import com.ltb.orderfoodapp.data.DatabaseHelper
 import com.ltb.orderfoodapp.data.model.Category
 import com.ltb.orderfoodapp.data.model.Product
 
-class CategoryDAO(context: Context) {
-    private var db: SQLiteDatabase
+class CategoryDAO(private val context: Context) {
+    private lateinit var db: SQLiteDatabase
     init {
-        val dbHelper = DatabaseHelper.getInstance(context)
-        db = dbHelper.writableDatabase
+
     }
     // Hàm lấy toàn bộ danh sách Category
     fun getAllCategories(): MutableList<Category> {
+        val dbHelper = DatabaseHelper.getInstance(context)
+        db = dbHelper.readableDatabase
         val categoryList = mutableListOf<Category>()
 
         val cursor = db.query(
@@ -41,6 +42,8 @@ class CategoryDAO(context: Context) {
 
     // Hàm lay Product dựa trên Category_ID
     fun getProductByCategoryName(categoryName: String): MutableList<Product> {
+        val dbHelper = DatabaseHelper.getInstance(context)
+        db = dbHelper.readableDatabase
         val productList = mutableListOf<Product>()
         val cursor = db.rawQuery("""
         SELECT 
@@ -80,6 +83,8 @@ class CategoryDAO(context: Context) {
     }
     // Lấy ID của Category theo tên
     fun getCategoryIdByName(categoryName: String): Int {
+        val dbHelper = DatabaseHelper.getInstance(context)
+        db = dbHelper.readableDatabase
         val cursor = db.query(
             "Category",
             arrayOf("ID"),
@@ -98,7 +103,9 @@ class CategoryDAO(context: Context) {
     }
 
     fun addCategory(name: String, description: String): Long {
-        // Kiểm tra xem Category đã tồn tại chưa
+        val dbHelper = DatabaseHelper.getInstance(context)
+        db = dbHelper.writableDatabase
+
         val cursor = db.query(
             "Category",
             null,
@@ -123,6 +130,8 @@ class CategoryDAO(context: Context) {
 
 
     fun deleteCategory(category: String) {
+        val dbHelper = DatabaseHelper.getInstance(context)
+        db = dbHelper.writableDatabase
         db.delete("Category", "Name = ?", arrayOf(category))
     }
 }

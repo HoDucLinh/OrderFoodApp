@@ -1,9 +1,12 @@
 package com.ltb.orderfoodapp.view
 
 import StaticticsDAO
+import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView
+import android.widget.ImageButton
 import android.widget.Spinner
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
@@ -19,10 +22,17 @@ class StatisticsFragment : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_statistics_fragment)
-
+        enableEdgeToEdge()
         barChart = findViewById(R.id.barChart)
         spinnerFilter = findViewById(R.id.spinner_filter)
         statisticsDAO = StaticticsDAO(this)
+
+        val back = findViewById<ImageButton>(R.id.back)
+        back.setOnClickListener {
+            val menu = Intent(this, Menu::class.java)
+            startActivity(menu)
+        }
+
 
         spinnerFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long) {

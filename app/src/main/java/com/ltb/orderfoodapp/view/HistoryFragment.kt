@@ -26,14 +26,15 @@ class HistoryFragment : Fragment(){
         val view = inflater.inflate(com.ltb.orderfoodapp.R.layout.fragment_history, container, false)
         ordersContainer = view.findViewById(com.ltb.orderfoodapp.R.id.ordersContainer)
 
-        val orderDAO = OrderDAO(requireContext())
-        val productsList = orderDAO.getAllProducts(2)
+
 
         val sharedPreferences = requireContext().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val user = sharedPreferences.getString("user", null)
         val userObject = Gson().fromJson(user, User::class.java)
         val cartId = userObject.getCartId()
-
+        val userId = userObject.getIdUser()
+        val orderDAO = OrderDAO(requireContext())
+        val productsList = orderDAO.getAllProducts(2,userId)
         val adapterCart = OrderAdapter(requireContext(),productsList, this, cartId)
         ordersContainer.adapter = adapterCart
 

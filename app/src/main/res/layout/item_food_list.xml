@@ -65,7 +65,8 @@
 
             <TextView
                 android:id="@+id/txtCate"
-                android:layout_width="159dp"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:fontFamily="@font/sen"
@@ -76,7 +77,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:layout_weight="1"
                 android:gravity="right"
                 android:text="0" />
         </LinearLayout>

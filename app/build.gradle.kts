@@ -107,7 +107,7 @@ dependencies {
 
 
 
-  }
+}
 
 secrets {
     // To add your Maps API key to this project:

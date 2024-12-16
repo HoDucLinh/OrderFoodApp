@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -39,18 +39,19 @@
                 android:textSize="18dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textColor="@color/darkBG"/>
+                android:textColor="@color/darkBG" />
+
             <Button
+                android:id="@+id/btnReset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reset"
-                />
+                android:text="Reset" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:orientation="vertical">
 
@@ -61,47 +62,41 @@
                 android:layout_height="wrap_content"
                 android:text="CATEGORY NAME"
                 android:textFontWeight="500"
-                android:layout_marginLeft="10dp"
-                />
+                android:layout_marginLeft="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="300dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/editTextCategoryName"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <EditText
-                        android:id="@+id/editTextCategoryName"
-                        android:layout_width="310dp"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:layout_margin="10dp"
-                        android:padding="20dp"
-                        android:background="@drawable/rounded_linear_layout"
-                        android:hint="Please input name of category"
-                        android:inputType="text" />
-                    <EditText
-                        android:id="@+id/editTextCategoryDescription"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:layout_margin="10dp"
-                        android:padding="20dp"
-                        android:background="@drawable/rounded_linear_layout"
-                        android:hint="Please input description "
-                        android:inputType="text" />
-                </LinearLayout>
+                    android:ems="10"
+                    android:layout_margin="10dp"
+                    android:padding="20dp"
+                    android:background="@drawable/rounded_linear_layout"
+                    android:hint="Please input name of category"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/editTextCategoryDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:layout_margin="10dp"
+                    android:padding="20dp"
+                    android:background="@drawable/rounded_linear_layout"
+                    android:hint="Please input description "
+                    android:inputType="text" />
 
                 <Button
                     android:id="@+id/btn_add_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="50dp"
-                    android:text="Add"/>
+                    android:text="Add" />
             </LinearLayout>
 
         </LinearLayout>
@@ -109,15 +104,17 @@
         <GridView
             android:id="@+id/gridViewCategoryName1"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:numColumns="5" >
+            android:layout_height="wrap_content"
+            android:numColumns="5">
 
         </GridView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_layout"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btn_deletecategory"
                 android:layout_width="200dp"
@@ -126,8 +123,8 @@
                 android:textSize="20dp"
                 android:fontFamily="@font/sen_bold"
                 android:textColor="@color/white"
-                android:background="@drawable/rounded_button"
-                />
+                android:background="@drawable/rounded_button" />
+
             <Button
                 android:id="@+id/btn_save_changes"
                 android:layout_width="200dp"
@@ -137,10 +134,8 @@
                 android:text="Save changes"
                 android:textColor="@color/white"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/rounded_button"/>
+                android:background="@drawable/rounded_button" />
 
         </LinearLayout>
-
-
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

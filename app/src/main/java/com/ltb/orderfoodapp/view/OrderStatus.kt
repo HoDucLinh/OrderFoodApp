@@ -1,49 +1,50 @@
 package com.ltb.orderfoodapp.view
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.GridView
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.ltb.orderfoodapp.R
-import com.ltb.orderfoodapp.data.model.Status
-import com.ltb.orderfoodapp.databinding.ActivityAddNewItemsBinding
-
+import com.ltb.orderfoodapp.adapter.GroupOrderAdapter
+import com.ltb.orderfoodapp.data.dao.OrderDAO
 class OrderStatus : AppCompatActivity() {
-    private lateinit var binding: ActivityAddNewItemsBinding
-    private lateinit var selectedStatus: Status
+
+    private lateinit var productListGridView: GridView
+    private lateinit var orderDao: OrderDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_order_status)
         enableEdgeToEdge()
-        binding = ActivityAddNewItemsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        productListGridView = findViewById(R.id.product)
+        orderDao = OrderDAO(this)
 
-        setupSpinner()
+        setupGridView()
+
+        val back = findViewById<ImageButton>(R.id.backSeller)
+        back.setOnClickListener {
+            val seller = Intent(this, Menu:: class.java)
+            startActivity(seller)
+        }
     }
 
-    private fun setupSpinner() {
-        // Lấy danh sách các trạng thái từ enum
-        val statuses = Status.values()
+    override fun onResume() {
+        super.onResume()
+        setupGridView()
+    }
 
-        // Tạo ArrayAdapter cho Spinner
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, statuses.map { it.description })
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    override fun onStart() {
+        super.onStart()
+        setupGridView()
+    }
+    private fun setupGridView() {
+        val groupOrderAdapter = GroupOrderAdapter(
+            context = this,
+            orderDao = orderDao,
+        )
 
-        // Gán adapter cho Spinner
-        binding.categorySpinner.adapter = adapter
-
-        // Thiết lập listener cho Spinner
-        binding.categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectedStatus = statuses[position]
-                // Xử lý khi một trạng thái được chọn
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Xử lý khi không có trạng thái nào được chọn
-            }
-        }
+        productListGridView.adapter = groupOrderAdapter
     }
 }

@@ -17,7 +17,6 @@ import com.ltb.orderfoodapp.data.dao.OrderDAO
 import com.ltb.orderfoodapp.data.dao.ProductDAO
 
 class OrderStatistics : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

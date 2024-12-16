@@ -5,8 +5,10 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 
-class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DatabaseHelper(context: Context) :
+    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     private var db: SQLiteDatabase? = null
+
     companion object {
         private const val DATABASE_NAME = "oderfoodapp.db"
         private const val DATABASE_VERSION = 2
@@ -20,7 +22,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val TABLE_USER = "User"
         private const val TABLE_ROLE = "Role"
         private const val TABLE_ORDER = "\"Order\""
-//        private const val TABLE_ORDER_STATUS = "OrderStatus"
+
+        //        private const val TABLE_ORDER_STATUS = "OrderStatus"
 //        private const val TABLE_STATUS = "Status"
         private const val TABLE_ORDER_DETAIL = "OrderDetail"
         private const val TABLE_REVIEW_ORDER = "ReviewOrder"

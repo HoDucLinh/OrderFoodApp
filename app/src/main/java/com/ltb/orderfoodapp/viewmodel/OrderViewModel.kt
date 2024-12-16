@@ -26,11 +26,11 @@ class OrderViewModel(context: Context) {
         return orderDAO.getTotalRevenue()
     }
     fun getRunningOrdersCount():Int{
+        runningorders = orders.filter { it.getStatus() == 1 }.toMutableList()
         return runningorders.size
     }
 
     fun getOrders(): MutableList<Order> {
-        runningorders = orders.filter { it.getStatus() == 1 }.toMutableList()
         return runningorders
     }
 

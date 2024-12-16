@@ -61,7 +61,7 @@ class MyCart : AppCompatActivity() {
             for (productCart in cartList) {
                 println(productCart.getName())
             }
-            // Đặt layout manager và adapter cho RecyclerView
+
             recyclerView.layoutManager = LinearLayoutManager(this)
             productCartAdapter = ProductCartAdapter(this, cartList)
             recyclerView.adapter = productCartAdapter
@@ -87,13 +87,7 @@ class MyCart : AppCompatActivity() {
             val editAddress = findViewById<Button>(R.id.editAddress)
             val sharedPreferences = getSharedPreferences("locationPath", MODE_PRIVATE)
             val locationPath = sharedPreferences.getString("locationPath", "Không có địa chỉ")
-//            val address = findViewById<EditText>(R.id.addressUser)
-//            address.setText(locationPath)
-//
-//            editAddress.setOnClickListener{
-//                address.isEnabled = true
-//                address.requestFocus()
-//            }
+
 
             // Chuyen toi payment
             payment.setOnClickListener {
@@ -109,29 +103,12 @@ class MyCart : AppCompatActivity() {
             }
 
             locationHelper = LocationHelper(this)
-            val autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.addressUser)
+            val addressUser = findViewById<EditText>(R.id.addressUser)
+            addressUser.setText(locationPath)
             editAddress.setOnClickListener{
-                autoCompleteTextView.isEnabled = true
-                autoCompleteTextView.requestFocus()
+                addressUser.isEnabled = true
+                addressUser.requestFocus()
             }
-            // Lắng nghe sự kiện thay đổi văn bản trên AutoCompleteTextView
-            autoCompleteTextView.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
-                    // Có thể bỏ qua
-                }
-
-                override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
-                    // Kiểm tra nếu người dùng đã nhập văn bản
-                    val query = charSequence.toString()
-                    if (query.isNotEmpty()) {
-                        locationHelper.fetchAddressSuggestions(query, autoCompleteTextView)
-                    }
-                }
-
-                override fun afterTextChanged(editable: Editable?) {
-
-                }
-            })
         }
     }
 

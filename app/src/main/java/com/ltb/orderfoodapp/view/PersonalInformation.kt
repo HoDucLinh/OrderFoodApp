@@ -62,9 +62,15 @@ class PersonalInformation : AppCompatActivity() {
         // Xử lý nút quay lại
         val backmenu = findViewById<ImageButton>(R.id.backMenu)
         backmenu.setOnClickListener {
+            println("RoleID  " + userObject.getRoleId())
+            if(userObject.getRoleId() == 3 ){
+                val myMainMenu = Intent(this, Menu::class.java)
+                startActivity(myMainMenu)
+            }
+            else {
             val myMainMenu = Intent(this, MyMainMenu::class.java)
             startActivity(myMainMenu)
-        }
+        }}
 
         // Xử lý nút chỉnh sửa
         val editButton = findViewById<Button>(R.id.editInfor)
