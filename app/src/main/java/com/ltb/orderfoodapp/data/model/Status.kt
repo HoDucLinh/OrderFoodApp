@@ -15,7 +15,7 @@ enum class Status(val id: Int, val description: String) {
 
     companion object {
         fun fromId(id: Int): Status? {
-            return values().find { it.id == id }
+            return entries.find { it.id == id }
         }
     }
 }

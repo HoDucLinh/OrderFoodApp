@@ -15,7 +15,6 @@ class ProductCartViewModel (context: Context) {
     }
     fun getProductCartByCartID(cartId : Int): MutableList<ProductCart> {
         val productByID = productCart.filter { it.getCartId() == cartId}.toMutableList()
-        cartTotal = productByID.size
         return productByID
     }
 
@@ -29,7 +28,9 @@ class ProductCartViewModel (context: Context) {
         return productCart
 
     }
-    fun getCartTotal() : Int{
+    fun getCartTotal(cartId: Int) : Int{
+        val productByID = productCart.filter { it.getCartId() == cartId}.toMutableList()
+        cartTotal = productByID.size
         return cartTotal
     }
 }

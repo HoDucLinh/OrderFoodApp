@@ -26,109 +26,87 @@ import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
 import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
+
+
 class Home : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
     private lateinit var productCartViewModel: ProductCartViewModel
-    private lateinit var darkTheme : Switch
+    private lateinit var darkThemeSwitch: Switch
     private lateinit var productDAO: ProductDAO
     private lateinit var locationHelper: LocationHelper
-    private lateinit var cartDAO : CartDAO
-    private var productCartNumber : Int = 0
-    private var locate = ""
+    private lateinit var cartDAO: CartDAO
+    private var cartId  : Int  = -1
+    private var productCartNumber: Int = 0
+    private var isSwitchChanging = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
-        productViewModel = ProductViewModel(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        enableEdgeToEdge()
+        productViewModel = ProductViewModel(this)
+        productDAO = ProductDAO(this)
+        locationHelper = LocationHelper(this)
+        cartDAO = CartDAO(this)
+
+        // Initialize views
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
         val locationUser = findViewById<TextView>(R.id.locationUser)
+
+        darkThemeSwitch = findViewById(R.id.darkTheme)
+        setupTheme()
+
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+        if (isLoggedIn) {
+            val user = sharedPreferences.getString("user", "")
+            val userObject = Gson().fromJson(user, User::class.java)
+            cartId = userObject.getCartId()
+        }
 
-        locationHelper = LocationHelper(this)
-
-        productDAO = ProductDAO(this)
-
-        //
-
-        cartDAO = CartDAO(this)
         fetchUserLocation(locationUser)
         setCartCount()
 
-//        chuyen sang trang tim kiem
-        nextSearch.setOnClickListener {
-            val search = Intent(this, Search::class.java)
-            startActivity(search)
-        }
-//        chuyen sang cart
-        nextCart.setOnClickListener {
-            if (isLoggedIn){
-                val cart = Intent(this, MyCart::class.java)
-//                cart.putExtra("locationPath",locate )
-                startActivity(cart)
-            }
-            else Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
 
-        }
-        nextMenu.setOnClickListener {
-            if (isLoggedIn) {
-                val profileIntent = Intent(this, MyMainMenu::class.java)
-                startActivity(profileIntent)
-            } else {
-                // Nếu chưa đăng nhập, chuyển về Login
-                val loginIntent = Intent(this, SignIn::class.java)
-                startActivity(loginIntent)
-            }
-        }
-
-
-
+        nextSearch.setOnClickListener { startActivity(Intent(this, Search::class.java)) }
+        nextCart.setOnClickListener { navigateToCart() }
+        nextMenu.setOnClickListener { navigateToMenu() }
     }
+
     override fun onStart() {
         super.onStart()
-        darkTheme = findViewById(R.id.darkTheme)
         setupGridViewProduct()
-        setupTheme()
         setCartCount()
         productDAO.syncProductRatings()
     }
 
     override fun onResume() {
         super.onResume()
-        setupGridViewProduct()
         setCartCount()
     }
     private fun setupTheme() {
+         darkThemeSwitch = findViewById(R.id.darkTheme)
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night", false)
 
-        if (nightMode != darkTheme.isChecked) {
-            darkTheme.isChecked = nightMode
-        }
+        // Set initial state of the switch
+        darkThemeSwitch.isChecked = nightMode
 
+        darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (!isSwitchChanging) {
+                isSwitchChanging = true
 
-        AppCompatDelegate.setDefaultNightMode(
-            if (nightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-        )
-
-        darkTheme.setOnCheckedChangeListener { _, isChecked ->
-            val newMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-            if (AppCompatDelegate.getDefaultNightMode() != newMode) {
+                // Update the theme and SharedPreferences based on the switch state
+                val newMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
                 AppCompatDelegate.setDefaultNightMode(newMode)
-                val editor = sharedPreferences.edit()
-                editor.putBoolean("night", isChecked)
-                editor.apply()
+
+                sharedPreferences.edit().putBoolean("night", isChecked).apply()
+
+                isSwitchChanging = false
             }
         }
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        productViewModel.close()
-    }
-
     private fun setupGridViewProduct() {
         val products = productViewModel.getProducts()
         val gridView = findViewById<GridView>(R.id.gridviewProduct)
@@ -137,31 +115,38 @@ class Home : AppCompatActivity() {
     }
 
     private fun setCartCount() {
-
         productCartViewModel = ProductCartViewModel(this)
 
-
-        productCartNumber = productCartViewModel.getCartTotal()
-        val cartCount = findViewById<TextView>(R.id.cartCount)
-        cartCount.text = productCartNumber.toString()
-
-
+        productCartNumber = productCartViewModel.getCartTotal(cartId)
+        findViewById<TextView>(R.id.cartCount).text = productCartNumber.toString()
     }
+
     private fun fetchUserLocation(locationUser: TextView) {
         locationHelper.getCurrentLocation { location ->
-            val locate = locationHelper.getAddressFromLocation(location)
-            locationUser.text = locate
+            val userLocation = locationHelper.getAddressFromLocation(location)
+            locationUser.text = userLocation
 
-            val locationPath = getSharedPreferences("locationPath", MODE_PRIVATE)
-            val locationEditor = locationPath.edit()
-            locationEditor.putString("locationPath", locate)
-            locationEditor.apply()
-
+            // Save location to SharedPreferences
+            getSharedPreferences("locationPath", MODE_PRIVATE).edit()
+                .putString("locationPath", userLocation).apply()
         }
     }
 
-    companion object {
-        private const val REQUEST_LOCATION_PERMISSION = 1
+    private fun navigateToCart() {
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        if (sharedPreferences.getBoolean("isLoggedIn", false)) {
+            startActivity(Intent(this, MyCart::class.java))
+        } else {
+            Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
+        }
     }
 
+    private fun navigateToMenu() {
+        val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        if (sharedPreferences.getBoolean("isLoggedIn", false)) {
+            startActivity(Intent(this, MyMainMenu::class.java))
+        } else {
+            startActivity(Intent(this, SignIn::class.java))
+        }
+    }
 }
