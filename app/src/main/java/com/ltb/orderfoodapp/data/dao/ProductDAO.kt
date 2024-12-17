@@ -302,7 +302,4 @@ class ProductDAO(private val context: Context) {
             updateProductRating(productId, averageRating)
         }
     }
-
-
-
 }

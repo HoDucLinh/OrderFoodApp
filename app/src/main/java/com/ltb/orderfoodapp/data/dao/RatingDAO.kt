@@ -57,7 +57,33 @@ class RatingDAO(private val context: Context) {
             db.insert("ReviewOrder", null, values)
         }.also {
             cursor.close()
+            // Sau khi thêm hoặc cập nhật review, tính toán và cập nhật lại rating của Product
+            updateProductRating(productId, db)
         }
+    }
+
+    // Hàm tính và cập nhật lại rating trung bình của sản phẩm
+    private fun updateProductRating(productId: Int, db: SQLiteDatabase) {
+        val query = """
+        SELECT AVG(Rating) AS AverageRating
+        FROM ReviewOrder
+        WHERE Product_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(productId.toString()))
+        var averageRating = 0f
+
+        if (cursor.moveToFirst()) {
+            averageRating = cursor.getFloat(cursor.getColumnIndexOrThrow("AverageRating"))
+        }
+        cursor.close()
+
+        // Cập nhật rating trung bình vào bảng Product
+        val values = ContentValues().apply {
+            put("Rating", averageRating)
+        }
+        db.update("Product", values, "ID = ?", arrayOf(productId.toString()))
+
+        Log.d("RatingDAO", "Updated Product $productId with new average rating: $averageRating")
     }
 
 
