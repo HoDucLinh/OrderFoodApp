@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:windowSoftInputMode="adjustPan"
     android:layout_marginTop="@dimen/margin_layoutTop"
     tools:context=".view.SignIn">
 
@@ -15,10 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:paddingTop="100dp"
-        android:paddingBottom="40dp"
+        android:layout_weight="1"
         android:textSize="@dimen/textLogin"
         android:textFontWeight="800"
+        android:gravity="center"
         android:fontFamily="@font/sen"
         android:text="Sign Up" />
 
@@ -38,7 +39,6 @@
         android:background="@drawable/border_login"
         android:orientation="vertical"
         android:scaleType="centerCrop"
-        android:windowSoftInputMode="adjustResize"
         android:padding="@dimen/padding_login">
 
         <com.google.android.material.textfield.TextInputLayout
