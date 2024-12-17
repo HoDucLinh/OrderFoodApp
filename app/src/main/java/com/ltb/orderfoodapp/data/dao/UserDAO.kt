@@ -78,15 +78,9 @@ class UserDAO(private val context: Context) {
             u.BioInfor, 
             u.Password, 
             u.Cart_ID, 
-            u.Role_ID,
-            r.RoleName,
-            r.ID as RoleID
+            u.Role_ID
         FROM 
             User u 
-        LEFT JOIN 
-            Role r 
-        ON 
-            u.Role_ID = r.ID
         WHERE 
             u.Email = ? AND u.Password = ?
     """.trimIndent()
@@ -102,7 +96,7 @@ class UserDAO(private val context: Context) {
                 bioInfor = cursor.getString(cursor.getColumnIndexOrThrow("BioInfor")),
                 password = cursor.getString(cursor.getColumnIndexOrThrow("Password")),
                 cartId = cursor.getInt(cursor.getColumnIndexOrThrow("Cart_ID")),
-                roleId = cursor.getInt(cursor.getColumnIndexOrThrow("RoleID"))
+                roleId = cursor.getInt(cursor.getColumnIndexOrThrow("Role_ID"))
             )
             cursor.close()
             return user

@@ -64,7 +64,7 @@ class ProductDAO(private val context: Context) {
     }
 
     // Kiểm tra xem danh mục có tồn tại chưa, nếu chưa thì thêm mới
-    private fun getOrInsertCategory(categoryName: String): Int {
+    fun getOrInsertCategory(categoryName: String): Int {
         db = DatabaseHelper.getInstance(context).readableDatabase
         categoryDAO = CategoryDAO(context)
         var categoryId = categoryDAO.getCategoryIdByName(categoryName)
@@ -80,7 +80,7 @@ class ProductDAO(private val context: Context) {
     }
 
     // Cập nhật sản phẩm với category_id
-    private fun updateProductCategory(productId: Long, categoryId: Int) {
+    fun updateProductCategory(productId: Long, categoryId: Int) {
         db = DatabaseHelper.getInstance(context).writableDatabase
         val updateCategoryValues = ContentValues().apply {
             put("Category_ID", categoryId)
@@ -113,7 +113,7 @@ class ProductDAO(private val context: Context) {
     // Thêm hình ảnh cho sản phẩm
     private fun addImagesToProduct(productId: Long, images: List<String>) {
         db = DatabaseHelper.getInstance(context).writableDatabase
-        val imageDAO = ImageDAO(db)
+        val imageDAO = ImageDAO(context)
         images.forEach { imageUrl ->
             try {
                 imageDAO.addImage(imageUrl, productId.toInt())
@@ -204,11 +204,22 @@ class ProductDAO(private val context: Context) {
             put("Price", product.getPrice())
             put("Rating", product.getRating())
             put("Description", product.getDescription())
+            put("Category_ID", product.getCategory())
         }
 
         val rowsUpdated = db.update("Product", values, "ID = ?", arrayOf(product.getIdProduct().toString()))
+
+        if (product.getImages().isNotEmpty()) {
+            val imageDAO = ImageDAO(context)
+            imageDAO.deleteImagesForProduct(product.getIdProduct())
+            product.getImages().forEach { imageUrl ->
+                imageDAO.addImage(imageUrl, product.getIdProduct())
+            }
+        }
+
         return rowsUpdated > 0
     }
+
     // Xóa sản phẩm và ảnh liên quan
     fun deleteProductById(productId: Int): Boolean {
         db = DatabaseHelper.getInstance(context).writableDatabase

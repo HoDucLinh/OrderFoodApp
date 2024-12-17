@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/margin_layoutTop"
+    android:scrollbars="vertical"
     tools:context=".view.AddNewItems">
 
     <LinearLayout
@@ -76,7 +77,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
@@ -97,22 +98,30 @@
                 android:gravity="center"
                 android:layout_marginLeft="10dp">
 
-                <ImageView
-                    android:id="@+id/imageView"
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_launcher_background" />
-
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_gravity="center">
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_weight="1"/>
+                </androidx.cardview.widget.CardView>
                 <ImageButton
                     android:id="@+id/btnTaiAnh1"
                     android:layout_width="wrap_content"
-                    android:layout_height="53dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:layout_weight="1"
-                    android:background="@color/white"
-                    app:srcCompat="@drawable/ic_cloud_upload_24" />
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_cloud_upload_24" />
 
             </LinearLayout>
 
@@ -144,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="numberDecimal"
-                    android:text="50" />
+                    android:hint="10000" />
 
 
             </LinearLayout>
@@ -201,9 +210,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:text="SAVE CHANGES"
+                android:layout_margin="@dimen/margin_layout"
                 android:textColor="@color/white" />
 
         </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

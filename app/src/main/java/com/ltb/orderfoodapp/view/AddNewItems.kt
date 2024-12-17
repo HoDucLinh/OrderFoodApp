@@ -37,13 +37,6 @@ class AddNewItems : AppCompatActivity() {
         binding = ActivityAddNewItemsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Enable edge-to-edge display
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
         // Initialize Firebase Storage and DAO
         storage = FirebaseStorage.getInstance()
         productDAO = ProductDAO(this)
@@ -142,6 +135,8 @@ class AddNewItems : AppCompatActivity() {
 
         val isAdded = productDAO.addProduct(newProduct)
         if (isAdded != null) {
+            val myFoodList = Intent(this, MyFood ::class.java)
+            startActivity(myFoodList)
             Toast.makeText(this, "Product added successfully", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this, "Failed to add product", Toast.LENGTH_SHORT).show()

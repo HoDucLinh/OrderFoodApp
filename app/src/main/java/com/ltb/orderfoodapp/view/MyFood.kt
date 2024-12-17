@@ -21,6 +21,7 @@ class MyFood : AppCompatActivity() {
     private lateinit var filteredList: MutableList<Product>
     private lateinit var listView: ListView
     private lateinit var categorySpinner: Spinner
+    private lateinit var totalItemsTextView : TextView
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +34,7 @@ class MyFood : AppCompatActivity() {
 
         listView = findViewById(R.id.listitem)
         categorySpinner = findViewById(R.id.categorySpinner)
-        val totalItemsTextView: TextView = findViewById(R.id.textView6)
+        totalItemsTextView = findViewById(R.id.textView6)
 
         // Thiết lập Spinner
         val categories = mutableListOf("All")
@@ -68,4 +69,24 @@ class MyFood : AppCompatActivity() {
             startActivity(Intent(this, AddNewItems::class.java))
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+setUpList()
+    }
+
+    override fun onResume() {
+        super.onResume()
+setUpList()
+    }
+
+    fun setUpList(){
+        val viewModel = ProductViewModel(this)
+        productList = viewModel.getProducts().toMutableList()
+        filteredList = productList
+        itemAdapter = ItemAdapter(this, filteredList)
+        listView.adapter = itemAdapter
+        totalItemsTextView.text = "Total ${filteredList.size} items"
+    }
+
 }

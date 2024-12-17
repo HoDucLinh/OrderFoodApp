@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -74,7 +74,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
@@ -84,40 +84,42 @@
                 android:layout_height="wrap_content"
                 android:text="UPLOAD PHOTO/VIDEO"
                 android:textFontWeight="500"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="116dp"
-                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_marginLeft="10dp">
 
-                <ImageView
-                    android:id="@+id/imageView"
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_launcher_background" />
-
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_gravity="center">
+                    <ImageView
+                        android:id="@+id/editImage"
+                        android:layout_width="300dp"
+                        android:layout_height="200dp"
+                        android:scaleType="centerCrop"
+                        android:layout_weight="1"/>
+                </androidx.cardview.widget.CardView>
                 <ImageButton
                     android:id="@+id/btnTaiAnh1"
                     android:layout_width="wrap_content"
-                    android:layout_height="53dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:layout_weight="1"
-                    android:background="@color/white"
-                    app:srcCompat="@drawable/ic_cloud_upload_24" />
-
-                <ImageButton
-                    android:id="@+id/btnTaiAnh2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="54dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    app:srcCompat="@drawable/ic_cloud_upload_24" />
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_cloud_upload_24" />
 
             </LinearLayout>
 
@@ -125,7 +127,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="161dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -135,7 +137,7 @@
                 android:text="PRICE"
                 android:layout_marginBottom="10dp"
                 android:textFontWeight="500"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -144,11 +146,13 @@
                 android:layout_marginLeft="10dp">
 
                 <EditText
-                    android:id="@+id/editTextPrice"
+                    android:id="@+id/editPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="50$" />
+                    android:inputType="numberDecimal"
+                    android:hint="10000" />
+
 
             </LinearLayout>
 
@@ -159,34 +163,25 @@
                 android:text="CATEGORY"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="10dp"
-                android:textFontWeight="500"/>
+                android:textFontWeight="500" />
 
-            <LinearLayout
+            <!-- Spinner cho danh mục -->
+            <Spinner
+                android:id="@+id/categorySpinner"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
 
-                <CheckBox
-                    android:id="@+id/cateFood"
-                    android:layout_width="18dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Food" />
-
-                <CheckBox
-                    android:id="@+id/cateDrink"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Drinks" />
-            </LinearLayout>
+            <ListView
+                android:id="@+id/listitem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="215dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -212,11 +207,11 @@
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
-                android:background="@color/orange"
                 android:text="SAVE CHANGES"
+                android:layout_margin="@dimen/margin_layout"
                 android:textColor="@color/white" />
 
         </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
