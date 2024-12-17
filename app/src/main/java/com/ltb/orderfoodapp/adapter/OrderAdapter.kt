@@ -25,7 +25,7 @@ class OrderAdapter(
     private val context: Context,
     private val products: List<Product>,
     private val fragment: Fragment,
-    private val cartId: Int
+    private val cartId : Int
 ) : BaseAdapter() {
 
     private val orderDAO = OrderDAO(context)

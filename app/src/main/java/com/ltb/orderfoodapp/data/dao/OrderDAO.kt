@@ -176,7 +176,7 @@ class OrderDAO(private val context: Context) {
     }
 
 
-    fun getAllProducts(statusList: List<Int>): List<Product> {
+    fun getAllProducts(statusList: List<Int>,userId: Int): List<Product> {
         val productList = mutableListOf<Product>()
         val db = dbHelper.readableDatabase
 
@@ -189,15 +189,17 @@ class OrderDAO(private val context: Context) {
             p.Name AS ProductName,
             p.Price,
             p.Description,
-            i.Value AS ImageSource 
+            i.Value AS ImageSource, 
+            u.ID
         FROM "Order"
-        JOIN OrderDetail od ON "Order".ID = od.Order_ID
+        JOIN OrderDetail od ON `Order`.ID = od.Order_ID
         JOIN Product p ON od.Product_ID = p.ID
         LEFT JOIN Image i ON p.ID = i.Product_ID
-        WHERE "Order".Status IN ($statusPlaceholders)
+        LEFT JOIN User u ON u.ID = `Order`.User_ID
+        WHERE `Order`.Status IN($statusPlaceholders) AND `Order`.User_ID = ?
     """
 
-        val cursor = db.rawQuery(query, statusList.map { it.toString() }.toTypedArray())
+        val cursor = db.rawQuery(query, arrayOf(statusList.map { it.toString() }.toTypedArray(),userId.toString()))
 
         cursor.use { cur ->
             if (cur.moveToFirst()) {
@@ -226,7 +228,6 @@ class OrderDAO(private val context: Context) {
         db.close()
         return productList
     }
-
 
     fun getProductQuantityByProductId(productId: Int): Int {
         val db = dbHelper.readableDatabase

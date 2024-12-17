@@ -20,22 +20,72 @@ class RatingDAO(private val context: Context) {
     @RequiresApi(Build.VERSION_CODES.O)
     fun addRating(rating: Float, comment: String, productId: Int, userId: Int): Long {
         val dbHelper = DatabaseHelper.getInstance(context)
-        db = dbHelper.writableDatabase
+        val db = dbHelper.writableDatabase
+
         // Lấy thời gian hiện tại
         val currentDateTime = LocalDateTime.now()
         val formattedDate = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-        // Chuẩn bị dữ liệu để chèn
-        val values = ContentValues().apply {
-            put("Rating", rating)
-            put("Comment", comment)
-            put("ReviewDate", formattedDate)
-            put("Product_ID", productId)
-            put("User_ID", userId) // Thêm User_ID
-        }
+        // Kiểm tra xem bản ghi đã tồn tại chưa
+        val cursor = db.rawQuery(
+            "SELECT * FROM ReviewOrder WHERE User_ID = ? AND Product_ID = ?",
+            arrayOf(userId.toString(), productId.toString())
+        )
 
-        return db.insert("ReviewOrder", null, values)
+        return if (cursor.moveToFirst()) {
+            // Bản ghi tồn tại -> UPDATE
+            val values = ContentValues().apply {
+                put("Rating", rating)
+                put("Comment", comment)
+                put("ReviewDate", formattedDate)
+            }
+            db.update(
+                "ReviewOrder",
+                values,
+                "User_ID = ? AND Product_ID = ?",
+                arrayOf(userId.toString(), productId.toString())
+            ).toLong()
+        } else {
+            // Bản ghi chưa tồn tại -> INSERT
+            val values = ContentValues().apply {
+                put("Rating", rating)
+                put("Comment", comment)
+                put("ReviewDate", formattedDate)
+                put("Product_ID", productId)
+                put("User_ID", userId)
+            }
+            db.insert("ReviewOrder", null, values)
+        }.also {
+            cursor.close()
+            // Sau khi thêm hoặc cập nhật review, tính toán và cập nhật lại rating của Product
+            updateProductRating(productId, db)
+        }
     }
+
+    // Hàm tính và cập nhật lại rating trung bình của sản phẩm
+    private fun updateProductRating(productId: Int, db: SQLiteDatabase) {
+        val query = """
+        SELECT AVG(Rating) AS AverageRating
+        FROM ReviewOrder
+        WHERE Product_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(productId.toString()))
+        var averageRating = 0f
+
+        if (cursor.moveToFirst()) {
+            averageRating = cursor.getFloat(cursor.getColumnIndexOrThrow("AverageRating"))
+        }
+        cursor.close()
+
+        // Cập nhật rating trung bình vào bảng Product
+        val values = ContentValues().apply {
+            put("Rating", averageRating)
+        }
+        db.update("Product", values, "ID = ?", arrayOf(productId.toString()))
+
+        Log.d("RatingDAO", "Updated Product $productId with new average rating: $averageRating")
+    }
+
 
     fun getReviewsForProduct(productId: Int): List<Review> {
         val dbHelper = DatabaseHelper.getInstance(context)

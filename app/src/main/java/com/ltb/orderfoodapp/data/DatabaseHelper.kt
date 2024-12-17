@@ -195,8 +195,8 @@ class DatabaseHelper(context: Context) :
         ReviewDate TEXT NOT NULL,
         User_ID INTEGER NOT NULL,
         Product_ID INTEGER NOT NULL,
-        FOREIGN KEY (User_ID) REFERENCES $TABLE_USER(ID),
-        FOREIGN KEY (Product_ID) REFERENCES $TABLE_PRODUCT(ID),
+        FOREIGN KEY (User_ID) REFERENCES User(ID),
+        FOREIGN KEY (Product_ID) REFERENCES Product(ID),
         UNIQUE(User_ID, Product_ID) ON CONFLICT REPLACE
     )
     """.trimIndent()
