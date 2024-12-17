@@ -11,6 +11,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
@@ -75,6 +76,7 @@ class OrderAdapter(
         val reOrderButton = view.findViewById<Button>(R.id.btn_reorder)
         reOrderButton.setOnClickListener {
             orderDAO.addProductToCart(product.getIdProduct(), cartId)
+            Toast.makeText(context, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show()
         }
 
         val ratingBtn = view.findViewById<Button>(R.id.rating)
