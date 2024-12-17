@@ -180,7 +180,7 @@
             android:fontFamily="@font/sen"
             android:backgroundTint="@color/orange"
             android:layout_marginTop="@dimen/margin_layout"
-            android:text="Login" />
+            android:text="Register" />
 
 
     </LinearLayout>

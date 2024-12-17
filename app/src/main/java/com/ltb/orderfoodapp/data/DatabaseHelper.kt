@@ -4,6 +4,12 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.ltb.orderfoodapp.data.dao.CategoryDAO
+import com.ltb.orderfoodapp.data.dao.ProductDAO
+import com.ltb.orderfoodapp.data.dao.UserDAO
+import com.ltb.orderfoodapp.data.model.Category
+import com.ltb.orderfoodapp.data.model.Product
+import com.ltb.orderfoodapp.data.model.User
 
 class DatabaseHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -17,8 +23,8 @@ class DatabaseHelper(context: Context) :
         private const val TABLE_CATEGORY = "Category"
         private const val TABLE_PRODUCT = "Product"
         private const val TABLE_IMAGE = "Image"
-        private const val TABLE_ADDRESS_USER = "AddressOfUser"
-        private const val TABLE_RESTAURANT = "Restaurant"
+//        private const val TABLE_ADDRESS_USER = "AddressOfUser"
+//        private const val TABLE_RESTAURANT = "Restaurant"
         private const val TABLE_USER = "User"
         private const val TABLE_ROLE = "Role"
         private const val TABLE_ORDER = "\"Order\""
@@ -27,7 +33,7 @@ class DatabaseHelper(context: Context) :
 //        private const val TABLE_STATUS = "Status"
         private const val TABLE_ORDER_DETAIL = "OrderDetail"
         private const val TABLE_REVIEW_ORDER = "ReviewOrder"
-        private const val TABLE_REVIEW_RESTAURANT = "ReviewRestaurant"
+//        private const val TABLE_REVIEW_RESTAURANT = "ReviewRestaurant"
         private const val TABLE_CART = "Cart"
         private const val TABLE_PRODUCT_CART = "Product_Cart"
 
@@ -59,23 +65,23 @@ class DatabaseHelper(context: Context) :
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-//        db.execSQL("DROP TABLE IF EXISTS $TABLE_CATEGORY")
-//        db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCT")
-//        db.execSQL("DROP TABLE IF EXISTS $TABLE_IMAGE")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_CATEGORY")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCT")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_IMAGE")
 //        db.execSQL("DROP TABLE IF EXISTS $TABLE_ADDRESS_USER")
 //        db.execSQL("DROP TABLE IF EXISTS $TABLE_RESTAURANT")
-//        db.execSQL("DROP TABLE IF EXISTS $TABLE_USER")
-//        db.execSQL("DROP TABLE IF EXISTS $TABLE_ROLE")
-////        db.execSQL("DROP TABLE IF EXISTS $TABLE_ACCOUNT")
-//        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER")
-////        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_STATUS")
-////        db.execSQL("DROP TABLE IF EXISTS $TABLE_STATUS")
-//        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_DETAIL")
-//        db.execSQL("DROP TABLE IF EXISTS $TABLE_REVIEW_ORDER")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_USER")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_ROLE")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_ACCOUNT")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_STATUS")
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_STATUS")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_DETAIL")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_REVIEW_ORDER")
 //        db.execSQL("DROP TABLE IF EXISTS $TABLE_REVIEW_RESTAURANT")
-//        db.execSQL("DROP TABLE IF EXISTS $TABLE_CART")
-//        db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCT_CART")
-//        onCreate(db)
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_CART")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCT_CART")
+        onCreate(db)
     }
 
     // Tạo các bảng

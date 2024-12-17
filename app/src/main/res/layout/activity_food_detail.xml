@@ -255,10 +255,10 @@
         android:id="@+id/gridview_review"
         android:layout_width="match_parent"
         android:paddingVertical="@dimen/padding_layout"
+        android:paddingHorizontal="15dp"
+        android:verticalSpacing="@dimen/margin_layout"
         android:layout_height="wrap_content"
-        android:gravity="center">
-
-    </GridView>
+        android:gravity="center"/>
 
 
 </LinearLayout>

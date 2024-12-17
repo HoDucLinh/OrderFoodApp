@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.storage)
     implementation(libs.play.services.location)
+    implementation(libs.firebase.appcheck.playintegrity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -103,8 +104,6 @@ dependencies {
     implementation("com.android.support:support-v4:19.0.0")
     //
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
-
 
 
 }

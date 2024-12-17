@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/margin_layout"
     android:layout_gravity="center"
+    android:padding="15dp"
+    android:background="@drawable/border_edittext"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/border_edittext"
         android:gravity="center"
-        android:padding="15dp"
+        android:background="@android:color/transparent"
         android:orientation="horizontal">
 
         <TextView
@@ -36,18 +36,34 @@
             android:scaleY="0.5"
             android:isIndicator="true" />
 
-
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView_comment"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:textAlignment="center"
-        android:textSize="@dimen/font_size_medium"
-        android:padding="15dp"
-        android:background="@drawable/border_edittext"
-        android:fontFamily="@font/sen"/>
+        android:layout_marginTop="15dp"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:textFontWeight="200"
+            android:layout_gravity="right|center"
+            android:background="@android:color/transparent"
+            android:textSize="@dimen/font_size_small"
+            />
+        <TextView
+            android:id="@+id/textView_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:textAlignment="center"
+            android:textSize="@dimen/font_size_medium"
+
+            android:fontFamily="@font/sen"/>
+    </LinearLayout>
 
 </LinearLayout>

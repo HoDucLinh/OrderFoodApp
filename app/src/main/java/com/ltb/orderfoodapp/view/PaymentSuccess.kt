@@ -18,6 +18,11 @@ class PaymentSuccess : AppCompatActivity() {
             val trackingOrder = Intent(this, TrackingOrder::class.java)
             startActivity(trackingOrder)
         }
+        val backHome = findViewById<Button>(R.id.home)
+        backHome.setOnClickListener {
+            val home = Intent(this,Home::class.java)
+            startActivity(home)
+        }
     }
 
 }

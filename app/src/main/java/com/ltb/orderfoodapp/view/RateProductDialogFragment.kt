@@ -69,9 +69,6 @@ class RateProductDialogFragment : DialogFragment() {
         val commentEditText = view.findViewById<EditText>(R.id.editText_comment)
         val ratingBar = view.findViewById<RatingBar>(R.id.ratingBar)
         val btnSubmit = view.findViewById<Button>(R.id.btnSubmit)
-
-        // Lấy userID
-        // Lấy thông tin từ SharedPreferences
         val sharedPreferences = requireContext().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
 
         val userJson = sharedPreferences.getString("user", null)
@@ -84,14 +81,19 @@ class RateProductDialogFragment : DialogFragment() {
             return
         }
 
-
         btnSubmit.setOnClickListener {
             val rating = ratingBar.rating
             val comment = commentEditText.text.toString().trim()
-            ratingDAO.addRating(rating, comment, productId, userId) // Lưu đánh giá vào database
-            productDAO.syncProductRatings() // đồng bộ hoá rating khi start
 
+            if (rating == 0f || comment.isEmpty()) {
+                Toast.makeText(requireContext(), "Vui lòng cung cấp đánh giá và nhận xét", Toast.LENGTH_SHORT).show()
+            } else {
+                ratingDAO.addRating(rating, comment, productId, userId)
+                productDAO.syncProductRatings()
+                dismiss()
+            }
         }
+
     }
 
     override fun onStart() {

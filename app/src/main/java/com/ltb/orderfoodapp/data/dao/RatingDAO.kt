@@ -22,11 +22,9 @@ class RatingDAO(private val context: Context) {
         val dbHelper = DatabaseHelper.getInstance(context)
         val db = dbHelper.writableDatabase
 
-        // Lấy thời gian hiện tại
         val currentDateTime = LocalDateTime.now()
         val formattedDate = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-        // Kiểm tra xem bản ghi đã tồn tại chưa
         val cursor = db.rawQuery(
             "SELECT * FROM ReviewOrder WHERE User_ID = ? AND Product_ID = ?",
             arrayOf(userId.toString(), productId.toString())
@@ -147,7 +145,6 @@ class RatingDAO(private val context: Context) {
                 ratings.add(rating)
             } while (cursor.moveToNext())
         }
-
         cursor.close()
 
         return if (ratings.isNotEmpty()) {

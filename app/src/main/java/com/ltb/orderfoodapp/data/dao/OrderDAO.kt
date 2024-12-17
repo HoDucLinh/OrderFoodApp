@@ -176,11 +176,11 @@ class OrderDAO(private val context: Context) {
     }
 
 
-    fun getAllProducts(statusList: List<Int>,userId: Int): List<Product> {
-        val productList = mutableListOf<Product>()
+    fun getAllProducts(statusList: List<Int>, userId: Int): List<Pair<Product, Int>> {
+        val productList = mutableListOf<Pair<Product, Int>>() // Pair<Product, Order.Status>
         val db = dbHelper.readableDatabase
 
-        // Create a string for the IN clause using placeholders for each status
+        // Tạo placeholders cho status IN clause
         val statusPlaceholders = statusList.joinToString(",") { "?" }
 
         val query = """
@@ -190,21 +190,25 @@ class OrderDAO(private val context: Context) {
             p.Price,
             p.Description,
             i.Value AS ImageSource, 
-            u.ID
+            `Order`.Status AS OrderStatus -- Lấy thêm Order.Status
         FROM "Order"
         JOIN OrderDetail od ON `Order`.ID = od.Order_ID
         JOIN Product p ON od.Product_ID = p.ID
         LEFT JOIN Image i ON p.ID = i.Product_ID
-        LEFT JOIN User u ON u.ID = `Order`.User_ID
         WHERE `Order`.Status IN($statusPlaceholders) AND `Order`.User_ID = ?
     """
 
-        val cursor = db.rawQuery(query, arrayOf(statusList.map { it.toString() }.toTypedArray(),userId.toString()))
+        // Chuẩn bị danh sách tham số cho query
+        val queryArgs = statusList.map { it.toString() }.toMutableList().apply {
+            add(userId.toString())
+        }
 
+        val cursor = db.rawQuery(query, queryArgs.toTypedArray())
         cursor.use { cur ->
             if (cur.moveToFirst()) {
                 do {
                     try {
+                        // Tạo Product
                         val product = Product(
                             idProduct = cur.getInt(cur.getColumnIndexOrThrow("ProductID")),
                             name = cur.getString(cur.getColumnIndexOrThrow("ProductName")),
@@ -212,13 +216,19 @@ class OrderDAO(private val context: Context) {
                             description = cur.getString(cur.getColumnIndexOrThrow("Description"))
                         )
 
+                        // Lấy ảnh nếu có
                         val imageUrl = cur.getStringOrNull(cur.getColumnIndexOrThrow("ImageSource"))
                         if (!imageUrl.isNullOrEmpty()) {
                             val currentImages = product.getImages()
                             currentImages.add(imageUrl)
                             product.setImages(currentImages)
                         }
-                        productList.add(product)
+
+                        // Lấy Order.Status
+                        val orderStatus = cur.getInt(cur.getColumnIndexOrThrow("OrderStatus"))
+
+                        // Thêm vào danh sách kết quả dưới dạng Pair
+                        productList.add(Pair(product, orderStatus))
                     } catch (e: Exception) {
                         Log.e("getAllProducts", "Lỗi khi xử lý dòng dữ liệu: ${e.message}")
                     }
@@ -228,6 +238,7 @@ class OrderDAO(private val context: Context) {
         db.close()
         return productList
     }
+
 
     fun getProductQuantityByProductId(productId: Int): Int {
         val db = dbHelper.readableDatabase
@@ -320,13 +331,11 @@ class OrderDAO(private val context: Context) {
                     product.setImages(currentImages)
                 }
 
-                val status = Status.entries[cursor.getInt(cursor.getColumnIndexOrThrow("Status"))]
-
+                val statusId = cursor.getInt(cursor.getColumnIndexOrThrow("Status"))
+                val status = Status.fromId(statusId) ?: throw IllegalArgumentException("Invalid Status ID: $statusId")
                 currentProducts.add(GroupOrderAdapter.ProductWithStatus(product, status))
 
             } while (cursor.moveToNext())
-
-            // Thêm đơn hàng cuối cùng vào danh sách
             if (currentOrderId != -1) {
                 orders.add(GroupOrderAdapter.OrderWithProducts(currentOrderId, currentProducts, currentUserName))
             }

@@ -29,15 +29,15 @@ class ReviewAdapter(
         val userName = view.findViewById<TextView>(R.id.textView_username)
         val userComment = view.findViewById<TextView>(R.id.textView_comment)
         val userRating = view.findViewById<RatingBar>(R.id.ratingBar)
+        val date = view.findViewById<TextView>(R.id.date)
 
-        // Lấy review hiện tại
+
         val review = getItem(position) as Review
 
-        // Đổ dữ liệu vào các thành phần
         userName.text = review.getFullName()
         userComment.text = review.getComment()
-        userRating.rating = review.getRating().toFloat()
-
+        userRating.rating = review.getRating()
+        date.text = review.getReviewDate()
         return view
     }
 }
