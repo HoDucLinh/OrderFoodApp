@@ -149,8 +149,8 @@ class SignIn : AppCompatActivity() {
         builder.setView(progressBar)
         builder.setCancelable(false)
         loadingDialog = builder.create()
-        loadingDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        loadingDialog?.show()
+        loadingDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        loadingDialog.show()
     }
 
 
