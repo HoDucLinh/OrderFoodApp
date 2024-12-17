@@ -27,7 +27,7 @@ class HistoryFragment : Fragment(){
         ordersContainer = view.findViewById(com.ltb.orderfoodapp.R.id.ordersContainer)
 
         val orderDAO = OrderDAO(requireContext())
-        val productsList = orderDAO.getAllProducts(2)
+        val productsList = orderDAO.getAllProducts(mutableListOf(4))
 
         val sharedPreferences = requireContext().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val user = sharedPreferences.getString("user", null)

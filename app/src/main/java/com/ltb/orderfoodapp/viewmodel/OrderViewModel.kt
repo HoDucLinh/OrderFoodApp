@@ -30,9 +30,7 @@ class OrderViewModel(context: Context) {
         return runningorders.size
     }
 
-    fun getOrders(): MutableList<Order> {
-        return runningorders
-    }
+
 
 
 

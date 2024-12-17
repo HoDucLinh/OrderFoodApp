@@ -176,9 +176,13 @@ class OrderDAO(private val context: Context) {
     }
 
 
-    fun getAllProducts(status: Int): List<Product> {
+    fun getAllProducts(statusList: List<Int>): List<Product> {
         val productList = mutableListOf<Product>()
         val db = dbHelper.readableDatabase
+
+        // Create a string for the IN clause using placeholders for each status
+        val statusPlaceholders = statusList.joinToString(",") { "?" }
+
         val query = """
         SELECT
             p.ID AS ProductID,
@@ -187,13 +191,13 @@ class OrderDAO(private val context: Context) {
             p.Description,
             i.Value AS ImageSource 
         FROM "Order"
-        JOIN OrderDetail od ON `Order`.ID = od.Order_ID
+        JOIN OrderDetail od ON "Order".ID = od.Order_ID
         JOIN Product p ON od.Product_ID = p.ID
         LEFT JOIN Image i ON p.ID = i.Product_ID
-        WHERE `Order`.Status = ?
+        WHERE "Order".Status IN ($statusPlaceholders)
     """
 
-        val cursor = db.rawQuery(query, arrayOf(status.toString()))
+        val cursor = db.rawQuery(query, statusList.map { it.toString() }.toTypedArray())
 
         cursor.use { cur ->
             if (cur.moveToFirst()) {
@@ -222,6 +226,7 @@ class OrderDAO(private val context: Context) {
         db.close()
         return productList
     }
+
 
     fun getProductQuantityByProductId(productId: Int): Int {
         val db = dbHelper.readableDatabase
@@ -258,9 +263,6 @@ class OrderDAO(private val context: Context) {
             Log.e("OrderDAO", "Lỗi khi thêm sản phẩm vào giỏ hàng")
         }
     }
-
-
-
 
     fun getAllOrdersWithProducts(): List<GroupOrderAdapter.OrderWithProducts> {
         val db = dbHelper.readableDatabase
@@ -332,7 +334,6 @@ class OrderDAO(private val context: Context) {
         return orders
     }
 
-
     fun updateOrderStatus(orderId: Int, newStatus: Int) {
         val db = dbHelper.writableDatabase
         val contentValues = ContentValues().apply {
@@ -346,7 +347,53 @@ class OrderDAO(private val context: Context) {
             arrayOf(orderId.toString())
         )
     }
+    fun getTopSellingProducts(): List<Product> {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT 
+            p.ID AS product_id,
+            p.Name AS product_name,
+            SUM(od.Quantity) AS total_quantity,
+            p.Price ,
+            p.Rating,
+            i.Value AS image_url
+        FROM 
+            OrderDetail od
+        JOIN 
+            Product p ON od.Product_ID = p.ID
+        LEFT JOIN 
+            Image i ON p.ID = i.Product_ID
+        GROUP BY 
+            p.ID
+        ORDER BY 
+            total_quantity DESC
+        LIMIT 5
+    """
+        val cursor = db.rawQuery(query, null)
+        val topSellingProducts = mutableListOf<Product>()
 
+        if (cursor.moveToFirst()) {
+            do {
+                val productId = cursor.getInt(cursor.getColumnIndexOrThrow("product_id"))
+                val productName = cursor.getString(cursor.getColumnIndexOrThrow("product_name"))
+                val imageUrl = cursor.getString(cursor.getColumnIndexOrThrow("image_url"))
+                val price = cursor.getInt(cursor.getColumnIndexOrThrow("Price"))
+                val rating = cursor.getFloat(cursor.getColumnIndexOrThrow("Rating"))
+
+                val product = Product(idProduct = productId, name = productName,price = price, rating= rating)
+                if (imageUrl != null) {
+                    val currentImages = product.getImages()
+                    currentImages.add(imageUrl)
+                    product.setImages(currentImages)
+                }
+
+                topSellingProducts.add(product)
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+        return topSellingProducts
+    }
 
 
 

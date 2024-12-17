@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sen"
-                android:text="Halal Lab office"
+                android:text="Order Food Restaurant"
                 android:textSize="@dimen/fontSize" />
         </LinearLayout>
     </LinearLayout>
@@ -176,6 +176,7 @@
                 android:text="Reviews"
                 />
             <TextView
+                android:id="@+id/allReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sen"
@@ -188,19 +189,23 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:background="@android:color/transparent"
+            android:layout_marginTop="@dimen/margin_layout"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/totalRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:textColor="@color/darkBG"
+                android:layout_weight="1"
                 android:drawableLeft="@drawable/star"
                 android:text="4.9"/>
             <TextView
+                android:id="@+id/totalReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -216,32 +221,23 @@
         android:padding="@dimen/margin_layout"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sen"
 
-                android:text="Popular Items This Weeks"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sen"
-                android:textAlignment="viewEnd"
-                android:text="See All"/>
-        </LinearLayout>
+                android:text="Popular Items"/>
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/scrollLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="vertical" />
+                    android:orientation="horizontal" />
             </HorizontalScrollView>
 
     </LinearLayout>

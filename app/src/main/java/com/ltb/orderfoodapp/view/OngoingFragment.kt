@@ -7,9 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.GridView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.OrderAdapter
@@ -28,9 +30,10 @@ class OngoingFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_ongoing, container, false)
         ordersContainer = view.findViewById(R.id.ordersContainer)
+        val x = ordersContainer.findViewById<Button>(R.id.trackOrder)
 
         val orderDAO = OrderDAO(requireContext())
-        val productsList = orderDAO.getAllProducts(1)
+        val productsList = orderDAO.getAllProducts(mutableListOf(1,2,3))
 
         val sharedPreferences = requireContext().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val user = sharedPreferences.getString("user", null)
@@ -39,7 +42,6 @@ class OngoingFragment : Fragment() {
 
         val adapterCart = OrderAdapter(requireContext(), productsList, this, cartId )
         ordersContainer.adapter = adapterCart
-
         return view
     }
 }

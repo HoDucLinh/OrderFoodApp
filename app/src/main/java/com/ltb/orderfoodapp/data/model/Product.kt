@@ -1,6 +1,6 @@
 package com.ltb.orderfoodapp.data.model
 
-open class Product(
+data class Product(
     private var idProduct: Int = 0,
     private var name: String = "",
     private var price: Int = 0,
@@ -34,7 +34,7 @@ open class Product(
     }
 
     fun getRating(): Float {
-        return rating
+        return (rating * 10).toInt() / 10f
     }
 
     fun setRating(value: Float) {

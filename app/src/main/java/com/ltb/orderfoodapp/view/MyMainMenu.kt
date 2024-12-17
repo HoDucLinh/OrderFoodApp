@@ -45,13 +45,18 @@ class MyMainMenu : AppCompatActivity() {
         userId = userObject?.getIdUser() ?: -1
 
         if (userId == -1) {
-            // Xử lý trường hợp không tìm thấy user
             textViewFullName.text = "Guest"
             textViewBio.text = "Welcome to the app"
         } else {
-            // Đổ dữ liệu người dùng
             loadUserData()
         }
+
+        val reviewByUser = findViewById<TextView>(R.id.reviewByUser)
+        reviewByUser.setOnClickListener {
+            val review = Intent(this, ReviewScreen::class.java)
+            startActivity(review)
+        }
+
 
         val btnPersonalInfor = findViewById<TextView>(R.id.personalInfo)
         btnPersonalInfor.setOnClickListener{

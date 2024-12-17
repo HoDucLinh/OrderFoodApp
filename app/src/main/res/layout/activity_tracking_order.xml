@@ -35,16 +35,6 @@
 
     </LinearLayout>
 
-<!--    <fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--        xmlns:map="http://schemas.android.com/apk/res-auto"-->
-<!--        xmlns:tools="http://schemas.android.com/tools"-->
-<!--        android:id="@+id/map"-->
-<!--        android:name="com.google.android.gms.maps.SupportMapFragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        tools:context=".MapsActivity" />-->
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -58,15 +48,11 @@
             android:layout_margin="@dimen/font_size_large"
             android:textSize="@dimen/font_size_medium"
             android:text="" />
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageViewGif"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sen"
-            android:textSize="@dimen/font_size_large"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="20:00 Minute" />
+            android:layout_weight="1"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +61,6 @@
             android:fontFamily="@font/sen"
             android:layout_margin="@dimen/margin_button"
             />
-
 
     </LinearLayout>
 

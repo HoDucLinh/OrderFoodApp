@@ -2,6 +2,8 @@
 
 package com.ltb.orderfoodapp.view
 
+import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.util.Log
 import android.util.Patterns
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -32,6 +35,7 @@ class SignIn : AppCompatActivity() {
     private lateinit var signInGoogle : ImageView
     private lateinit var signInFacebook :ImageView
     private lateinit var signInGithub : ImageView
+    private lateinit var loadingDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Configure Google Sign In
@@ -86,34 +90,18 @@ class SignIn : AppCompatActivity() {
 
 
 
-        var isProcessing = false
-
         loginBtn.setOnClickListener {
-            if (isProcessing) {
-                Toast.makeText(this, "Processing, please wait...", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
             val userNameLogin = userNameInput.editText?.text.toString()
             val passwordLogin = passwordInput.editText?.text.toString()
 
             if (userNameLogin.isNotEmpty() && passwordLogin.isNotEmpty()) {
                 if (isValidEmail(userNameLogin)) {
-                    isProcessing = true
-                    loginBtn.isEnabled = false
-
-                    val handler = Handler()
-                    handler.postDelayed({
-                        if (isProcessing) {
-                            Toast.makeText(this, "Network is weak, please wait...", Toast.LENGTH_LONG).show()
-                        }
-                    }, 2000)
-
-                    auth.authEmail(userNameLogin, passwordLogin) { success, message ->
-                        isProcessing = false
-                        loginBtn.isEnabled = true
-                        handler.removeCallbacksAndMessages(null)
+                    showLoadingDialog()
+                    auth.authEmail(userNameLogin, passwordLogin) { success->
+                        dismissLoadingDialog()
                     }
                 } else {
+                    dismissLoadingDialog()
                     Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
                 }
             } else {
@@ -154,29 +142,29 @@ class SignIn : AppCompatActivity() {
     }
 
 
-    private var isProcessingGoogle = false  // Biến để theo dõi quá trình đăng nhập Google
+    private fun showLoadingDialog() {
+        val builder = AlertDialog.Builder(this)
+        val progressBar = ProgressBar(this)
+        progressBar.isIndeterminate = true
+        builder.setView(progressBar)
+        builder.setCancelable(false)
+        loadingDialog = builder.create()
+        loadingDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        loadingDialog?.show()
+    }
+
+
+    private fun dismissLoadingDialog() {
+        if (loadingDialog.isShowing) {
+            loadingDialog.dismiss()
+        }
+    }
 
     private fun signIn() {
-        // Kiểm tra nếu đang trong quá trình xử lý
-        if (isProcessingGoogle) {
-            Toast.makeText(this, "Processing, please wait...", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // Đánh dấu đang xử lý
-        isProcessingGoogle = true
-        signInGoogle.isEnabled = false
-        // Lấy intent đăng nhập Google
+        showLoadingDialog()
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
 
-        // Hiển thị thông báo nếu mạng yếu sau 2 giây
-        val handler = Handler()
-        handler.postDelayed({
-            if (isProcessingGoogle) {
-                Toast.makeText(this, "Network is weak, please wait...", Toast.LENGTH_LONG).show()
-            }
-        }, 2000)  // 2 giây sau sẽ hiển thị cảnh báo nếu không có phản hồi
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -185,19 +173,14 @@ class SignIn : AppCompatActivity() {
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                // Lấy tài khoản Google đã đăng nhập
                 val account = task.getResult(ApiException::class.java)!!
-                // Gọi phương thức để xác thực tài khoản Google với Firebase
-                auth.firebaseAuthWithGoogle(account.idToken!!)
-
-                // Sau khi xử lý xong, đánh dấu không còn đang xử lý và kích hoạt lại nút
-                isProcessingGoogle = false
-                signInGoogle.isEnabled = true  // Enable nút Google sau khi xử lý xong
+                auth.firebaseAuthWithGoogle(account.idToken!!) { success->
+                    dismissLoadingDialog()
+                }
             } catch (e: ApiException) {
                 Log.w(TAG, "Google sign in failed", e)
-                // Nếu đăng nhập thất bại, đánh dấu không còn đang xử lý và kích hoạt lại nút
-                isProcessingGoogle = false
-                signInGoogle.isEnabled = true  // Enable nút Google sau khi xử lý xong
+                dismissLoadingDialog()
+                Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_SHORT).show()
             }
         }
     }

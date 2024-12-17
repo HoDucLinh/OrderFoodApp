@@ -9,24 +9,12 @@
     android:layout_marginTop="@dimen/margin_layoutTop"
     tools:context=".view.PaymentSuccess">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clipToOutline="true"
-        app:cardBackgroundColor="#98A8B8"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        app:cardPreventCornerOverlap="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="300dp">
-
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:backgroundTint="@color/orange"/>
-
-    </androidx.cardview.widget.CardView>
-
+            android:layout_marginTop="300dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/congra"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -15,7 +15,7 @@ class PaymentSuccess : AppCompatActivity() {
         val trackingOrder = findViewById<Button>(R.id.trackOrder)
         // Chuyen qua tracking Order
         trackingOrder.setOnClickListener {
-            val trackingOrder = Intent(this, Home::class.java)
+            val trackingOrder = Intent(this, TrackingOrder::class.java)
             startActivity(trackingOrder)
         }
     }

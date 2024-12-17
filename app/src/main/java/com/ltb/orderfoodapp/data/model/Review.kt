@@ -15,9 +15,8 @@ data class Review(
         fullName = value
     }
 
-    // Getter và Setter cho rating
-    fun getRating(): Int {
-        return rating
+    fun getRating(): Float {
+        return (rating * 10).toInt() / 10f
     }
 
     fun setRating(value: Int) {

@@ -55,14 +55,14 @@ class AuthManager(private val context: Context) {
 //            }
 //    }
 
-    fun authEmail(email: String, password: String, callback: (Boolean, String) -> Unit) {
+    fun authEmail(email: String, password: String, callback: (Boolean) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     checkAdmin(email,password)
-                    callback(true, "Login successful")
+                    callback(true)
                 } else {
-                    callback(false, task.exception?.message ?: "Login failed")
+                    callback(false)
                 }
             }
     }
@@ -81,21 +81,23 @@ class AuthManager(private val context: Context) {
             }
     }
 
-    fun firebaseAuthWithGoogle(idToken: String) {
+    fun firebaseAuthWithGoogle(idToken: String, callback: (Boolean) -> Unit) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
+
+
         auth.signInWithCredential(credential).addOnCompleteListener(context as Activity) { task ->
             if (task.isSuccessful) {
-                Log.d(TAG, "signInWithCredential:success")
+                callback(true)
                 val user = auth.currentUser
-                checkAdmin(user?.email.toString(),"")
+                checkAdmin(user?.email.toString(), "")
                 updateUI(user)
             } else {
-                // If sign in fails, display a message to the user.
-                Log.w(TAG, "signInWithCredential:failure", task.exception)
+                callback(false)
                 updateUI(null)
             }
         }
     }
+
     fun handleFacebookAccessToken(token: AccessToken) {
         Log.d(TAG, "handleFacebookAccessToken:$token")
 

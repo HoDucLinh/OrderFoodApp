@@ -154,14 +154,14 @@ class FoodDetail : AppCompatActivity() {
         val category = intent.getStringExtra("category") ?: ""
         val description = intent.getStringExtra("description") ?: ""
         val productNameTextView = findViewById<TextView>(R.id.productName)
-        val storeNameTextView = findViewById<TextView>(R.id.restaurantName)
+//        val storeNameTextView = findViewById<TextView>(R.id.restaurantName)
         val priceTextView = findViewById<TextView>(R.id.priceTotal)
         val ratingTextView = findViewById<TextView>(R.id.productRating)
         val descriptionTextView = findViewById<TextView>(R.id.productDes)
         val imageView = findViewById<ImageView>(R.id.imageProduct)
 
         productNameTextView.text = name
-        storeNameTextView.text = "storeName"
+//        storeNameTextView.text = "storeName"
         priceTextView.text = "${price}"
         ratingTextView.text = "$rating"
         descriptionTextView.text = description
