@@ -7,10 +7,6 @@ import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import com.facebook.AccessToken
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -43,30 +39,16 @@ class AuthManager(private val context: Context) {
         userDAO = UserDAO(context)
     }
 
-//    // Đăng nhập bằng email và mật khẩu
-//    fun authEmail(email: String, password: String) {
-//        auth.signInWithEmailAndPassword(email, password)
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    checkAdmin(email,password)
-//                } else {
-//                    Toast.makeText(context, "Login Error.", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//    }
-
-    fun authEmail(email: String, password: String, callback: (Boolean) -> Unit) {
+    fun authEmail(email: String, password: String ,callback: (Boolean, String) -> Unit ) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     checkAdmin(email,password)
-                    callback(true)
                 } else {
-                    callback(false)
+                   callback(false, "Login error")
                 }
             }
     }
-
     fun createAccount(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener{ task ->
@@ -81,23 +63,19 @@ class AuthManager(private val context: Context) {
             }
     }
 
-    fun firebaseAuthWithGoogle(idToken: String, callback: (Boolean) -> Unit) {
+    fun firebaseAuthWithGoogle(idToken: String, callback: (Boolean, String) -> Unit ) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-
-
         auth.signInWithCredential(credential).addOnCompleteListener(context as Activity) { task ->
             if (task.isSuccessful) {
-                callback(true)
                 val user = auth.currentUser
-                checkAdmin(user?.email.toString(), "")
+                checkAdmin(user?.email.toString(),"")
                 updateUI(user)
             } else {
-                callback(false)
+                callback(false,"Login Error")
                 updateUI(null)
             }
         }
     }
-
     fun handleFacebookAccessToken(token: AccessToken) {
         Log.d(TAG, "handleFacebookAccessToken:$token")
 
@@ -197,9 +175,8 @@ class AuthManager(private val context: Context) {
         val loginIntent = Intent(context, SignIn::class.java)
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startActivity(loginIntent)
+
     }
-
-
     companion object {
         const val RC_SIGN_IN = 9001
         fun createInstance(context: Context): AuthManager {

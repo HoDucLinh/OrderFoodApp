@@ -3,11 +3,9 @@
 package com.ltb.orderfoodapp.view
 
 import android.app.AlertDialog
-import android.app.ProgressDialog
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -32,9 +30,6 @@ import com.ltb.orderfoodapp.data.api.AuthManager.Companion.RC_SIGN_IN
 class SignIn : AppCompatActivity() {
     private lateinit var auth: AuthManager
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var signInGoogle : ImageView
-    private lateinit var signInFacebook :ImageView
-    private lateinit var signInGithub : ImageView
     private lateinit var loadingDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,9 +48,9 @@ class SignIn : AppCompatActivity() {
         val loginBtn = findViewById<Button>(R.id.loginBtn)
         val forgotPassword = findViewById<TextView>(R.id.forgotPass)
         val signUpBtn = findViewById<TextView>(R.id.signUp)
-        signInFacebook = findViewById<ImageView>(R.id.facebook)
-        signInGoogle = findViewById(R.id.google)
-        signInGithub = findViewById<ImageView>(R.id.github)
+        val sigInFacebook = findViewById<ImageView>(R.id.facebook)
+        val signInGoogle = findViewById<ImageView>(R.id.google)
+        val signInGithub = findViewById<ImageView>(R.id.github)
 
         val userNameInput = findViewById<TextInputLayout>(R.id.userNameLogin)
         val passwordInput = findViewById<TextInputLayout>(R.id.passwordLogin)
@@ -88,8 +83,7 @@ class SignIn : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-
-
+        // Xử lý sự kiện click của loginBtn
         loginBtn.setOnClickListener {
             val userNameLogin = userNameInput.editText?.text.toString()
             val passwordLogin = passwordInput.editText?.text.toString()
@@ -97,8 +91,16 @@ class SignIn : AppCompatActivity() {
             if (userNameLogin.isNotEmpty() && passwordLogin.isNotEmpty()) {
                 if (isValidEmail(userNameLogin)) {
                     showLoadingDialog()
-                    auth.authEmail(userNameLogin, passwordLogin) { success->
-                        dismissLoadingDialog()
+                    auth.authEmail(userNameLogin, passwordLogin) {
+                        status, message ->
+                            if(status){
+                                dismissLoadingDialog()
+                                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                            }
+                        else {
+                            dismissLoadingDialog()
+                                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                            }
                     }
                 } else {
                     dismissLoadingDialog()
@@ -108,7 +110,6 @@ class SignIn : AppCompatActivity() {
                 Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
             }
         }
-
 
         // Chuyển sang trang quên mật khẩu
         forgotPassword.setOnClickListener {
@@ -123,7 +124,7 @@ class SignIn : AppCompatActivity() {
         }
 
         // Đăng nhập với Facebook
-        signInFacebook.setOnClickListener {
+        sigInFacebook.setOnClickListener {
             Toast.makeText(this, "Tinh nang dang phat trien thu lai sau", Toast.LENGTH_SHORT).show()
 //                AuthFacebook.login(this) { user ->
 //                    if (user != null) {
@@ -142,6 +143,39 @@ class SignIn : AppCompatActivity() {
     }
 
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                showLoadingDialog()
+                auth.firebaseAuthWithGoogle(account.idToken!!){
+                    status, message ->
+                    if(status){
+                        dismissLoadingDialog()
+                    }
+                    else {
+                        dismissLoadingDialog()
+                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            } catch (e: ApiException) {
+                Log.w(TAG, "Google sign in failed", e)
+            }
+        }
+    }
+
+    private fun signIn() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    fun isValidEmail(target: CharSequence?): Boolean {
+        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+    }
+
     private fun showLoadingDialog() {
         val builder = AlertDialog.Builder(this)
         val progressBar = ProgressBar(this)
@@ -149,10 +183,9 @@ class SignIn : AppCompatActivity() {
         builder.setView(progressBar)
         builder.setCancelable(false)
         loadingDialog = builder.create()
-        loadingDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        loadingDialog.show()
+        loadingDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        loadingDialog?.show()
     }
-
 
     private fun dismissLoadingDialog() {
         if (loadingDialog.isShowing) {
@@ -160,33 +193,9 @@ class SignIn : AppCompatActivity() {
         }
     }
 
-    private fun signIn() {
-        showLoadingDialog()
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-
+    override fun onDestroy() {
+        super.onDestroy()
+        dismissLoadingDialog()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)!!
-                auth.firebaseAuthWithGoogle(account.idToken!!) { success->
-                    dismissLoadingDialog()
-                }
-            } catch (e: ApiException) {
-                Log.w(TAG, "Google sign in failed", e)
-                dismissLoadingDialog()
-                Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-
-    fun isValidEmail(target: CharSequence?): Boolean {
-        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
-    }
 }
