@@ -43,17 +43,30 @@ class AuthManager(private val context: Context) {
         userDAO = UserDAO(context)
     }
 
-    // Đăng nhập bằng email và mật khẩu
-    fun authEmail(email: String, password: String) {
+//    // Đăng nhập bằng email và mật khẩu
+//    fun authEmail(email: String, password: String) {
+//        auth.signInWithEmailAndPassword(email, password)
+//            .addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+//                    checkAdmin(email,password)
+//                } else {
+//                    Toast.makeText(context, "Login Error.", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//    }
+
+    fun authEmail(email: String, password: String, callback: (Boolean, String) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     checkAdmin(email,password)
+                    callback(true, "Login successful")
                 } else {
-                    Toast.makeText(context, "Login Error.", Toast.LENGTH_SHORT).show()
+                    callback(false, task.exception?.message ?: "Login failed")
                 }
             }
     }
+
     fun createAccount(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener{ task ->
@@ -184,15 +197,6 @@ class AuthManager(private val context: Context) {
         context.startActivity(loginIntent)
     }
 
-//    fun logout(){
-//        val sharedPreferences = context.getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//        editor.putBoolean("isLoggedIn", false)
-//        editor.apply()
-//        val loginIntent = Intent(this, SignIn::class.java)
-//        startActivity(loginIntent)
-//        finish()
-//    }
 
     companion object {
         const val RC_SIGN_IN = 9001

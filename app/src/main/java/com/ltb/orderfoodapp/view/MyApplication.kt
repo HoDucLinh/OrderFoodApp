@@ -9,7 +9,6 @@ class MyApplication : Application() {
         super.onCreate()
         setupNightMode()
     }
-
     private fun setupNightMode() {
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night", false)

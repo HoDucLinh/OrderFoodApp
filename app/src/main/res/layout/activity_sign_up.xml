@@ -37,6 +37,8 @@
         android:layout_height="777dp"
         android:background="@drawable/border_login"
         android:orientation="vertical"
+        android:scaleType="centerCrop"
+        android:windowSoftInputMode="adjustResize"
         android:padding="@dimen/padding_login">
 
         <com.google.android.material.textfield.TextInputLayout

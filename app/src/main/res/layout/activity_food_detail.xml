@@ -132,16 +132,6 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/sen"
         android:layout_marginLeft="10dp"/>
-    <TextView
-        android:layout_marginTop="10dp"
-        android:id="@+id/restaurantName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Uttora Coffe House"
-        android:layout_marginLeft="10dp"
-        android:textStyle="bold"
-        android:fontFamily="@font/sen"
-        android:textSize="@dimen/font_size_medium"/>
 
     <TextView
         android:id="@+id/productDes"

@@ -86,12 +86,11 @@ class Home : AppCompatActivity() {
         setCartCount()
     }
 
-
     private fun setupTheme() {
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night", false)
-        darkThemeSwitch.isChecked = nightMode
 
+        darkThemeSwitch.isChecked = nightMode
         darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (nightMode != isChecked) {
                 if (isChecked) {
@@ -100,8 +99,6 @@ class Home : AppCompatActivity() {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 }
                 sharedPreferences.edit().putBoolean("night", isChecked).apply()
-            }
-            else {
             }
         }
     }

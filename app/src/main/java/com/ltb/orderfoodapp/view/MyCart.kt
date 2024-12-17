@@ -139,6 +139,4 @@ class MyCart : AppCompatActivity() {
         }
     }
 
-
-
 }

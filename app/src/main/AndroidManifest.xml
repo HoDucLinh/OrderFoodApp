@@ -155,11 +155,13 @@
         <activity
             android:name=".view.SignUp"
             android:exported="false"
-            android:theme="@style/Theme.Material3.Dark.NoActionBar"/>
+            android:theme="@style/Theme.Material3.Dark.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.SignIn"
             android:exported="false"
-            android:theme="@style/Theme.Material3.Dark.NoActionBar"/>
+            android:theme="@style/Theme.Material3.Dark.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.AddNewAddress"
             android:exported="false" />
