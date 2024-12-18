@@ -158,12 +158,12 @@ class OrderDAO(private val context: Context) {
         return orders
     }
 
-    fun getTotalRevenue(): Float {
+    fun getTotalRevenue(): Int {
         val db = dbHelper.readableDatabase
         val query = """
         SELECT SUM(o.totalAmount) AS totalRevenue
         FROM "Order" o
-        WHERE o.Status = 'Completed'
+        WHERE o.Status = 3
     """
         val cursor = db.rawQuery(query, null)
         var totalRevenue = 0f
@@ -172,7 +172,7 @@ class OrderDAO(private val context: Context) {
                 totalRevenue = it.getFloat(it.getColumnIndexOrThrow("totalRevenue"))
             }
         }
-        return totalRevenue
+        return totalRevenue.toInt()
     }
 
 

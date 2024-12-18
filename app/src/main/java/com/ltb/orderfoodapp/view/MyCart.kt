@@ -30,7 +30,7 @@ class MyCart : AppCompatActivity() {
     private lateinit var productCartViewModel : ProductCartViewModel
     private var cartList : MutableList<ProductCart> = mutableListOf()
     private lateinit var locationHelper: LocationHelper
-
+    private lateinit var  addressUser : EditText
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,12 +48,12 @@ class MyCart : AppCompatActivity() {
         }
 
         recyclerView = findViewById(R.id.recyclerViewCart)
-
-        // Tạo DAO và lấy danh sách sản phẩm trong giỏ hàng
+        addressUser = findViewById(R.id.addressUser)
         productCartViewModel = ProductCartViewModel(this)
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
         if (isLoggedIn) {
+
             val user = sharedPreferences.getString("user", "")
             val userObject = Gson().fromJson(user, User::class.java)
             val cartId = userObject.getCartId()
@@ -66,7 +66,6 @@ class MyCart : AppCompatActivity() {
             productCartAdapter = ProductCartAdapter(this, cartList)
             recyclerView.adapter = productCartAdapter
 
-            // Tính và cập nhật tổng tiền
             val totalPrice = if (cartList.isEmpty()) {
                 0
             } else {
@@ -89,7 +88,7 @@ class MyCart : AppCompatActivity() {
             val locationPath = sharedPreferences.getString("locationPath", "Không có địa chỉ")
 
 
-            // Chuyen toi payment
+
             payment.setOnClickListener {
                 val paymentMethod = Intent(this, PaymentMethod::class.java)
                 paymentMethod.putExtra("pricePayment", totalPrice)
@@ -97,17 +96,17 @@ class MyCart : AppCompatActivity() {
                 val cartProductsJson = gson.toJson(cartList)
                 paymentMethod.putExtra("cartProductsJson", cartProductsJson)
                 val editor = sharedPreferences.edit()
-//                editor.putString("locationPath", address.text.toString())
+                editor.putString("locationPath", addressUser.text.toString())
                 editor.apply()
                 startActivity(paymentMethod)
             }
 
             locationHelper = LocationHelper(this)
-            val addressUser = findViewById<EditText>(R.id.addressUser)
             addressUser.setText(locationPath)
             editAddress.setOnClickListener{
                 addressUser.isEnabled = true
                 addressUser.requestFocus()
+
             }
         }
     }

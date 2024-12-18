@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.GridView
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.UserAdapter
@@ -25,7 +26,7 @@ class EditRole : AppCompatActivity(), AddUserFragment.OnUserAddedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_role)
-
+        enableEdgeToEdge()
         userDAO = UserDAO(this)
         setupGridViewProduct()
 

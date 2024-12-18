@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.CategoryAdapter
@@ -27,7 +28,7 @@ class MyFood : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_food)
-
+        enableEdgeToEdge()
         val viewModel = ProductViewModel(this)
         productList = viewModel.getProducts().toMutableList()
         filteredList = productList

@@ -22,13 +22,14 @@ class OrderViewModel(context: Context) {
     fun getTotalOrders(): Int {
         return orders.size
     }
-    fun getRevenue(): Float {
+    fun getRevenue(): Int {
         return orderDAO.getTotalRevenue()
     }
     fun getRunningOrdersCount():Int{
         runningorders = orders.filter { it.getStatus() == 1 }.toMutableList()
         return runningorders.size
     }
+
 
 
 
