@@ -208,7 +208,6 @@ class OrderDAO(private val context: Context) {
             if (cur.moveToFirst()) {
                 do {
                     try {
-                        // Tạo Product
                         val product = Product(
                             idProduct = cur.getInt(cur.getColumnIndexOrThrow("ProductID")),
                             name = cur.getString(cur.getColumnIndexOrThrow("ProductName")),
@@ -216,7 +215,6 @@ class OrderDAO(private val context: Context) {
                             description = cur.getString(cur.getColumnIndexOrThrow("Description"))
                         )
 
-                        // Lấy ảnh nếu có
                         val imageUrl = cur.getStringOrNull(cur.getColumnIndexOrThrow("ImageSource"))
                         if (!imageUrl.isNullOrEmpty()) {
                             val currentImages = product.getImages()
@@ -239,7 +237,6 @@ class OrderDAO(private val context: Context) {
         return productList
     }
 
-
     fun getProductQuantityByProductId(productId: Int): Int {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery(
@@ -260,21 +257,53 @@ class OrderDAO(private val context: Context) {
     // In OrderDAO class
     fun addProductToCart(productId: Int, cartId: Int) {
         val db = dbHelper.writableDatabase
-        val values = ContentValues().apply {
-            put("Product_ID", productId)
-            put("Cart_ID", cartId)
-            put("quantity", 1)  // Quantity mặc định là 1
+
+        // Kiểm tra nếu sản phẩm đã tồn tại trong giỏ hàng
+        val query = """
+        SELECT Quantity 
+        FROM Product_Cart 
+        WHERE Product_ID = ? AND Cart_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(productId.toString(), cartId.toString()))
+        var currentQuantity = 0
+
+        cursor.use {
+            if (it.moveToFirst()) {
+                currentQuantity = it.getInt(it.getColumnIndexOrThrow("Quantity"))
+            }
         }
 
-        val newRowId = db.insert("Product_Cart", null, values)
-        db.close()
-
-        if (newRowId != -1L) {
-            Log.d("OrderDAO", "Thêm sản phẩm vào giỏ hàng thành công: Row ID $newRowId")
+        if (currentQuantity > 0) {
+            // Nếu sản phẩm đã tồn tại -> Cập nhật số lượng
+            val values = ContentValues().apply {
+                put("Quantity", currentQuantity + 1)
+            }
+            db.update(
+                "Product_Cart",
+                values,
+                "Product_ID = ? AND Cart_ID = ?",
+                arrayOf(productId.toString(), cartId.toString())
+            )
+            Log.d("OrderDAO", "Đã tăng số lượng sản phẩm trong giỏ hàng: Product_ID $productId, Cart_ID $cartId")
         } else {
-            Log.e("OrderDAO", "Lỗi khi thêm sản phẩm vào giỏ hàng")
+            // Nếu sản phẩm chưa tồn tại -> Thêm mới
+            val values = ContentValues().apply {
+                put("Product_ID", productId)
+                put("Cart_ID", cartId)
+                put("Q" +
+                        "Quantity", 1) // Thêm với số lượng được cung cấp
+            }
+            val newRowId = db.insert("Product_Cart", null, values)
+            if (newRowId != -1L) {
+                Log.d("OrderDAO", "Thêm sản phẩm mới vào giỏ hàng: Product_ID $productId, Cart_ID $cartId")
+            } else {
+                Log.e("OrderDAO", "Lỗi khi thêm sản phẩm mới vào giỏ hàng")
+            }
         }
+
+        db.close()
     }
+
 
     fun getAllOrdersWithProducts(): List<GroupOrderAdapter.OrderWithProducts> {
         val db = dbHelper.readableDatabase

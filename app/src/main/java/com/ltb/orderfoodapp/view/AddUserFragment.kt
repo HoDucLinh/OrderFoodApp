@@ -33,10 +33,9 @@ class AddUserFragment : DialogFragment() {
     override fun onStart() {
         super.onStart()
 
-        // Đảm bảo `Dialog` không null
         dialog?.window?.setLayout(
-            (resources.displayMetrics.widthPixels * 0.9).toInt(), // Chiều rộng 90% màn hình
-            (resources.displayMetrics.heightPixels * 0.4).toInt() // Chiều cao 70% màn hình
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
         )
     }
 

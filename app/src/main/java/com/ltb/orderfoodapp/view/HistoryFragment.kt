@@ -10,11 +10,15 @@ import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.ltb.orderfoodapp.adapter.OrderAdapter
 import com.ltb.orderfoodapp.data.dao.OrderDAO
+import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.User
 
 class HistoryFragment : Fragment(){
 
     private lateinit var ordersContainer: GridView
+    private lateinit var productsList :  List<Pair<Product, Int>>
+    private var userId : Int = -1
+    private var cartId : Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,14 +30,23 @@ class HistoryFragment : Fragment(){
         val sharedPreferences = requireContext().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val user = sharedPreferences.getString("user", null)
         val userObject = Gson().fromJson(user, User::class.java)
-        val cartId = userObject.getCartId()
-        val userId = userObject.getIdUser()
+        cartId = userObject.getCartId()
+        userId = userObject.getIdUser()
         val orderDAO = OrderDAO(requireContext())
-        val productsList = orderDAO.getAllProducts(mutableListOf(3),userId)
+        productsList = orderDAO.getAllProducts(mutableListOf(3),userId)
         val adapterCart = OrderAdapter(requireContext(),productsList, this, cartId)
         ordersContainer.adapter = adapterCart
 
 
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val orderDAO = OrderDAO(requireContext())
+        productsList = orderDAO.getAllProducts(mutableListOf(3),userId)
+        val adapterCart = OrderAdapter(requireContext(),productsList, this, cartId)
+        ordersContainer.adapter = adapterCart
+
     }
 }
