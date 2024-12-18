@@ -20,6 +20,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.compose.ui.graphics.Color
 import com.ltb.orderfoodapp.data.ConfirmDialog
+import com.ltb.orderfoodapp.data.model.Category
 
 class AddNewCategory : AppCompatActivity() {
     private lateinit var gridView: GridView
@@ -34,13 +35,14 @@ class AddNewCategory : AppCompatActivity() {
         setContentView(R.layout.activity_add_new_category)
         categoryViewModel = CategoryViewModel(this)
         categoryDAO= CategoryDAO(this)
-        gridView = findViewById<GridView>(R.id.gridViewCategoryName1)
+        gridView = findViewById(R.id.gridViewCategoryName1)
         setupGridViewCategory()
 
         val editTextCategoryName = findViewById<EditText>(R.id.editTextCategoryName)
         val editTextCategoryDescription = findViewById<EditText>(R.id.editTextCategoryDescription)
         val btnAdd = findViewById<Button>(R.id.btn_add_category)
         val btnDelete = findViewById<Button>(R.id.btn_deletecategory)
+        val btnEdit = findViewById<Button>(R.id.btn_save_changes)
         val close = findViewById<ImageButton>(R.id.close)
         val reset = findViewById<Button>(R.id.btnReset)
 
@@ -59,22 +61,67 @@ class AddNewCategory : AppCompatActivity() {
             val adapter = gridView.adapter as CategoryAdapter
             adapter.selectedPosition = position
             adapter.notifyDataSetChanged()
+            val selectedCategoryName = adapter.getItem(seletedCategory)
+            val selectedCategory = categoryViewModel.getCategory(selectedCategoryName)
+
+            editTextCategoryName.setText(selectedCategory.getName())
+            editTextCategoryDescription.setText(selectedCategory.getDescription())
         }
+
+        btnEdit.setOnClickListener {
+            if (seletedCategory != -1 && gridView.adapter.count > 0) {
+                val adapter = gridView.adapter as CategoryAdapter
+                val selectedCategoryName = adapter.getItem(seletedCategory)
+
+                val newCategoryName = editTextCategoryName.text.toString().trim()
+                val newCategoryDescription = editTextCategoryDescription.text.toString().trim()
+
+                // Kiểm tra dữ liệu nhập
+                if (newCategoryName.isEmpty()) {
+                    editTextCategoryName.error = "Tên danh mục không được để trống"
+                    return@setOnClickListener
+                }
+                if (newCategoryDescription.isEmpty()) {
+                    editTextCategoryDescription.error = "Mô tả không được để trống"
+                    return@setOnClickListener
+                }
+
+                // Thực hiện cập nhật trong cơ sở dữ liệu
+                val result = categoryDAO.updateCategory(
+                    selectedCategoryName,
+                    newCategoryName,
+                    newCategoryDescription
+                )
+                if (result) {
+                    Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show()
+
+                    seletedCategory = -1 // Reset vị trí được chọn
+                    setupGridViewCategory() // Làm mới giao diện
+                } else {
+                    Toast.makeText(this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show()
+                }
+
+                // Xóa dữ liệu trong EditText
+                editTextCategoryName.text.clear()
+                editTextCategoryDescription.text.clear()
+            } else {
+                Toast.makeText(this, "Hãy chọn một danh mục để chỉnh sửa!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
 
         btnDelete.setOnClickListener {
             if (seletedCategory != -1 && gridView.adapter.count > 0) {
                 val selectedItem = gridView.adapter.getItem(seletedCategory) as String
-
-                //
                 val confirmDialog = ConfirmDialog()
                 confirmDialog.showDeleteConfirmationDialog( this){
                     categoryDAO.deleteCategory(selectedItem)
+                    seletedCategory = -1
+                    setupGridViewCategory()
                     Toast.makeText(this, "Delete success", Toast.LENGTH_SHORT).show()
-                    onBackPressed()
                 }
 
-                seletedCategory = -1 // Reset vị trí được chọn
-                setupGridViewCategory()
             } else {
                 // Hiển thị thông báo nếu không có danh mục hoặc chưa chọn danh mục
                 Toast.makeText(this, "Không có danh mục nào để xóa!", Toast.LENGTH_SHORT).show()

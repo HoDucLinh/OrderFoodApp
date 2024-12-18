@@ -28,7 +28,9 @@ class CategoryViewModel(context: Context) {
         return categoryName
 
     }
-
+    fun getCategory(name : String) : Category {
+        return categories.filter { it.getName() == name }.first()
+    }
 
     fun getProducts(): MutableList<Product> {
         return products

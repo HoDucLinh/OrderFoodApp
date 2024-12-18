@@ -14,6 +14,7 @@ import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.CategoryAdapter
 import com.ltb.orderfoodapp.adapter.ItemAdapter
 import com.ltb.orderfoodapp.data.model.Product
+import com.ltb.orderfoodapp.viewmodel.CategoryViewModel
 import com.ltb.orderfoodapp.viewmodel.ProductViewModel
 
 class MyFood : AppCompatActivity() {
@@ -23,23 +24,39 @@ class MyFood : AppCompatActivity() {
     private lateinit var listView: ListView
     private lateinit var categorySpinner: Spinner
     private lateinit var totalItemsTextView : TextView
+    private lateinit var viewModel : CategoryViewModel
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_food)
         enableEdgeToEdge()
-        val viewModel = ProductViewModel(this)
-        productList = viewModel.getProducts().toMutableList()
-        filteredList = productList
+//        viewModel = ProductViewModel(this)
+//        productList = viewModel.getProducts().toMutableList()
+//        filteredList = productList
 
         listView = findViewById(R.id.listitem)
         categorySpinner = findViewById(R.id.categorySpinner)
         totalItemsTextView = findViewById(R.id.textView6)
 
-        // Thiết lập Spinner
+        setupCategorySpinner()
+
+        // Nút quay lại
+        findViewById<View>(R.id.back).setOnClickListener {
+            startActivity(Intent(this, Menu::class.java))
+        }
+
+        // Nút thêm mới
+        findViewById<View>(R.id.btnAddNew).setOnClickListener {
+            startActivity(Intent(this, AddNewItems::class.java))
+        }
+    }
+    private fun setupCategorySpinner() {
+        productList = ProductViewModel(this).getProducts()
+        productList.forEach {  p -> println(p.getName()) }
+        filteredList = productList
         val categories = mutableListOf("All")
-        categories.addAll(viewModel.getCategories())
+        categories.addAll(CategoryViewModel(this).getCategoriesName())
         val categoryAdapter = CategoryAdapter(this, categories)
         categorySpinner.adapter = categoryAdapter
 
@@ -59,26 +76,17 @@ class MyFood : AppCompatActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-
-        // Nút quay lại
-        findViewById<View>(R.id.back).setOnClickListener {
-            startActivity(Intent(this, Menu::class.java))
-        }
-
-        // Nút thêm mới
-        findViewById<View>(R.id.btnAddNew).setOnClickListener {
-            startActivity(Intent(this, AddNewItems::class.java))
-        }
     }
-
     override fun onStart() {
         super.onStart()
-setUpList()
+        setupCategorySpinner()
+        setUpList()
     }
 
     override fun onResume() {
         super.onResume()
-setUpList()
+        setupCategorySpinner()
+        setUpList()
     }
 
     fun setUpList(){

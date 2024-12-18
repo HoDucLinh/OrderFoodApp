@@ -127,11 +127,43 @@ class CategoryDAO(private val context: Context) {
         }
         return db.insert("Category", null, values)
     }
+    fun updateCategory(currentName: String, newName: String, newDescription: String): Boolean {
+        val dbHelper = DatabaseHelper.getInstance(context)
+        val db = dbHelper.writableDatabase
+
+        val values = ContentValues().apply {
+            put("Name", newName)
+            put("Description", newDescription)
+        }
+
+        // Cập nhật dựa trên tên hiện tại của danh mục
+        val rowsAffected = db.update("Category", values, "Name = ?", arrayOf(currentName))
+        db.close()
+        return rowsAffected > 0
+    }
+
 
 
     fun deleteCategory(category: String) {
-        val dbHelper = DatabaseHelper.getInstance(context)
-        db = dbHelper.writableDatabase
-        db.delete("Category", "Name = ?", arrayOf(category))
+        val dbHelper = DatabaseHelper(context)
+        val db = dbHelper.writableDatabase
+
+        val deleteProductsQuery = """
+        DELETE FROM Product
+        WHERE Category_ID = (
+            SELECT id FROM Category WHERE Name = ?
+        )
+    """
+        db.execSQL(deleteProductsQuery, arrayOf(category))
+
+        val deleteCategoryQuery = """
+        DELETE FROM Category
+        WHERE Name = ?
+    """
+        // Thực thi câu truy vấn để xóa category
+        db.execSQL(deleteCategoryQuery, arrayOf(category))
+
+        db.close()
     }
+
 }
