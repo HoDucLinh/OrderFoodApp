@@ -125,18 +125,13 @@ class Home : AppCompatActivity() {
 
 
     private fun fetchUserLocation(locationUser: TextView) {
-        // Kiểm tra xem GPS có bật không
         if (!locationHelper.isGpsEnabled()) {
-            // Nếu GPS chưa bật, yêu cầu người dùng bật GPS
             locationHelper.promptUserToEnableGps()
             Toast.makeText(this, "Vui lòng bật GPS để lấy vị trí", Toast.LENGTH_SHORT).show()
         } else {
-            // Nếu GPS đã bật, lấy vị trí
             locationHelper.getCurrentLocation { location ->
                 val userLocation = locationHelper.getAddressFromLocation(location)
                 locationUser.text = userLocation
-
-                // Lưu vị trí vào SharedPreferences
                 getSharedPreferences("locationPath", MODE_PRIVATE).edit()
                     .putString("locationPath", userLocation).apply()
             }
@@ -148,7 +143,9 @@ class Home : AppCompatActivity() {
         if (sharedPreferences.getBoolean("isLoggedIn", false)) {
             startActivity(Intent(this, MyCart::class.java))
         } else {
-            Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please login to buy", Toast.LENGTH_SHORT).show()
+            val signIn = Intent(this,SignIn::class.java)
+            startActivity(signIn)
         }
     }
 

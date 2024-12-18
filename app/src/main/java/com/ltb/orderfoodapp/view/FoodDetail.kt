@@ -31,89 +31,88 @@ class FoodDetail : AppCompatActivity() {
         val btgiam = findViewById<ImageView>(R.id.buttongiam)
         val txtresult = findViewById<TextView>(R.id.txtSoLuong)
         val priceTextView = findViewById<TextView>(R.id.priceTotal)
-        val previewImage = findViewById<RelativeLayout>(R.id.previewImage)
+//        val previewImage = findViewById<RelativeLayout>(R.id.previewImage)
         ratingDAO = RatingDAO(this)
-        previewImage.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                val imageResource = intent.getStringArrayListExtra("imageResource")
-
-                // Kiểm tra xem danh sách có dữ liệu không
-                if (!imageResource.isNullOrEmpty()) {
-                    val imageView = findViewById<ImageView>(R.id.imageProduct)
-
-                    Glide.with(this)
-                        .load(imageResource[0])  // Lấy ảnh đầu tiên từ danh sách
-                        .into(imageView)
-                }
-            }
-            true
-        }
+//        previewImage.setOnTouchListener { _, event ->
+//            if (event.action == MotionEvent.ACTION_UP) {
+//                val imageResource = intent.getStringArrayListExtra("imageResource")
+//
+//                // Kiểm tra xem danh sách có dữ liệu không
+//                if (!imageResource.isNullOrEmpty()) {
+//                    val imageView = findViewById<ImageView>(R.id.imageProduct)
+//
+//                    Glide.with(this)
+//                        .load(imageResource[0])  // Lấy ảnh đầu tiên từ danh sách
+//                        .into(imageView)
+//                }
+//            }
+//            true
+//        }
         addToCart.setOnClickListener {
-            try {
-                // Lấy `idProduct` từ Intent
-                val productId = intent.getIntExtra("id", 0)
-                // Lấy thông tin sản phẩm từ các View
-                val productName = findViewById<TextView>(R.id.productName).text.toString()
-                val priceText = findViewById<TextView>(R.id.priceTotal).text.toString().replace(" VND", "")
-                val description = findViewById<TextView>(R.id.productDes).text.toString()
-                val quantityText = findViewById<TextView>(R.id.txtSoLuong).text.toString()
+            val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+            val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+            if(isLoggedIn){
+                try {
+                    val productId = intent.getIntExtra("id", 0)
 
-                // Kiểm tra dữ liệu `idProduct` và giá trị đầu vào
-                if (productId <= 0) {
-                    Toast.makeText(this, "Product ID is invalid", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
+                    val productName = findViewById<TextView>(R.id.productName).text.toString()
+                    val priceText = findViewById<TextView>(R.id.priceTotal).text.toString().replace(" VND", "")
+                    val description = findViewById<TextView>(R.id.productDes).text.toString()
+                    val quantityText = findViewById<TextView>(R.id.txtSoLuong).text.toString()
+
+                    if (productId <= 0) {
+                        Toast.makeText(this, "Product ID is invalid", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+
+                    val unitPrice = priceText.toIntOrNull() ?: 0
+                    val quantity = quantityText.toIntOrNull() ?: 1
+
+                    if (productName.isEmpty() || unitPrice <= 0) {
+                        Toast.makeText(this, "Invalid product data", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+
+                    // Tạo đối tượng sản phẩm
+                    val product = Product(
+                        idProduct = productId,
+                        name = productName,
+                        price = unitPrice,
+                        rating = 0f,
+                        description = description
+                    )
+
+                    // Lấy thông tin người dùng và giỏ hàng
+                    val user = sharedPreferences.getString("user", "")
+                    val userObject = Gson().fromJson(user, User::class.java)
+                    val cartId = userObject.getCartId()
+
+                    // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng của người dùng
+                    val productCartDAO = ProductCartDAO(this)
+                    if (productCartDAO.isProductInCart(productId, cartId)) {
+                        Toast.makeText(this, "Sản phẩm đã tồn tại trong giỏ hàng!", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+
+                    // Thêm sản phẩm vào giỏ hàng
+                    val result = productCartDAO.insertProduct(product, quantity, cartId)
+                    if (result != -1L) {
+                        Toast.makeText(this, "Thêm thành công!!!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "Thêm thất bại", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this, "An error occurred while adding product to cart", Toast.LENGTH_SHORT).show()
                 }
-
-                val unitPrice = priceText.toIntOrNull() ?: 0
-                val quantity = quantityText.toIntOrNull() ?: 1
-
-                if (productName.isEmpty() || unitPrice <= 0) {
-                    Toast.makeText(this, "Invalid product data", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                // Tạo đối tượng sản phẩm
-                val product = Product(
-                    idProduct = productId,
-                    name = productName,
-                    price = unitPrice,
-                    rating = 0f,
-                    description = description
-                )
-
-                // Kiểm tra xem người dùng đã đăng nhập hay chưa
-                val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-                val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-                if (!isLoggedIn) {
-                    Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                // Lấy thông tin người dùng và giỏ hàng
-                val user = sharedPreferences.getString("user", "")
-                val userObject = Gson().fromJson(user, User::class.java)
-                val cartId = userObject.getCartId()
-
-                // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng của người dùng
-                val productCartDAO = ProductCartDAO(this)
-                if (productCartDAO.isProductInCart(productId, cartId)) {
-                    Toast.makeText(this, "Sản phẩm đã tồn tại trong giỏ hàng!", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                // Thêm sản phẩm vào giỏ hàng
-                val result = productCartDAO.insertProduct(product, quantity, cartId)
-                if (result != -1L) {
-                    // Hiển thị thông báo thành công
-                    Toast.makeText(this, "Thêm thành công!!!", Toast.LENGTH_SHORT).show()
-                } else {
-                    // Thông báo lỗi khi thêm sản phẩm
-                    Toast.makeText(this, "Thêm thất bại", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Toast.makeText(this, "An error occurred while adding product to cart", Toast.LENGTH_SHORT).show()
+            }else
+            {
+                Toast.makeText(this, "Please login to buy", Toast.LENGTH_SHORT).show()
+                    val signIn = Intent(this,SignIn::class.java)
+                    startActivity(signIn)
+                    finish()
             }
+
         }
 
 
