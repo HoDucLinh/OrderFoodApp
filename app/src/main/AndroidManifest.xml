@@ -35,7 +35,8 @@
             android:exported="false" />
         <activity
             android:name="com.vnpay.authentication.VNP_AuthenticationActivity"
-            android:exported="true" />
+            android:label="VNPay Authentication"
+            />
         <activity
             android:name=".view.MyOrder"
             android:exported="false" />

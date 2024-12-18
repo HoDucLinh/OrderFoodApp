@@ -188,7 +188,7 @@ class SignIn : AppCompatActivity() {
     }
 
     private fun dismissLoadingDialog() {
-        if (loadingDialog.isShowing) {
+        if (::loadingDialog.isInitialized && loadingDialog.isShowing) {
             loadingDialog.dismiss()
         }
     }

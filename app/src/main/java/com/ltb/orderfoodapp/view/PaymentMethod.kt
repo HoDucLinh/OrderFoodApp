@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.StrictMode
-import android.os.StrictMode.ThreadPolicy
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
@@ -20,7 +18,6 @@ import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.api.Payment
 import com.ltb.orderfoodapp.data.dao.OrderDAO
 import com.ltb.orderfoodapp.data.dao.ProductCartDAO
-import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.data.model.ProductCart
 import com.ltb.orderfoodapp.data.model.User
 import com.vnpay.authentication.VNP_AuthenticationActivity
@@ -89,7 +86,7 @@ class PaymentMethod : AppCompatActivity() {
                 startActivity(paymentSuccess)
             } else if (btnVNPay.isSelected) {
                 print("vnpay")
-                payWithVNPay()
+                Toast.makeText(this, "Tính năng đang phát triển thử lại sau", Toast.LENGTH_SHORT).show()
             } else if (btnZaloPay.isSelected) {
                 print("zalopay")
                 payment.payWithZaloPay(
@@ -158,41 +155,56 @@ class PaymentMethod : AppCompatActivity() {
     }
 
 
-    fun payWithVNPay() {
-        val intent = Intent(
-            this,
-            VNP_AuthenticationActivity::class.java
-        )
-        intent.putExtra("url", "https://sandbox.vnpayment.vn/testsdk/") //bắt buộc, VNPAY cung cấp
-        intent.putExtra("tmn_code", "FAHASA03") //bắt buộc, VNPAY cung cấp
-        intent.putExtra(
-            "scheme",
-            "resultactivity"
-        )
-        intent.putExtra(
-            "is_sandbox",
-            false
-        )
-        VNP_AuthenticationActivity.setSdkCompletedCallback { action ->
-            Log.wtf("SplashActivity", "action: $action")
-            //action == AppBackAction
-            //Người dùng nhấn back từ sdk để quay lại
+//    fun payWithVNPay() {
+//        val intent = Intent(this, VNP_AuthenticationActivity::class.java)
+//
+//
+//        // Truyền các tham số cần thiết cho VNPay
+//        intent.putExtra("url", "https://sandbox.vnpayment.vn/testsdk/")
+//        intent.putExtra("tmn_code", "FAHASA03")
+//        intent.putExtra("scheme", "resultactivity")  // Scheme để nhận phản hồi
+//        intent.putExtra("is_sandbox", true)  // Đặt là true cho môi trường sandbox, false cho môi trường sản phẩm
+//
+//        // Cài đặt callback cho kết quả từ SDK
+//        VNP_AuthenticationActivity.setSdkCompletedCallback { action ->
+//            when (action) {
+//                "AppBackAction" -> {
+//                    // Người dùng nhấn nút quay lại từ màn hình SDK
+//                    Log.wtf("VNPay", "Người dùng nhấn nút quay lại")
+//                    // Xử lý khi người dùng nhấn quay lại
+//                }
+//                "CallMobileBankingApp" -> {
+//                    // Người dùng chọn thanh toán qua ứng dụng ngân hàng di động hoặc ví điện tử
+//                    Log.wtf("VNPay", "Người dùng chọn thanh toán qua ứng dụng ngân hàng di động hoặc ví điện tử")
+//                    // Xử lý khi người dùng chọn thanh toán qua ví điện tử hoặc ngân hàng di động
+//                    // Bạn có thể lưu PNR để kiểm tra sau
+//                }
+//                "WebBackAction" -> {
+//                    // Người dùng nhấn quay lại từ trang thanh toán thành công
+//                    Log.wtf("VNPay", "Người dùng nhấn quay lại từ trang thành công")
+//                    // Xử lý hành động quay lại trang web
+//                }
+//                "FaildBackAction" -> {
+//                    // Thanh toán thất bại
+//                    Log.wtf("VNPay", "Thanh toán thất bại")
+//                    // Xử lý khi thanh toán thất bại
+//                }
+//                "SuccessBackAction" -> {
+//                    // Thanh toán thành công
+//                    Log.wtf("VNPay", "Thanh toán thành công")
+//                    // Xử lý khi thanh toán thành công
+//                    // Bạn có thể gọi API để xác nhận thanh toán
+//                }
+//                else -> {
+//                    // Hành động không xác định
+//                    Log.wtf("VNPay", "Hành động không xác định: $action")
+//                    // Xử lý khi gặp hành động không xác định
+//                }
+//            }
+//        }
+//        startActivity(intent)
+//    }
 
-            //action == CallMobileBankingApp
-            //Người dùng nhấn chọn thanh toán qua app thanh toán (Mobile Banking, Ví...)
-            //lúc này app tích hợp sẽ cần lưu lại cái PNR, khi nào người dùng mở lại app tích hợp thì sẽ gọi kiểm tra trạng thái thanh toán của PNR Đó xem đã thanh toán hay chưa.
-
-            //action == WebBackAction
-            //Người dùng nhấn back từ trang thanh toán thành công khi thanh toán qua thẻ khi url có chứa: cancel.sdk.merchantbackapp
-
-            //action == FaildBackAction
-            //giao dịch thanh toán bị failed
-
-            //action == SuccessBackAction
-            //thanh toán thành công trên webview
-        }
-        startActivity(intent)
-    }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)

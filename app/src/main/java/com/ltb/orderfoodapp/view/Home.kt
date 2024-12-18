@@ -25,7 +25,7 @@ import com.ltb.orderfoodapp.data.model.User
 import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.viewmodel.ProductCartViewModel
 import com.ltb.orderfoodapp.viewmodel.ProductViewModel
-
+import org.w3c.dom.Text
 
 
 class Home : AppCompatActivity() {
@@ -37,7 +37,7 @@ class Home : AppCompatActivity() {
     private lateinit var cartDAO: CartDAO
     private var cartId  : Int  = -1
     private var productCartNumber: Int =0
-    private var isSwitchManuallyChanged = false
+    private lateinit var locationUser :TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +52,7 @@ class Home : AppCompatActivity() {
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
-        val locationUser = findViewById<TextView>(R.id.locationUser)
+        locationUser = findViewById<TextView>(R.id.locationUser)
 
         darkThemeSwitch = findViewById(R.id.darkTheme)
         setupTheme()
@@ -78,13 +78,17 @@ class Home : AppCompatActivity() {
         super.onStart()
         setupGridViewProduct()
         setCartCount()
+        fetchUserLocation(locationUser)
         productDAO.syncProductRatings()
     }
 
     override fun onResume() {
         super.onResume()
+        fetchUserLocation(locationUser)
         setCartCount()
     }
+
+
 
     private fun setupTheme() {
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
@@ -121,13 +125,21 @@ class Home : AppCompatActivity() {
 
 
     private fun fetchUserLocation(locationUser: TextView) {
-        locationHelper.getCurrentLocation { location ->
-            val userLocation = locationHelper.getAddressFromLocation(location)
-            locationUser.text = userLocation
+        // Kiểm tra xem GPS có bật không
+        if (!locationHelper.isGpsEnabled()) {
+            // Nếu GPS chưa bật, yêu cầu người dùng bật GPS
+            locationHelper.promptUserToEnableGps()
+            Toast.makeText(this, "Vui lòng bật GPS để lấy vị trí", Toast.LENGTH_SHORT).show()
+        } else {
+            // Nếu GPS đã bật, lấy vị trí
+            locationHelper.getCurrentLocation { location ->
+                val userLocation = locationHelper.getAddressFromLocation(location)
+                locationUser.text = userLocation
 
-            // Save location to SharedPreferences
-            getSharedPreferences("locationPath", MODE_PRIVATE).edit()
-                .putString("locationPath", userLocation).apply()
+                // Lưu vị trí vào SharedPreferences
+                getSharedPreferences("locationPath", MODE_PRIVATE).edit()
+                    .putString("locationPath", userLocation).apply()
+            }
         }
     }
 
@@ -148,4 +160,6 @@ class Home : AppCompatActivity() {
             startActivity(Intent(this, SignIn::class.java))
         }
     }
+
+
 }
