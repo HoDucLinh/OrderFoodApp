@@ -85,7 +85,7 @@ class MyCart : AppCompatActivity() {
             }
             val editAddress = findViewById<Button>(R.id.editAddress)
             val sharedPreferences = getSharedPreferences("locationPath", MODE_PRIVATE)
-            val locationPath = sharedPreferences.getString("locationPath", "Không có địa chỉ")
+            val locationPath = sharedPreferences.getString("locationPath", "Unknown Location")
 
 
 

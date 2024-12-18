@@ -290,8 +290,7 @@ class OrderDAO(private val context: Context) {
             val values = ContentValues().apply {
                 put("Product_ID", productId)
                 put("Cart_ID", cartId)
-                put("Q" +
-                        "Quantity", 1) // Thêm với số lượng được cung cấp
+                put("Quantity", 1) // Thêm với số lượng được cung cấp
             }
             val newRowId = db.insert("Product_Cart", null, values)
             if (newRowId != -1L) {

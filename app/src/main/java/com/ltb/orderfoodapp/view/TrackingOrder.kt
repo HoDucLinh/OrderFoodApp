@@ -49,7 +49,7 @@ class TrackingOrder : AppCompatActivity() {
         return when (statusId) {
             Status.PROCESSING.id -> "https://cdn-icons-gif.flaticon.com/9820/9820038.gif"
             Status.SHIPPED.id -> "https://cdn-icons-gif.flaticon.com/15578/15578437.gif"
-            else -> "https://example.com/default.gif"
+            else -> ""
         }
     }
 
