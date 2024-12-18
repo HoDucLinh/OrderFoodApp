@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.data.ConfirmDialog
 import com.ltb.orderfoodapp.data.api.AuthManager
 import com.ltb.orderfoodapp.data.dao.UserDAO
 import com.ltb.orderfoodapp.data.model.User
@@ -69,12 +70,22 @@ class UserAdapter(
 
         // Xử lý sự kiện nút Delete
         btnDelete.setOnClickListener {
-            userDAO.deleteUser(user.getIdUser()) // Xóa user khỏi database
-            users.removeAt(position)
-            AuthManager(context).deleteUser()
-            Toast.makeText(context, "Deleted ${user.getFullName()}", Toast.LENGTH_SHORT).show()
-            notifyDataSetChanged() // Làm mới GridView
+
+
+            val confirmDialog = ConfirmDialog()
+            confirmDialog.showDeleteConfirmationDialog(context) {
+                userDAO.deleteUser(user.getIdUser())
+                users.removeAt(position)
+
+//                AuthManager(context).deleteUser()
+                Toast.makeText(context, "Deleted ${user.getFullName()}", Toast.LENGTH_SHORT).show()
+                notifyDataSetChanged()
+            }
         }
+//            AuthManager(context).deleteUser()
+//            Toast.makeText(context, "Deleted ${user.getFullName()}", Toast.LENGTH_SHORT).show()
+//            notifyDataSetChanged() // Làm mới GridView
+//        }
 
 
         return view

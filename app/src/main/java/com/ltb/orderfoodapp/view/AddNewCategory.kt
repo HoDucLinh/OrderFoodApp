@@ -19,6 +19,7 @@ import android.util.Log
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.compose.ui.graphics.Color
+import com.ltb.orderfoodapp.data.ConfirmDialog
 
 class AddNewCategory : AppCompatActivity() {
     private lateinit var gridView: GridView
@@ -63,7 +64,15 @@ class AddNewCategory : AppCompatActivity() {
         btnDelete.setOnClickListener {
             if (seletedCategory != -1 && gridView.adapter.count > 0) {
                 val selectedItem = gridView.adapter.getItem(seletedCategory) as String
-                categoryDAO.deleteCategory(selectedItem)
+
+                //
+                val confirmDialog = ConfirmDialog()
+                confirmDialog.showDeleteConfirmationDialog( this){
+                    categoryDAO.deleteCategory(selectedItem)
+                    Toast.makeText(this, "Delete success", Toast.LENGTH_SHORT).show()
+                    onBackPressed()
+                }
+
                 seletedCategory = -1 // Reset vị trí được chọn
                 setupGridViewCategory()
             } else {

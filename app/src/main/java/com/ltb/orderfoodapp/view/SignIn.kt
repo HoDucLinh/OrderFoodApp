@@ -26,6 +26,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.data.api.AuthManager
 import com.ltb.orderfoodapp.data.api.AuthManager.Companion.RC_SIGN_IN
+import com.ltb.orderfoodapp.data.dao.UserDAO
 
 class SignIn : AppCompatActivity() {
     private lateinit var auth: AuthManager
@@ -87,21 +88,27 @@ class SignIn : AppCompatActivity() {
         loginBtn.setOnClickListener {
             val userNameLogin = userNameInput.editText?.text.toString()
             val passwordLogin = passwordInput.editText?.text.toString()
-
+            val userName  = UserDAO(this).isEmailExists(userNameLogin)
             if (userNameLogin.isNotEmpty() && passwordLogin.isNotEmpty()) {
                 if (isValidEmail(userNameLogin)) {
                     showLoadingDialog()
-                    auth.authEmail(userNameLogin, passwordLogin) {
-                        status, message ->
+                    if(userName){
+                        auth.authEmail(userNameLogin, passwordLogin) {
+                                status, message ->
                             if(status){
                                 dismissLoadingDialog()
                                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                             }
-                        else {
-                            dismissLoadingDialog()
+                            else {
+                                dismissLoadingDialog()
                                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                             }
+                        }
+                    }else {
+                        dismissLoadingDialog()
+                        Toast.makeText(this, "Login error", Toast.LENGTH_SHORT).show()
                     }
+               
                 } else {
                     dismissLoadingDialog()
                     Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()

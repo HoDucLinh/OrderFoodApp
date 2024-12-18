@@ -1,5 +1,6 @@
 package com.ltb.orderfoodapp.view
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.CategoryAdapter
+import com.ltb.orderfoodapp.data.ConfirmDialog
 import com.ltb.orderfoodapp.data.dao.ImageDAO
 import com.ltb.orderfoodapp.data.dao.ProductDAO
 import com.ltb.orderfoodapp.data.model.Product
@@ -59,9 +61,14 @@ class EditItem : AppCompatActivity() {
 
         setupSpinner(product.getCategory())
         findViewById<Button>(R.id.btndelete).setOnClickListener { 
-            productDAO.deleteProduct(productId)
-            onBackPressed()
-            Toast.makeText(this, "Delete success", Toast.LENGTH_SHORT).show()
+
+            val confirmDialog = ConfirmDialog()
+
+            confirmDialog.showDeleteConfirmationDialog( this){
+                productDAO.deleteProduct(productId)
+                Toast.makeText(this, "Delete success", Toast.LENGTH_SHORT).show()
+                onBackPressed()
+            }
         }
 
         findViewById<ImageButton>(R.id.btnTaiAnh1).setOnClickListener { selectAndUploadImage() }
