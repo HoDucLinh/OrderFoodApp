@@ -28,7 +28,7 @@
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/sen"
             android:layout_gravity="center"
-            android:text="Profile"
+            android:text="Payment Method"
             android:textSize="20dp" />
 
     </LinearLayout>

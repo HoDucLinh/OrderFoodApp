@@ -143,6 +143,7 @@
             android:exported="false" />
         <activity
             android:name=".view.Home"
+            android:configChanges="uiMode|screenSize|orientation"
             android:exported="false" />
         <activity
             android:name=".view.Onboarding"

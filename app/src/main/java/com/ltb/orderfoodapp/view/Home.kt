@@ -48,7 +48,6 @@ class Home : AppCompatActivity() {
         locationHelper = LocationHelper(this)
         cartDAO = CartDAO(this)
 
-        // Initialize views
         val nextSearch = findViewById<TextView>(R.id.txtSearch)
         val nextCart = findViewById<ImageButton>(R.id.nextCart)
         val nextMenu = findViewById<ImageButton>(R.id.nextMenu)
@@ -89,20 +88,24 @@ class Home : AppCompatActivity() {
     }
 
 
-
     private fun setupTheme() {
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night", false)
 
+        darkThemeSwitch.setOnCheckedChangeListener(null)
         darkThemeSwitch.isChecked = nightMode
+
         darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (nightMode != isChecked) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                }
+                AppCompatDelegate.setDefaultNightMode(
+                    if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
+                    else AppCompatDelegate.MODE_NIGHT_NO
+                )
                 sharedPreferences.edit().putBoolean("night", isChecked).apply()
+
+                if (isChecked != nightMode) {
+                    recreate()
+                }
             }
         }
     }
