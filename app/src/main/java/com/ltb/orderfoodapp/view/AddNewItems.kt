@@ -15,6 +15,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.ltb.orderfoodapp.R
 import com.ltb.orderfoodapp.adapter.CategoryAdapter
 import com.ltb.orderfoodapp.data.dao.ProductDAO
+import com.ltb.orderfoodapp.data.model.Image
 import com.ltb.orderfoodapp.data.model.Product
 import com.ltb.orderfoodapp.databinding.ActivityAddNewItemsBinding
 import com.ltb.orderfoodapp.viewmodel.CategoryViewModel
@@ -41,12 +42,19 @@ class AddNewItems : AppCompatActivity() {
         storage = FirebaseStorage.getInstance()
         productDAO = ProductDAO(this)
 
+
+        val close = findViewById<ImageButton>(R.id.close)
+        close.setOnClickListener {
+            onBackPressed()
+        }
         // Set up event listeners
         binding.btnSave.setOnClickListener { handleSave() }
         binding.btnTaiAnh1.setOnClickListener { selectAndUploadImage() }
 
-        // Set up Spinner for categories
+
         setupSpinner()
+
+
     }
 
     private fun setupSpinner() {

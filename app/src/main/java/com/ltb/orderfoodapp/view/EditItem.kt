@@ -58,6 +58,11 @@ class EditItem : AppCompatActivity() {
         Glide.with(this).load(imageStorage).into(imageView)
 
         setupSpinner(product.getCategory())
+        findViewById<Button>(R.id.btndelete).setOnClickListener { 
+            productDAO.deleteProduct(productId)
+            onBackPressed()
+            Toast.makeText(this, "Delete success", Toast.LENGTH_SHORT).show()
+        }
 
         findViewById<ImageButton>(R.id.btnTaiAnh1).setOnClickListener { selectAndUploadImage() }
 
