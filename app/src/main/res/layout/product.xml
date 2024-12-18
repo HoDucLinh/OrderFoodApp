@@ -36,6 +36,14 @@
         android:textSize="@dimen/font_size_medium"
         android:padding="@dimen/padding_text"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/restaurantAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sen"
+        android:textSize="@dimen/font_size_small"
+        android:padding="@dimen/padding_text"
+        android:text="@string/restaurant_addr" />
 
     <LinearLayout
         android:layout_width="match_parent"

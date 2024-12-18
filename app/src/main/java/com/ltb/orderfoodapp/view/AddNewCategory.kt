@@ -94,6 +94,8 @@ class AddNewCategory : AppCompatActivity() {
             } else {
                 setupGridViewCategory()
             }
+            editTextCategoryName.text.clear()
+            editTextCategoryDescription.text.clear()
         }
 
 

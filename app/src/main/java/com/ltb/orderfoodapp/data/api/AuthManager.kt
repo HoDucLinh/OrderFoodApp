@@ -63,6 +63,17 @@ class AuthManager(private val context: Context) {
             }
     }
 
+    fun deleteUser() {
+        val user = Firebase.auth.currentUser!!
+        user.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "User account deleted.")
+                }
+            }
+        // [END delete_user]
+    }
+
     fun firebaseAuthWithGoogle(idToken: String, callback: (Boolean, String) -> Unit ) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener(context as Activity) { task ->

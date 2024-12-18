@@ -59,5 +59,10 @@ class Menu : AppCompatActivity() {
             val status = Intent(this, OrderStatus::class.java)
             startActivity(status)
         }
+        val userReview = findViewById<TextView>(R.id.userReview)
+        userReview.setOnClickListener {
+            val review = Intent(this,ReviewScreen::class.java)
+            startActivity(review)
+        }
     }
 }

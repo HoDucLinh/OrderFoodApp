@@ -69,9 +69,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:gravity="center"
-                android:text="My Restaurant"
+                android:text="LTB Restaurant"
                 android:textFontWeight="500"
+                android:fontFamily="@font/sen"
                 android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/addressRestaurant"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="@string/restaurant_addr"
+                android:fontFamily="@font/sen"
+                android:textFontWeight="500"
+                android:textSize="@dimen/font_size_small" />
         </LinearLayout>
     </LinearLayout>
 
@@ -181,6 +192,7 @@
         android:paddingRight="5dp"
         android:layout_margin="@dimen/margin_layout">
         <TextView
+            android:id="@+id/userReview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/transparent"

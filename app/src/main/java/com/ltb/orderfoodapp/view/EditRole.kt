@@ -1,9 +1,11 @@
 package com.ltb.orderfoodapp.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.GridView
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ltb.orderfoodapp.R
@@ -31,6 +33,11 @@ class EditRole : AppCompatActivity(), AddUserFragment.OnUserAddedListener {
         btnAddNew.setOnClickListener {
             val dialogFragment = AddUserFragment()
             dialogFragment.show(supportFragmentManager, "AddUserFragment")
+        }
+        val back = findViewById<ImageButton>(R.id.back)
+        back.setOnClickListener {
+            val menu  = Intent(this, AdminDashboardHome ::class.java)
+            startActivity(menu)
         }
     }
 

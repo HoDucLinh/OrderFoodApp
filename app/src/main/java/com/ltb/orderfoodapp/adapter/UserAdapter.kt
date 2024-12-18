@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.ltb.orderfoodapp.R
+import com.ltb.orderfoodapp.data.api.AuthManager
 import com.ltb.orderfoodapp.data.dao.UserDAO
 import com.ltb.orderfoodapp.data.model.User
 
@@ -50,7 +51,7 @@ class UserAdapter(
             val newrole = name_role.text.toString().toInt()
 
             if (newrole != null) {
-                user.setRoleId(newrole) // Cập nhật vai trò trong danh sách
+                user.setRoleId(newrole)
                 if (userDAO.updateRole(user.getIdUser(), newrole) != null) { // Lưu vào database
                     Toast.makeText(context, "Updated role for ${user.getFullName()} to $newrole", Toast.LENGTH_SHORT).show()
 
@@ -69,7 +70,8 @@ class UserAdapter(
         // Xử lý sự kiện nút Delete
         btnDelete.setOnClickListener {
             userDAO.deleteUser(user.getIdUser()) // Xóa user khỏi database
-            users.removeAt(position) // Xóa khỏi danh sách hiển thị
+            users.removeAt(position)
+            AuthManager(context).deleteUser()
             Toast.makeText(context, "Deleted ${user.getFullName()}", Toast.LENGTH_SHORT).show()
             notifyDataSetChanged() // Làm mới GridView
         }
