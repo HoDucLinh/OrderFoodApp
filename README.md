@@ -18,8 +18,8 @@ Dự án được tổ chức theo cấu trúc rõ ràng, tuân theo mô hình M
 
 Để chạy ứng dụng, bạn có thể làm theo các bước sau:
 
-1.  **Mở dự án trong Android Studio:** Khởi động Android Studio và mở dự án OrderFoodApp.
-2.  **Clone dự án (nếu cần):** Sử dụng lệnh sau trong terminal hoặc Git Bash:
+1.  **Mở dự án trong Android Studio:** Khởi động Android Studio.
+2.  **Clone project:** Sử dụng lệnh sau trong terminal hoặc Git Bash:
 
     ```bash
     git clone <path_to_repository>
