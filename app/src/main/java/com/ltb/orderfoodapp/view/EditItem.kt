@@ -36,11 +36,9 @@ class EditItem : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_item)
 
-        // Khởi tạo Firebase và DAO
         storage = FirebaseStorage.getInstance()
         productDAO = ProductDAO(this)
 
-        // Lấy productId từ Intent
         productId = intent.getIntExtra("product_id", -1)
         if (productId == -1) {
             Toast.makeText(this, "Invalid product", Toast.LENGTH_SHORT).show()
@@ -60,6 +58,7 @@ class EditItem : AppCompatActivity() {
         Glide.with(this).load(imageStorage).into(imageView)
 
         setupSpinner(product.getCategory())
+
         findViewById<Button>(R.id.btndelete).setOnClickListener { 
 
             val confirmDialog = ConfirmDialog()
@@ -70,7 +69,7 @@ class EditItem : AppCompatActivity() {
                 onBackPressed()
             }
         }
-
+        findViewById<ImageButton>(R.id.close).setOnClickListener { onBackPressed() }
         findViewById<ImageButton>(R.id.btnTaiAnh1).setOnClickListener { selectAndUploadImage() }
 
         findViewById<Button>(R.id.btnSave).setOnClickListener { handleSave(product) }
