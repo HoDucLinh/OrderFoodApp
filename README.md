@@ -10,6 +10,8 @@
 ### viewmodel: Xử lý logic liên kết giữa giao diện và dữ liệu theo mô hình MVVM.
 # Cách chạy ứng dụng
 ### Mở dự án trong Android Studio
+### Clone project 
+#### Sử dụng ```git clone *</path>* ```
 ### Chọn thiết bị ảo hoặc thiết bị thực để chạy ứng dụng
 ### Nhấn nút "Run" hoặc "Shift + F10" để chạy ứng dụng
 ### Ứng dụng sẽ được cài đặt và chạy trên thiết bị đã chọn
