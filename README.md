@@ -1,22 +1,13 @@
 # OrderFoodApp
-Ứng dụng đặt đồ ăn trực tuyến giúp kết nối người dùng với các nhà hàng và quán ăn yêu thích.
-
-#Cấu trúc dự án
-app: thư mục chứa mã nguồn của ứng dụng
-app/src/main: thư mục chứa mã nguồn chính của ứng dụng
-app/src/main/java: thư mục chứa mã nguồn Kotlin của ứng dụng
-app/src/main/res: thư mục chứa tài nguyên của ứng dụng (hình ảnh, layout, v.v.)
-app/src/main/kotlin: thư mục chứa mã nguồn Kotlin của ứng dụng
-app/src/main/kotlin/com/example/orderfoodapp: thư mục chứa mã nguồn Kotlin của ứng dụng
+Ứng dụng đặt đồ ăn trực tuyến giúp kết nối người dùng với nhà hàng.
 # Cấu trúc mã nguồn
-MainActivity.kt: hoạt động chính của ứng dụng
-LoginActivity.kt: hoạt động đăng nhập
-RegisterActivity.kt: hoạt động đăng ký
-RestaurantActivity.kt: hoạt động quản lý nhà hàng
-CustomerActivity.kt: hoạt động quản lý khách hàng
-OrderActivity.kt: hoạt động quản lý đơn hàng
-MenuActivity.kt: hoạt động quản lý menu
-AdminActivity.kt: hoạt động quản lý admin
+adapter: Chứa các lớp adapter dùng để liên kết dữ liệu với giao diện (UI).
+data:
+api: Xử lý các yêu cầu API và chức năng liên quan đến xác thực, thanh toán.
+dao: Quản lý truy vấn và tương tác với cơ sở dữ liệu.
+model: Chứa các mô hình dữ liệu và các tiện ích hỗ trợ như hộp thoại xác nhận, quản lý cơ sở dữ liệu, và vị trí.
+view: Chứa các lớp giao diện hiển thị.
+viewmodel: Xử lý logic liên kết giữa giao diện và dữ liệu theo mô hình MVVM.
 # Cách chạy ứng dụng
 Mở dự án trong Android Studio
 Chọn thiết bị ảo hoặc thiết bị thực để chạy ứng dụng
@@ -24,5 +15,5 @@ Nhấn nút "Run" hoặc "Shift + F10" để chạy ứng dụng
 Ứng dụng sẽ được cài đặt và chạy trên thiết bị đã chọn
 # Tài khoản mẫu
 Tài khoản admin: admin@gmail.com
-Tài khoản nhà hàng: thien123@gmail.com
-Tài khoản khách hàng: tjr250804@gmail.com
+Tài khoản nhà hàng: restaurant@gmail.com    
+Tài khoản khách hàng: customer@gmail.com
