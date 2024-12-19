@@ -1,6 +1,6 @@
 # Ứng dụng Đặt Đồ Ăn Trực Tuyến (OrderFoodApp)
 
-Ứng dụng này kết nối người dùng với các nhà hàng, cho phép đặt đồ ăn trực tuyến một cách tiện lợi.
+Ứng dụng này kết nối người dùng với nhà hàng, cho phép đặt đồ ăn trực tuyến một cách tiện lợi.
 
 ## Cấu trúc Mã Nguồn
 
@@ -38,6 +38,6 @@ Dưới đây là một số tài khoản mẫu để bạn có thể thử nghi
 *   **Tài khoản Admin:** `admin@gmail.com`
 *   **Tài khoản Nhà hàng:** `restaurant@gmail.com`
 *   **Tài khoản Khách hàng:** `customer@gmail.com`
-
-!!! cảnh báo "KHÔNG PUSH LÊN NHÁNH MAIN !!!"
+*   
+> [!WARNING]
 > Chú ý quan trọng: Vui lòng KHÔNG đẩy (push) bất kỳ thay đổi nào lên nhánh `main`.
