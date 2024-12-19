@@ -11,7 +11,7 @@
 # Cách chạy ứng dụng
 ### Mở dự án trong Android Studio
 ### Clone project 
-#### Sử dụng ```git clone *</path>* ```
+#### Sử dụng ```git clone _</path>_ ```
 ### Chọn thiết bị ảo hoặc thiết bị thực để chạy ứng dụng
 ### Nhấn nút "Run" hoặc "Shift + F10" để chạy ứng dụng
 ### Ứng dụng sẽ được cài đặt và chạy trên thiết bị đã chọn
@@ -19,3 +19,5 @@
 ### Tài khoản admin: admin@gmail.com
 ### Tài khoản nhà hàng: restaurant@gmail.com    
 ### Tài khoản khách hàng: customer@gmail.com
+> [!WARNING]
+> DO NOT PUSH IN MAIN BRANCH !!!
