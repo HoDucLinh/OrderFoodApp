@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/margin_layoutTop"
+    tools:context=".view.EditProfile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_layout"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/backMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/sen"
+            android:paddingLeft="@dimen/padding_text"
+            android:text="Profile"
+            android:layout_weight="1"
+            android:textSize="@dimen/fontSize" />
+
+    </LinearLayout>
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/editAvatar"-->
+<!--        android:layout_width="120dp"-->
+<!--        android:layout_height="120dp"-->
+<!--        android:layout_gravity="center">-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="120dp"-->
+<!--            android:layout_height="120dp"-->
+<!--            android:background="@drawable/round_background"-->
+<!--            android:clipToOutline="true" />-->
+
+<!--        <ImageButton-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:background="@drawable/rounded_button" />-->
+
+
+<!--    </RelativeLayout>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/sen"
+        android:text="FULL NAME"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/fullname"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/border_edittext"
+        android:fontFamily="@font/sen"
+        android:paddingLeft="30dp"
+        android:textColor="@color/darkBG"
+        android:text="Vishal Khadok" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/sen"
+        android:text="EMAIL"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/border_edittext"
+        android:fontFamily="@font/sen"
+        android:enabled="false"
+        android:paddingLeft="30dp"
+        android:inputType="none"
+        android:textColor="@color/darkBG"
+        android:text="helloworld@gmail.com" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/sen"
+        android:text="PHONE"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/border_edittext"
+        android:fontFamily="@font/sen"
+        android:inputType="numberDecimal"
+        android:paddingLeft="30dp"
+        android:textColor="@color/darkBG"
+        android:text="408-841-0926" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/sen"
+        android:text="BIO"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/bio"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/border_edittext"
+        android:fontFamily="@font/sen"
+        android:paddingLeft="30dp"
+        android:textColor="@color/darkBG"
+        android:text="I love fast food" />
+
+    <Button
+        android:id="@+id/btn_saveInfor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:textColor="@color/white"
+        android:fontFamily="@font/sen_bold"
+       android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_button"
+        android:textSize="16dp"/>
+
+</LinearLayout>

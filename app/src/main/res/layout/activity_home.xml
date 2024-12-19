@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/margin_layoutTop"
+    tools:context=".view.Home">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_layout">
+
+        <ImageButton
+            android:id="@+id/nextMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_home" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/padding_text"
+            android:layout_gravity="center_vertical"
+            >
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sen"
+                android:text="Deliver to"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/fontSize" />
+
+            <TextView
+                android:id="@+id/locationUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sen"
+                android:text="Please enable location"
+                android:textSize="@dimen/fontLocation" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/darkTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin_input_login"
+            android:drawableLeft="@drawable/night"
+          />
+
+        <RelativeLayout
+            android:layout_width="44dp"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/nextCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cart" />
+
+            <TextView
+                android:id="@+id/cartCount"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/border_cart"
+                android:fontFamily="@font/sen"
+                android:textAlignment="center"
+                android:text="5"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_margin="@dimen/margin_input_login"
+        android:drawableRight="@drawable/search"
+        android:padding="@dimen/padding_input_login"
+        android:background="@drawable/border_search"
+        android:inputType="text"
+        android:gravity="center"
+        android:textSize="@dimen/font_size_small"
+        android:drawablePadding="@dimen/margin_input_login"
+        android:fontFamily="@font/sen"
+        android:hint="Search dishes, restaurants"
+        />
+
+
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sen"
+        android:textSize="@dimen/font_size_medium"
+        android:padding="@dimen/margin_input_login"
+        android:textFontWeight="800"
+        android:text="Suggested Food"
+        />
+
+    <GridView
+        android:id="@+id/gridviewProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

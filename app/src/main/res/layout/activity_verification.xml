@@ -6,16 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/whiteBG"
-    tools:context=".Verification">
+    android:layout_marginTop="@dimen/margin_layoutTop"
+    tools:context=".view.Verification">
 
-    <Button
-        android:id="@+id/navigator_SignIn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="@dimen/margin_navigate"
-        android:background="@drawable/navigate"
-        />
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/back" />
 
     <TextView
         android:id="@+id/textView"
@@ -59,6 +59,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:orientation="horizontal">
 
 
@@ -68,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/sen"
+                android:background="@android:color/transparent"
                 android:text="Code" />
 
             <TextView
@@ -76,12 +78,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/sen"
+                android:background="@android:color/transparent"
                 android:text="Resend in.50sec" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:background="@android:color/transparent"
             android:orientation="horizontal">
 
             <EditText

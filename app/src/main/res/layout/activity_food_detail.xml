@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/margin_layoutTop"
+    tools:context=".view.Home">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_layout">
+
+        <ImageButton
+            android:id="@+id/backMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back" />
+
+        <LinearLayout
+            android:layout_width="299dp"
+            android:layout_height="44dp"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/padding_text">
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="86dp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/sen"
+                android:text="Detail"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="@dimen/fontSize" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/previewImage"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="300dp">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardPreventCornerOverlap="true"
+            android:layout_centerInParent="true"
+            >
+
+            <ImageView
+                android:id="@+id/imageProduct"
+                android:layout_width="400dp"
+                android:layout_height="270dp"
+                android:background="#9ba09b"
+                android:scaleType="centerCrop"
+               />
+
+        </androidx.cardview.widget.CardView>
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:translationZ="10dp"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:buttonTint="@color/whiteGray" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:buttonTint="@color/whiteGray"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:buttonTint="@color/whiteGray"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:checked="true"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="wrap_content"
+                android:buttonTint="@color/whiteGray"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/radioButton5"
+                android:layout_width="wrap_content"
+                android:buttonTint="@color/whiteGray"
+                android:elevation="5dp"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:layout_height="wrap_content" />
+
+        </RadioGroup>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pizza calzone european"
+        android:textStyle="bold"
+        android:textSize="@dimen/font_size_large"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/sen"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/productDes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Prosciutto e funghi is a pizza variety that is topped with tomato sauce."
+        android:textSize="@dimen/font_size_small"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/sen"
+        android:layout_marginLeft="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/productRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:gravity="center"
+            android:drawableLeft="@drawable/star"
+            android:drawablePadding="@dimen/padding_text"
+            android:textSize="@dimen/font_size_small"
+            android:text="4.7" />
+        <TextView
+            android:id="@+id/delivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:gravity="center"
+            android:drawableLeft="@drawable/delivery"
+            android:drawablePadding="@dimen/padding_text"
+            android:textSize="@dimen/font_size_small"
+            android:layout_marginHorizontal="@dimen/margin_layout"
+            android:text="Free" />
+        <TextView
+            android:id="@+id/timeDelivery"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sen"
+            android:drawablePadding="@dimen/padding_text"
+            android:drawableLeft="@drawable/timer"
+            android:textSize="@dimen/font_size_small"
+            android:text="20" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/padding_layout"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/priceTotal"
+                android:layout_width="212dp"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:fontFamily="@font/sen"
+                android:textSize="@dimen/font_size_large"
+                android:text="32$" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_number"
+                android:paddingHorizontal="@dimen/padding_rounded_number"
+                android:paddingVertical="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageButton
+                    android:id="@+id/buttongiam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/icon_remove"/>
+                <TextView
+                    android:id="@+id/txtSoLuong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sen"
+                    android:layout_marginHorizontal="@dimen/margin_roundedNumber"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_medium"
+                    android:text="0"/>
+                <ImageButton
+                    android:id="@+id/buttontang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/icon_add"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/addCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/orange"
+            android:layout_margin="@dimen/margin_layout"
+            android:text="Add to cart" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Review"
+        android:fontFamily="@font/sen"
+        android:textSize="@dimen/font_size_medium"
+        android:layout_marginLeft="10dp"/>
+    <GridView
+        android:id="@+id/gridview_review"
+        android:layout_width="match_parent"
+        android:paddingVertical="@dimen/padding_layout"
+        android:paddingHorizontal="15dp"
+        android:verticalSpacing="@dimen/margin_layout"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
+
+</LinearLayout>

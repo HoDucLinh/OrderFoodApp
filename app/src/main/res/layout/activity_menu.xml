@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.Menu"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="@dimen/padding_layout">
+
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Menu"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                android:clipToOutline="true"
+                app:cardPreventCornerOverlap="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:id="@+id/imageButton12"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:scaleType="fitCenter"
+                    android:background="#9ba09b"
+
+                    app:srcCompat="@drawable/ic_person" />
+
+            </androidx.cardview.widget.CardView>
+
+
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="LTB Restaurant"
+                android:textFontWeight="500"
+                android:fontFamily="@font/sen"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/addressRestaurant"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="@string/restaurant_addr"
+                android:fontFamily="@font/sen"
+                android:textFontWeight="500"
+                android:textSize="@dimen/font_size_small" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_linear_layout"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_margin="@dimen/margin_layout">
+
+            <TextView
+                android:id="@+id/personalInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:drawableLeft="@drawable/icon_user"
+                android:gravity="start|center"
+                android:text="Personal Info"
+                android:drawableRight="@drawable/ic_navigate_next_24"
+                android:textAllCaps="false"
+                android:fontFamily="@font/sen_bold"
+                android:textSize="16dp"
+                android:textColor="@color/textDark"
+                />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_linear_layout"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_margin="@dimen/margin_layout">
+
+        <TextView
+            android:id="@+id/statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="start|center"
+            android:text="Statistics"
+            android:drawableLeft="@drawable/icon_revenue"
+            android:fontFamily="@font/sen_bold"
+            android:drawableRight="@drawable/ic_navigate_next_24"
+            android:textSize="16dp"
+            android:textColor="@color/textDark" />
+
+        <TextView
+            android:id="@+id/myfoodlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="start|center"
+            android:drawableLeft="@drawable/icon_numberorder"
+            android:text="My Food List"
+            android:drawableRight="@drawable/ic_navigate_next_24"
+            android:fontFamily="@font/sen_bold"
+            android:textSize="16dp"
+            android:textColor="@color/textDark" />
+
+        <TextView
+            android:id="@+id/statusOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="start|center"
+            android:drawableLeft="@drawable/icon_numberorder"
+            android:text="Order Status"
+            android:drawableRight="@drawable/ic_navigate_next_24"
+            android:fontFamily="@font/sen_bold"
+            android:textSize="16dp"
+            android:textColor="@color/textDark" />
+        <TextView
+            android:id="@+id/myCateList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="start|center"
+            android:drawableLeft="@drawable/icon_category"
+            android:text="My Category List"
+            android:drawableRight="@drawable/ic_navigate_next_24"
+            android:fontFamily="@font/sen_bold"
+            android:textSize="16dp"
+            android:textColor="@color/textDark" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_linear_layout"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_margin="@dimen/margin_layout">
+        <TextView
+            android:id="@+id/userReview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:drawableLeft="@drawable/icon_review"
+            android:fontFamily="@font/sen_bold"
+            android:gravity="start|center"
+            android:text="User Reviews"
+            android:textAllCaps="false"
+            android:drawableRight="@drawable/ic_navigate_next_24"
+            android:textColor="@color/textDark"
+            android:textSize="16dp" />
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="start|center"
+            android:text="Log Out"
+            android:drawableLeft="@drawable/icon_logout"
+            android:fontFamily="@font/sen_bold"
+            android:drawableRight="@drawable/ic_navigate_next_24"
+            android:textSize="16dp"
+            android:textColor="@color/textDark" />
+
+        </LinearLayout>
+
+    </LinearLayout>

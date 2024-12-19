@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/WhisperWhite"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate Product"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:fontFamily="@font/sen"
+        android:backgroundTint="@android:color/transparent"
+        android:background="@color/white"/>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:layout_gravity="center"
+        android:backgroundTint="@android:color/transparent"
+        android:background="@color/white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Review của bạn: "
+        android:textSize="16sp"
+        android:layout_gravity="left"
+        android:fontFamily="@font/sen"
+        android:backgroundTint="@android:color/transparent"
+        android:background="@color/white"
+        android:layout_marginTop="15dp" />
+    <EditText
+        android:id="@+id/editText_comment"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/sen"
+        android:hint="Nêu cảm nhận của bạn về món ăn"
+        android:layout_height="100dp"
+        android:textSize="16sp"/>
+
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lưu đánh giá"
+        android:fontFamily="@font/sen"
+        android:layout_marginTop="16dp"
+        />
+</LinearLayout>

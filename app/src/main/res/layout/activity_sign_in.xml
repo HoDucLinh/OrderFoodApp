@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style=""
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/whiteBG"
-    tools:context=".SignIn">
+    android:layout_marginTop="@dimen/margin_layoutTop"
+    tools:context=".view.SignIn">
 
     <TextView
         android:id="@+id/textView"
@@ -34,59 +33,74 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="777dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:background="@drawable/border_login"
         android:orientation="vertical"
         android:padding="@dimen/padding_login">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sen"
-            android:text="Email" />
-
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/userNameLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginTop="@dimen/margin_input_login"
-            android:layout_marginBottom="@dimen/margin_input_login"
-            android:padding="@dimen/padding_input_login"
-            android:inputType="textEmailAddress" />
+            app:boxBackgroundColor="@color/white"
+            android:background="@color/white"
+            app:boxStrokeColor="@color/orange"
+            app:boxStrokeWidth="3dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:errorTextColor="@color/red_close"
+            app:boxStrokeErrorColor="@color/red_close"
+            android:hint="Email"
+            android:layout_marginTop="@dimen/margin_layout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/sen"
+                android:textColor="@color/darkBG"
+                android:inputType="textEmailAddress"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sen"
-            android:text="Password" />
-
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/orange"
+            android:background="@color/white"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="@color/orange"
+            app:boxStrokeWidth="3dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_marginTop="@dimen/margin_input_login"
-            android:layout_marginBottom="@dimen/margin_input_login"
-            android:drawableRight="@drawable/eye"
-            android:padding="@dimen/padding_input_login"
-            android:inputType="textPassword" />
+            android:layout_marginBottom="@dimen/margin_input_login">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+
+                android:hint="Password"
+                android:textColor="@color/darkBG"
+                android:fontFamily="@font/sen" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="@android:color/transparent"
             android:layout_marginBottom="@dimen/margin_input_login">
-
-            <CheckBox
-                android:id="@+id/remenberPass"
-                android:layout_width="215dp"
-                android:layout_height="wrap_content"
-                android:shadowColor="@color/white"
-                android:fontFamily="@font/sen"
-                android:text="Remember me" />
 
             <TextView
                 android:id="@+id/forgotPass"
@@ -94,6 +108,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/sen"
+                android:textColor="@color/darkBG"
+                android:textAlignment="center"
+                android:background="@android:color/transparent"
                 android:text="Forgot Password" />
         </LinearLayout>
 
@@ -102,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sen"
-            android:background="@color/orange"
+            android:backgroundTint="@color/orange"
             android:layout_marginTop="@dimen/margin_input_login"
             android:text="Login" />
 
@@ -113,6 +130,8 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_input_login"
             android:fontFamily="@font/sen"
+            android:textColor="@color/darkBG"
+            android:background="@android:color/transparent"
             android:text='@string/already_have_an_account' />
 
         <TextView
@@ -121,34 +140,38 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:layout_marginBottom="@dimen/margin_input_login"
+            android:textColor="@color/darkBG"
+            android:background="@android:color/transparent"
             android:text="Or" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_login"
+            android:background="@android:color/transparent"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/facebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/facebook_dark" />
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/facebook_dark" />
 
             <ImageView
                 android:id="@+id/google"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/google_dark" />
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/google_dark" />
 
             <ImageView
                 android:id="@+id/github"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/github_dark" />
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:background="@drawable/github_dark" />
+        </RelativeLayout>
 
 
     </LinearLayout>

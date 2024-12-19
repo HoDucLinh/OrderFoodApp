@@ -1,0 +1,10 @@
+<!-- res/drawable/rounded_top_corners.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="16dp"/> <!-- Đặt bán kính bo tròn cho tất cả các góc -->
+    <solid android:color="#FFFFFF"/> <!-- Màu nền của LinearLayout -->
+    <corners
+        android:topLeftRadius="24dp"
+        android:topRightRadius="24dp"
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="0dp"/>
+</shape>
